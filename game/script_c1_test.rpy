@@ -45,6 +45,8 @@
 
     m 4a 'Check out this cool new facial expression'
 
+    $ talks_next = 'npc1'
+
     show npc1 at left
     show npc2 at right
     with dissolve
@@ -53,11 +55,11 @@
 
     n2 'No way, me too!'
 
-    s 2a s '...'
+    s 5a s '...'
 
     s '(how did these random npcs spawn out of nowhere??)'
 
-    show mc 2a
+    show mc 5a
 
     m 'Hello random npcs'
 
@@ -197,8 +199,6 @@ label c1_grabdishes:
         'no u didnt do task'
     
     $ dotask(curtask, not 0 in mgame_try)
-    if 1 in mgame_try:
-        $ update_inv(otheritem='dirtydishes', otherstack=mgame_try.count(1), useholder=False)
     $ tgame['try'] = [2 if x == 1 else x for x in tgame['try']]
 
     $ show_hint = False
@@ -227,8 +227,6 @@ label c1_dropdishes:
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(tgame, curtask['tcost'])
         $ game_ret = _return
-
-    $ update_inv(myitem='dirtydishes', mystack=mgame_try.count(1), useholder=False)
 
     $ levelInfo[curlevel]['alldishes'] -= mgame_try.count(1)
     if not levelInfo[curlevel]['alldishes']:

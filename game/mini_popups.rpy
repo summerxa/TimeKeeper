@@ -115,14 +115,14 @@ screen popup_trade:
             'xp': 0.3,
             'yp': 0.5,
             'btext': f"Left hand:\n{fmtItem(invitems[0], invstacks[0])}",
-            'act': [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv)]
+            'act': [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True)]
         })
 
         use btn_tx({
             'xp': 0.6,
             'yp': 0.5,
             'btext': f"Right hand:\n{fmtItem(invitems[1], invstacks[1])}",
-            'act': [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv)]
+            'act': [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True)]
         })
     
         use popup_button_close(1., 0., 'popup_trade')

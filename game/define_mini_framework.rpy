@@ -188,7 +188,7 @@ init python:
                 counter += invstacks[i]
         return counter
 
-    def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=True):
+    def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:
             if not holder:
                 holder = store.curholder

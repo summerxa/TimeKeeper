@@ -8,13 +8,26 @@ init python:
         store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['xp'] = drags[0].x
         store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['yp'] = drags[0].y
     
-    def items_dragged_dishes(drags, drop):
+    def process_dishes(drags, drop):
         dragnum = int(drags[0].drag_name)
         store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['xp'] = drags[0].x
         store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['yp'] = drags[0].y
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'refresh'
+        return 'none'
+
+    def dragged_grabdishes(drags, drop):
+        ret = process_dishes(drags, drop)
+        if ret == 'refresh':
+            update_inv(otheritem='dirtydishes', otherstack=1)
+            return ret
+    
+    def dragged_dropdishes(drags, drop):
+        ret = process_dishes(drags, drop)
+        if ret == 'refresh':
+            update_inv(myitem='dirtydishes', mystack=1)
+            return ret
 
     # why doesnt setvariable work on lists :skull:
     def toggle_mgame_try(i):
@@ -95,7 +108,10 @@ screen mgame_dragdrop_dishes(tgame, tfull):
                     ypos d['yp']
                     draggable True
                     droppable False
-                    dragged items_dragged_dishes
+                    if tgame['type'] == 'grabdishes':
+                        dragged dragged_grabdishes
+                    else:
+                        dragged dragged_dropdishes
                     drag_raise True
                     child d['im']
     
