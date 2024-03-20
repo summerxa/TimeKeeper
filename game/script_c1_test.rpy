@@ -66,7 +66,11 @@
     return
 
 label chap1_test_part2:
-    "minigame over, continuing regular dialogue"
+    show mc 1b
+
+    $ current_speaker = 'mc'
+
+    s "minigame over, continuing regular dialogue"
 
     return
 
