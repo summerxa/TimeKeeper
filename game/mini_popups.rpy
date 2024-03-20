@@ -78,7 +78,7 @@ screen popup_onhand:
             xanchor 0.5
             yanchor 0.5
         text 'Right hand:\n[rtext]':
-            xpos 0.5
+            xpos 0.7
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
@@ -120,17 +120,24 @@ screen popup_trade:
     frame:
         xalign 0.5
         yalign 0.5
-        maximum (800, 500)
+        maximum (800, 550)
+
+        $ drop_vb = ('drop' if curholder['item']['id'] == 'air' else 'swap')
+
+        text f'Both hands are full. Which item would you like to {drop_vb}?':
+            textalign 0.5
+            xalign 0.5
+            yalign 0.3
 
         textbutton f"Left hand:\n{fmtItem(invitems[0], invstacks[0])}":
             xpos 0.2
-            yalign 0.5
+            yalign 0.6
             xanchor 0.5
             action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True)]
 
         textbutton f"Right hand:\n{fmtItem(invitems[1], invstacks[1])}":
             xpos 0.7
-            yalign 0.5
+            yalign 0.6
             xanchor 0.5
             action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True)]
     

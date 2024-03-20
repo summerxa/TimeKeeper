@@ -97,7 +97,7 @@ screen btn_item(b):
         xpos b['xp']
         ypos b['yp']
         auto itemsAll[b['item']['id']]['im']
-        action [SetVariable('curholder', b), If('air' in invitems or (itemsAll[b['item']['id']]['stackable'] and invGetStack(b['item']['id']) >= 0), true=Function(update_inv, useholder=True), false=Show('popup_trade'))]
+        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=Function(update_inv, useholder=True), false=Show('popup_trade'))]
         hovered SetVariable('hinttext', fmtItem(b['item']['id'], b['item']['stack']))
 
 screen mini_sidebar(curstate='main', gametype=None, tfull=0):

@@ -188,6 +188,12 @@ init python:
                 counter += invstacks[i]
         return counter
 
+    def inventoryOk(item_id):
+        oneHandEmpty = 'air' in invitems
+        itemCanStack = (itemsAll[item_id]['stackable'] and invGetStack(item_id) >= 0)
+        bothHandsEqual = (invitems[0] == invitems[1])
+        return oneHandEmpty or itemCanStack or bothHandsEqual
+
     def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:
             if not holder:
@@ -199,22 +205,24 @@ init python:
         else:
             giveitem = otheritem
             givestack = otherstack
+
+        if curhand < 0 and not inventoryOk(giveitem):
+            # hands are full, but no hand is selected, do nothing and leave
+            return
         
         stackhand = invGetStack(giveitem)
         canstack = (store.itemsAll[giveitem]['stackable'] and stackhand >= 0)
 
-        if not myitem and curhand == -1 and not ('air' in store.invitems or canstack):
-            # hands are full, but no hand is selected, do nothing and leave
-            return
-        
         if curhand == -1:
             if canstack:
                 myhand = stackhand
             else:
                 if myitem:
                     myhand = store.invitems.index(myitem)
-                elif (giveitem == 'air') == (store.invitems[1] == 'air'): # both are air or both are items
-                    myhand = 0
+                elif (giveitem == 'air') == (store.invitems[1] == 'air'):
+                    # right hand and item holder: both are air or both are items
+                    myhand = (1 if invitems[0] == invitems[1] else 0)
+                    # ^ if both hands identical, no point prompting the player to choose a hand
                 else:
                     myhand = 1
         else:
