@@ -7,7 +7,8 @@ screen popup_button_close(xp, yp, screenname):
 
 screen popup_notes:
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
 
     frame:
         xalign 0.5
@@ -58,7 +59,10 @@ screen popup_notes:
 
 screen popup_onhand:
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     frame:
         xalign 0.5
@@ -69,12 +73,12 @@ screen popup_onhand:
         $ rtext = fmtItem(invitems[1], invstacks[1])
 
         text 'Left hand:\n[ltext]':
-            xpos 0.3
+            xpos 0.2
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
         text 'Right hand:\n[rtext]':
-            xpos 0.6
+            xpos 0.5
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
@@ -83,13 +87,17 @@ screen popup_onhand:
 
 screen popup_clock:
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
 
     use popup_button_close(0.75, 0.25, 'popup_clock')
 
 screen popup_help(curstate='main'):
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     frame:
         xalign 0.5
@@ -104,32 +112,36 @@ screen popup_help(curstate='main'):
 
 screen popup_trade:
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     frame:
         xalign 0.5
         yalign 0.5
         maximum (800, 500)
 
-        use btn_tx({
-            'xp': 0.3,
-            'yp': 0.5,
-            'btext': f"Left hand:\n{fmtItem(invitems[0], invstacks[0])}",
-            'act': [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True)]
-        })
+        textbutton f"Left hand:\n{fmtItem(invitems[0], invstacks[0])}":
+            xpos 0.2
+            yalign 0.5
+            xanchor 0.5
+            action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True)]
 
-        use btn_tx({
-            'xp': 0.6,
-            'yp': 0.5,
-            'btext': f"Right hand:\n{fmtItem(invitems[1], invstacks[1])}",
-            'act': [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True)]
-        })
+        textbutton f"Right hand:\n{fmtItem(invitems[1], invstacks[1])}":
+            xpos 0.7
+            yalign 0.5
+            xanchor 0.5
+            action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True)]
     
         use popup_button_close(1., 0., 'popup_trade')
 
 screen popup_mgame_leave(tfull):
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     $ thalf = tfull // 2
 
@@ -143,34 +155,38 @@ screen popup_mgame_leave(tfull):
         if persistent.showleavewarning:
             use btn_tx({
                 'xp': 0.5,
-                'yp': 0.6,
+                'yp': 0.7,
                 'btext': '{color=#aaa}Don\'t show this message again.{/color}',
                 'act': ToggleVariable('persistent.showleavewarning')
             })
         else:
             use btn_tx({
                 'xp': 0.5,
-                'yp': 0.6,
+                'yp': 0.7,
                 'btext': '{color=#fff}Don\'t show this message again.{/color}',
                 'act': ToggleVariable('persistent.showleavewarning')
             })
         $ close_leave = [Hide('popup_mgame_leave')]
         use btn_tx({
             'xp': 0.4,
-            'yp': 0.8,
+            'yp': 0.85,
             'btext': 'Yes',
             'act': close_leave + [Return('leave')]
         })
         use btn_tx({
             'xp': 0.6,
-            'yp': 0.8,
+            'yp': 0.85,
             'btext': 'No',
             'act': close_leave
         })
 
+# TODO fix the alignment... if this screen is actually needed, LOL
 screen popup_mgame_hint(tcost):
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     frame:
         xalign 0.5

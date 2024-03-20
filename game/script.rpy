@@ -2,7 +2,7 @@ label start:
     # The following line disables the "back" button when uncommented
     # $ config.rollback_enabled = False
 
-    call chap1_test_start
+    # call chap1_test_start
 
 
     # --- Minigame stuff ---

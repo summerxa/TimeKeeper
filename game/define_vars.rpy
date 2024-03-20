@@ -3,14 +3,12 @@ default current_speaker = None
 default talks_next = None
 
 # --- CONST VALUES FOR UI ---
-define popuptint = 0.5
+define popup_zorder = 150
 define room_arrow_yoffset = 0.12
 
 # --- CUSTOM SETTINGS ---
 define persistent.showspecial = False # highlights recommended quests if True
 define persistent.namesaves = True # prompts user to name save files if True
-
-# --- OTHER PERSISTENT DATA ---
 define persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
 
 # --- MINIGAME STUFF ---

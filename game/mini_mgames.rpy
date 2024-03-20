@@ -83,8 +83,8 @@ screen mgame_dragdrop(tgame, tfull):
                 drag_raise True
                 child d['im']
     
-    use mgame_hint(tgame['hint'][0])
-    use mgame_hinttext(tgame['hint'][1])
+    # use mgame_hint(tgame['hint'][0])
+    # use mgame_hinttext(tgame['hint'][1])
     use mgame_exit(tgame['type'], tfull)
 
 screen mgame_dragdrop_dishes(tgame, tfull):
@@ -115,8 +115,8 @@ screen mgame_dragdrop_dishes(tgame, tfull):
                     drag_raise True
                     child d['im']
     
-    use mgame_hint(tgame['hint'][0])
-    use mgame_hinttext(tgame['hint'][1])
+    # use mgame_hint(tgame['hint'][0])
+    # use mgame_hinttext(tgame['hint'][1])
     use mgame_exit(tgame['type'], tfull)
 
 screen mgame_toggle(tgame, tfull):
@@ -133,6 +133,6 @@ screen mgame_toggle(tgame, tfull):
             auto tgame[tx][i]
             action Function(toggle_mgame_try, i)
 
-    use mgame_hint(tgame['hint'][0])
-    use mgame_hinttext(tgame['hint'][1])
+    # use mgame_hint(tgame['hint'][0])
+    # use mgame_hinttext(tgame['hint'][1])
     use mgame_exit(tgame['type'], tfull)

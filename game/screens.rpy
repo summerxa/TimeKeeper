@@ -685,7 +685,10 @@ screen file_slots(title):
 
 screen prompt_savename(slot):
     modal True
-    add 'black' alpha persistent.popuptint
+    zorder popup_zorder
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
 
     frame:
         xalign 0.5
@@ -783,6 +786,7 @@ screen preferences():
                     label _("Custom")
                     textbutton _("Highlight recommended tasks") action ToggleVariable('persistent.showspecial')
                     textbutton _("Name save files") action ToggleVariable('persistent.namesaves')
+                    textbutton _("Warn before leaving minigame") action ToggleVariable('persistent.showleavewarning')
 
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
                 ## added here, to add additional creator-defined preferences.
