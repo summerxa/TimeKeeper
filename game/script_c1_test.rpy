@@ -1,9 +1,7 @@
 ﻿label chap1_test_start:
     scene bg room
 
-    $ current_speaker = 'mc'
-    # TODO find a less jank way to do this...
-    # w/o this line, mc fades in darkened and suddenly snaps to brighten
+    $ talks_next = 'mc'
 
     show mc 1a with dissolve
 

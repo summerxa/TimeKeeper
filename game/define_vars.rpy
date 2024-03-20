@@ -1,5 +1,6 @@
 # --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
 default current_speaker = None
+default talks_next = None
 
 # --- CONST VALUES FOR UI ---
 define popuptint = 0.5

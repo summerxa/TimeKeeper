@@ -19,86 +19,92 @@ init python:
     import functools
     def set_cur_speaker(event, interact=True, ch=None, **kwargs):
         global current_speaker
+        global talks_next
 
         if not interact:
             return
 
         if event == 'show':
             current_speaker = ch
+            talks_next = None
     
-    def make_comp(charname, imwidth, headheight, face, pose):
-        imface = f"spr_{charname}/{face}.png"
-        impose = f"spr_{charname}/{pose}.png"
-        return Composite((imwidth, 1080), (0, 0), imface, (0, headheight), impose)
+    def Comp_(charname, imwidth, headheight, face, pose):
+        im_face = f"spr_{charname}/{face}.png"
+        im_pose = f"spr_{charname}/{pose}.png"
+        return Composite((imwidth, 1080), (0, 0), im_face, (0, headheight), im_pose)
 
-    def make_cs(charname, imname, has_talk=False):
+    def CS_(charname, imname, has_talk=False):
         silent = f"{charname} {imname} s"
         talking = f"{charname} {imname} {'t' if has_talk else 's'}"
-        return ConditionSwitch(f"current_speaker == '{charname}'", talking, "True", At(silent, darken_sprite))
+        return ConditionSwitch(
+            f"current_speaker == '{charname}'", talking,
+            f"talks_next == '{charname}'", silent,
+            "True", At(silent, darken_sprite)
+        )
 
-image mc 1a s = make_comp('mc', 641, 386, '01', '0a')
-image mc 1a t = make_comp('mc', 641, 386, '01t', '0a')
-image mc 1a = make_cs('mc', '1a', True)
-image mc 2a s = make_comp('mc', 641, 386, '02', '0a')
-image mc 2a = make_cs('mc', '2a')
-image mc 3a s = make_comp('mc', 641, 386, '03', '0a')
-image mc 3a t = make_comp('mc', 641, 386, '03t', '0a')
-image mc 3a = make_cs('mc', '3a', True)
-image mc 4a s = make_comp('mc', 641, 386, '04', '0a')
-image mc 4a = make_cs('mc', '4a')
-image mc 5a s = make_comp('mc', 641, 386, '05', '0a')
-image mc 5a t = make_comp('mc', 641, 386, '05t', '0a')
-image mc 5a = make_cs('mc', '5a', True)
-image mc 6a s = make_comp('mc', 641, 386, '06', '0a')
-image mc 6a t = make_comp('mc', 641, 386, '06t', '0a')
-image mc 6a = make_cs('mc', '6a', True)
+image mc 1a s = Comp_('mc', 641, 386, '01', '0a')
+image mc 1a t = Comp_('mc', 641, 386, '01t', '0a')
+image mc 1a = CS_('mc', '1a', True)
+image mc 2a s = Comp_('mc', 641, 386, '02', '0a')
+image mc 2a = CS_('mc', '2a')
+image mc 3a s = Comp_('mc', 641, 386, '03', '0a')
+image mc 3a t = Comp_('mc', 641, 386, '03t', '0a')
+image mc 3a = CS_('mc', '3a', True)
+image mc 4a s = Comp_('mc', 641, 386, '04', '0a')
+image mc 4a = CS_('mc', '4a')
+image mc 5a s = Comp_('mc', 641, 386, '05', '0a')
+image mc 5a t = Comp_('mc', 641, 386, '05t', '0a')
+image mc 5a = CS_('mc', '5a', True)
+image mc 6a s = Comp_('mc', 641, 386, '06', '0a')
+image mc 6a t = Comp_('mc', 641, 386, '06t', '0a')
+image mc 6a = CS_('mc', '6a', True)
 
-image mc 1b s = make_comp('mc', 641, 386, '01', '0b')
-image mc 1b t = make_comp('mc', 641, 386, '01t', '0b')
-image mc 1b = make_cs('mc', '1b', True)
-image mc 2b s = make_comp('mc', 641, 386, '02', '0b')
-image mc 2b = make_cs('mc', '2b')
-image mc 3b s = make_comp('mc', 641, 386, '03', '0b')
-image mc 3b t = make_comp('mc', 641, 386, '03t', '0b')
-image mc 3b = make_cs('mc', '3b', True)
-image mc 4b s = make_comp('mc', 641, 386, '04', '0b')
-image mc 4b = make_cs('mc', '4b')
-image mc 5b s = make_comp('mc', 641, 386, '05', '0b')
-image mc 5b t = make_comp('mc', 641, 386, '05t', '0b')
-image mc 5b = make_cs('mc', '5b', True)
-image mc 6b s = make_comp('mc', 641, 386, '06', '0b')
-image mc 6b t = make_comp('mc', 641, 386, '06t', '0b')
-image mc 6b = make_cs('mc', '6b', True)
+image mc 1b s = Comp_('mc', 641, 386, '01', '0b')
+image mc 1b t = Comp_('mc', 641, 386, '01t', '0b')
+image mc 1b = CS_('mc', '1b', True)
+image mc 2b s = Comp_('mc', 641, 386, '02', '0b')
+image mc 2b = CS_('mc', '2b')
+image mc 3b s = Comp_('mc', 641, 386, '03', '0b')
+image mc 3b t = Comp_('mc', 641, 386, '03t', '0b')
+image mc 3b = CS_('mc', '3b', True)
+image mc 4b s = Comp_('mc', 641, 386, '04', '0b')
+image mc 4b = CS_('mc', '4b')
+image mc 5b s = Comp_('mc', 641, 386, '05', '0b')
+image mc 5b t = Comp_('mc', 641, 386, '05t', '0b')
+image mc 5b = CS_('mc', '5b', True)
+image mc 6b s = Comp_('mc', 641, 386, '06', '0b')
+image mc 6b t = Comp_('mc', 641, 386, '06t', '0b')
+image mc 6b = CS_('mc', '6b', True)
 
 
-image mother 1a s = make_comp('mother', 467, 239, '1_1', '1_a')
-image mother 1a t = make_comp('mother', 467, 239, '1_1t', '1_a')
-image mother 1a = make_cs('mother', '1a', True)
-image mother 2a s = make_comp('mother', 467, 239, '1_2', '1_a')
-image mother 2a = make_cs('mother', '2a')
-image mother 3a s = make_comp('mother', 467, 239, '1_3', '1_a')
-image mother 3a = make_cs('mother', '3a')
-image mother 4a s = make_comp('mother', 467, 239, '1_4', '1_a')
-image mother 4a = make_cs('mother', '4a')
-image mother 5a s = make_comp('mother', 467, 239, '1_5', '1_a')
-image mother 5a = make_cs('mother', '5a')
-image mother 6a s = make_comp('mother', 467, 239, '1_6', '1_a')
-image mother 6a t = make_comp('mother', 467, 239, '1_6t', '1_a')
-image mother 6a = make_cs('mother', '6a', True)
-image mother 7a s = make_comp('mother', 467, 239, '1_7', '1_a')
-image mother 7a = make_cs('mother', '7a')
+image mother 1a s = Comp_('mother', 467, 239, '1_1', '1_a')
+image mother 1a t = Comp_('mother', 467, 239, '1_1t', '1_a')
+image mother 1a = CS_('mother', '1a', True)
+image mother 2a s = Comp_('mother', 467, 239, '1_2', '1_a')
+image mother 2a = CS_('mother', '2a')
+image mother 3a s = Comp_('mother', 467, 239, '1_3', '1_a')
+image mother 3a = CS_('mother', '3a')
+image mother 4a s = Comp_('mother', 467, 239, '1_4', '1_a')
+image mother 4a = CS_('mother', '4a')
+image mother 5a s = Comp_('mother', 467, 239, '1_5', '1_a')
+image mother 5a = CS_('mother', '5a')
+image mother 6a s = Comp_('mother', 467, 239, '1_6', '1_a')
+image mother 6a t = Comp_('mother', 467, 239, '1_6t', '1_a')
+image mother 6a = CS_('mother', '6a', True)
+image mother 7a s = Comp_('mother', 467, 239, '1_7', '1_a')
+image mother 7a = CS_('mother', '7a')
 
 
 image npc1 s = 'spr_npc/n1.png'
-image npc1 = make_cs('npc1', '')
+image npc1 = CS_('npc1', '')
 image npc2 s = 'spr_npc/n2.png'
-image npc2 = make_cs('npc2', '')
+image npc2 = CS_('npc2', '')
 
 # --- CHARACTER STUFF ---
 # technically these aren't visuals...
 # but let's keep this a little secret between you and me, okay?
 
-define narrator = Character(callback=functools.partial(set_cur_speaker, ch=None))
+define narrator = Character(callback=functools.partial(set_cur_speaker))
 define s = Character('MC', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
 define m = Character('Mother', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'))
 
