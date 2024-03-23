@@ -1,4 +1,4 @@
-﻿label chap1_test_start:
+﻿label chap1_test_sprites:
     scene bg room
 
     $ talks_next = 'mc'
@@ -62,6 +62,57 @@
     show mc 5a
 
     m 'Hello random npcs'
+
+    return
+
+label chap1_test_charmenu:
+    scene bg room
+
+    "who's the main character?"
+
+    "hmmm, never heard of her"
+
+    "go to the character menu - she isn't unlocked yet"
+
+    $ talks_next = 'mc'
+
+    show mc 1a at l1_4 with dissolve
+
+    s "Hi I'm the main character"
+
+    $ char_unlock('mc')
+
+    s "Now you know who I am yay"
+
+    show mother 1a at r1_4 with dissolve
+
+    s "Oh hey mother"
+
+    $ char_unlock('mother')
+    
+    m "Hello main character"
+
+    "..."
+
+    m "It's so sad that amelia died of ligma"
+
+    s "Who's amelia?"
+
+    m "... bro u know who amelia is"
+
+    $ char_unlock('amelia')
+
+    s "Oh right"
+
+    m "Anyway,"
+
+    m "She's dead, we had a tragic accident with the gun dlc"
+
+    m "And the seal who is the mastermind behind everything killed her"
+    
+    $ char_kill('amelia')
+
+    s "Nooooo :("
 
     return
 

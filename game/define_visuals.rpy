@@ -108,8 +108,10 @@ define narrator = Character(callback=functools.partial(set_cur_speaker))
 define s = Character('MC', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
 define m = Character('Mother', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'))
 
+# young noble m npc
 define n1 = Character('NPC 1', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
-define n2 = Character('NPC 1', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
+# old noble m npc
+define n2 = Character('NPC 2', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
 
 # --- POSITION STUFF ---
 

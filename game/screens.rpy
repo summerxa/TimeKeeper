@@ -317,6 +317,8 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
+        textbutton _("Progress") action ShowMenu("progress")
+
         textbutton _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
@@ -560,6 +562,111 @@ screen about():
                 text "[gui.about!t]\n"
 
             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+
+# WOAH IT'S A CUSTOM SCREEN :OOOO   -snail
+screen progress():
+
+    tag menu
+
+    default p_tab = "characters"
+    
+    # character menu
+    default curstate = 'multi'
+    default m = 6
+    default single_page = 0
+    default single_max = len(persistent.charmenu_data)
+    default multi_page = 0
+    default multi_max = (single_max // m) + min(1, single_max % m)
+
+    use game_menu(_("Progress"), scroll="viewport"):
+
+        style_prefix "about"
+
+        vbox:
+            spacing 23
+
+            hbox:
+
+                textbutton _("Characters") action SetScreenVariable("p_tab", "characters")
+                textbutton _("Endings") action SetScreenVariable("p_tab", "endings")
+
+            if p_tab == "characters":
+                use character_menu(curstate, m, single_page, single_max, multi_page, multi_max)
+            elif p_tab == "endings":
+                use endings_menu
+
+screen character_menu(curstate, m, single_page, single_max, multi_page, multi_max):
+    tag menu
+
+    style_prefix "about"
+
+    # TODO buttons show up but aren't clickable sadge
+
+    if curstate == 'multi':
+        grid 3 2:
+            for i in range(multi_page * m, min(single_max, multi_page * m + (m - 1))):
+                $ d = persistent.charmenu_data[i]
+                $ c = persistent.charmenu_saved[d['id_name']]
+                imagebutton:
+                    xalign 0.5 yalign 0.5
+                    auto d[c['small']]
+                    action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i)]
+                    if not c['unlocked']:
+                        at darken_sprite
+            
+        hbox:
+            textbutton '<':
+                xalign 0.3 yalign 0.5 action SetScreenVariable('multi_page', (multi_page+multi_max-1) % multi_max)
+
+            text '[multi_page]':
+                xalign 0.5 yalign 0.5
+
+            textbutton '>':
+                xalign 0.7 yalign 0.5 action SetScreenVariable('multi_page', (multi_page+1) % multi_max)
+    
+    elif curstate == 'single':
+        $ d = persistent.charmenu_data[single_page]
+        $ c = persistent.charmenu_saved[d['id_name']]
+        hbox:
+            viewport:
+                xalign 0.25 yalign 0.5
+                mousewheel True
+                draggable True
+                scrollbars "vertical"
+                vscrollbar_unscrollable "hide"
+
+                maximum (640, 690)
+                
+                vbox:
+                    if c['unlocked']:
+                        text d['disp_name']:
+                            xalign 0. yalign 0.
+                            size 50
+                        text d[c['desc']]
+                    else:
+                        text "...who's this??":
+                            xalign 0. yalign 0.
+                            size 50
+                        text "You haven't met this character yet."
+            
+            add d[c['big']]:
+                xalign 0.75 yalign 0.5
+                if not c['unlocked']:
+                    at darken_sprite
+        hbox:
+            textbutton '<':
+                xalign 0.3 yalign 0.5 action SetScreenVariable('single_page', (single_page+single_max-1) % single_max)
+
+            textbutton 'Characters':
+                xalign 0.5 yalign 0.5
+                action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // m))]
+
+            textbutton '>':
+                xalign 0.7 yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
+
+screen endings_menu():
+    text "pretend there's something really cool here..."
+
 
 
 style about_label is gui_label

@@ -1,3 +1,20 @@
+# --- MODIFYING CHARACTER MENU ---
+init python:
+    def char_unlock(c):
+        store.charmenu_current[c]['unlocked'] = True
+        persistent.charmenu_saved[c]['unlocked'] = True
+
+    def char_kill(c):
+        store.charmenu_current[c]['alive'] = False
+        store.charmenu_current[c]['small'] = 'small_rip'
+        store.charmenu_current[c]['big'] = 'big_rip'
+        store.charmenu_current[c]['desc'] = 'desc_rip'
+
+        persistent.charmenu_saved[c]['alive'] = False
+        persistent.charmenu_saved[c]['small'] = 'small_rip'
+        persistent.charmenu_saved[c]['big'] = 'big_rip'
+        persistent.charmenu_saved[c]['desc'] = 'desc_rip'
+
 # --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
 default current_speaker = None
 default talks_next = None
@@ -41,7 +58,6 @@ default invitems = ['air', 'air']
 default invstacks = [1, 1]
 default ichoice = None
 
-default notes_tab = 'tasks'
 default notes_text = ''
 default notes_text_s = ''
 
@@ -53,3 +69,83 @@ default showhint = False
 
 default mgame_try = None
 default mgame_goal = None
+
+# --- CHARACTERS ---
+
+define persistent.charmenu_data = [
+    {
+        'id_name': 'mc',
+        'disp_name': 'MC',
+        'desc_default': '''Description for MC''',
+        'small_default': 'charmenu/small/mc_default_%s.png',
+        'big_default': 'charmenu/small/mc_default_idle.png'
+    },
+    {
+        'id_name': 'mother',
+        'disp_name': 'Mother',
+        'desc_default': '''Mother :3''',
+        'small_default': 'charmenu/small/mother_default_%s.png',
+        'big_default': 'charmenu/small/mother_default_idle.png'
+    },
+    {
+        'id_name': 'amelia',
+        'disp_name': 'Amelia',
+        'desc_default': '''i want to adopt her''',
+        'desc_rip': '''AMELIA NO!!!''',
+        'small_default': 'charmenu/small/amelia_default_%s.png',
+        'small_rip': 'charmenu/small/amelia_rip_%s.png',
+        'big_default': 'charmenu/small/amelia_default_idle.png',
+        'big_rip': 'charmenu/small/amelia_rip_idle.png'
+    },
+    {
+        'id_name': 'bella',
+        'disp_name': 'Bella',
+        'desc_default': '''hi bella!!!''',
+        'desc_rip': '''BELLA NO!!!''',
+        'small_default': 'charmenu/small/bella_default_%s.png',
+        'small_rip': 'charmenu/small/bella_rip_%s.png',
+        'big_default': 'charmenu/small/bella_default_idle.png',
+        'big_rip': 'charmenu/small/bella_rip_idle.png'
+    }
+]
+
+default charmenu_current = {}
+
+define persistent.charmenu_saved = {
+    'mc': {
+        'desc': 'desc_default',
+        'small': 'small_default',
+        'big': 'big_default',
+        'alive': True,
+        'unlocked': False,
+        'friend': False,
+        'friendlvl': 0
+    },
+    'mother': {
+        'desc': 'desc_default',
+        'small': 'small_default',
+        'big': 'big_default',
+        'alive': True,
+        'unlocked': False,
+        'friend': False,
+        'friendlvl': 0
+    },
+    'amelia': {
+        'desc': 'desc_default',
+        'small': 'small_default',
+        'big': 'big_default',
+        'alive': True,
+        'unlocked': False,
+        'friend': False,
+        'friendlvl': 0
+    },
+    'bella': {
+        'desc': 'desc_default',
+        'small': 'small_default',
+        'big': 'big_default',
+        'alive': True,
+        'unlocked': False,
+        'friend': False,
+        'friendlvl': 0
+    }
+}

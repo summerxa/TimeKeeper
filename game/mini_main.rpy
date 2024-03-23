@@ -128,7 +128,9 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 xalign 0.5
                 yalign 0.95
                 auto 'mini/ui/icon_leave_%s.png'
-                if curstate == 'inroom':
+                if curstate == 'main':
+                    action [ShowMenu('save')]
+                elif curstate == 'inroom':
                     action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main'), Function(set_room_text)]
                 elif curstate == 'mgame':
                     action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=Return())
@@ -203,14 +205,13 @@ screen hintbox:
         xalign 0.9
         yalign 0.85
         minimum (400, 250)
-        side "c r":
+        viewport:
             area (10, 10, 360, 200)
-            viewport id "vp":
-                mousewheel True
-                draggable True
-                text hinttext
-
-            vbar value YScrollValue("vp")
+            mousewheel True
+            draggable True
+            scrollbars "vertical"
+            vscrollbar_unscrollable "hide"
+            text hinttext
 
 screen mini_screen:
     modal True

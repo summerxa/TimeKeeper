@@ -10,6 +10,8 @@ screen popup_notes:
     zorder popup_zorder
     add 'gui/overlay/confirm.png'
 
+    default notes_tab = 'tasks'
+
     frame:
         xalign 0.5
         yalign 0.5
@@ -26,7 +28,7 @@ screen popup_notes:
                             xpos tab[0]
                             xanchor 0.
                             yalign 0.
-                            action SetVariable('notes_tab', tab[1])
+                            action SetScreenVariable('notes_tab', tab[1])
                             auto tab[2]
                 hbox:
                     xalign 1.
@@ -44,18 +46,14 @@ screen popup_notes:
                         $ tx = notes_text
                 else:
                     $ tx = levelInfo[curlevel][notes_tab]
-                side "c r":
-                    # xalign 0.5
-                    # yalign 0.5
-                    # maximum (600, 400)
+                
+                viewport:
                     area (0, 100, 600, 400)
-
-                    viewport id "vp":
-                        mousewheel True
-                        draggable True
-                        text tx
-
-                    vbar value YScrollValue("vp")
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+                    text tx
 
 screen popup_onhand:
     modal True
