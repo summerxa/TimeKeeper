@@ -254,11 +254,17 @@ label mini_main:
         $ tolabel = _return
 
         jump expression tolabel
-    elif len(tolabel) >= 8 and tolabel[:8] == 'gotoroom':
-        show screen mini_screen
-        hide screen mini_screen with dissolve
-        # don't use get_screen to check if screen is open
-        # b/c call screen gets weird when there's no return statement
+    else:
+        python:
+            for tname, t in tasks[curlevel].items():
+                if t['tf'] == 9999 and not t['done']:
+                    completion -= t['scorepenalty']
+
+        if len(tolabel) >= 8 and tolabel[:8] == 'gotoroom':
+            # don't use get_screen to check if screen is open
+            # b/c call screen gets weird when there's no return statement
+            show screen mini_screen
+            hide screen mini_screen with fade
 
     return
 
@@ -296,7 +302,7 @@ label mini_launch(startroom='main', startfloor=0):
                 h['item']['stack'] = 1
         for tn, t in tasks[curlevel].items():
             t['activated'] = False
-            t['finished'] = False
+            t['done'] = False
             t['room'] = taskButtons[curlevel][t['btn']]['room']
         for r, ra in roomArrows[curlevel].items():
             fromroom = r

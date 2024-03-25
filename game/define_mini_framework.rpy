@@ -40,7 +40,7 @@ init python:
             tx += getTimeDig(t['tf'])
         else:
             tx += getTimeDig(tlimit)
-        tx += ') ' + t['desc']
+        tx += ") " + t['desc']
         return tx
 
     # by default, checks if special highlight is enabled in settings
@@ -54,14 +54,7 @@ init python:
         return "- " + fmtTskButton(t) + " [[" + roomButtons[curlevel][t['room']]['name'] + "]"
 
     def setHtext(b):
-        t = b['curtask']
-        txt = '('
-        if t['t0'] != -1:
-            txt += getTimeDig(t['t0']) + '-' + getTimeDig(t['tf'])
-        else:
-            txt += getTimeDig(tstart) + '-' + getTimeDig(tlimit)
-        txt += ') ' + t['desc'] + ' (' + str(t['tcost']) + ' min)'
-        b['htext'] = txt
+        b['htext'] = fmtTskButton(b['curtask'])
 
     # sorts tasks by tf, tiebreaking by t0 and then room name
     def generateTodo():
@@ -102,16 +95,20 @@ init python:
 
     # --- TASK STUFF ---
 
-    def dotask(tsk, goodjob=True):
+    # goodjob = task was done correctly
+    # punish = subtract from completion score if not goodjob
+    def dotask(tsk, goodjob=True, punish=True):
         if goodjob:
             store.curtime += tsk['tcost']
-            tsk['finished'] = True
-            store.completion += 1
+            tsk['done'] = True
+            store.completion += tsk['scorebonus']
         else:
             store.curtime += tsk['tcost'] // 2
             if Task.NO_REDO in tsk['tags']:
-                tsk['finished'] = True
-        if tsk['finished']:
+                tsk['done'] = True
+                if punish:
+                    store.completion -= tsk['scorepenalty']
+        if tsk['done']:
             # activate any follow-ups
             if 'nxt' in tsk:
                 for tn in tsk['nxt']:
@@ -124,21 +121,23 @@ init python:
             if t['t0'] == -3:
                 meet_prereq = True
                 for tn in t['prq']:
-                    if not store.tasks[curlevel][tn]['finished']:
+                    if not store.tasks[curlevel][tn]['done']:
                         meet_prereq = False
                         break
                 if meet_prereq:
                     setTlimit(t)
 
-            if t['finished'] or t['t0'] < -1 or (store.curtime < t['t0'] or t['tf'] < store.curtime):
+            if t['done'] or t['t0'] < -1 or (store.curtime < t['t0'] or t['tf'] < store.curtime):
                 t['activated'] = False
-            elif not t['finished'] and (t['t0'] <= store.curtime and store.curtime <= t['tf']):
+            elif not t['done'] and (t['t0'] <= store.curtime and store.curtime <= t['tf']):
                 t['activated'] = True
 
             b = store.taskButtons[curlevel][t['btn']]
             if t in store.taskq:
                 if not t['activated']:
                     store.taskq.remove(t)
+                    if not t['done']:
+                        store.completion -= t['scorepenalty']
                     try:
                         store.taskrq.remove(tn)
                     except:
@@ -156,7 +155,10 @@ init python:
                 if t['activated']:
                     store.taskq.append(t)
                     b['curtask'] = t
-                    b['act'] = [SetVariable('curtask', t), Return(t['tlabel'])]
+                    b['act'] = [SetVariable('curtask', t)]
+                    if 'game' in t:
+                        b['act'].append(SetVariable('curgame', t['game']))
+                    b['act'].append(Return(t['tlabel']))
                     setHtext(b)
         generateTodo()
         return

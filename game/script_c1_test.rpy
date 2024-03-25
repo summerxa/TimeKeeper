@@ -154,33 +154,32 @@ label chap1_test_part2:
     return
 
 label c1_t1:
+    'give me a test item 3 >:o'
+
     call give_item_prompt
 
-    if ichoice == 'test_1':
+    if ichoice == 'test_3':
         'good job, you chose the right item'
-        call update_inv(myitem='test_1', mystack=1, useholder=False, ret=True)
+        $ update_inv(myitem='test_3', mystack=1)
         $ dotask(curtask)
-    elif ichoice == 'test_3':
+    else:
         'no???? wrong?????'
         $ dotask(curtask, False)
-    
-    'oh yeah also could you bring item 1 and item 3 into room 3? thanks'
 
     jump mini_main
 
 label c1_t2:
     "drag left button to left square, right button to right square"
 
-    # python:
-    #     mgame_goal = taskGames[curlevel][curtask['name']]['goal']
-    #     if not 'try' in taskGames[curlevel][curtask['name']]:
-    #         taskGames[curlevel][curtask['name']]['try'] = []
-    #         for i in range(len(mgame_goal)):
-    #             taskGames[curlevel][curtask['name']]['try'].append('')
-    #     mgame_try = taskGames[curlevel][curtask['name']]['try']
-    $ fill_try(taskGames[curlevel][curtask['name']], '')
+    python:
+        mgame_goal = curgame['goal']
+        if not 'try' in curgame:
+            curgame['try'] = []
+            for i in range(len(mgame_goal)):
+                curgame['try'].append('')
+        mgame_try = curgame['try']
 
-    call screen mgame_dragdrop(taskGames[curlevel][curtask['name']], curtask['tcost'])
+    call screen mgame_dragdrop(curtask['tcost'])
 
     if is_win_listeq():
         "task 2 complete :D"
@@ -231,16 +230,15 @@ label c1_t3:
 label c1_t4:
     "oh no i dropped my buttons! please pick them up for me, but DONT grab anything else"
 
-    # python:
-    #     mgame_goal = taskGames[curlevel][curtask['name']]['goal']
-    #     if not 'try' in taskGames[curlevel][curtask['name']]:
-    #         taskGames[curlevel][curtask['name']]['try'] = []
-    #         for i in range(len(mgame_goal)):
-    #             taskGames[curlevel][curtask['name']]['try'].append(False)
-    #     mgame_try = taskGames[curlevel][curtask['name']]['try']
-    $ fill_try(taskGames[curlevel][curtask['name']], False)
+    python:
+        mgame_goal = curgame['goal']
+        if not 'try' in curgame:
+            curgame['try'] = []
+            for i in range(len(mgame_goal)):
+                curgame['try'].append(False)
+        mgame_try = curgame['try']
 
-    call screen mgame_toggle(taskGames[curlevel][curtask['name']], curtask['tcost'])
+    call screen mgame_toggle(curtask['tcost'])
     
     if is_win_listeq():
         "task 4 complete (hooray!!!)"
@@ -258,20 +256,19 @@ label c1_grabdishes:
         jump mini_main
 
     python:
-        tgame = taskGames[curlevel][curtask['name']]
-        if not 'try' in tgame:
-            mgame_goal = len(tgame['drag'])
-            tgame['try'] = [0] * mgame_goal
+        if not 'try' in curgame:
+            mgame_goal = len(curgame['drag'])
+            curgame['try'] = [0] * mgame_goal
             for i in range(mgame_goal):
-                tgame['drag'][i]['n'] = str(i)
-                tgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
-        mgame_try = tgame['try']
+                curgame['drag'][i]['n'] = str(i)
+                curgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
+        mgame_try = curgame['try']
 
     scene bg wassup im grabbing the dishes
 
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes(tgame, curtask['tcost'])
+        call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
 
     if not 0 in mgame_try:
@@ -280,7 +277,7 @@ label c1_grabdishes:
         'no u didnt do task'
     
     $ dotask(curtask, not 0 in mgame_try)
-    $ tgame['try'] = [2 if x == 1 else x for x in tgame['try']]
+    $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
 
     $ show_hint = False
     jump mini_main
@@ -291,32 +288,31 @@ label c1_dropdishes:
         jump mini_main
 
     python:
-        tgame = taskGames[curlevel][curtask['name']]
-        tgame['try'] = [] # reset dishes every time, in case player gained or lost some
-        tgame['drag'] = []
+        curgame['try'] = [] # reset dishes every time, in case player gained or lost some
+        curgame['drag'] = []
         for i in range(invCountNum('dirtydishes')):
-            tgame['try'].append(0)
-            tgame['drag'].append({
+            curgame['try'].append(0)
+            curgame['drag'].append({
                 'n': str(i),
-                'xp': tgame['xp'],
+                'xp': curgame['xp'],
                 'yp': (0.8 - (i * 0.1)),
-                'im': tgame['im']
+                'im': curgame['im']
             })
-        mgame_try = tgame['try']
+        mgame_try = curgame['try']
 
     scene bg dropping the dishes off a ur moms house
 
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes(tgame, curtask['tcost'])
+        call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
 
-    $ levelInfo[curlevel]['alldishes'] -= mgame_try.count(1)
-    if not levelInfo[curlevel]['alldishes']:
+    $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
+    if not levelInfo[curlevel]['ndishes']:
         'all dishes collected'
         $ dotask(curtask, True)
     else:
         'there are still more dishes left'
-        $ dotask(curtask, False)
+        $ dotask(curtask, False, False)
 
     jump mini_main

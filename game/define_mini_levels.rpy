@@ -23,7 +23,7 @@ default levelInfo = {
         'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
         'tstairs': 2,
         'nfloors': 2,
-        'alldishes': 8
+        'ndishes': 8
     }
 }
 
@@ -162,7 +162,7 @@ default taskButtons = {
 }
 
 default taskRoots = {
-    1: ['t1', 't2']
+    1: ['t1', 't2', 't3']
 }
 
 default tasks = {
@@ -175,7 +175,36 @@ default tasks = {
             'tcost': 10,
             't0': 1020,
             'tf': 1030,
-            'tags': []
+            'scorebonus': 10,
+            'scorepenalty': 1,
+            'tags': [],
+            'game': {
+                'type': 'grabdishes',
+                'goal': 5,
+                'drag': [
+                    {
+                        'xp': 0.2, 'yp': 0.3
+                    },
+                    {
+                        'xp': 0.5, 'yp': 0.3
+                    },
+                    {
+                        'xp': 0.3, 'yp': 0.3
+                    },
+                    {
+                        'xp': 0.5, 'yp': 0.5
+                    },
+                    {
+                        'xp': 0.5, 'yp': 0.2
+                    }
+                ],
+                'drop': [
+                    {
+                        'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
+                    }
+                ],
+                'hint': [2, 'this is a very helpful hint']
+            }
         },
         't2': {
             'name': 't2',
@@ -185,50 +214,33 @@ default tasks = {
             'tcost': 10,
             't0': -1,
             'tf': 9999,
-            'tags': []
+            'scorebonus': 1,
+            'scorepenalty': 1,
+            'tags': [],
+            'game': {
+                'type': 'dropdishes',
+                'xp': 0.8,
+                'im': 'mini/icon_map_mc_idle.png',
+                'drop': [
+                    {
+                        'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
+                    }
+                ],
+                'hint': [2, 'this is another hint']
+            }
         },
-        # 't1': {
-        #     'name': 't1',
-        #     'desc': 'task 1',
-        #     'btn': 'r11',
-        #     'tlabel': 'c1_t1',
-        #     'tcost': 30,
-        #     't0': 1020,
-        #     'tf': 1025,
-        #     'nxt': ['t3'],
-        #     'tags': [Task.SPECIAL, Task.NO_REDO]
-        # },
-        # 't2': {
-        #     'name': 't2',
-        #     'desc': 'task 2',
-        #     'btn': 'r21',
-        #     'tlabel': 'c1_t2',
-        #     'tcost': 10,
-        #     't0': 1050,
-        #     'tf': 1060,
-        #     'tags': [Task.SPECIAL]
-        # },
-        # 't3': {
-        #     'name': 't3',
-        #     'desc': 'task 3',
-        #     'btn': 'r31',
-        #     'tlabel': 'c1_t3',
-        #     'tcost': 5,
-        #     't0': -2,
-        #     'tf': 1190,
-        #     'tags': [Task.NO_REDO]
-        # },
-        # 't4': {
-        #     'name': 't4',
-        #     'desc': 'task 4',
-        #     'btn': 'r41',
-        #     'tlabel': 'c1_t4',
-        #     'tcost': 30,
-        #     't0': -3,
-        #     'dur': 50,
-        #     'prq': ['t2', 't3'],
-        #     'tags': [Task.SPECIAL]
-        # }
+        't3': {
+            'name': 't3',
+            'desc': 'Drop off test item 3',
+            'btn': 'r31',
+            'tlabel': 'c1_t1',
+            'tcost': 5,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.SPECIAL, Task.NO_REDO]
+        }
     }
 }
 
@@ -287,77 +299,5 @@ default itemHolders = {
             'yp': 0.5,
             'room': 'ballroom'
         }
-    }
-}
-
-default taskGames = {
-    1: {
-        't1': {
-            'type': 'grabdishes',
-            'goal': 5,
-            'drag': [
-                {
-                    'xp': 0.2, 'yp': 0.3
-                },
-                {
-                    'xp': 0.5, 'yp': 0.3
-                },
-                {
-                    'xp': 0.3, 'yp': 0.3
-                },
-                {
-                    'xp': 0.5, 'yp': 0.5
-                },
-                {
-                    'xp': 0.5, 'yp': 0.2
-                }
-            ],
-            'drop': [
-                {
-                    'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
-                }
-            ],
-            'hint': [2, 'this is a very helpful hint']
-        },
-        't2': {
-            'type': 'dropdishes',
-            'xp': 0.8,
-            'im': 'mini/icon_map_mc_idle.png',
-            'drop': [
-                {
-                    'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
-                }
-            ],
-            'hint': [2, 'this is another hint']
-        },
-        # 't2': {
-        #     'goal': ['left', 'right'],
-        #     'drag': [
-        #         {
-        #             'n': '0', 'xp': 0.2, 'yp': 0.3, 'im': 'mini/button_temp_idle.jpg'
-        #         },
-        #         {
-        #             'n': '1', 'xp': 0.5, 'yp': 0.3, 'im': 'mini/button_temp_idle.jpg'
-        #         }
-        #     ],
-        #     'drop': [
-        #         {
-        #             'n': 'left', 'xp': 0.2, 'yp': 0.6, 'im': 'mini/test_item0_idle.jpg'
-        #         },
-        #         {
-        #             'n': 'right', 'xp': 0.5, 'yp': 0.6, 'im': 'mini/test_item0_idle.jpg'
-        #         }
-        #     ],
-        #     'hint': [2, 'Drag one of the buttons to the square and drop it']
-        # },
-        # 't4': {
-        #     'type': 'toggle',
-        #     'goal': [True, False, True],
-        #     'xp': [0.3, 0.5, 0.7],
-        #     'yp': [0.5, 0.5, 0.5],
-        #     'off': ['mini/button_temp_%s.jpg', 'mini/test_item1_%s.jpg', 'mini/button_temp_%s.jpg'],
-        #     'on': ['mini/test_item0_%s.jpg', 'mini/test_item0_%s.jpg', 'mini/test_item0_%s.jpg'],
-        #     'hint': [1, 'Click on the items to pick them up/put them down']
-        # }
     }
 }

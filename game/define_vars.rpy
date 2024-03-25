@@ -44,6 +44,7 @@ default curfloor = 0
 default mapfloor = 0
 
 default curtask = None
+default curgame = None
 default taskq = []
 default taskrq = []
 

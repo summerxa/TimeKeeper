@@ -1,17 +1,17 @@
 init python:
     def items_dragged(drags, drop):
         dragnum = int(drags[0].drag_name)
+        store.curgame['drag'][dragnum]['xp'] = drags[0].x
+        store.curgame['drag'][dragnum]['yp'] = drags[0].y
         if not drop:
             store.mgame_try[dragnum] = ''
         else:
             store.mgame_try[dragnum] = drop.drag_name
-        store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['xp'] = drags[0].x
-        store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['yp'] = drags[0].y
     
     def process_dishes(drags, drop):
         dragnum = int(drags[0].drag_name)
-        store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['xp'] = drags[0].x
-        store.taskGames[store.curlevel][store.curtask['name']]['drag'][dragnum]['yp'] = drags[0].y
+        store.curgame['drag'][dragnum]['xp'] = drags[0].x
+        store.curgame['drag'][dragnum]['yp'] = drags[0].y
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'refresh'
@@ -59,10 +59,10 @@ screen mgame_hinttext(tx):
 screen mgame_exit(gametype, tfull):
     use mini_sidebar('mgame', gametype, tfull)
 
-screen mgame_dragdrop(tgame, tfull):
+screen mgame_dragdrop(tfull):
     draggroup:
         # drop
-        for d in tgame['drop']:
+        for d in curgame['drop']:
             drag:
                 drag_name d['n']
                 xpos d['xp']
@@ -72,7 +72,7 @@ screen mgame_dragdrop(tgame, tfull):
                 child d['im']
         
         # drag
-        for d in tgame['drag']:
+        for d in curgame['drag']:
             drag:
                 drag_name d['n']
                 xpos d['xp']
@@ -83,14 +83,12 @@ screen mgame_dragdrop(tgame, tfull):
                 drag_raise True
                 child d['im']
     
-    # use mgame_hint(tgame['hint'][0])
-    # use mgame_hinttext(tgame['hint'][1])
-    use mgame_exit(tgame['type'], tfull)
+    use mgame_exit(curgame['type'], tfull)
 
-screen mgame_dragdrop_dishes(tgame, tfull):
+screen mgame_dragdrop_dishes(tfull):
     draggroup:
         # drop
-        for d in tgame['drop']:
+        for d in curgame['drop']:
             drag:
                 drag_name d['n']
                 xpos d['xp']
@@ -100,7 +98,7 @@ screen mgame_dragdrop_dishes(tgame, tfull):
                 child d['im']
         
         # drag
-        for d in tgame['drag']:
+        for d in curgame['drag']:
             if not mgame_try[int(d['n'])]:
                 drag:
                     drag_name d['n']
@@ -108,31 +106,27 @@ screen mgame_dragdrop_dishes(tgame, tfull):
                     ypos d['yp']
                     draggable True
                     droppable False
-                    if tgame['type'] == 'grabdishes':
+                    if curgame['type'] == 'grabdishes':
                         dragged dragged_grabdishes
                     else:
                         dragged dragged_dropdishes
                     drag_raise True
                     child d['im']
     
-    # use mgame_hint(tgame['hint'][0])
-    # use mgame_hinttext(tgame['hint'][1])
-    use mgame_exit(tgame['type'], tfull)
+    use mgame_exit(curgame['type'], tfull)
 
-screen mgame_toggle(tgame, tfull):
-    for i in range(len(tgame['goal'])):
+screen mgame_toggle(curgame, tfull):
+    for i in range(len(curgame['goal'])):
         if mgame_try[i]:
             $ tx = 'on'
         else:
             $ tx = 'off'
         imagebutton:
-            xpos tgame['xp'][i]
-            ypos tgame['yp'][i]
+            xpos curgame['xp'][i]
+            ypos curgame['yp'][i]
             xanchor 0.5
             yanchor 0.5
-            auto tgame[tx][i]
+            auto curgame[tx][i]
             action Function(toggle_mgame_try, i)
 
-    # use mgame_hint(tgame['hint'][0])
-    # use mgame_hinttext(tgame['hint'][1])
-    use mgame_exit(tgame['type'], tfull)
+    use mgame_exit(curgame['type'], tfull)
