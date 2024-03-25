@@ -243,7 +243,7 @@ screen mini_screen:
 
 label mini_main:
     # TODO hide textbox, sprites, quickmenu, and all that other stuff
-    scene bg hello person reading this # TODO replace w/ minigame background
+    scene bg minigame
 
     $ update_taskq()
 
@@ -264,7 +264,7 @@ label mini_main:
 
 label mini_launch(startroom='main', startfloor=0):
     python:
-        mini_fadeout = False
+        completion = 0
         taskq.clear()
         taskrq = taskRoots[curlevel].copy()
         curroom = startroom

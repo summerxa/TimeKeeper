@@ -106,6 +106,7 @@ init python:
         if goodjob:
             store.curtime += tsk['tcost']
             tsk['finished'] = True
+            store.completion += 1
         else:
             store.curtime += tsk['tcost'] // 2
             if Task.NO_REDO in tsk['tags']:

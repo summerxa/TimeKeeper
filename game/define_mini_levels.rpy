@@ -20,7 +20,7 @@ default levelInfo = {
     1: {
         't0': 1020,
         'tf': 1200,
-        'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
+        'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
         'tstairs': 2,
         'nfloors': 2,
         'alldishes': 8

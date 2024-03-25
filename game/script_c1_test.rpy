@@ -68,6 +68,26 @@
 label chap1_test_charmenu:
     scene bg room
 
+    menu:
+        'Unlock all characters':
+            $ char_unlock('mc')
+            $ char_unlock('mother')
+            $ char_unlock('amelia')
+            $ char_unlock('bella')
+
+            menu:
+                'Commit violence?'
+
+                'Yes >:)':
+                    $ char_kill('amelia')
+                    $ char_kill('bella')
+                'NO!!!!':
+                    pass
+            
+            return
+        'Unlock through cutscene':
+            pass
+
     "who's the main character?"
 
     "hmmm, never heard of her"
@@ -114,14 +134,22 @@ label chap1_test_charmenu:
 
     s "Nooooo :("
 
+    "... also i should probably unlock Bella so u can actually see her in the menu LMAO"
+
+    $ char_unlock('bella')
+
+    "okay congrats now you've met bella :>"
+
     return
 
 label chap1_test_part2:
+    scene bg hello person reading this
+
     show mc 1b
 
-    $ current_speaker = 'mc'
+    $ talks_next = 'mc'
 
-    s "minigame over, continuing regular dialogue"
+    s "minigame over, your score was [completion]"
 
     return
 
@@ -239,6 +267,8 @@ label c1_grabdishes:
                 tgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
         mgame_try = tgame['try']
 
+    scene bg wassup im grabbing the dishes
+
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(tgame, curtask['tcost'])
@@ -273,6 +303,8 @@ label c1_dropdishes:
                 'im': tgame['im']
             })
         mgame_try = tgame['try']
+
+    scene bg dropping the dishes off a ur moms house
 
     $ game_ret = 'refresh'
     while game_ret == 'refresh':

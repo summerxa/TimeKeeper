@@ -25,8 +25,8 @@ label after_load:
 label chars_init_and_load:
     python:
         for c in persistent.charmenu_data:
-            if not c['id_name'] in charmenu_current:
-                charmenu_current[c['id_name']] = {
+            if not c['id_name'] in chars_current:
+                chars_current[c['id_name']] = {
                     'desc': 'desc_default',
                     'small': 'small_default',
                     'big': 'big_default',
@@ -35,9 +35,4 @@ label chars_init_and_load:
                     'friend': False,
                     'friendlvl': 0
                 }
-        for cname, c in charmenu_current.items():
-            if not cname in persistent.charmenu_saved:
-                persistent.charmenu_saved[cname] = {}
-            for k, v in c.items():
-                persistent.charmenu_saved[cname][k] = v
     return

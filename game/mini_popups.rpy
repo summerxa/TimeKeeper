@@ -9,6 +9,8 @@ screen popup_notes:
     modal True
     zorder popup_zorder
     add 'gui/overlay/confirm.png'
+    
+    style_prefix "confirm"
 
     default notes_tab = 'tasks'
 
@@ -35,9 +37,9 @@ screen popup_notes:
                     yalign 0.
                     use popup_button_close(1., 0., 'popup_notes')
 
-            vbox:
-                xalign 0.5
-                yalign 0.
+            viewport:
+                area (100, 100, 800, 500)
+
                 $ tx = ''
                 if notes_tab == 'tasks':
                     if persistent.showspecial:
@@ -47,13 +49,11 @@ screen popup_notes:
                 else:
                     $ tx = levelInfo[curlevel][notes_tab]
                 
-                viewport:
-                    area (0, 100, 600, 400)
-                    mousewheel True
-                    draggable True
-                    scrollbars "vertical"
-                    vscrollbar_unscrollable "hide"
-                    text tx
+                mousewheel True
+                draggable True
+                scrollbars "vertical"
+                vscrollbar_unscrollable "hide"
+                text tx
 
 screen popup_onhand:
     modal True

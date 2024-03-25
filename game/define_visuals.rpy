@@ -5,7 +5,7 @@ transform rot(a):
     rotate a
 
 style fancy_font:
-    color '#000'
+    color '#906548'
     font 'Bodoni-16-Medium.otf'
 
 # --- SPRITE STUFF ---
@@ -41,6 +41,9 @@ init python:
             f"talks_next == '{charname}'", silent,
             "True", At(silent, darken_sprite)
         )
+
+image bg minigame = 'mini/ui_backrgons.jpg'
+
 
 image mc 1a s = Comp_('mc', 641, 386, '01', '0a')
 image mc 1a t = Comp_('mc', 641, 386, '01t', '0a')

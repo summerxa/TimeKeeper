@@ -568,7 +568,7 @@ screen progress():
 
     tag menu
 
-    default p_tab = "characters"
+    default p_tab = "main"
     
     # character menu
     default curstate = 'multi'
@@ -578,22 +578,36 @@ screen progress():
     default multi_page = 0
     default multi_max = (single_max // m) + min(1, single_max % m)
 
-    use game_menu(_("Progress"), scroll="viewport"):
+    use game_menu(_("Progress")):
 
         style_prefix "about"
 
-        vbox:
-            spacing 23
-
+        if p_tab == "main":
             hbox:
+                xalign 0.5 yalign 0.5
+                minimum(1000, 690)
 
-                textbutton _("Characters") action SetScreenVariable("p_tab", "characters")
-                textbutton _("Endings") action SetScreenVariable("p_tab", "endings")
+                textbutton _("Characters"):
+                    xalign 0. yalign 0.5 text_align 0.5
+                    action SetScreenVariable("p_tab", "characters")
+                textbutton _("Endings"):
+                    xalign 0.5 yalign 0.5 text_align 0.5
+                    action SetScreenVariable("p_tab", "endings")
+                textbutton _("CGs"):
+                    xalign 1. yalign 0.5 text_align 0.5
+                    action SetScreenVariable("p_tab", "cgs")
+        else:
+            vbox:
+                spacing 23
 
-            if p_tab == "characters":
-                use character_menu(curstate, m, single_page, single_max, multi_page, multi_max)
-            elif p_tab == "endings":
-                use endings_menu
+                textbutton _("Back") action SetScreenVariable("p_tab", "main")
+
+                if p_tab == "characters":
+                    use character_menu(curstate, m, single_page, single_max, multi_page, multi_max)
+                elif p_tab == "endings":
+                    use endings_menu
+                elif p_tab == "cgs":
+                    use endings_menu # TODO make cg gallery thing (reuse character code)
 
 screen character_menu(curstate, m, single_page, single_max, multi_page, multi_max):
     tag menu
@@ -604,65 +618,82 @@ screen character_menu(curstate, m, single_page, single_max, multi_page, multi_ma
 
     if curstate == 'multi':
         grid 3 2:
+            area(10, 10, 1300, 690)
+
             for i in range(multi_page * m, min(single_max, multi_page * m + (m - 1))):
                 $ d = persistent.charmenu_data[i]
-                $ c = persistent.charmenu_saved[d['id_name']]
+                if not main_menu:
+                    $ c = chars_current[d['id_name']]
                 imagebutton:
                     xalign 0.5 yalign 0.5
-                    auto d[c['small']]
+                    if main_menu:
+                        auto d['small_default']
+                    else:
+                        auto d[c['small']]
                     action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i)]
-                    if not c['unlocked']:
+                    if not persistent.chars_unlocked[d['id_name']]:
                         at darken_sprite
             
         hbox:
-            textbutton '<':
-                xalign 0.3 yalign 0.5 action SetScreenVariable('multi_page', (multi_page+multi_max-1) % multi_max)
+            xminimum 1300
 
-            text '[multi_page]':
+            textbutton '<':
+                xalign 0. yalign 0.5 action SetScreenVariable('multi_page', (multi_page+multi_max-1) % multi_max)
+
+            text f'{multi_page+1}':
                 xalign 0.5 yalign 0.5
 
             textbutton '>':
-                xalign 0.7 yalign 0.5 action SetScreenVariable('multi_page', (multi_page+1) % multi_max)
+                xalign 1. yalign 0.5 action SetScreenVariable('multi_page', (multi_page+1) % multi_max)
     
     elif curstate == 'single':
         $ d = persistent.charmenu_data[single_page]
-        $ c = persistent.charmenu_saved[d['id_name']]
+        if not main_menu:
+            $ c = chars_current[d['id_name']]
         hbox:
+            area(10, 10, 1300, 690)
+
             viewport:
-                xalign 0.25 yalign 0.5
+                area(10, 10, 610, 690)
+                
                 mousewheel True
                 draggable True
                 scrollbars "vertical"
                 vscrollbar_unscrollable "hide"
-
-                maximum (640, 690)
                 
                 vbox:
-                    if c['unlocked']:
+                    if persistent.chars_unlocked[d['id_name']]:
                         text d['disp_name']:
                             xalign 0. yalign 0.
                             size 50
-                        text d[c['desc']]
+                        if main_menu:
+                            text d['desc_default']
+                        else:
+                            text d[c['desc']]
                     else:
                         text "...who's this??":
                             xalign 0. yalign 0.
                             size 50
                         text "You haven't met this character yet."
             
-            add d[c['big']]:
-                xalign 0.75 yalign 0.5
-                if not c['unlocked']:
+            add (d['big_default'] if main_menu else d[c['big']]):
+                xpos 0.6
+                xanchor 0.5
+                yalign 0.5
+                if not persistent.chars_unlocked[d['id_name']]:
                     at darken_sprite
         hbox:
+            xminimum 1300
+
             textbutton '<':
-                xalign 0.3 yalign 0.5 action SetScreenVariable('single_page', (single_page+single_max-1) % single_max)
+                xalign 0. yalign 0.5 action SetScreenVariable('single_page', (single_page+single_max-1) % single_max)
 
             textbutton 'Characters':
                 xalign 0.5 yalign 0.5
                 action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // m))]
 
             textbutton '>':
-                xalign 0.7 yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
+                xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
 screen endings_menu():
     text "pretend there's something really cool here..."
