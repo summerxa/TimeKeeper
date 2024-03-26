@@ -2,12 +2,9 @@ init python:
     def getMiniMap(lvl, room, floor):
         return f"mini/map/map_{lvl}_{room}_{floor}.png"
 
-    # determines if there should be fade to black transition for minigame
-    def mgame_shouldfade():
-        # For snail: uncomment the last return statement if u are tired of fading in and out
-        room_transition = (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
-        return not room_transition
-        # return False
+    # returns True if last label was a room change (gotoroom) function
+    def was_from_roomchange():
+        return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
 
     # --- TASK/TASKBUTTON FORMATTING ---
 

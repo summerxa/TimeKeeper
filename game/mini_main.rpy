@@ -249,7 +249,7 @@ label mini_main():
 
     # time is not up, still remaining tasks
     if curtime <= tlimit and (taskq or taskrq):
-        if mgame_shouldfade():
+        if not was_from_roomchange():
             call screen mini_screen with fade
         else:
             call screen mini_screen
@@ -267,7 +267,7 @@ label mini_main():
                 if t['tf'] >= curtime and not t['done']:
                     completion -= t['scorepenalty']
 
-        if not mgame_shouldfade():
+        if was_from_roomchange():
             # don't use get_screen to check if screen is open
             # b/c call screen gets weird when there's no return statement
             show screen mini_screen
