@@ -256,7 +256,7 @@ label mini_main():
     
         $ tolabel = _return
 
-        if mgame_shouldfade():
+        if not was_from_roomchange():
             show screen mini_screen
             hide screen mini_screen with fade
 

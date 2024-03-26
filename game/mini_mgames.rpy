@@ -26,6 +26,7 @@ init python:
     def dragged_dropdishes(drags, drop):
         ret = process_dishes(drags, drop)
         if ret == 'refresh':
+            renpy.notify('testing-')
             update_inv(myitem='dirtydishes', mystack=1)
             return ret
 

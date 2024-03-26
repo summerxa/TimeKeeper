@@ -162,7 +162,7 @@ label c1_t1:
 
     if ichoice == 'test_3':
         'good job, you chose the right item'
-        $ update_inv(myitem='test_3', mystack=1)
+        $ update_inv(myitem='test_3')
         $ docurtask()
     else:
         'no???? wrong?????'
