@@ -215,7 +215,7 @@ init python:
             giveitem = otheritem
             givestack = otherstack
 
-        if curhand < 0 and (not myitem and not otheritem) and not inventoryOk(giveitem):
+        if curhand < 0 and not myitem and not inventoryOk(giveitem):
             # hands are full, but no hand/item is selected, do nothing and leave
             return
         
