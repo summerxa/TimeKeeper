@@ -143,7 +143,7 @@ label chap1_test_charmenu:
     return
 
 label chap1_test_part2:
-    scene bg hello person reading this
+    scene bg hello person reading this with dissolve
 
     show mc 1b
 
@@ -154,6 +154,8 @@ label chap1_test_part2:
     return
 
 label c1_t1:
+    scene bg hello gamers with dissolve
+
     'give me a test item 3 >:o'
 
     call give_item_prompt
@@ -161,10 +163,10 @@ label c1_t1:
     if ichoice == 'test_3':
         'good job, you chose the right item'
         $ update_inv(myitem='test_3', mystack=1)
-        $ dotask(curtask)
+        $ docurtask()
     else:
         'no???? wrong?????'
-        $ dotask(curtask, False)
+        $ docurtask(False)
 
     jump mini_main
 
@@ -185,7 +187,7 @@ label c1_t2:
         "task 2 complete :D"
     else:
         "task 2 not complete :|"
-    $ dotask(curtask, is_win_listeq())
+    $ docurtask(is_win_listeq())
 
     $ show_hint = False
     jump mini_main
@@ -217,13 +219,13 @@ label c1_t3:
             'task 3 complete'
             $ update_inv(myitem='test_1', useholder=False)
             $ update_inv(myitem='test_3', useholder=False)
-            $ dotask(curtask)
+            $ docurtask()
         else:
             'wrong items smh'
-            $ dotask(curtask, False)
+            $ docurtask(False)
     else:
         'why only one item smh'
-        $ dotask(curtask, False)
+        $ docurtask(False)
 
     jump mini_main
 
@@ -245,12 +247,12 @@ label c1_t4:
     else:
         "task 4 not complete (not hooray!!!)"
     
-    $ dotask(curtask, is_win_listeq())
+    $ docurtask(is_win_listeq())
 
     $ show_hint = False
     jump mini_main
 
-label c1_grabdishes:
+label task_c1_grabdishes:
     if not 'air' in invitems and not 'dirtydishes' in invitems:
         $ hinttext = levelHints[curlevel]['grabdishes_fail']
         jump mini_main
@@ -266,23 +268,29 @@ label c1_grabdishes:
 
     scene bg wassup im grabbing the dishes
 
-    $ game_ret = 'refresh'
+    # FADE INTO MINIGAME
+    $ renpy.transition(dissolve)
+    call screen mgame_dragdrop_dishes(curtask['tcost'])
+
+    $ game_ret = _return
+
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
 
-    if not 0 in mgame_try:
-        'yay u did task'
-    else:
-        'no u didnt do task'
+    # FADE OUT OF MINIGAME
+    show screen mgame_dragdrop_dishes(curtask['tcost'])
+    show screen popup_mgame_leave(curtask['tcost'])
+    hide screen popup_mgame_leave
+    hide screen mgame_dragdrop_dishes with dissolve
     
-    $ dotask(curtask, not 0 in mgame_try)
+    $ docurtask(not 0 in mgame_try)
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
 
     $ show_hint = False
     jump mini_main
 
-label c1_dropdishes:
+label task_c1_dropdishes:
     if not 'dirtydishes' in invitems:
         $ hinttext = levelHints[curlevel]['dropdishes_fail']
         jump mini_main
@@ -302,17 +310,24 @@ label c1_dropdishes:
 
     scene bg dropping the dishes off a ur moms house
 
-    $ game_ret = 'refresh'
+    $ renpy.transition(dissolve)
+    call screen mgame_dragdrop_dishes(curtask['tcost'])
+
+    $ game_ret = _return
+
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
 
+    show screen mgame_dragdrop_dishes(curtask['tcost'])
+    show screen popup_mgame_leave(curtask['tcost'])
+    hide screen popup_mgame_leave
+    hide screen mgame_dragdrop_dishes with dissolve
+
     $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
     if not levelInfo[curlevel]['ndishes']:
-        'all dishes collected'
-        $ dotask(curtask, True)
+        $ docurtask(True)
     else:
-        'there are still more dishes left'
-        $ dotask(curtask, False, False)
+        $ docurtask(False, False)
 
     jump mini_main

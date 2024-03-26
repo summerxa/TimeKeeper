@@ -2,6 +2,13 @@ init python:
     def getMiniMap(lvl, room, floor):
         return f"mini/map/map_{lvl}_{room}_{floor}.png"
 
+    # determines if there should be fade to black transition for minigame
+    def mgame_shouldfade():
+        # For snail: uncomment the last return statement if u are tired of fading in and out
+        room_transition = (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
+        return not room_transition
+        # return False
+
     # --- TASK/TASKBUTTON FORMATTING ---
 
     # returns time in am/pm
@@ -97,7 +104,9 @@ init python:
 
     # goodjob = task was done correctly
     # punish = subtract from completion score if not goodjob
-    def dotask(tsk, goodjob=True, punish=True):
+    def docurtask(goodjob=True, punish=True, tsk=None):
+        if not tsk:
+            tsk = store.curtask
         if goodjob:
             store.curtime += tsk['tcost']
             tsk['done'] = True

@@ -29,8 +29,8 @@ init python:
             talks_next = None
     
     def Comp_(charname, imwidth, headheight, face, pose):
-        im_face = f"spr_{charname}/{face}.png"
-        im_pose = f"spr_{charname}/{pose}.png"
+        im_face = f"sprites/{charname}/{face}.png"
+        im_pose = f"sprites/{charname}/{pose}.png"
         return Composite((imwidth, 1080), (0, 0), im_face, (0, headheight), im_pose)
 
     def CS_(charname, imname, has_talk=False):
@@ -98,9 +98,9 @@ image mother 7a s = Comp_('mother', 467, 239, '1_7', '1_a')
 image mother 7a = CS_('mother', '7a')
 
 
-image npc1 s = 'spr_npc/n1.png'
+image npc1 s = 'sprites/npc/n1.png'
 image npc1 = CS_('npc1', '')
-image npc2 s = 'spr_npc/n2.png'
+image npc2 s = 'sprites/npc/n2.png'
 image npc2 = CS_('npc2', '')
 
 # --- CHARACTER STUFF ---

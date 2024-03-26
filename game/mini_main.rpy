@@ -241,7 +241,7 @@ screen mini_screen:
     use floor_sidebar('game')
     use hintbox
 
-label mini_main:
+label mini_main():
     # TODO hide textbox, sprites, quickmenu, and all that other stuff
     scene bg minigame
 
@@ -249,18 +249,25 @@ label mini_main:
 
     # time is not up, still remaining tasks
     if curtime <= tlimit and (taskq or taskrq):
-        call screen mini_screen
+        if mgame_shouldfade():
+            call screen mini_screen with fade
+        else:
+            call screen mini_screen
     
         $ tolabel = _return
+
+        if mgame_shouldfade():
+            show screen mini_screen
+            hide screen mini_screen with fade
 
         jump expression tolabel
     else:
         python:
             for tname, t in tasks[curlevel].items():
-                if t['tf'] == 9999 and not t['done']:
+                if t['tf'] >= curtime and not t['done']:
                     completion -= t['scorepenalty']
 
-        if len(tolabel) >= 8 and tolabel[:8] == 'gotoroom':
+        if not mgame_shouldfade():
             # don't use get_screen to check if screen is open
             # b/c call screen gets weird when there's no return statement
             show screen mini_screen
