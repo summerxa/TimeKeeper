@@ -240,9 +240,10 @@ label task_c1_toggle:
 
     scene bg seal room
 
-    # FADE INTO MINIGAME
-    $ renpy.transition(dissolve)
+    show screen mini_screen
+    hide screen mini_screen with fade
 
+    $ renpy.transition(dissolve)
     call screen mgame_toggle(curtask['tcost'])
     
     if is_win_listeq():
@@ -259,9 +260,6 @@ label task_c1_grabdishes:
     if task_failed_notify(not 'air' in invitems and not 'dirtydishes' in invitems, 'grabdishes_fail'):
         jump mini_main
 
-    show screen mini_screen
-    hide screen mini_screen with fade
-
     python:
         if not 'try' in curgame:
             mgame_goal = len(curgame['drag'])
@@ -273,7 +271,9 @@ label task_c1_grabdishes:
 
     scene bg wassup im grabbing the dishes
 
-    # FADE INTO MINIGAME
+    show screen mini_screen
+    hide screen mini_screen with fade
+
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
 
@@ -299,9 +299,6 @@ label task_c1_dropdishes:
     if task_failed_notify(not 'dirtydishes' in invitems, 'dropdishes_fail'):
         jump mini_main
 
-    show screen mini_screen
-    hide screen mini_screen with fade
-
     python:
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some
         curgame['drag'] = []
@@ -316,6 +313,9 @@ label task_c1_dropdishes:
         mgame_try = curgame['try']
 
     scene bg dropping the dishes off a ur moms house
+
+    show screen mini_screen
+    hide screen mini_screen with fade
 
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
