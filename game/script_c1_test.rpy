@@ -154,9 +154,12 @@ label chap1_test_part2:
     return
 
 label c1_t1:
-    scene bg hello gamers with dissolve
+    show screen mini_screen
+    hide screen mini_screen with fade
 
-    'give me a test item 3 >:o'
+    scene bg seal room with dissolve
+
+    'welcome to the seal room, please deposit a test item 3'
 
     call give_item_prompt
 
@@ -238,10 +241,10 @@ label task_c1_toggle:
                 curgame['try'].append(False)
         mgame_try = curgame['try']
 
-    scene bg seal room
-
     show screen mini_screen
     hide screen mini_screen with fade
+    
+    scene bg seal room
 
     $ renpy.transition(dissolve)
     call screen mgame_toggle(curtask['tcost'])
@@ -269,10 +272,10 @@ label task_c1_grabdishes:
                 curgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
         mgame_try = curgame['try']
 
-    scene bg wassup im grabbing the dishes
-
     show screen mini_screen
     hide screen mini_screen with fade
+    
+    scene bg wassup im grabbing the dishes
 
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
@@ -312,10 +315,10 @@ label task_c1_dropdishes:
             })
         mgame_try = curgame['try']
 
-    scene bg dropping the dishes off a ur moms house
-
     show screen mini_screen
     hide screen mini_screen with fade
+    
+    scene bg dropping the dishes off a ur moms house
 
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
