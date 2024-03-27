@@ -1,15 +1,12 @@
 init python:
     def chars_init_and_load():
         charmenu_data = [
-            persistent.mc_data,
-            persistent.mother_data,
-            persistent.amelia_data,
-            persistent.bella_data
+            'mc', 'mother', 'amelia', 'bella'
         ]
 
         for c in charmenu_data:
-            if not c['id_name'] in store.chars_current:
-                store.chars_current[c['id_name']] = {
+            if not c in store.chars_current:
+                store.chars_current[c] = {
                     'desc': 'desc_default',
                     'small': 'small_default',
                     'big': 'big_default',
@@ -17,8 +14,8 @@ init python:
                     'friend': False,
                     'friendlvl': 0
                 }
-            if not c['id_name'] in persistent.chars_unlocked:
-                persistent.chars_unlocked[c['id_name']] = False
+            if not c in persistent.chars_unlocked:
+                persistent.chars_unlocked[c] = False
 
 label start:
     $ chars_init_and_load()

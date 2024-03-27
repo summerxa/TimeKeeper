@@ -29,10 +29,6 @@ init python:
             renpy.notify('testing-')
             update_inv(myitem='dirtydishes', mystack=1)
             return ret
-
-    # why doesnt setvariable work on lists :skull:
-    def toggle_mgame_try(i):
-        store.mgame_try[i] = not store.mgame_try[i]
     
     def is_win_listeq():
         for i in range(len(store.mgame_try)):
@@ -116,7 +112,7 @@ screen mgame_dragdrop_dishes(tfull):
     
     use mgame_exit(curgame['type'], tfull)
 
-screen mgame_toggle(curgame, tfull):
+screen mgame_toggle(tfull):
     for i in range(len(curgame['goal'])):
         if mgame_try[i]:
             $ tx = 'on'
@@ -128,6 +124,6 @@ screen mgame_toggle(curgame, tfull):
             xanchor 0.5
             yanchor 0.5
             auto curgame[tx][i]
-            action Function(toggle_mgame_try, i)
+            action ToggleDict(mgame_try, i)
 
     use mgame_exit(curgame['type'], tfull)

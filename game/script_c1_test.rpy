@@ -164,7 +164,7 @@ label c1_t1:
         'good job, you chose the right item'
         $ update_inv(myitem='test_3')
         $ docurtask()
-    else:
+    elif ichoice:
         'no???? wrong?????'
         $ docurtask(False)
 
@@ -229,9 +229,7 @@ label c1_t3:
 
     jump mini_main
 
-label c1_t4:
-    "oh no i dropped my buttons! please pick them up for me, but DONT grab anything else"
-
+label task_c1_toggle:
     python:
         mgame_goal = curgame['goal']
         if not 'try' in curgame:
@@ -239,6 +237,11 @@ label c1_t4:
             for i in range(len(mgame_goal)):
                 curgame['try'].append(False)
         mgame_try = curgame['try']
+
+    scene bg yo mama
+
+    # FADE INTO MINIGAME
+    $ renpy.transition(dissolve)
 
     call screen mgame_toggle(curtask['tcost'])
     
@@ -253,9 +256,11 @@ label c1_t4:
     jump mini_main
 
 label task_c1_grabdishes:
-    if not 'air' in invitems and not 'dirtydishes' in invitems:
-        $ hinttext = levelHints[curlevel]['grabdishes_fail']
+    if task_failed_notify(not 'air' in invitems and not 'dirtydishes' in invitems, 'grabdishes_fail'):
         jump mini_main
+
+    show screen mini_screen
+    hide screen mini_screen with fade
 
     python:
         if not 'try' in curgame:
@@ -291,9 +296,11 @@ label task_c1_grabdishes:
     jump mini_main
 
 label task_c1_dropdishes:
-    if not 'dirtydishes' in invitems:
-        $ hinttext = levelHints[curlevel]['dropdishes_fail']
+    if task_failed_notify(not 'dirtydishes' in invitems, 'dropdishes_fail'):
         jump mini_main
+
+    show screen mini_screen
+    hide screen mini_screen with fade
 
     python:
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some

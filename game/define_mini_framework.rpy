@@ -5,6 +5,12 @@ init python:
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
+    
+    def task_failed_notify(cond, hint_fail_id):
+        if cond:
+            store.task_failed_return = True
+            store.hinttext = store.levelHints[store.curlevel][hint_fail_id]
+        return cond
 
     # --- TASK/TASKBUTTON FORMATTING ---
 

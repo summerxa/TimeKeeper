@@ -240,6 +240,27 @@ default tasks = {
             'scorebonus': 0,
             'scorepenalty': 0,
             'tags': [Task.SPECIAL, Task.NO_REDO]
+        },
+        't4': {
+            'name': 't4',
+            'desc': 'Click on all the Cat MC pictures :D',
+            'btn': 'r41',
+            'tlabel': 'task_c1_toggle',
+            'tcost': 5,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 1,
+            'scorepenalty': 1,
+            'tags': [Task.SPECIAL],
+            'game': {
+                'type': 'toggle',
+                'goal': [True, True],
+                'xp': [0.3, 0.7],
+                'yp': [0.5, 0.5],
+                'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
+                'on': ['mini/btn_item/test_item0_%s.jpg', 'mini/btn_item/test_item0_%s.jpg'],
+                'hint': [1, 'Click on the items to pick them up/put them down']
+            }
         }
     }
 }

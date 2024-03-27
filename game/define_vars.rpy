@@ -57,6 +57,7 @@ default notes_text = ''
 default notes_text_s = ''
 
 default hinttext = 'Welcome.'
+default task_failed_return = False
 
 # --- MINIGAME TASK STUFF ---
 
@@ -66,53 +67,6 @@ default mgame_try = None
 default mgame_goal = None
 
 # --- CHAR MENU ---
-
-define persistent.mc_data = {
-    'id_name': 'mc',
-    'disp_name': 'MC',
-    'desc_default':
-        '''Sophronia is Mother's finest maid: she listens to Mother's every command, completes every task, and makes no mistakes. Will she stay a perfect maid or will she choose another path? How her journey unfolds will be up to you.''',
-    'small_default': 'charmenu/small/mc_default_%s.png',
-    'big_default': 'charmenu/small/mc_default_idle.png'
-}
-
-define persistent.mother_data = {
-    'id_name': 'mother',
-    'disp_name': 'Mother',
-    'desc_default':
-        '''As the head of the Maid Academy, her philosophy is to be the “perfect” woman. In order to achieve her ideals, Mother does not go easy on her “lessons” to the maids, so it's best not to disappoint her. After all, Mother only wants the best for all… right?''',
-    'small_default': 'charmenu/small/mother_default_%s.png',
-    'big_default': 'charmenu/small/mother_default_idle.png'
-}
-
-define persistent.amelia_data = {
-    'id_name': 'amelia',
-    'disp_name': 'Amelia',
-    'desc_default':
-        '''Abandoned by her family as a child, Amelia was left at the side of the street, cold and starving, until Mother took her into the Maid Academy. Amelia is incredibly thankful to Mother for giving her a place in the “family”, but it will only last as long as she is useful. 
-
-As a kind and compassionate individual, Amelia is willing to believe in the best of others, but her greatest strength is hindered by her waning courage and fear of abandonment. Are you willing to trust in her kindness more, or are you more doubtful of her wavering resolve?''',
-    'desc_rip': '''AMELIA NO!!!''',
-    'small_default': 'charmenu/small/amelia_default_%s.png',
-    'small_rip': 'charmenu/small/amelia_rip_%s.png',
-    'big_default': 'charmenu/small/amelia_default_idle.png',
-    'big_rip': 'charmenu/small/amelia_rip_idle.png'
-}
-
-define persistent.bella_data = {
-    'id_name': 'bella',
-    'disp_name': 'Bella',
-    'desc_default':
-        '''As an orphan growing up on the streets, Bella was used to having to fend for herself. Survival was her priority: if she had to steal or sacrifice for it, so be it. Her policies hadn't changed when taken into the Maid Academy; she was ready to take the top spot. But there ended up being an exception to her cutthroat nature when Amelia reached out and helped her integrate into the Academy. She was the first person to treat Bella with kindness. Bella's prickly heart softened, and they became fast friends. 
-
-Bella's softer side comes out when it comes to Amelia, but her failing track record with Mother is leaving her desperate. If you aren't Amelia, then you are merely an obstacle to her. Will you choose to befriend her, or will you prefer an adversary to triumph over?''',
-    'desc_rip': '''BELLA NO!!!''',
-    'small_default': 'charmenu/small/bella_default_%s.png',
-    'small_rip': 'charmenu/small/bella_rip_%s.png',
-    'big_default': 'charmenu/small/bella_default_idle.png',
-    'big_rip': 'charmenu/small/bella_rip_idle.png'
-}
-
 
 default chars_current = {}
 

@@ -249,16 +249,14 @@ label mini_main():
 
     # time is not up, still remaining tasks
     if curtime <= tlimit and (taskq or taskrq):
-        if not was_from_roomchange():
+        if not was_from_roomchange() and not task_failed_return:
             call screen mini_screen with fade
         else:
             call screen mini_screen
+            if task_failed_return:
+                $ task_failed_return = False
     
         $ tolabel = _return
-
-        if not was_from_roomchange():
-            show screen mini_screen
-            hide screen mini_screen with fade
 
         jump expression tolabel
     else:
