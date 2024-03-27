@@ -238,7 +238,7 @@ label task_c1_toggle:
                 curgame['try'].append(False)
         mgame_try = curgame['try']
 
-    scene bg yo mama
+    scene bg seal room
 
     # FADE INTO MINIGAME
     $ renpy.transition(dissolve)
