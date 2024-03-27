@@ -570,11 +570,18 @@ screen progress():
 
     default p_tab = "main"
     
+    default charmenu_data = [
+        persistent.mc_data,
+        persistent.mother_data,
+        persistent.amelia_data,
+        persistent.bella_data
+    ]
+
     # character menu
     default curstate = 'multi'
     default m = 6
     default single_page = 0
-    default single_max = len(persistent.charmenu_data)
+    default single_max = len(charmenu_data)
     default multi_page = 0
     default multi_max = (single_max // m) + min(1, single_max % m)
 
@@ -600,16 +607,16 @@ screen progress():
             vbox:
                 spacing 23
 
-                textbutton _("Back") action SetScreenVariable("p_tab", "main")
+                textbutton _("Back to Progress") action SetScreenVariable("p_tab", "main")
 
                 if p_tab == "characters":
-                    use character_menu(curstate, m, single_page, single_max, multi_page, multi_max)
+                    use character_menu(charmenu_data, curstate, m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
                     use endings_menu
                 elif p_tab == "cgs":
                     use endings_menu # TODO make cg gallery thing (reuse character code)
 
-screen character_menu(curstate, m, single_page, single_max, multi_page, multi_max):
+screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi_page, multi_max):
     tag menu
 
     style_prefix "about"
@@ -621,7 +628,7 @@ screen character_menu(curstate, m, single_page, single_max, multi_page, multi_ma
             area(10, 10, 1300, 690)
 
             for i in range(multi_page * m, min(single_max, multi_page * m + (m - 1))):
-                $ d = persistent.charmenu_data[i]
+                $ d = charmenu_data[i]
                 if not main_menu:
                     $ c = chars_current[d['id_name']]
                 imagebutton:
@@ -647,7 +654,7 @@ screen character_menu(curstate, m, single_page, single_max, multi_page, multi_ma
                 xalign 1. yalign 0.5 action SetScreenVariable('multi_page', (multi_page+1) % multi_max)
     
     elif curstate == 'single':
-        $ d = persistent.charmenu_data[single_page]
+        $ d = charmenu_data[single_page]
         if not main_menu:
             $ c = chars_current[d['id_name']]
         hbox:
@@ -688,7 +695,7 @@ screen character_menu(curstate, m, single_page, single_max, multi_page, multi_ma
             textbutton '<':
                 xalign 0. yalign 0.5 action SetScreenVariable('single_page', (single_page+single_max-1) % single_max)
 
-            textbutton 'Characters':
+            textbutton 'Back to Gallery':
                 xalign 0.5 yalign 0.5
                 action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // m))]
 
