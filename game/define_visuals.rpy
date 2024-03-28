@@ -43,6 +43,9 @@ init python:
         )
 
 image bg minigame = 'mini/ui_backrgons.jpg'
+image bg seal room = 'bgs/seal room.png'
+image bg hallway = 'bgs/hallway.png'
+image bg joyce why = 'bgs/joyce why.png'
 
 
 image mc 1a s = Comp_('mc', 641, 386, '01', '0a')

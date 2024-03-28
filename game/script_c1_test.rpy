@@ -66,7 +66,7 @@
     return
 
 label chap1_test_charmenu:
-    scene bg room
+    scene bg joyce why
 
     menu:
         'Unlock all characters':
@@ -226,7 +226,7 @@ label c1_t3:
         else:
             'wrong items smh'
             $ docurtask(False)
-    else:
+    elif ichoice:
         'why only one item smh'
         $ docurtask(False)
 
@@ -275,7 +275,7 @@ label task_c1_grabdishes:
     show screen mini_screen
     hide screen mini_screen with fade
     
-    scene bg wassup im grabbing the dishes
+    scene bg hallway
 
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
@@ -318,7 +318,7 @@ label task_c1_dropdishes:
     show screen mini_screen
     hide screen mini_screen with fade
     
-    scene bg dropping the dishes off a ur moms house
+    scene bg hallway
 
     $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])

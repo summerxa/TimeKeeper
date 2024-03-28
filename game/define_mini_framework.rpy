@@ -120,6 +120,8 @@ init python:
                 tsk['done'] = True
                 if punish:
                     store.completion -= tsk['scorepenalty']
+        if tsk['done'] or store.curtime > tsk['tf']:
+            store.hinttext = store.levelHints[store.curlevel]['idle']
         if tsk['done']:
             # activate any follow-ups
             if 'nxt' in tsk:
@@ -272,6 +274,7 @@ init python:
                 curholder['item'] = giveitem
         
         store.curhand = -1
+        store.hinttext = store.levelHints[store.curlevel]['idle']
 
 # only if going to a room indirectly using the large map
 label gotoroom_indirect:

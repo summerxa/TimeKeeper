@@ -30,10 +30,11 @@ default levelInfo = {
 default levelHints = {
     1: {
         'start': "Welcome.",
+        'idle': "...",
         'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
         'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
         'default_idle': "No task available right now.",
-        'test_idle': "A custom idle message."
+        'test_idle': "A custom idle message.",
     }
 }
 
