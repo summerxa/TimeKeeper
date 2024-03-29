@@ -16,7 +16,7 @@ default talks_next = None
 # --- CONST VALUES FOR UI ---
 define popup_zorder = 150
 define room_arrow_yoffset = 0.12
-define fadetime = 0.0
+define fadetime = 0.5
 # ^ 0.0 to skip animation, 0.5 for normal fade in/out
 
 # --- CUSTOM SETTINGS ---
