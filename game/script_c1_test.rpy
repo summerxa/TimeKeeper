@@ -69,14 +69,14 @@ label chap1_test_charmenu:
     scene bg joyce why
 
     menu:
-        'Unlock all characters':
+        'Skip cutscene (unlock all chars)':
             $ char_unlock('mc')
             $ char_unlock('mother')
             $ char_unlock('amelia')
             $ char_unlock('bella')
 
             menu:
-                'Commit violence?'
+                'Commit violence? (kill chars)'
 
                 'Yes >:)':
                     $ char_kill('amelia')
@@ -85,7 +85,7 @@ label chap1_test_charmenu:
                     pass
             
             return
-        'Unlock through cutscene':
+        'Don\'t skip >:o':
             pass
 
     "who's the main character?"
@@ -154,10 +154,7 @@ label chap1_test_part2:
     return
 
 label c1_t1:
-    show screen mini_screen
-    hide screen mini_screen with fade
-
-    scene bg seal room with dissolve
+    scene bg seal room with fade
 
     'welcome to the seal room, please deposit a test item 3'
 
@@ -240,13 +237,9 @@ label task_c1_toggle:
             for i in range(len(mgame_goal)):
                 curgame['try'].append(False)
         mgame_try = curgame['try']
-
-    show screen mini_screen
-    hide screen mini_screen with fade
     
     scene bg seal room
 
-    $ renpy.transition(dissolve)
     call screen mgame_toggle(curtask['tcost'])
     
     if is_win_listeq():
@@ -260,9 +253,6 @@ label task_c1_toggle:
     jump mini_main
 
 label task_c1_grabdishes:
-    if task_failed_notify(not 'air' in invitems and not 'dirtydishes' in invitems, 'grabdishes_fail'):
-        jump mini_main
-
     python:
         if not 'try' in curgame:
             mgame_goal = len(curgame['drag'])
@@ -271,13 +261,9 @@ label task_c1_grabdishes:
                 curgame['drag'][i]['n'] = str(i)
                 curgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
         mgame_try = curgame['try']
-
-    show screen mini_screen
-    hide screen mini_screen with fade
     
     scene bg hallway
 
-    $ renpy.transition(dissolve)
     call screen mgame_dragdrop_dishes(curtask['tcost'])
 
     $ game_ret = _return
@@ -285,12 +271,6 @@ label task_c1_grabdishes:
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
-
-    # FADE OUT OF MINIGAME
-    show screen mgame_dragdrop_dishes(curtask['tcost'])
-    show screen popup_mgame_leave(curtask['tcost'])
-    hide screen popup_mgame_leave
-    hide screen mgame_dragdrop_dishes with dissolve
     
     $ docurtask(not 0 in mgame_try)
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
@@ -299,9 +279,6 @@ label task_c1_grabdishes:
     jump mini_main
 
 label task_c1_dropdishes:
-    if task_failed_notify(not 'dirtydishes' in invitems, 'dropdishes_fail'):
-        jump mini_main
-
     python:
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some
         curgame['drag'] = []
@@ -314,9 +291,6 @@ label task_c1_dropdishes:
                 'im': curgame['im']
             })
         mgame_try = curgame['try']
-
-    show screen mini_screen
-    hide screen mini_screen with fade
     
     scene bg hallway
 
@@ -328,11 +302,6 @@ label task_c1_dropdishes:
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes(curtask['tcost'])
         $ game_ret = _return
-
-    show screen mgame_dragdrop_dishes(curtask['tcost'])
-    show screen popup_mgame_leave(curtask['tcost'])
-    hide screen popup_mgame_leave
-    hide screen mgame_dragdrop_dishes with dissolve
 
     $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
     if not levelInfo[curlevel]['ndishes']:

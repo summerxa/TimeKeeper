@@ -176,7 +176,7 @@ screen popup_mgame_leave(tfull):
             'xp': 0.4,
             'yp': 0.85,
             'btext': 'Yes',
-            'act': close_leave + [Return('leave')]
+            'act': close_leave + [Return('leave'), With(Fade(fadetime, 0.0, fadetime))]
         })
         use btn_tx({
             'xp': 0.6,

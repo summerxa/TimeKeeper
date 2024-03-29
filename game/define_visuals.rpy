@@ -8,6 +8,12 @@ style fancy_font:
     color '#906548'
     font 'Bodoni-16-Medium.otf'
 
+# transform highlight_hov(hov, myname):
+#     matrixcolor BrightnessMatrix(0.1 if (hov == myname) else 0.0)
+
+# transform highlight_hov:
+#     matrixcolor BrightnessMatrix(0.0)
+
 # --- SPRITE STUFF ---
 
 # used to shade sprites that aren't talking

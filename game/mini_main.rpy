@@ -82,8 +82,16 @@ screen btn_tsk(b):
                 #     auto 'mini/task_special_%s.jpg'
                 # else:
                 auto b['imtask']
+                if 'item_req' in b['curtask']:
+                    if task_can_proceed(b['curtask']['item_req']):
+                        action b['act']
+                    else:
+                        action SetVariable('hinttext', levelHints[curlevel][b['curtask']['fail_id']])
+                else:
+                    action b['act']
             else:
                 auto b['imidle']
+                action NullAction()
             action b['act']
             if 'htext' in b and not len(b['htext']) == 0:
                 if b['curtask'] and Task.SPECIAL in b['curtask']['tags']:
@@ -114,12 +122,14 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 imagebutton:
                     xalign 0.5
                     yalign b['y']
-                    action b['act']
                     auto b['im']
+                    # at highlight_hov
+                    action b['act']
             imagebutton:
                 xalign 0.5
                 yalign 0.75
                 auto 'mini/ui/icon_help_%s.png'
+                # at highlight_hov
                 if curstate == 'main' or curstate == 'inroom' or curstate == 'map':
                     action Show('popup_help', curstate='main')
                 elif curstate == 'mgame':
@@ -128,12 +138,13 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 xalign 0.5
                 yalign 0.95
                 auto 'mini/ui/icon_leave_%s.png'
+                # at highlight_hov
                 if curstate == 'main':
                     action [ShowMenu('save')]
                 elif curstate == 'inroom':
                     action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main'), Function(set_room_text)]
                 elif curstate == 'mgame':
-                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=Return())
+                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=[Return(), With(Fade(fadetime, 0.0, fadetime))])
                 elif curstate == 'map':
                     action Hide('popup_map')
         fixed:
@@ -143,18 +154,26 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 yalign 0.5
                 auto 'mini/ui/clock_%s.png'
                 action [Show('popup_clock')]
+                # hovered SetVariable('is_hovered_clock', True)
+                # unhovered SetVariable('is_hovered_clock', False)
+                # if is_clock_hovered:
+                #     at highlight_clock
             add 'mini/ui/clock_minute.png':
                 xpos 0.505
                 ypos 0.61
                 xanchor 0.5
                 yanchor 0.5
                 rotate (curtime / 60) * 360
+                # if is_clock_hovered:
+                #     at highlight_clock
             add 'mini/ui/clock_hour.png':
                 xpos 0.505
                 ypos 0.61
                 xanchor 0.5
                 yanchor 0.5
                 rotate (curtime / 720) * 360
+                # if is_clock_hovered:
+                #     at highlight_clock
 
 screen floor_sidebar(curstate='game'):
     $ act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
@@ -248,13 +267,11 @@ label mini_main():
     $ update_taskq()
 
     # time is not up, still remaining tasks
-    if curtime <= tlimit and (taskq or taskrq):
-        if not was_from_roomchange() and not task_failed_return:
+    if curtime < tlimit and (taskq or taskrq):
+        if not was_from_roomchange():
             call screen mini_screen with fade
         else:
             call screen mini_screen
-            if task_failed_return:
-                $ task_failed_return = False
     
         $ tolabel = _return
 

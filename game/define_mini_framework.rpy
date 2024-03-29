@@ -6,11 +6,13 @@ init python:
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
     
-    def task_failed_notify(cond, hint_fail_id):
-        if cond:
-            store.task_failed_return = True
-            store.hinttext = store.levelHints[store.curlevel][hint_fail_id]
-        return cond
+    def task_can_proceed(item_req=[]):
+        if not len(item_req):
+            return True
+        for i in item_req:
+            if i in store.invitems:
+                return True
+        return False
 
     # --- TASK/TASKBUTTON FORMATTING ---
 
@@ -172,7 +174,7 @@ init python:
                     b['act'] = [SetVariable('curtask', t)]
                     if 'game' in t:
                         b['act'].append(SetVariable('curgame', t['game']))
-                    b['act'].append(Return(t['tlabel']))
+                    b['act'] += [Return(t['tlabel']), With(Fade(fadetime, 0.0, fadetime))]
                     setHtext(b)
         generateTodo()
         return
