@@ -1,3 +1,5 @@
+define cfade = Fade(fadetime, 0.0, fadetime)
+
 # --- UI STUFF ---
 
 # keep an image rotated to angle "a"

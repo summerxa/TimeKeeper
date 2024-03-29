@@ -269,7 +269,7 @@ label mini_main():
     # time is not up, still remaining tasks
     if curtime < tlimit and (taskq or taskrq):
         if not was_from_roomchange():
-            call screen mini_screen with fade
+            call screen mini_screen with cfade
         else:
             call screen mini_screen
     
@@ -286,7 +286,7 @@ label mini_main():
             # don't use get_screen to check if screen is open
             # b/c call screen gets weird when there's no return statement
             show screen mini_screen
-            hide screen mini_screen with fade
+            hide screen mini_screen with cfade
 
     return
 

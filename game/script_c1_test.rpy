@@ -154,7 +154,7 @@ label chap1_test_part2:
     return
 
 label c1_t1:
-    scene bg seal room with fade
+    scene bg seal room with cfade
 
     'welcome to the seal room, please deposit a test item 3'
 
