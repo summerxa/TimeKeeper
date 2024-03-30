@@ -143,7 +143,7 @@ label chap1_test_charmenu:
     return
 
 label chap1_test_part2:
-    scene bg hello person reading this with dissolve
+    scene bg hello person reading this with cfade
 
     show mc 1b
 
