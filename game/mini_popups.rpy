@@ -4,6 +4,9 @@ screen popup_button_close(xp, yp, screenname):
         xalign 1.
         yalign 0.
         action Hide(screenname)
+        hovered SetVariable('cur_hov', 'popup_close_btn')
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, 'popup_close_btn')
 
 screen popup_notes:
     modal True
@@ -32,13 +35,16 @@ screen popup_notes:
                             yalign 0.
                             action SetScreenVariable('notes_tab', tab[1])
                             auto tab[2]
+                            hovered SetVariable('cur_hov', f'{tab[1]}_tab')
+                            unhovered SetVariable('cur_hov', None)
+                            at highlight_hov(cur_hov, f'{tab[1]}_tab')
                 hbox:
                     xalign 1.
                     yalign 0.
                     use popup_button_close(1., 0., 'popup_notes')
 
             viewport:
-                area (100, 100, 800, 500)
+                area (50, 75, 900, 500)
 
                 $ tx = ''
                 if notes_tab == 'tasks':
@@ -67,19 +73,23 @@ screen popup_onhand:
         yalign 0.5
         maximum (800, 500)
 
-        $ ltext = fmtItem(invitems[0], invstacks[0])
-        $ rtext = fmtItem(invitems[1], invstacks[1])
+        label "On-hand"
+
+        $ ltext = fmtItemName(invitems[0], invstacks[0])
+        $ rtext = fmtItemName(invitems[1], invstacks[1])
 
         text 'Left hand:\n[ltext]':
             xpos 0.2
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
+            textalign 0.5
         text 'Right hand:\n[rtext]':
             xpos 0.7
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
+            textalign 0.5
     
         use popup_button_close(1., 0., 'popup_onhand')
 
@@ -101,6 +111,8 @@ screen popup_help(curstate='main'):
         xalign 0.5
         yalign 0.5
         maximum (800, 500)
+
+        label "Help"
 
         text '[curstate]':
             xalign 0.5
@@ -127,13 +139,13 @@ screen popup_trade:
             xalign 0.5
             yalign 0.3
 
-        textbutton f"Left hand:\n{fmtItem(invitems[0], invstacks[0])}":
+        textbutton f"Left hand:\n{fmtItemName(invitems[0], invstacks[0])}":
             xpos 0.2
             yalign 0.6
             xanchor 0.5
             action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True)]
 
-        textbutton f"Right hand:\n{fmtItem(invitems[1], invstacks[1])}":
+        textbutton f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}":
             xpos 0.7
             yalign 0.6
             xanchor 0.5
@@ -176,7 +188,7 @@ screen popup_mgame_leave(tfull):
             'xp': 0.4,
             'yp': 0.85,
             'btext': 'Yes',
-            'act': close_leave + [Return('leave'), With(Fade(fadetime, 0.0, fadetime))]
+            'act': close_leave + [Return('leave'), With(cfade)]
         })
         use btn_tx({
             'xp': 0.6,
@@ -239,18 +251,21 @@ screen popup_map:
     use mini_sidebar('map')
     use floor_sidebar('map')
 
-    vbox:
+    text '(Currently viewing map, rooms are not interactable)':
         xalign 0.5
         yalign 0.05
-        $ mapfloor1 = mapfloor + 1
-        text '{color=#000}Currently viewing map...\nFloor [mapfloor1]{/color}'
+        textalign 0.5
+        style 'fancy_font'
+        size 50
 
     for bn, b in roomButtons[curlevel].items():
         if b['floor'] != mapfloor:
             continue
-        $ temp = '{color=#000}' + b['name'] + '{/color}'
-        text temp xpos b['xp'] ypos b['yp']
-        # TODO (not a todo) ^ changed text color bc otherwise its barely visible
+        text b['name']:
+            xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5
+            style 'fancy_font'
+            textalign 0.5
+            size 50
 
     if curfloor == mapfloor:
         $ room = None

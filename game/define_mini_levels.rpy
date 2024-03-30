@@ -2,17 +2,20 @@ default baseButtons = [
     {
         'y': 0.15,
         'act': Show('popup_notes'),
-        'im': 'mini/ui/icon_notebook_%s.png'
+        'im': 'mini/ui/icon_notebook_%s.png',
+        'hov_id': 'notes_btn'
     },
     {
         'y': 0.35,
         'act': Show('popup_map'),
-        'im': 'mini/ui/icon_map_%s.png'
+        'im': 'mini/ui/icon_map_%s.png',
+        'hov_id': 'map_btn'
     },
     {
         'y': 0.55,
         'act': Show('popup_onhand'),
-        'im': 'mini/ui/icon_onhand_%s.png'
+        'im': 'mini/ui/icon_onhand_%s.png',
+        'hov_id': 'onhand_btn'
     }
 ]
 
@@ -29,11 +32,11 @@ default levelInfo = {
 
 default levelHints = {
     1: {
-        'start': "Welcome.",
-        'idle': "...",
+        'default_start': "Welcome.",
+        'default_idle': "...",
         'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
         'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
-        'default_idle': "No task available right now.",
+        'default_taskless': "No task available right now.",
         'test_idle': "A custom idle message.",
     }
 }
@@ -133,26 +136,26 @@ default mcIconLoc = {
 
 default taskButtons = {
     1: {
-        'r11': {
+        't11': {
             'xp': 0.5,
             'yp': 0.5,
             'room': 'ballroom',
             'hidden': True,
             'imtask': 'normal'
         },
-        'r21': {
+        't21': {
             'xp': 0.5,
             'yp': 0.5,
             'room': 'kitchen',
             'imtask': 't2'
         },
-        'r31': {
+        't31': {
             'xp': 0.5,
             'yp': 0.5,
             'room': 'laundry',
             'imtask': 'normal'
         },
-        'r41': {
+        't41': {
             'xp': 0.3,
             'yp': 0.7,
             'room': 'kitchen',
@@ -171,7 +174,7 @@ default tasks = {
         't1': {
             'name': 't1',
             'desc': 'Clear the table',
-            'btn': 'r11',
+            'btn': 't11',
             'tlabel': 'task_c1_grabdishes',
             'fail_id': 'grabdishes_fail',
             'item_req': ['air', 'dirtydishes'],
@@ -212,7 +215,7 @@ default tasks = {
         't2': {
             'name': 't2',
             'desc': 'Drop off dirty dishes',
-            'btn': 'r21',
+            'btn': 't21',
             'tlabel': 'task_c1_dropdishes',
             'fail_id': 'dropdishes_fail',
             'item_req': ['dirtydishes'],
@@ -237,7 +240,7 @@ default tasks = {
         't3': {
             'name': 't3',
             'desc': 'Drop off test item 3',
-            'btn': 'r31',
+            'btn': 't31',
             'tlabel': 'c1_t1',
             'tcost': 5,
             't0': -1,
@@ -249,7 +252,7 @@ default tasks = {
         't4': {
             'name': 't4',
             'desc': 'Click on all the Cat MC pictures :D',
-            'btn': 'r41',
+            'btn': 't41',
             'tlabel': 'task_c1_toggle',
             'tcost': 5,
             't0': -1,
@@ -271,27 +274,31 @@ default tasks = {
 }
 
 # normally "air" would be a transparent image but it's visible for testing purposes lol
+# TODO add separate 'desc' key for mc hovering info?
 default itemsAll = {
     'air': {
         'name': 'empty',
         'im': 'mini/btn_item/test_item0_%s.jpg',
+        'desc': 'An empty spot. An item can be placed here.',
         'stackable': False
     },
     'test_3': {
         'name': 'test item 3',
         'im': 'mini/btn_item/test_item3_%s.jpg',
+        'desc': 'I guess this is an item too?? It\'s called test item 3.',
         'stackable': False
     },
     'dirtydishes': {
         'name': 'dirty dishes',
         'im': 'mini/btn_item/test_item1_%s.jpg',
+        'desc': 'A stack of dirty dishes.',
         'stackable': True
     }
 }
 
 default itemHolders = {
     1: {
-        'r11': {
+        'h11': {
             'item': {
                 'id': 'dirtydishes',
                 'stack': 1
@@ -300,7 +307,7 @@ default itemHolders = {
             'yp': 0.1,
             'room': 'ballroom'
         },
-        'r12': {
+        'h12': {
             'item': {
                 'id': 'dirtydishes',
                 'stack': 2
@@ -309,7 +316,7 @@ default itemHolders = {
             'yp': 0.5,
             'room': 'ballroom'
         },
-        'r21': {
+        'h21': {
             'item': {
                 'id': 'test_3'
             },
@@ -317,7 +324,7 @@ default itemHolders = {
             'yp': 0.1,
             'room': 'ballroom'
         },
-        'r31': {
+        'h31': {
             'item': {
                 'id': 'test_3'       
             },

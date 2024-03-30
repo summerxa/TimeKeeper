@@ -652,14 +652,12 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 elif p_tab == "endings":
                     use endings_menu
                 elif p_tab == "cgs":
-                    use endings_menu # TODO make cg gallery thing (reuse character code)
+                    use cgs_menu
 
 screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi_page, multi_max):
     tag menu
 
     style_prefix "about"
-
-    # TODO buttons show up but aren't clickable sadge
 
     if curstate == 'multi':
         grid 3 2:
@@ -685,7 +683,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
             textbutton '<':
                 xalign 0. yalign 0.5 action SetScreenVariable('multi_page', (multi_page+multi_max-1) % multi_max)
 
-            text f'{multi_page+1}':
+            text f'Page {multi_page+1}/{multi_max}':
                 xalign 0.5 yalign 0.5
 
             textbutton '>':
@@ -741,7 +739,10 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
 screen endings_menu():
-    text "pretend there's something really cool here..."
+    text "pretend there's something really cool here... (endings edition)"
+
+screen cgs_menu():
+    text "pretend there's something really cool here... (cg menu edition)"
 
 
 

@@ -58,9 +58,8 @@ default ichoice = None
 default notes_text = ''
 default notes_text_s = ''
 
-# (not using screen variable b/c will have to redeclare for every screen that uses the sidebar)
-default cur_hov = False
-default is_clock_hovered = False
+# (not using screen variable b/c will have to redeclare for every screen that uses a button)
+default cur_hov = None
 
 default hinttext = 'Welcome.'
 default task_failed_return = False

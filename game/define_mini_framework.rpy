@@ -98,11 +98,11 @@ init python:
                 if b['floor'] != curfloor:
                     continue
                 toRoom = b['num']
-                bname = b['name'] + "\n("
+                bname = b['name']
                 if toRoom == froRoom:
-                    bname += "YOU ARE HERE)"
+                    bname += "\n(YOU ARE HERE)"
                 else:
-                    bname += str(roomProxim[curlevel][curfloor][froRoom][toRoom]) + " min)"
+                    bname += " (" + str(roomProxim[curlevel][curfloor][froRoom][toRoom]) + ")"
                 roomButtons[curlevel][name]['btext'] = bname
 
     # --- TASK STUFF ---
@@ -123,7 +123,7 @@ init python:
                 if punish:
                     store.completion -= tsk['scorepenalty']
         if tsk['done'] or store.curtime > tsk['tf']:
-            store.hinttext = store.levelHints[store.curlevel]['idle']
+            store.hinttext = store.levelHints[store.curlevel]['default_idle']
         if tsk['done']:
             # activate any follow-ups
             if 'nxt' in tsk:
@@ -166,7 +166,7 @@ init python:
                         if 'taskless' in b:
                             b['act'] = SetVariable('hinttext', levelHints[curlevel][b['taskless']])
                         else:
-                            b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_idle'])
+                            b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_taskless'])
             else:
                 if t['activated']:
                     store.taskq.append(t)
@@ -174,15 +174,21 @@ init python:
                     b['act'] = [SetVariable('curtask', t)]
                     if 'game' in t:
                         b['act'].append(SetVariable('curgame', t['game']))
-                    b['act'] += [Return(t['tlabel']), With(Fade(fadetime, 0.0, fadetime))]
+                    b['act'] += [Return(t['tlabel']), With(cfade)]
                     setHtext(b)
         generateTodo()
         return
 
     # --- ITEM/INVENTORY STUFF ---
 
-    def fmtItem(itm, stk=1):
+    def fmtItemName(itm, stk=1):
         tx = itemsAll[itm]['name']
+        if itemsAll[itm]['stackable']:
+            tx += " (" + str(stk) + ")"
+        return tx
+
+    def fmtItemDesc(itm, stk=1):
+        tx = itemsAll[itm]['desc']
         if itemsAll[itm]['stackable']:
             tx += " (" + str(stk) + ")"
         return tx
@@ -276,7 +282,7 @@ init python:
                 curholder['item'] = giveitem
         
         store.curhand = -1
-        store.hinttext = store.levelHints[store.curlevel]['idle']
+        store.hinttext = store.levelHints[store.curlevel]['default_idle']
 
 # only if going to a room indirectly using the large map
 label gotoroom_indirect:

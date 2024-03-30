@@ -9,18 +9,16 @@ transform rot(a):
 style fancy_font:
     color '#906548'
     font 'Bodoni-16-Medium.otf'
+    textalign 0.5
 
-# transform highlight_hov(hov, myname):
-#     matrixcolor BrightnessMatrix(0.1 if (hov == myname) else 0.0)
-
-# transform highlight_hov:
-#     matrixcolor BrightnessMatrix(0.0)
+transform highlight_hov(hov, myname):
+    # matrixcolor BrightnessMatrix(0.2 if (hov == myname) else 0.0) * ContrastMatrix(1.0 if (hov == myname) else 1.0)
+    matrixcolor InvertMatrix(1.0 if (hov == myname) else 0.0) * TintMatrix('#aaaaaa' if (hov == myname) else '#ffffff') * InvertMatrix(1.0 if (hov == myname) else 0.0)
 
 # --- SPRITE STUFF ---
 
 # used to shade sprites that aren't talking
 transform darken_sprite:
-    # matrixcolor ContrastMatrix(0.9) * BrightnessMatrix(-0.2)
     matrixcolor TintMatrix('#aaaaaa')
 
 init python:

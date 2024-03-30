@@ -1,3 +1,5 @@
+# TODO phase out this screen
+# honestly easier to retype each time than use the template LOL
 screen btn_tx(b, act=None):
     vbox:
         xpos b['xp']
@@ -13,7 +15,15 @@ screen btn_tx(b, act=None):
         yanchor 0.5
 
 screen btn_room(b, b_id):
-    use btn_tx(b, [SetVariable('curroom', b_id), Return('gotoroom_indirect')])
+    textbutton b['btext']:
+        xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5
+        action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
+        text_style 'fancy_font'
+        text_align 0.5
+        text_size 50
+        hovered SetVariable('cur_hov', f'{b_id}_room_btn')
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, f'{b_id}_room_btn')
 
 screen btn_im(b, act=None):
     imagebutton:
@@ -41,7 +51,7 @@ screen btn_im(b, act=None):
         if 'htext' in b:
             hovered SetVariable('hinttext', b['htext'])
 
-screen btn_roomarrow(b):
+screen btn_roomarrow(b, hov_id):
     $ act = [SetVariable('prevroom', curroom), SetVariable('curroom', b['toroom']), SetVariable('curtime', curtime+b['tcost']), Return('gotoroom_direct')]
     # basically sets the hint text to say which room ur going to -- but idt that's necessary
     # since the button has a text label anyway...
@@ -57,7 +67,9 @@ screen btn_roomarrow(b):
         action act
         xanchor 0.5
         yanchor 0.5
-        # hovered hact
+        hovered SetVariable('cur_hov', hov_id)
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, hov_id)
     textbutton b['btext']:
         xpos b['xp']
         if b['dir'] == 'up':
@@ -68,11 +80,13 @@ screen btn_roomarrow(b):
         xanchor 0.5
         yanchor 0.5
         text_style 'fancy_font'
-        # hovered hact
+        hovered SetVariable('cur_hov', hov_id)
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, hov_id)
 
 # basically a layered button, but doesn't render if button has no task
 # unless the button has an idle label to call
-screen btn_tsk(b):
+screen btn_tsk(b, hov_id=None):
     if b['curtask'] or not 'hidden' in b:
         imagebutton:
             xpos b['xp']
@@ -92,21 +106,26 @@ screen btn_tsk(b):
             else:
                 auto b['imidle']
                 action NullAction()
-            action b['act']
             if 'htext' in b and not len(b['htext']) == 0:
-                if b['curtask'] and Task.SPECIAL in b['curtask']['tags']:
-                    hovered SetVariable('hinttext', fmtSpecialTask(b['htext']))
-                else:
-                    hovered SetVariable('hinttext', b['htext'])
+                if b['curtask']:
+                    if Task.SPECIAL in b['curtask']['tags']:
+                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(b['htext']))]
+                    else:
+                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', b['htext'])]
+                    
+                    unhovered SetVariable('cur_hov', None)
+                    at highlight_hov(cur_hov, hov_id)
 
 # layered button that holds a grabbable item
-screen btn_item(b):
+screen btn_item(b, hov_id):
     imagebutton:
         xpos b['xp']
         ypos b['yp']
         auto itemsAll[b['item']['id']]['im']
         action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=Function(update_inv, useholder=True), false=Show('popup_trade'))]
-        hovered SetVariable('hinttext', fmtItem(b['item']['id'], b['item']['stack']))
+        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(b['item']['id'], b['item']['stack']))]
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, hov_id)
 
 screen mini_sidebar(curstate='main', gametype=None, tfull=0):
     fixed:
@@ -123,13 +142,17 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                     xalign 0.5
                     yalign b['y']
                     auto b['im']
-                    # at highlight_hov
+                    hovered SetVariable('cur_hov', b['hov_id'])
+                    unhovered SetVariable('cur_hov', None)
+                    at highlight_hov(cur_hov, b['hov_id'])
                     action b['act']
             imagebutton:
                 xalign 0.5
                 yalign 0.75
                 auto 'mini/ui/icon_help_%s.png'
-                # at highlight_hov
+                hovered SetVariable('cur_hov', 'help_btn')
+                unhovered SetVariable('cur_hov', None)
+                at highlight_hov(cur_hov, 'help_btn')
                 if curstate == 'main' or curstate == 'inroom' or curstate == 'map':
                     action Show('popup_help', curstate='main')
                 elif curstate == 'mgame':
@@ -138,13 +161,15 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 xalign 0.5
                 yalign 0.95
                 auto 'mini/ui/icon_leave_%s.png'
-                # at highlight_hov
+                hovered SetVariable('cur_hov', 'leave_btn')
+                unhovered SetVariable('cur_hov', None)
+                at highlight_hov(cur_hov, 'leave_btn')
                 if curstate == 'main':
                     action [ShowMenu('save')]
                 elif curstate == 'inroom':
                     action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main'), Function(set_room_text)]
                 elif curstate == 'mgame':
-                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=[Return(), With(Fade(fadetime, 0.0, fadetime))])
+                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=[Return(), With(cfade)])
                 elif curstate == 'map':
                     action Hide('popup_map')
         fixed:
@@ -154,26 +179,23 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 yalign 0.5
                 auto 'mini/ui/clock_%s.png'
                 action [Show('popup_clock')]
-                # hovered SetVariable('is_hovered_clock', True)
-                # unhovered SetVariable('is_hovered_clock', False)
-                # if is_clock_hovered:
-                #     at highlight_clock
+                hovered SetVariable('cur_hov', 'clock_btn')
+                unhovered SetVariable('cur_hov', None)
+                at highlight_hov(cur_hov, 'clock_btn')
             add 'mini/ui/clock_minute.png':
                 xpos 0.505
                 ypos 0.61
                 xanchor 0.5
                 yanchor 0.5
                 rotate (curtime / 60) * 360
-                # if is_clock_hovered:
-                #     at highlight_clock
+                at highlight_hov(cur_hov, 'clock_btn')
             add 'mini/ui/clock_hour.png':
                 xpos 0.505
                 ypos 0.61
                 xanchor 0.5
                 yanchor 0.5
                 rotate (curtime / 720) * 360
-                # if is_clock_hovered:
-                #     at highlight_clock
+                at highlight_hov(cur_hov, 'clock_btn')
 
 screen floor_sidebar(curstate='game'):
     $ act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
@@ -189,6 +211,9 @@ screen floor_sidebar(curstate='game'):
                 action SetVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
             else:
                 action act1 + [SetVariable('curfloor', curfloor+1)] + act2
+            hovered SetVariable('cur_hov', 'floor_up_btn')
+            unhovered SetVariable('cur_hov', None)
+            at highlight_hov(cur_hov, 'floor_up_btn')
     text f'{curfloor+1}F':
         xpos 0.14
         ypos 0.5
@@ -207,7 +232,9 @@ screen floor_sidebar(curstate='game'):
                 action SetVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
-            at rot(180)
+            hovered SetVariable('cur_hov', 'floor_down_btn')
+            unhovered SetVariable('cur_hov', None)
+            at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
 screen hintbox:
     add 'mc 1a s':
@@ -249,19 +276,19 @@ screen mini_screen:
         use mini_sidebar('inroom')
         for bn, b in taskButtons[curlevel].items():
             if curroom == b['room']:
-                use btn_tsk(b)
+                use btn_tsk(b, bn)
         for hn, h in itemHolders[curlevel].items():
             if curroom == h['room']:
-                use btn_item(h)
+                use btn_item(h, hn)
         if curroom in roomArrows[curlevel]:
             for a in roomArrows[curlevel][curroom]:
-                use btn_roomarrow(a)
+                use btn_roomarrow(a, f"to_{a['toroom']}_btn")
     
     use floor_sidebar('game')
     use hintbox
 
 label mini_main():
-    # TODO hide textbox, sprites, quickmenu, and all that other stuff
+    # TODO maybe hide quickmenu? if its too obtrusive
     scene bg minigame
 
     $ update_taskq()
@@ -293,6 +320,7 @@ label mini_main():
 label mini_launch(startroom='main', startfloor=0):
     python:
         completion = 0
+        hinttext = levelHints[curlevel]['default_start']
         taskq.clear()
         taskrq = taskRoots[curlevel].copy()
         curroom = startroom
@@ -315,7 +343,7 @@ label mini_launch(startroom='main', startfloor=0):
                 if 'taskless' in b:
                     b['act'] = SetVariable('hinttext', levelHints[curlevel][b['taskless']])
                 else:
-                    b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_idle'])
+                    b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_taskless'])
             imname = b['imtask']
             b['imtask'] = f'mini/btn_task/btn_{imname}_task_%s.jpg'
             b['imidle'] = f'mini/btn_task/btn_{imname}_%s.jpg'
