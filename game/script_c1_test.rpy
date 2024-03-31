@@ -142,6 +142,18 @@ label chap1_test_charmenu:
 
     return
 
+label chap1_test_snow:
+    show bg seal room
+
+    show mc 1b s
+    show snowtest
+
+    $ talks_next = 'mc'
+
+    s '...'
+
+    return
+
 label chap1_test_part2:
     scene bg hello person reading this with cfade
 
