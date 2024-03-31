@@ -105,7 +105,7 @@ screen btn_tsk(b, hov_id=None):
                     action b['act']
             else:
                 auto b['imidle']
-                action NullAction()
+                action b['act']
             if 'htext' in b and not len(b['htext']) == 0:
                 if b['curtask']:
                     if Task.SPECIAL in b['curtask']['tags']:
