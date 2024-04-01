@@ -313,6 +313,9 @@ image npc2 = CS_('npc2', '')
 define narrator = Character(callback=functools.partial(set_cur_speaker))
 define s = Character('MC', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
 define m = Character('Mother', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'))
+define a = Character('Amelia', image='amelia', callback=functools.partial(set_cur_speaker, ch='amelia'))
+define b = Character('Bella', image='bella', callback=functools.partial(set_cur_speaker, ch='bella'))
+define l = Character('Maria', image='maria', callback=functools.partial(set_cur_speaker, ch='maria'))
 
 # young noble m npc
 define n1 = Character('NPC 1', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))

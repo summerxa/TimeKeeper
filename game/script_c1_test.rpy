@@ -154,6 +154,24 @@ label chap1_test_snow:
 
     return
 
+label chap1_test_longtext:
+    m "Firstly, the candles and fireplaces in the guest rooms must be lit up, and make sure to tidy any cluttered rooms that you come across. On the off chance that a few of the nobles might wish to rest or converse in private, it is best that we prepare the rooms ahead of time."
+
+    a "It’s just that I keep getting these headaches and I can’t think straight. ...But I’ll be fine. J-just give me a few minutes and I’ll be doing perfect work."
+
+    'Chef' "Ah. That’s a rather uncommon sight. Miss, perhaps you should not stay here too long. The oil could sully your clothes. We are almost done preparing the food, and you could find a seat with your parents."
+
+    l "OH, and they said that I couldn’t study law, because ‘it was {i}unladylike{/i},’ and ‘no {i}good{/i} family would dare marry their son to a lady like that.’ But why should I not be allowed to do so? There’s nothing stopping women from being good at law, and doing so doesn’t suddenly make me less of a lady. Their argument has no real basis."
+
+    b "You must be proud, huh? Finding every little nitpick to report others on just because you’re the head maid. Why don’t you go do that while I do the real tasks? You don’t even understand what it means to be punished."
+
+    m "Ah, that’s not good. As a family, we’ve all been working to complete our tasks diligently, but it seems that this isn’t quite enough. To belong in a family means that everyone must work together and contribute. Right, Joanne?"
+
+    "SOPHRONIA shoves the maids to the side. At first glance,  it seems that the normally pure white snow is only marred by a few drops of blood. But as SOPHRONIA traces the trail of blood with her eyes, the drops gather and multiply, transforming the snow into small, dark clumps. Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
+
+    
+    return
+
 label chap1_test_part2:
     scene bg hello person reading this with cfade
 
