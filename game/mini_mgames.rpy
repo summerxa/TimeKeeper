@@ -111,6 +111,7 @@ screen mgame_dragdrop_dishes:
                     child d['im']
     
     use mini_sidebar('mgame', curgame['type'])
+    use mc_hintbox
 
 screen mgame_toggle:
     for i in range(len(curgame['goal'])):
@@ -127,6 +128,7 @@ screen mgame_toggle:
             action ToggleDict(mgame_try, i)
 
     use mini_sidebar('mgame', curgame['type'])
+    use mc_hintbox
 
 screen mgame_waterpour:
     default sel = -1
@@ -158,4 +160,4 @@ screen mgame_waterpour:
             )
     
     use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox # TODO add hint box to other games
+    use mc_hintbox

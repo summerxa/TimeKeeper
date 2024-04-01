@@ -106,7 +106,7 @@ screen btn_item(b, hov_id):
         xpos b['xp']
         ypos b['yp']
         auto itemsAll[b['item']['id']]['im']
-        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=Function(update_inv, useholder=True), false=Show('popup_trade'))]
+        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints[curlevel]['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(b['item']['id'], b['item']['stack']))]
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)

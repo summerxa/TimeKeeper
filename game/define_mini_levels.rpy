@@ -34,10 +34,13 @@ default levelHints = {
     1: {
         'default_start': "Welcome.",
         'default_idle': "...",
-        'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
-        'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
         'default_taskless': "No task available right now.",
-        'test_idle': "A custom idle message.",
+        'custom_taskless': "A custom idle message.",
+        'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
+        'grabdishes_idle': "That's a lot of dirty dishes...",
+        'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
+        'dropdishes_idle': "Dirty dish tower!!!!",
+        'toggle_idle': "Meow",
         'waterpour_idle': "Time to cook :3",
         'waterpour_cup_full': "This glass is full; I can't pour into it."
     }
@@ -168,7 +171,7 @@ default taskButtons = {
             'yp': 0.7,
             'room': 'kitchen',
             'imtask': 'normal',
-            'taskless': 'test_idle'
+            'taskless': 'custom_taskless'
         }
     }
 }
@@ -235,7 +238,7 @@ default tasks = {
             'tags': [],
             'game': {
                 'type': 'dropdishes',
-                'xp': 0.8,
+                'xp': 0.5,
                 'im': 'mini/icon_map_mc_idle.png',
                 'drop': [
                     {
@@ -255,7 +258,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 0,
             'scorepenalty': 0,
-            'tags': [Task.SPECIAL, Task.NO_REDO]
+            'tags': [Task.SPECIAL]
         },
         't4': {
             'name': 't4',
@@ -316,7 +319,6 @@ default tasks = {
 }
 
 # normally "air" would be a transparent image but it's visible for testing purposes lol
-# TODO add separate 'desc' key for mc hovering info?
 default itemsAll = {
     'air': {
         'name': 'empty',

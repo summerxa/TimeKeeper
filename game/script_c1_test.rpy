@@ -324,6 +324,8 @@ label task_c1_toggle:
     
     scene bg seal room
 
+    $ hinttext = levelHints[curlevel]['toggle_idle']
+
     call screen mgame_toggle
     
     if is_win_listeq():
@@ -376,6 +378,8 @@ label task_c1_grabdishes:
     
     scene bg hallway
 
+    $ hinttext = levelHints[curlevel]['grabdishes_idle']
+
     call screen mgame_dragdrop_dishes
 
     $ game_ret = _return
@@ -406,7 +410,8 @@ label task_c1_dropdishes:
     
     scene bg hallway
 
-    $ renpy.transition(dissolve)
+    $ hinttext = levelHints[curlevel]['dropdishes_idle']
+
     call screen mgame_dragdrop_dishes
 
     $ game_ret = _return
