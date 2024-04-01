@@ -20,7 +20,7 @@ define fadetime = 0.5
 # ^ 0.0 to skip animation, 0.5 for normal fade in/out
 
 # --- CUSTOM SETTINGS ---
-define persistent.showspecial = False # highlights recommended quests if True
+define persistent.showspecial = True # highlights recommended quests if True
 define persistent.namesaves = True # prompts user to name save files if True
 define persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
 

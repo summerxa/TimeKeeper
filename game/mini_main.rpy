@@ -1,19 +1,3 @@
-# TODO phase out this screen
-# honestly easier to retype each time than use the template LOL
-screen btn_tx(b, act=None):
-    vbox:
-        xpos b['xp']
-        ypos b['yp']
-        textbutton b['btext']:
-            if act:
-                action act
-            elif 'act' in b:
-                action b['act']
-            else:
-                action NullAction()
-        xanchor 0.5
-        yanchor 0.5
-
 screen btn_room(b, b_id):
     textbutton b['btext']:
         xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5

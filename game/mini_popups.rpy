@@ -167,73 +167,65 @@ screen popup_mgame_leave:
         text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
             xalign 0.5
             yalign 0.2
-        if persistent.showleavewarning:
-            use btn_tx({
-                'xp': 0.5,
-                'yp': 0.7,
-                'btext': '{color=#aaa}Don\'t show this message again.{/color}',
-                'act': ToggleVariable('persistent.showleavewarning')
-            })
-        else:
-            use btn_tx({
-                'xp': 0.5,
-                'yp': 0.7,
-                'btext': '{color=#fff}Don\'t show this message again.{/color}',
-                'act': ToggleVariable('persistent.showleavewarning')
-            })
+        textbutton "Don't show this message again.":
+            xalign 0.5 ypos 0.7 yanchor 0.5
+            text_align 0.5
+            action ToggleVariable('persistent.showleavewarning')
+            if persistent.showleavewarning:
+                text_color '#aaa'
+            else:
+                text_color '#fff'
         $ close_leave = [Hide('popup_mgame_leave')]
-        use btn_tx({
-            'xp': 0.4,
-            'yp': 0.85,
-            'btext': 'Yes',
-            'act': close_leave + [Return('leave'), With(cfade)]
-        })
-        use btn_tx({
-            'xp': 0.6,
-            'yp': 0.85,
-            'btext': 'No',
-            'act': close_leave
-        })
+        textbutton "Yes":
+            xpos 0.4 xanchor 0.5
+            ypos 0.85 yanchor 0.5
+            text_align 0.5
+            action close_leave + [Return('leave'), With(cfade)]
+        textbutton "No":
+            xpos 0.6 xanchor 0.5
+            ypos 0.85 yanchor 0.5
+            text_align 0.5
+            action close_leave
 
-# TODO fix the alignment... if this screen is actually needed, LOL
-screen popup_mgame_hint(tcost):
-    modal True
-    zorder popup_zorder
-    add 'gui/overlay/confirm.png'
+# TODO fix the alignment and change btn_tx to textbutton... if this screen is actually needed, LOL
+# screen popup_mgame_hint(tcost):
+#     modal True
+#     zorder popup_zorder
+#     add 'gui/overlay/confirm.png'
 
-    style_prefix "confirm"
+#     style_prefix "confirm"
 
-    frame:
-        xalign 0.5
-        yalign 0.5
-        maximum(500, 300)
-        $ close_leave = [Hide('popup_mgame_hint')]
-        if showhint:
-            text 'No more hints available.':
-                xalign 0.5
-                yalign 0.3
-            use btn_tx({
-                'xp': 0.5,
-                'yp': 0.7,
-                'btext': 'Close',
-                'act': close_leave,
-            })
-        else:
-            text 'Do you want a hint?\nHint will cost [tcost] minute(s).':
-                xalign 0.5
-                yalign 0.3
-            use btn_tx({
-                'xp': 0.4,
-                'yp': 0.7,
-                'btext': 'Yes',
-                'act': close_leave + [SetVariable('curtime', curtime+tcost), SetVariable('showhint', True)]
-            })
-            use btn_tx({
-                'xp': 0.6,
-                'yp': 0.7,
-                'btext': 'No',
-                'act': close_leave
-            })
+#     frame:
+#         xalign 0.5
+#         yalign 0.5
+#         maximum(500, 300)
+#         $ close_leave = [Hide('popup_mgame_hint')]
+#         if showhint:
+#             text 'No more hints available.':
+#                 xalign 0.5
+#                 yalign 0.3
+#             use btn_tx({
+#                 'xp': 0.5,
+#                 'yp': 0.7,
+#                 'btext': 'Close',
+#                 'act': close_leave,
+#             })
+#         else:
+#             text 'Do you want a hint?\nHint will cost [tcost] minute(s).':
+#                 xalign 0.5
+#                 yalign 0.3
+#             use btn_tx({
+#                 'xp': 0.4,
+#                 'yp': 0.7,
+#                 'btext': 'Yes',
+#                 'act': close_leave + [SetVariable('curtime', curtime+tcost), SetVariable('showhint', True)]
+#             })
+#             use btn_tx({
+#                 'xp': 0.6,
+#                 'yp': 0.7,
+#                 'btext': 'No',
+#                 'act': close_leave
+#             })
 
 # doesn't follow the same code as the other popups but idk where else to put this lol
 screen popup_map:
