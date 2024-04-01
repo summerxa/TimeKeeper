@@ -153,20 +153,18 @@ screen popup_trade:
     
         use popup_button_close(1., 0., 'popup_trade')
 
-screen popup_mgame_leave(tfull):
+screen popup_mgame_leave:
     modal True
     zorder popup_zorder
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"
 
-    $ thalf = tfull // 2
-
     frame:
         xalign 0.5
         yalign 0.5
         maximum (800, 500)
-        text 'Do you want to leave?\n\nLeaving will cost:\n[tfull] minutes if the task is complete.\n[thalf] minutes if the task is incomplete.':
+        text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
             xalign 0.5
             yalign 0.2
         if persistent.showleavewarning:

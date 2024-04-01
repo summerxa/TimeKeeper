@@ -52,10 +52,7 @@ screen mgame_hinttext(tx):
             ypos 0.1
             text tx
 
-screen mgame_exit(gametype, tfull):
-    use mini_sidebar('mgame', gametype, tfull)
-
-screen mgame_dragdrop(tfull):
+screen mgame_dragdrop:
     draggroup:
         # drop
         for d in curgame['drop']:
@@ -79,9 +76,9 @@ screen mgame_dragdrop(tfull):
                 drag_raise True
                 child d['im']
     
-    use mgame_exit(curgame['type'], tfull)
+    use mini_sidebar('mgame', curgame['type'])
 
-screen mgame_dragdrop_dishes(tfull):
+screen mgame_dragdrop_dishes:
     draggroup:
         # drop
         for d in curgame['drop']:
@@ -109,9 +106,9 @@ screen mgame_dragdrop_dishes(tfull):
                     drag_raise True
                     child d['im']
     
-    use mgame_exit(curgame['type'], tfull)
+    use mini_sidebar('mgame', curgame['type'])
 
-screen mgame_toggle(tfull):
+screen mgame_toggle:
     for i in range(len(curgame['goal'])):
         if mgame_try[i]:
             $ tx = 'on'
@@ -125,4 +122,4 @@ screen mgame_toggle(tfull):
             auto curgame[tx][i]
             action ToggleDict(mgame_try, i)
 
-    use mgame_exit(curgame['type'], tfull)
+    use mini_sidebar('mgame', curgame['type'])

@@ -127,7 +127,7 @@ screen btn_item(b, hov_id):
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
 
-screen mini_sidebar(curstate='main', gametype=None, tfull=0):
+screen mini_sidebar(curstate='main', gametype=None):
     fixed:
         xalign 0.01
         yalign 0.
@@ -169,7 +169,7 @@ screen mini_sidebar(curstate='main', gametype=None, tfull=0):
                 elif curstate == 'inroom':
                     action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main'), Function(set_room_text)]
                 elif curstate == 'mgame':
-                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave', tfull=tfull)], false=[Return(), With(cfade)])
+                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
                 elif curstate == 'map':
                     action Hide('popup_map')
         fixed:
