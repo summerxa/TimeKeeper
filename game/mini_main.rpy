@@ -220,7 +220,7 @@ screen floor_sidebar(curstate='game'):
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
-screen hintbox:
+screen mc_hintbox:
     add 'mc 1a s':
         zoom 1.05
         xalign 1.07
@@ -269,7 +269,7 @@ screen mini_screen:
                 use btn_roomarrow(a, f"to_{a['toroom']}_btn")
     
     use floor_sidebar('game')
-    use hintbox
+    use mc_hintbox
 
 label mini_main():
     # TODO maybe hide quickmenu? if its too obtrusive

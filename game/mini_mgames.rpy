@@ -29,6 +29,10 @@ init python:
             update_inv(myitem='dirtydishes', mystack=1)
             return ret
     
+    def waterpour_act(sel, dest):
+        color = store.curgame['cups'][sel]['colors'].pop()
+        store.curgame['cups'][dest]['colors'].append(color)
+
     def is_win_listeq():
         for i in range(len(store.mgame_try)):
             if store.mgame_try[i] != store.mgame_goal[i]:
@@ -45,12 +49,12 @@ screen mgame_hint(tcost):
         yalign 0.
         action Show('popup_mgame_hint', tcost=tcost)
 
-screen mgame_hinttext(tx):
-    if showhint:
-        vbox:
-            xpos 0.3
-            ypos 0.1
-            text tx
+# screen mgame_hinttext(tx):
+#     if showhint:
+#         vbox:
+#             xpos 0.3
+#             ypos 0.1
+#             text tx
 
 screen mgame_dragdrop:
     draggroup:
@@ -123,3 +127,35 @@ screen mgame_toggle:
             action ToggleDict(mgame_try, i)
 
     use mini_sidebar('mgame', curgame['type'])
+
+screen mgame_waterpour:
+    default sel = -1
+
+    for i, c in enumerate(curgame['cups']):
+        for j, curcolor in reversed(list(enumerate(c['colors']))):
+            add f'mini/tgame/waterpour/waterpour_{j}.png':
+                xpos c['xp']
+                ypos curgame['yp'] - (0.1 if sel == i else 0.)
+                xanchor 0.5 yanchor 0.5
+                at tint(curcolor)
+        imagebutton:
+            xpos c['xp']
+            ypos curgame['yp'] - (0.1 if sel == i else 0.)
+            xanchor 0.5 yanchor 0.5
+            auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
+            action If(
+                sel < 0, true=SetScreenVariable('sel', i), false=If(
+                    sel == i, true=SetScreenVariable('sel', -1), false=If(
+                        len(c['colors']) >= 4,
+                        true=SetVariable('hinttext', levelHints[curlevel]['waterpour_cup_full']),
+                        false=[
+                            Function(waterpour_act, sel=sel, dest=i),
+                            SetScreenVariable('sel', -1),
+                            SetVariable('hinttext', levelHints[curlevel]['waterpour_idle'])
+                        ]
+                    )
+                )
+            )
+    
+    use mini_sidebar('mgame', curgame['type'])
+    use mc_hintbox # TODO add hint box to other games

@@ -66,7 +66,7 @@ default task_failed_return = False
 
 # --- MINIGAME TASK STUFF ---
 
-default showhint = False
+# default showhint = False
 
 default mgame_try = None
 default mgame_goal = None

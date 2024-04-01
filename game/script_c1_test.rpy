@@ -265,7 +265,7 @@ label c1_t2:
                 curgame['try'].append('')
         mgame_try = curgame['try']
 
-    call screen mgame_dragdrop(curtask['tcost'])
+    call screen mgame_dragdrop
 
     if is_win_listeq():
         "task 2 complete :D"
@@ -324,7 +324,7 @@ label task_c1_toggle:
     
     scene bg seal room
 
-    call screen mgame_toggle(curtask['tcost'])
+    call screen mgame_toggle
     
     if is_win_listeq():
         "task 4 complete (hooray!!!)"
@@ -334,6 +334,34 @@ label task_c1_toggle:
     $ docurtask(is_win_listeq())
 
     $ show_hint = False
+    jump mini_main
+
+label task_c1_waterpour:
+    scene bg room
+
+    $ hinttext = levelHints[curlevel]['waterpour_idle']
+
+    call screen mgame_waterpour
+
+    python:
+        all_colors = []
+        failed = False
+        for cup in curgame['cups']:
+            cup_colors = cup['colors']
+            if not len(cup_colors):
+                continue
+            curcolor = cup_colors[0]
+            for c in cup_colors:
+                if c in all_colors or c != curcolor:
+                    failed = True
+                    break
+            if failed or curcolor in all_colors:
+                failed = True
+                break
+            all_colors.append(curcolor)
+
+    $ docurtask(not failed)
+
     jump mini_main
 
 label task_c1_grabdishes:
@@ -348,12 +376,12 @@ label task_c1_grabdishes:
     
     scene bg hallway
 
-    call screen mgame_dragdrop_dishes(curtask['tcost'])
+    call screen mgame_dragdrop_dishes
 
     $ game_ret = _return
 
     while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes(curtask['tcost'])
+        call screen mgame_dragdrop_dishes
         $ game_ret = _return
     
     $ docurtask(not 0 in mgame_try)
@@ -379,12 +407,12 @@ label task_c1_dropdishes:
     scene bg hallway
 
     $ renpy.transition(dissolve)
-    call screen mgame_dragdrop_dishes(curtask['tcost'])
+    call screen mgame_dragdrop_dishes
 
     $ game_ret = _return
 
     while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes(curtask['tcost'])
+        call screen mgame_dragdrop_dishes
         $ game_ret = _return
 
     $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)

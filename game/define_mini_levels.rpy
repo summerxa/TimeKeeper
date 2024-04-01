@@ -38,6 +38,8 @@ default levelHints = {
         'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
         'default_taskless': "No task available right now.",
         'test_idle': "A custom idle message.",
+        'waterpour_idle': "Time to cook :3",
+        'waterpour_cup_full': "This glass is full; I can't pour into it."
     }
 }
 
@@ -141,6 +143,12 @@ default taskButtons = {
             'yp': 0.5,
             'room': 'ballroom',
             'hidden': True,
+            'imtask': 'normal'
+        },
+        't12': {
+            'xp': 0.5,
+            'yp': 0.3,
+            'room': 'ballroom',
             'imtask': 'normal'
         },
         't21': {
@@ -268,6 +276,40 @@ default tasks = {
                 'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
                 'on': ['mini/btn_item/test_item0_%s.jpg', 'mini/btn_item/test_item0_%s.jpg'],
                 'hint': [1, 'Click on the items to pick them up/put them down']
+            }
+        },
+        't5': {
+            'name': 't5',
+            'desc': 'MC we need to cook',
+            'btn': 't12',
+            'tlabel': 'task_c1_waterpour',
+            'tcost': 5,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 1,
+            'scorepenalty': 0,
+            'tags': [],
+            'game': {
+                'type': 'waterpour',
+                'yp': 0.5,
+                'cups': [
+                    {
+                        'xp': 0.35,
+                        'colors': ['#920e0e']
+                    },
+                    {
+                        'xp': 0.45,
+                        'colors': ['#920e0e', '#a4f910', '#920e0e', '#eedfab']
+                    },
+                    {
+                        'xp': 0.55,
+                        'colors': ['#eedfab', '#a4f910', '#a4f910', '#920e0e']
+                    },
+                    {
+                        'xp': 0.65,
+                        'colors': ['#eedfab', '#eedfab', '#a4f910']
+                    }
+                ]
             }
         }
     }

@@ -209,6 +209,9 @@ transform highlight_hov(hov, myname):
     # matrixcolor BrightnessMatrix(0.2 if (hov == myname) else 0.0) * ContrastMatrix(1.0 if (hov == myname) else 1.0)
     matrixcolor InvertMatrix(1.0 if (hov == myname) else 0.0) * TintMatrix('#aaaaaa' if (hov == myname) else '#ffffff') * InvertMatrix(1.0 if (hov == myname) else 0.0)
 
+transform tint(c):
+    matrixcolor TintMatrix(c)
+
 # --- SPRITE STUFF ---
 
 # used to shade sprites that aren't talking
