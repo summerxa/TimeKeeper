@@ -244,7 +244,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
         call give_item_prompt
         if not ichoice or ichoice == goal_choice:
             return
-        if ichoice == 'dirtydishes':
+        if ichoice == 'dirty_dishes':
             npc "...Are those dirty dishes??"
         else:
             npc "If you're seeing this dialogue, something's broken :("
@@ -411,7 +411,7 @@ label task_c1_dropdishes:
     python:
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some
         curgame['drag'] = []
-        for i in range(invCountNum('dirtydishes')):
+        for i in range(invCountNum('dirty_dishes')):
             curgame['try'].append(0)
             curgame['drag'].append({
                 'n': str(i),

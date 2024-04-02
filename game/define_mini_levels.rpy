@@ -188,7 +188,7 @@ default tasks = {
             'btn': 't11',
             'tlabel': 'task_c1_grabdishes',
             'fail_id': 'grabdishes_fail',
-            'item_req': ['air', 'dirtydishes'],
+            'item_req': ['air', 'dirty_dishes'],
             'tcost': 10,
             't0': 1020,
             'tf': 1030,
@@ -229,7 +229,7 @@ default tasks = {
             'btn': 't21',
             'tlabel': 'task_c1_dropdishes',
             'fail_id': 'dropdishes_fail',
-            'item_req': ['dirtydishes'],
+            'item_req': ['dirty_dishes'],
             'tcost': 10,
             't0': -1,
             'tf': 9999,
@@ -332,7 +332,7 @@ default itemsAll = {
         'desc': 'I guess this is an item too?? It\'s called test item 3.',
         'stackable': False
     },
-    'dirtydishes': {
+    'dirty_dishes': {
         'name': 'dirty dishes',
         'im': 'mini/btn_item/test_item1_%s.jpg',
         'desc': 'A stack of dirty dishes.',
@@ -344,7 +344,7 @@ default itemHolders = {
     1: {
         'h11': {
             'item': {
-                'id': 'dirtydishes',
+                'id': 'dirty_dishes',
                 'stack': 1
             },
             'xp': 0.2,
@@ -353,7 +353,7 @@ default itemHolders = {
         },
         'h12': {
             'item': {
-                'id': 'dirtydishes',
+                'id': 'dirty_dishes',
                 'stack': 2
             },
             'xp': 0.6,

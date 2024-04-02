@@ -20,13 +20,13 @@ init python:
     def dragged_grabdishes(drags, drop):
         ret = process_dishes(drags, drop)
         if ret == 'refresh':
-            update_inv(otheritem='dirtydishes', otherstack=1)
+            update_inv(otheritem='dirty_dishes', otherstack=1)
             return ret
     
     def dragged_dropdishes(drags, drop):
         ret = process_dishes(drags, drop)
         if ret == 'refresh':
-            update_inv(myitem='dirtydishes', mystack=1)
+            update_inv(myitem='dirty_dishes', mystack=1)
             return ret
     
     def waterpour_act(sel, dest):
