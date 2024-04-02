@@ -68,15 +68,15 @@ screen popup_onhand:
 
     style_prefix "confirm"
 
+    default ltext = fmtItemName(invitems[0], invstacks[0])
+    default rtext = fmtItemName(invitems[1], invstacks[1])
+
     frame:
         xalign 0.5
         yalign 0.5
         maximum (800, 500)
 
         label "On-hand"
-
-        $ ltext = fmtItemName(invitems[0], invstacks[0])
-        $ rtext = fmtItemName(invitems[1], invstacks[1])
 
         text 'Left hand:\n[ltext]':
             xpos 0.2
@@ -127,12 +127,12 @@ screen popup_trade:
 
     style_prefix "confirm"
 
+    default drop_vb = ('drop' if curholder['item']['id'] == 'air' else 'swap')
+
     frame:
         xalign 0.5
         yalign 0.5
         maximum (800, 550)
-
-        $ drop_vb = ('drop' if curholder['item']['id'] == 'air' else 'swap')
 
         text f'Both hands are full. Which item would you like to {drop_vb}?':
             textalign 0.5
@@ -160,6 +160,8 @@ screen popup_mgame_leave:
 
     style_prefix "confirm"
 
+    default close_leave = [Hide('popup_mgame_leave')]
+
     frame:
         xalign 0.5
         yalign 0.5
@@ -175,7 +177,7 @@ screen popup_mgame_leave:
                 text_color '#aaa'
             else:
                 text_color '#fff'
-        $ close_leave = [Hide('popup_mgame_leave')]
+        
         textbutton "Yes":
             xpos 0.4 xanchor 0.5
             ypos 0.85 yanchor 0.5

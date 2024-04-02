@@ -36,10 +36,8 @@ screen btn_im(b, act=None):
             hovered SetVariable('hinttext', b['htext'])
 
 screen btn_roomarrow(b, hov_id):
-    $ act = [SetVariable('prevroom', curroom), SetVariable('curroom', b['toroom']), SetVariable('curtime', curtime+b['tcost']), Return('gotoroom_direct')]
-    # basically sets the hint text to say which room ur going to -- but idt that's necessary
-    # since the button has a text label anyway...
-    # $ hact = SetVariable('hinttext', f"Go to {roomButtons[curlevel][curfloor][b['toroom']]['name']}")
+    default act = [SetVariable('prevroom', curroom), SetVariable('curroom', b['toroom']), SetVariable('curtime', curtime+b['tcost']), Return('gotoroom_direct')]
+    
     imagebutton:
         auto 'mini/ui/btn_room_down_%s.png'
         if b['dir'] == 'up':
@@ -182,8 +180,8 @@ screen mini_sidebar(curstate='main', gametype=None):
                 at highlight_hov(cur_hov, 'clock_btn')
 
 screen floor_sidebar(curstate='game'):
-    $ act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
-    $ act2 = [SetVariable('curtime', curtime+levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
+    default act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
+    default act2 = [SetVariable('curtime', curtime+levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
     if curfloor < levelInfo[curlevel]['nfloors']-1 or curstate == 'map':
         imagebutton:
             auto 'mini/ui/btn_floor_up_%s.png'

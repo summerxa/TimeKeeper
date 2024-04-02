@@ -237,20 +237,33 @@ label chap1_test_part2:
 
     return
 
+label c1_give_item_prompt(npc=None, goal_choice=''):
+    $ ichoice = 'air'
+
+    while True:
+        call give_item_prompt
+        if not ichoice or ichoice == goal_choice:
+            return
+        if ichoice == 'dirtydishes':
+            npc "...Are those dirty dishes??"
+        else:
+            npc "If you're seeing this dialogue, something's broken :("
+
 label c1_t1:
     scene bg seal room with cfade
 
-    'welcome to the seal room, please deposit a test item 3'
+    $ talks_next = 'npc2'
 
-    call give_item_prompt
+    show npc2
+
+    n2 'welcome to the seal room, please deposit a test item 3'
+
+    call c1_give_item_prompt(n2, 'test_3')
 
     if ichoice == 'test_3':
-        'good job, you chose the right item'
+        n2 'good job, you chose the right item'
         $ update_inv(myitem='test_3')
         $ docurtask()
-    elif ichoice:
-        'no???? wrong?????'
-        $ docurtask(False)
 
     jump mini_main
 

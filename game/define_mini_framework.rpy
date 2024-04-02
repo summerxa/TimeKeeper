@@ -304,22 +304,25 @@ label give_item_prompt(vb='Give', both_hands=False):
     else:
         $ showrh = (invitems[1] != 'air' and invitems[1] != invitems[0])
 
+    $ ltext = fmtItemName(invitems[0], invstacks[0])
+    $ rtext = fmtItemName(invitems[1], invstacks[1])
+
     if both_hands:
         menu:
-            '([vb] [invitems[0]] and [invitems[1]])' if showlh and showrh:
+            "([vb] [ltext] and [rtext])" if showlh and showrh:
                 $ ichoice = invitems
-            '([vb] [invitems[0]])' if showlh and not showrh:
+            "([vb] [ltext])" if showlh and not showrh:
                 $ ichoice = invitems[0]
-            '([vb] [invitems[1]])' if showrh and not showlh:
+            "([vb] [rtext])" if showrh and not showlh:
                 $ ichoice = invitems[1]
-            '(Leave for now)':
+            "(Leave for now)":
                 $ ichoice = None
     else:
         menu:
-            '([vb] [invitems[0]])' if showlh:
+            "([vb] [ltext])" if showlh:
                 $ ichoice = invitems[0]
-            '([vb] [invitems[1]])' if showrh:
+            "([vb] [rtext])" if showrh:
                 $ ichoice = invitems[1]
-            '(Leave for now)':
+            "(Leave for now)":
                 $ ichoice = None
     return

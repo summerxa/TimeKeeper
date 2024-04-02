@@ -115,16 +115,12 @@ screen mgame_dragdrop_dishes:
 
 screen mgame_toggle:
     for i in range(len(curgame['goal'])):
-        if mgame_try[i]:
-            $ tx = 'on'
-        else:
-            $ tx = 'off'
         imagebutton:
             xpos curgame['xp'][i]
             ypos curgame['yp'][i]
             xanchor 0.5
             yanchor 0.5
-            auto curgame[tx][i]
+            auto (curgame['on' if mgame_try[i] else 'off'][i])
             action ToggleDict(mgame_try, i)
 
     use mini_sidebar('mgame', curgame['type'])
