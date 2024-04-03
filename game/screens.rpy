@@ -683,7 +683,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
             textbutton '<':
                 xalign 0. yalign 0.5 action SetScreenVariable('multi_page', (multi_page+multi_max-1) % multi_max)
 
-            text f'Page {multi_page+1}/{multi_max}':
+            text _(f'Page {multi_page+1}/{multi_max}'):
                 xalign 0.5 yalign 0.5
 
             textbutton '>':
@@ -706,18 +706,18 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                 
                 vbox:
                     if persistent.chars_unlocked[d['id_name']]:
-                        text d['disp_name']:
+                        text _(d['disp_name']):
                             xalign 0. yalign 0.
                             size 50
                         if main_menu:
-                            text d['desc_default']
+                            text _(d['desc_default'])
                         else:
-                            text d[c['desc']]
+                            text _(d[c['desc']])
                     else:
-                        text "...who's this??":
+                        text _("???"):
                             xalign 0. yalign 0.
                             size 50
-                        text "You haven't met this character yet."
+                        text _("You haven't met this character yet.")
             
             add (d['big_default'] if main_menu else d[c['big']]):
                 xpos 0.6
@@ -731,7 +731,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
             textbutton '<':
                 xalign 0. yalign 0.5 action SetScreenVariable('single_page', (single_page+single_max-1) % single_max)
 
-            textbutton 'Back to Gallery':
+            textbutton _('Back to Gallery'):
                 xalign 0.5 yalign 0.5
                 action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // m))]
 
