@@ -145,11 +145,11 @@ screen mgame_waterpour:
                 sel < 0, true=SetScreenVariable('sel', i), false=If(
                     sel == i, true=SetScreenVariable('sel', -1), false=If(
                         len(c['colors']) >= 4,
-                        true=SetVariable('hinttext', levelHints[curlevel]['waterpour_cup_full']),
+                        true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
                         false=[
                             Function(waterpour_act, sel=sel, dest=i),
                             SetScreenVariable('sel', -1),
-                            SetVariable('hinttext', levelHints[curlevel]['waterpour_idle'])
+                            SetVariable('hinttext', levelHints['waterpour_idle'])
                         ]
                     )
                 )

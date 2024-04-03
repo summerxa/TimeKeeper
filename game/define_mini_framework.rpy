@@ -123,7 +123,7 @@ init python:
                 if punish:
                     store.completion -= tsk['scorepenalty']
         if tsk['done'] or store.curtime > tsk['tf']:
-            store.hinttext = store.levelHints[store.curlevel]['default_idle']
+            store.hinttext = store.levelHints['default_idle']
         if tsk['done']:
             # activate any follow-ups
             if 'nxt' in tsk:
@@ -164,9 +164,9 @@ init python:
                         b['act'] = []
                     else:
                         if 'taskless' in b:
-                            b['act'] = SetVariable('hinttext', levelHints[curlevel][b['taskless']])
+                            b['act'] = SetVariable('hinttext', levelHints[b['taskless']])
                         else:
-                            b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_taskless'])
+                            b['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             else:
                 if t['activated']:
                     store.taskq.append(t)

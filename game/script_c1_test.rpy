@@ -337,7 +337,7 @@ label task_c1_toggle:
     
     scene bg seal room
 
-    $ hinttext = levelHints[curlevel]['toggle_idle']
+    $ hinttext = levelHints['toggle_idle']
 
     call screen mgame_toggle
     
@@ -354,7 +354,7 @@ label task_c1_toggle:
 label task_c1_waterpour:
     scene bg room
 
-    $ hinttext = levelHints[curlevel]['waterpour_idle']
+    $ hinttext = levelHints['waterpour_idle']
 
     call screen mgame_waterpour
 
@@ -391,7 +391,7 @@ label task_c1_grabdishes:
     
     scene bg hallway
 
-    $ hinttext = levelHints[curlevel]['grabdishes_idle']
+    $ hinttext = levelHints['grabdishes_idle']
 
     call screen mgame_dragdrop_dishes
 
@@ -423,7 +423,7 @@ label task_c1_dropdishes:
     
     scene bg hallway
 
-    $ hinttext = levelHints[curlevel]['dropdishes_idle']
+    $ hinttext = levelHints['dropdishes_idle']
 
     call screen mgame_dragdrop_dishes
 

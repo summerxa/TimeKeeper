@@ -82,7 +82,7 @@ screen btn_tsk(b, hov_id=None):
                     if task_can_proceed(b['curtask']['item_req']):
                         action b['act']
                     else:
-                        action SetVariable('hinttext', levelHints[curlevel][b['curtask']['fail_id']])
+                        action SetVariable('hinttext', levelHints[b['curtask']['fail_id']])
                 else:
                     action b['act']
             else:
@@ -104,12 +104,33 @@ screen btn_item(b, hov_id):
         xpos b['xp']
         ypos b['yp']
         auto itemsAll[b['item']['id']]['im']
-        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints[curlevel]['default_idle'])], false=Show('popup_trade'))]
+        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(b['item']['id'], b['item']['stack']))]
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
 
 screen mini_sidebar(curstate='main', gametype=None):
+    default baseButtons = [
+        {
+            'y': 0.15,
+            'act': Show('popup_notes'),
+            'im': 'mini/ui/icon_notebook_%s.png',
+            'hov_id': 'notes_btn'
+        },
+        {
+            'y': 0.35,
+            'act': Show('popup_map'),
+            'im': 'mini/ui/icon_map_%s.png',
+            'hov_id': 'map_btn'
+        },
+        {
+            'y': 0.55,
+            'act': Show('popup_onhand'),
+            'im': 'mini/ui/icon_onhand_%s.png',
+            'hov_id': 'onhand_btn'
+        }
+    ]
+
     fixed:
         xalign 0.01
         yalign 0.
@@ -302,7 +323,7 @@ label mini_main():
 label mini_launch(startroom='main', startfloor=0):
     python:
         completion = 0
-        hinttext = levelHints[curlevel]['default_start']
+        hinttext = levelHints['default_start']
         taskq.clear()
         taskrq = taskRoots[curlevel].copy()
         curroom = startroom
@@ -323,9 +344,9 @@ label mini_launch(startroom='main', startfloor=0):
                 b['act'] = []
             else:
                 if 'taskless' in b:
-                    b['act'] = SetVariable('hinttext', levelHints[curlevel][b['taskless']])
+                    b['act'] = SetVariable('hinttext', levelHints[b['taskless']])
                 else:
-                    b['act'] = SetVariable('hinttext', levelHints[curlevel]['default_taskless'])
+                    b['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             imname = b['imtask']
             b['imtask'] = f'mini/btn_task/btn_{imname}_task_%s.jpg'
             b['imidle'] = f'mini/btn_task/btn_{imname}_%s.jpg'

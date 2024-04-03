@@ -143,13 +143,13 @@ screen popup_trade:
             xpos 0.2
             yalign 0.6
             xanchor 0.5
-            action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints[curlevel]['default_idle'])]
+            action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
 
         textbutton f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}":
             xpos 0.7
             yalign 0.6
             xanchor 0.5
-            action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints[curlevel]['default_idle'])]
+            action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
     
         use popup_button_close(1., 0., 'popup_trade')
 
@@ -182,7 +182,7 @@ screen popup_mgame_leave:
             xpos 0.4 xanchor 0.5
             ypos 0.85 yanchor 0.5
             text_align 0.5
-            action close_leave + [SetVariable('hinttext', levelHints[curlevel]['default_idle']), Return('leave'), With(cfade)]
+            action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('leave'), With(cfade)]
         textbutton "No":
             xpos 0.6 xanchor 0.5
             ypos 0.85 yanchor 0.5
