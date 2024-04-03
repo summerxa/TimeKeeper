@@ -41,7 +41,7 @@ init python:
             if 'dur' in t:
                 t['tf'] = min(t['t0'] + t['dur'], store.tlimit)
 
-    def fmtTskButton(t):
+    def fmtTsk(t):
         tx = "("
         if t['t0'] != -1:
             tx += getTimeDig(t['t0'])
@@ -63,10 +63,10 @@ init python:
         return "{color=#ebe834}" + t + "{/color}"
 
     def fmtBaseTask(t):
-        return "- " + fmtTskButton(t) + " [[" + roomButtons[curlevel][t['room']]['name'] + "]"
+        return f"- {fmtTsk(t)} [[{roomButtons[curlevel][t['room']]['name']}]"
 
-    def setHtext(b):
-        b['htext'] = fmtTskButton(b['curtask'])
+    def fmtTskButton(t):
+        return f"{fmtTsk(t)} ({t['tcost']} min)"
 
     # sorts tasks by tf, tiebreaking by t0 and then room name
     def generateTodo():
@@ -175,7 +175,7 @@ init python:
                     if 'game' in t:
                         b['act'].append(SetVariable('curgame', t['game']))
                     b['act'] += [Return(t['tlabel']), With(cfade)]
-                    setHtext(b)
+                    b['htext'] = fmtTskButton(b['curtask'])
         generateTodo()
         return
 
