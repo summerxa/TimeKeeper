@@ -16,151 +16,119 @@ init python:
                 }
             if not c in persistent.chars_unlocked:
                 persistent.chars_unlocked[c] = False
-    
-    def mgame_init_and_load():
-        levelInfo_data = {
-            1: {
-                't0': 1020,
-                'tf': 1200,
-                'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
-                'tstairs': 2,
-                'nfloors': 2,
-                'ndishes': 8
-            }
-        }
-        for lvl, info in levelInfo_data.items():
-            if not lvl in store.levelInfo:
-                levelInfo[lvl] = info
-        
-        levelHints_data = {
-            # 'default_start': "Welcome.",
-            'default_start': "Hewwo :3", #TODO note: this changes even though it shouldnt???
-            'default_idle': "...",
-            'default_taskless': "No task available right now.",
-            'custom_taskless': "A custom idle message.",
-            'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
-            'grabdishes_idle': "That's a lot of dirty dishes...",
-            'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
-            'dropdishes_idle': "Dirty dish tower!!!!",
-            'toggle_idle': "Meow",
-            'waterpour_idle': "Time to cook :3",
-            'waterpour_cup_full': "This glass is full; I can't pour into it."
-        }
-        for h_id, h in levelHints_data.items():
-            if not h_id in store.levelHints:
-                store.levelHints[h_id] = h
-        
-        roomButtons_data = {
-            1: {
-                'ballroom': {
-                    'name': 'BALLROOM',
-                    'floor': 0,
-                    'num': 0,
-                    'xp': 0.5,
-                    'yp': 0.2,
-                },
-                'kitchen': {
-                    'name': 'KITCHEN',
-                    'floor': 0,
-                    'num': 1,
-                    'xp': 0.6,
-                    'yp': 0.7
-                },
-                'laundry': {
-                    'name': 'LAUNDRY',
-                    'floor': 0,
-                    'num': 2,
-                    'xp': 0.35,
-                    'yp': 0.7
-                },
-                'room 4': {
-                    'name': 'ROOM 4',
-                    'floor': 1,
-                    'num': 0,
-                    'xp': 0.5,
-                    'yp': 0.5
-                }
-            }
-        }
-        for lvl, info in roomButtons_data.items():
-            if not lvl in roomButtons:
-                roomButtons[lvl] = info
-            else:
-                for bn, b in info.items():
-                    if not bn in roomButtons[lvl]:
-                        roomButtons[lvl][bn] = b
 
-        store.roomProxim = {
-            1: {
-                0: [[0,1,1],
-                    [1,0,5],
-                    [1,5,0]],
-                1: [[0]]
-            }
-        }
-        
-        store.roomArrows = {
-            1: {
-                'ballroom': [
-                    {
-                        'toroom': 'kitchen',
-                        'dir': 'down',
-                        'xp': 0.6
-                    },
-                    {
-                        'toroom': 'laundry',
-                        'dir': 'down',
-                        'xp': 0.3
-                    }
-                ],
-                'kitchen': [
-                    {
-                        'toroom': 'ballroom',
-                        'dir': 'up',
-                        'xp': 0.6
-                    },
-                    {
-                        'toroom': 'laundry',
-                        'dir': 'up',
-                        'xp': 0.3
-                    }
-                ],
-                'laundry': [
-                    {
-                        'toroom': 'ballroom',
-                        'dir': 'up',
-                        'xp': 0.3
-                    },
-                    {
-                        'toroom': 'kitchen',
-                        'dir': 'up',
-                        'xp': 0.6
-                    }
-                ]
-            }
-        }
-    
-    def items_init_and_load():
-        # TODO
-        pass
     
     def all_init_and_load():
         chars_init_and_load()
-        mgame_init_and_load()
-        items_init_and_load()
 
 
-# TODO start migrating stuff over to the functions
+default levelInfo = {
+    1: {
+        't0': 1020,
+        'tf': 1200,
+        'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
+        'tstairs': 2,
+        'nfloors': 2,
+        'ndishes': 8
+    }
+}
 
-default levelInfo = {}
+default levelHints = {
+    'default_start': "Welcome.",
+    'default_idle': "...",
+    'default_taskless': "No task available right now.",
+    'custom_taskless': "A custom idle message.",
+    'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
+    'grabdishes_idle': "That's a lot of dirty dishes...",
+    'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
+    'dropdishes_idle': "Dirty dish tower!!!!",
+    'toggle_idle': "Meow",
+    'waterpour_idle': "Time to cook :3",
+    'waterpour_cup_full': "This glass is full; I can't pour into it."
+}
 
-default levelHints = {}
+default roomButtons = {
+    1: {
+        'ballroom': {
+            'name': 'BALLROOM',
+            'floor': 0,
+            'num': 0,
+            'xp': 0.5,
+            'yp': 0.2,
+        },
+        'kitchen': {
+            'name': 'KITCHEN',
+            'floor': 0,
+            'num': 1,
+            'xp': 0.6,
+            'yp': 0.7
+        },
+        'laundry': {
+            'name': 'LAUNDRY',
+            'floor': 0,
+            'num': 2,
+            'xp': 0.35,
+            'yp': 0.7
+        },
+        'room 4': {
+            'name': 'ROOM 4',
+            'floor': 1,
+            'num': 0,
+            'xp': 0.5,
+            'yp': 0.5
+        }
+    }
+}
 
-default roomButtons = {}
+default roomProxim = {
+    1: {
+        0: [[0,1,1],
+            [1,0,5],
+            [1,5,0]],
+        1: [[0]]
+    }
+}
 
-default roomProxim = {}
-
-default roomArrows = {}
+default roomArrows = {
+    1: {
+        'ballroom': [
+            {
+                'toroom': 'kitchen',
+                'dir': 'down',
+                'xp': 0.6
+            },
+            {
+                'toroom': 'laundry',
+                'dir': 'down',
+                'xp': 0.3
+            }
+        ],
+        'kitchen': [
+            {
+                'toroom': 'ballroom',
+                'dir': 'up',
+                'xp': 0.6
+            },
+            {
+                'toroom': 'laundry',
+                'dir': 'up',
+                'xp': 0.3
+            }
+        ],
+        'laundry': [
+            {
+                'toroom': 'ballroom',
+                'dir': 'up',
+                'xp': 0.3
+            },
+            {
+                'toroom': 'kitchen',
+                'dir': 'up',
+                'xp': 0.6
+            }
+        ]
+    }
+}
 
 # location of MC's icon on preview map
 default mcIconLoc = {
