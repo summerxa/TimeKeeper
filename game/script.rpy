@@ -1,4 +1,6 @@
 label start:
+    $ save_version = config.version
+
     $ all_init_and_load()
 
     # The following line disables the "back" button when uncommented
@@ -17,6 +19,9 @@ label start:
     return
 
 label after_load:
+    if save_version != config.version:
+        "the versions aren't the same, saved version is [save_version], config version is [config.version]"
+
     $ all_init_and_load()
 
     return

@@ -9,6 +9,8 @@ init python:
         store.chars_current[c]['big'] = 'big_rip'
         store.chars_current[c]['desc'] = 'desc_rip'
 
+default save_version = None
+
 # --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
 default current_speaker = None
 default talks_next = None
