@@ -68,8 +68,8 @@ screen popup_onhand:
 
     style_prefix "confirm"
 
-    default ltext = fmtItemName(invitems[0], invstacks[0])
-    default rtext = fmtItemName(invitems[1], invstacks[1])
+    default ltext = f"Left hand:\n{fmtItemName(invitems[0], invstacks[0])}"
+    default rtext = f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}"
 
     frame:
         xalign 0.5
@@ -78,13 +78,13 @@ screen popup_onhand:
 
         label "On-hand"
 
-        text 'Left hand:\n[ltext]':
+        text ltext:
             xpos 0.2
             ypos 0.5
             xanchor 0.5
             yanchor 0.5
             textalign 0.5
-        text 'Right hand:\n[rtext]':
+        text rtext:
             xpos 0.7
             ypos 0.5
             xanchor 0.5
@@ -92,33 +92,6 @@ screen popup_onhand:
             textalign 0.5
     
         use popup_button_close(1., 0., 'popup_onhand')
-
-screen popup_clock:
-    modal True
-    zorder 200
-    add 'gui/overlay/confirm.png'
-
-    use popup_button_close(0.75, 0.25, 'popup_clock')
-
-screen popup_help(curstate='main'):
-    modal True
-    zorder 200
-    add 'gui/overlay/confirm.png'
-
-    style_prefix "confirm"
-
-    frame:
-        xalign 0.5
-        yalign 0.5
-        maximum (800, 500)
-
-        label "Help"
-
-        text '[curstate]':
-            xalign 0.5
-            yalign 0.5
-
-        use popup_button_close(1., 0., 'popup_help')
 
 screen popup_trade:
     modal True
@@ -160,6 +133,33 @@ screen popup_trade:
                     action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
     
         use popup_button_close(1., 0., 'popup_trade')
+
+screen popup_clock:
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    use popup_button_close(0.75, 0.25, 'popup_clock')
+
+screen popup_help(curstate='main'):
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (800, 500)
+
+        label "Help"
+
+        text '[curstate]':
+            xalign 0.5
+            yalign 0.5
+
+        use popup_button_close(1., 0., 'popup_help')
 
 screen popup_mgame_leave:
     modal True
