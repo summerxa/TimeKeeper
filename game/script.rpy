@@ -20,7 +20,7 @@ label start:
 
 label after_load:
     if save_version != config.version:
-        "the versions aren't the same, saved version is [save_version], config version is [config.version]"
+        show screen popup_diffversion_prompt(save_version, config.version)
 
     $ all_init_and_load()
 

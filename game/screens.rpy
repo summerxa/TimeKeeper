@@ -869,7 +869,7 @@ screen file_slots(title):
 
 screen prompt_savename(slot):
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"

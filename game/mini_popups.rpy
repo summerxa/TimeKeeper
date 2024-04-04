@@ -10,7 +10,7 @@ screen popup_button_close(xp, yp, screenname):
 
 screen popup_notes:
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
     
     style_prefix "confirm"
@@ -63,7 +63,7 @@ screen popup_notes:
 
 screen popup_onhand:
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"
@@ -95,14 +95,14 @@ screen popup_onhand:
 
 screen popup_clock:
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     use popup_button_close(0.75, 0.25, 'popup_clock')
 
 screen popup_help(curstate='main'):
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"
@@ -122,7 +122,7 @@ screen popup_help(curstate='main'):
 
 screen popup_trade:
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"
@@ -155,7 +155,7 @@ screen popup_trade:
 
 screen popup_mgame_leave:
     modal True
-    zorder popup_zorder
+    zorder 200
     add 'gui/overlay/confirm.png'
 
     style_prefix "confirm"
@@ -189,10 +189,44 @@ screen popup_mgame_leave:
             text_align 0.5
             action close_leave
 
+screen popup_diffversion_prompt(v_saved, v_current):
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
+
+    default close_leave = [Hide('popup_diffversion_prompt')]
+    default msg = '''This save file was not made on the current version.
+Saved version: [v_saved]
+Current game version: [v_current]
+Attempting to use this save may cause crashes and unexpected plot holes.'''
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (800, 500)
+        vbox:
+            xalign 0.5 yalign 0.5
+            label "Warning!!!!!!":
+                xalign 0.5
+            text msg:
+                xalign 0.5 yalign 0.5
+            hbox:
+                xalign 0.5
+                textbutton "That's fine,\nLoad Anyway":
+                    xpos 0.3 xanchor 0.5
+                    text_align 0.5
+                    action close_leave
+                textbutton "...Never mind,\ntake me back":
+                    xpos 0.7 xanchor 0.5
+                    text_align 0.5
+                    action close_leave + [MainMenu(confirm=False, save=False)]
+
 # TODO fix the alignment and change btn_tx to textbutton... if this screen is actually needed, LOL
 # screen popup_mgame_hint(tcost):
 #     modal True
-#     zorder popup_zorder
+#     zorder 200
 #     add 'gui/overlay/confirm.png'
 
 #     style_prefix "confirm"
