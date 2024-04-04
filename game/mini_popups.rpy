@@ -128,28 +128,36 @@ screen popup_trade:
     style_prefix "confirm"
 
     default drop_vb = ('drop' if curholder['item']['id'] == 'air' else 'swap')
+    default ltext = f"Left hand:\n{fmtItemName(invitems[0], invstacks[0])}"
+    default rtext = f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}"
 
     frame:
         xalign 0.5
         yalign 0.5
         maximum (800, 550)
 
-        text f'Both hands are full. Which item would you like to {drop_vb}?':
-            textalign 0.5
-            xalign 0.5
-            yalign 0.3
+        vbox:
+            xalign 0.5 yalign 0.5
 
-        textbutton f"Left hand:\n{fmtItemName(invitems[0], invstacks[0])}":
-            xpos 0.2
-            yalign 0.6
-            xanchor 0.5
-            action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+            text f'Both hands are full. Which item would you like to {drop_vb}?':
+                textalign 0.5
 
-        textbutton f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}":
-            xpos 0.7
-            yalign 0.6
-            xanchor 0.5
-            action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+            hbox:
+                xalign 0.5
+                ypos 0.85 yanchor 0.5
+                spacing 100
+
+                textbutton ltext:
+                    xpos 0.2
+                    yalign 0.6
+                    xanchor 0.5
+                    action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+
+                textbutton rtext:
+                    xpos 0.7
+                    yalign 0.6
+                    xanchor 0.5
+                    action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
     
         use popup_button_close(1., 0., 'popup_trade')
 
@@ -166,28 +174,29 @@ screen popup_mgame_leave:
         xalign 0.5
         yalign 0.5
         maximum (800, 500)
-        text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
-            xalign 0.5
-            yalign 0.2
-        textbutton "Don't show this message again.":
-            xalign 0.5 ypos 0.7 yanchor 0.5
-            text_align 0.5
-            action ToggleVariable('persistent.showleavewarning')
-            if persistent.showleavewarning:
-                text_color '#aaa'
-            else:
-                text_color '#fff'
-        
-        textbutton "Yes":
-            xpos 0.4 xanchor 0.5
-            ypos 0.85 yanchor 0.5
-            text_align 0.5
-            action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('leave'), With(cfade)]
-        textbutton "No":
-            xpos 0.6 xanchor 0.5
-            ypos 0.85 yanchor 0.5
-            text_align 0.5
-            action close_leave
+        vbox:
+            text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
+                xalign 0.5
+                yalign 0.2
+            textbutton "Don't show this message again.":
+                xalign 0.5 ypos 0.7 yanchor 0.5
+                text_align 0.5
+                action ToggleVariable('persistent.showleavewarning')
+                if persistent.showleavewarning:
+                    text_color '#aaa'
+                else:
+                    text_color '#fff'
+            
+            hbox:
+                xalign 0.5
+                ypos 0.85 yanchor 0.5
+                spacing 150
+                textbutton "Yes":
+                    text_align 0.5
+                    action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('leave'), With(cfade)]
+                textbutton "No":
+                    text_align 0.5
+                    action close_leave
 
 screen popup_diffversion_prompt(v_saved, v_current):
     modal True
