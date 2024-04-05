@@ -355,7 +355,9 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    # add gui.main_menu_background
+    add 'mainmenu/start/Start_BG.png'
+    add 'mainmenu/start/Start_MC.png'
 
     ## This empty frame darkens the main menu.
     frame:
@@ -420,7 +422,9 @@ screen game_menu(title, scroll=None, yinitial=0.0):
     style_prefix "game_menu"
 
     if main_menu:
-        add gui.main_menu_background
+        # add gui.main_menu_background
+        add 'mainmenu/start/Start_BG.png'
+        add 'mainmenu/start/Start_MC.png'
     else:
         add gui.game_menu_background
 
@@ -576,16 +580,16 @@ screen progress():
             'disp_name': 'MC',
             'desc_default':
                 '''Sophronia is Mother's finest maid: she listens to Mother's every command, completes every task, and makes no mistakes. Will she stay a perfect maid or will she choose another path? How her journey unfolds will be up to you.''',
-            'small_default': 'charmenu/small/mc_default_%s.png',
-            'big_default': 'charmenu/small/mc_default_idle.png'
+            'small_default': 'mainmenu/charmenu/small/mc_default_%s.png',
+            'big_default': 'mainmenu/charmenu/small/mc_default_idle.png'
         },
         {
             'id_name': 'mother',
             'disp_name': 'Mother',
             'desc_default':
                 '''As the head of the Maid Academy, her philosophy is to be the “perfect” woman. In order to achieve her ideals, Mother does not go easy on her “lessons” to the maids, so it's best not to disappoint her. After all, Mother only wants the best for all… right?''',
-            'small_default': 'charmenu/small/mother_default_%s.png',
-            'big_default': 'charmenu/small/mother_default_idle.png'
+            'small_default': 'mainmenu/charmenu/small/mother_default_%s.png',
+            'big_default': 'mainmenu/charmenu/small/mother_default_idle.png'
         },
         {
             'id_name': 'amelia',
@@ -595,10 +599,10 @@ screen progress():
 
 As a kind and compassionate individual, Amelia is willing to believe in the best of others, but her greatest strength is hindered by her waning courage and fear of abandonment. Are you willing to trust in her kindness more, or are you more doubtful of her wavering resolve?''',
             'desc_rip': '''AMELIA NO!!!''',
-            'small_default': 'charmenu/small/amelia_default_%s.png',
-            'small_rip': 'charmenu/small/amelia_rip_%s.png',
-            'big_default': 'charmenu/small/amelia_default_idle.png',
-            'big_rip': 'charmenu/small/amelia_rip_idle.png'
+            'small_default': 'mainmenu/charmenu/small/amelia_default_%s.png',
+            'small_rip': 'mainmenu/charmenu/small/amelia_rip_%s.png',
+            'big_default': 'mainmenu/charmenu/small/amelia_default_idle.png',
+            'big_rip': 'mainmenu/charmenu/small/amelia_rip_idle.png'
         },
         {
             'id_name': 'bella',
@@ -608,10 +612,10 @@ As a kind and compassionate individual, Amelia is willing to believe in the best
 
 Bella's softer side comes out when it comes to Amelia, but her failing track record with Mother is leaving her desperate. If you aren't Amelia, then you are merely an obstacle to her. Will you choose to befriend her, or will you prefer an adversary to triumph over?''',
             'desc_rip': '''BELLA NO!!!''',
-            'small_default': 'charmenu/small/bella_default_%s.png',
-            'small_rip': 'charmenu/small/bella_rip_%s.png',
-            'big_default': 'charmenu/small/bella_default_idle.png',
-            'big_rip': 'charmenu/small/bella_rip_idle.png'
+            'small_default': 'mainmenu/charmenu/small/bella_default_%s.png',
+            'small_rip': 'mainmenu/charmenu/small/bella_rip_%s.png',
+            'big_default': 'mainmenu/charmenu/small/bella_default_idle.png',
+            'big_rip': 'mainmenu/charmenu/small/bella_rip_idle.png'
         }
     ]
 
