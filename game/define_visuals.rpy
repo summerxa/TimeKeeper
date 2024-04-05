@@ -184,10 +184,10 @@ init python:
             # it (internal positions use float for smooth movements =D)
             return int(self.xpos), int(self.ypos), st, self.image
 
-transform z(a):
+transform siz(a):
     zoom a
 
-transform opacity_matrix(a):
+transform opac(a):
     matrixcolor OpacityMatrix(a)
 
 image snowtest = Snow('seal.png')
