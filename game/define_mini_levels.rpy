@@ -14,8 +14,6 @@ init python:
                     'friend': False,
                     'friendlvl': 0
                 }
-            if not c in persistent.chars_unlocked:
-                persistent.chars_unlocked[c] = False
 
     
     def all_init_and_load():

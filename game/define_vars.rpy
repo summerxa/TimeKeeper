@@ -1,7 +1,7 @@
 init python:
     # --- CHAR MENU
     def char_unlock(c):
-        persistent.chars_unlocked[c] = True
+        persistent.chars_unlocked.add(c)
 
     def char_kill(c):
         store.chars_current[c]['alive'] = False
@@ -76,9 +76,4 @@ default mgame_goal = None
 
 default chars_current = {}
 
-define persistent.chars_unlocked = {
-    'mc': False,
-    'mother': False,
-    'amelia': False,
-    'bella': False
-}
+define persistent.chars_unlocked = set()

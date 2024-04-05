@@ -674,7 +674,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                     else:
                         auto d[c['small']]
                     action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i)]
-                    if not persistent.chars_unlocked[d['id_name']]:
+                    if not d['id_name'] in persistent.chars_unlocked:
                         at darken_sprite
             
         hbox:
@@ -705,7 +705,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                 vscrollbar_unscrollable "hide"
                 
                 vbox:
-                    if persistent.chars_unlocked[d['id_name']]:
+                    if d['id_name'] in persistent.chars_unlocked:
                         text _(d['disp_name']):
                             xalign 0. yalign 0.
                             size 50
@@ -723,7 +723,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                 xpos 0.6
                 xanchor 0.5
                 yalign 0.5
-                if not persistent.chars_unlocked[d['id_name']]:
+                if not d['id_name'] in persistent.chars_unlocked:
                     at darken_sprite
         hbox:
             xminimum 1300
