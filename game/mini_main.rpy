@@ -312,12 +312,6 @@ label mini_main():
                 if t['tf'] >= curtime and not t['done']:
                     completion -= t['scorepenalty']
 
-        if was_from_roomchange():
-            # don't use get_screen to check if screen is open
-            # b/c call screen gets weird when there's no return statement
-            show screen mini_screen
-            hide screen mini_screen with cfade
-
     return
 
 label mini_launch(startroom='main', startfloor=0):
