@@ -24,6 +24,7 @@ define fadetime = 0.5
 define persistent.showspecial = True # highlights recommended quests if True
 define persistent.namesaves = True # prompts user to name save files if True
 define persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
+define persistent.showversionwarning = True # if True, warns user when they load a diff version save file
 
 # --- MINIGAME STUFF ---
 init python:

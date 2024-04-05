@@ -200,30 +200,39 @@ screen popup_diffversion_prompt(v_saved, v_current):
 
     default close_leave = [Hide('popup_diffversion_prompt')]
     default msg = '''This save file was not made on the current version.
-Saved version: [v_saved]
+Save file version: [v_saved]
 Current game version: [v_current]
-Attempting to use this save may cause crashes and unexpected plot holes.'''
+Attempting to use this save may cause unexpected crashes and plot holes.'''
 
     frame:
         xalign 0.5
         yalign 0.5
-        maximum (800, 500)
+        maximum (900, 600)
         vbox:
             xalign 0.5 yalign 0.5
+            spacing 25
             label "Warning!!!!!!":
                 xalign 0.5
             text msg:
                 xalign 0.5 yalign 0.5
+            textbutton "Don't show this message again.":
+                xalign 0.5 ypos 0.7 yanchor 0.5
+                text_align 0.5
+                action ToggleVariable('persistent.showversionwarning')
+                if persistent.showversionwarning:
+                    text_color '#aaa'
+                else:
+                    text_color '#fff'
             hbox:
                 xalign 0.5
-                textbutton "That's fine,\nLoad Anyway":
+                textbutton "Load anyway":
                     xpos 0.3 xanchor 0.5
                     text_align 0.5
                     action close_leave
-                textbutton "...Never mind,\ntake me back":
+                textbutton "Go back":
                     xpos 0.7 xanchor 0.5
                     text_align 0.5
-                    action close_leave + [MainMenu(confirm=False, save=False)]
+                    action close_leave + [ShowMenu("load")]
 
 # TODO fix the alignment and change btn_tx to textbutton... if this screen is actually needed, LOL
 # screen popup_mgame_hint(tcost):

@@ -19,7 +19,7 @@ label start:
     return
 
 label after_load:
-    if save_version and save_version != config.version:
+    if save_version != config.version and persistent.showversionwarning:
         show screen popup_diffversion_prompt(save_version, config.version)
 
     $ all_init_and_load()
