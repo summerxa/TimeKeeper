@@ -181,7 +181,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                 xalign 0.5
                 yalign 0.5
                 auto 'mini/ui/clock_%s.png'
-                action [Show('popup_clock')]
+                action [SetVariable('hinttext', fmtTimeHinttext())]
                 hovered SetVariable('cur_hov', 'clock_btn')
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'clock_btn')

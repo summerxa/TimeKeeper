@@ -14,8 +14,6 @@ init python:
                 return True
         return False
 
-    # --- TASK/TASKBUTTON FORMATTING ---
-
     # returns time in am/pm
     def getTimeDig(t):
         tx = ''
@@ -32,6 +30,19 @@ init python:
         else:
             tx += 'pm'
         return tx
+
+    def fmtTimeHinttext():
+        mleft = store.tlimit - store.curtime
+        hleft = mleft // 60
+        mleft %= 60
+        sleft = ""
+        if hleft:
+            sleft += f"{hleft} {'hours' if hleft > 1 else 'hour'}"
+        if mleft:
+            sleft += f"{' and ' if hleft else ''}{mleft} {'minutes' if mleft > 1 else 'minute'}"
+        return f"It's currently {getTimeDig(store.curtime)}. I have {sleft} left."
+
+    # --- TASK/TASKBUTTON FORMATTING ---
 
     def setTlimit(t):
         t['t0'] = store.curtime

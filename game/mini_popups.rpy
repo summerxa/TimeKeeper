@@ -134,13 +134,6 @@ screen popup_trade:
     
         use popup_button_close(1., 0., 'popup_trade')
 
-screen popup_clock:
-    modal True
-    zorder 200
-    add 'gui/overlay/confirm.png'
-
-    use popup_button_close(0.75, 0.25, 'popup_clock')
-
 screen popup_help(curstate='main'):
     modal True
     zorder 200
