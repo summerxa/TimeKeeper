@@ -190,7 +190,7 @@ transform z(a):
 transform opacity_matrix(a):
     matrixcolor OpacityMatrix(a)
 
-image snowtest = Snow('snow ig.png')
+image snowtest = Snow('seal.png')
 
 define cfade = Fade(fadetime, 0.0, fadetime)
 
