@@ -111,7 +111,7 @@ init python:
                 if p > 1:
                     p = 1.0
                 
-                rv.append( At( At(image, opacity_matrix(p)), z(p) ) )
+                rv.append( At( At(image, opac(p)), siz(p) ) )
 
             return rv
         
