@@ -6,7 +6,10 @@ label start:
     # The following line disables the "back" button when uncommented
     # $ config.rollback_enabled = False
 
-    call chap1_test_charmenu
+    # This label unlocks all characters and sets their names when uncommented
+    # call meet_all_chars
+
+    call chap1_test_namechange
 
 
     # --- Minigame stuff ---
@@ -25,3 +28,14 @@ label after_load:
     $ all_init_and_load()
 
     return
+
+label meet_all_chars:
+    $ char_unlock('mc')
+    $ char_unlock('mother')
+    $ char_unlock('amelia')
+    $ char_unlock('bella')
+
+    $ mother_name = 'Mother'
+    $ amelia_name = 'Amelia'
+    $ bella_name = 'Bella'
+    $ maria_name = 'Maria'
