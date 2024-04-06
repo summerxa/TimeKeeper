@@ -41,9 +41,10 @@ screen btn_roomarrow(b, hov_id):
     imagebutton:
         auto 'mini/ui/btn_room_down_%s.png'
         if b['dir'] == 'up':
-            at rot(180)
+            at highlight_hov(cur_hov, hov_id), rot(180)
             ypos 0.15
         else:
+            at highlight_hov(cur_hov, hov_id)
             ypos 0.85
         xpos b['xp']
         action act
@@ -51,7 +52,6 @@ screen btn_roomarrow(b, hov_id):
         yanchor 0.5
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
-        at highlight_hov(cur_hov, hov_id)
     textbutton b['btext']:
         xpos b['xp']
         if b['dir'] == 'up':
