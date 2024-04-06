@@ -109,11 +109,11 @@ init python:
                 if b['floor'] != curfloor:
                     continue
                 toRoom = b['num']
-                bname = b['name']
+                bname = b['name'].upper()
                 if toRoom == froRoom:
                     bname += "\n(YOU ARE HERE)"
                 else:
-                    bname += " (" + str(roomProxim[curlevel][curfloor][froRoom][toRoom]) + ")"
+                    bname += "\n(" + str(roomProxim[curlevel][curfloor][froRoom][toRoom]) + " min)"
                 roomButtons[curlevel][name]['btext'] = bname
 
     # --- TASK STUFF ---

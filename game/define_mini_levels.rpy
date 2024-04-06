@@ -48,28 +48,28 @@ default levelHints = {
 default roomButtons = {
     1: {
         'ballroom': {
-            'name': 'BALLROOM',
+            'name': 'ballroom',
             'floor': 0,
             'num': 0,
             'xp': 0.5,
             'yp': 0.2,
         },
         'kitchen': {
-            'name': 'KITCHEN',
+            'name': 'kitchen',
             'floor': 0,
             'num': 1,
             'xp': 0.6,
             'yp': 0.7
         },
         'laundry': {
-            'name': 'LAUNDRY',
+            'name': 'laundry',
             'floor': 0,
             'num': 2,
             'xp': 0.35,
             'yp': 0.7
         },
         'room 4': {
-            'name': 'ROOM 4',
+            'name': 'room 4',
             'floor': 1,
             'num': 0,
             'xp': 0.5,

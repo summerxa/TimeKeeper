@@ -331,7 +331,7 @@ label mini_launch(startroom='main', startfloor=0):
         invitems = ['air', 'air']
         invstacks = [1, 1]
         for bn, b in roomButtons[curlevel].items():
-            b['btext'] = b['name']
+            b['btext'] = b['name'].upper()
         for bn, b in taskButtons[curlevel].items():
             b['curtask'] = None
             if 'hidden' in b:
@@ -357,7 +357,7 @@ label mini_launch(startroom='main', startfloor=0):
                 i1 = roomButtons[curlevel][fromroom]['num']
                 i2 = roomButtons[curlevel][a['toroom']]['num']
                 tcost = roomProxim[curlevel][curfloor][i1][i2]
-                aname = roomButtons[curlevel][a['toroom']]['name']
+                aname = roomButtons[curlevel][a['toroom']]['name'].upper()
                 a['btext'] = f'{aname}({tcost})'
                 a['tcost'] = tcost
     jump mini_main
