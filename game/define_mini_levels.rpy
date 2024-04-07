@@ -45,6 +45,7 @@ default levelHints = {
     'waterpour_cup_full': "This glass is full; I can't pour into it."
 }
 
+# dimensions (w,h) of room map img
 default roomDims = {
     1: {
         'ballroom': (1920, 1080),
@@ -163,21 +164,21 @@ default taskButtons = {
             'imtask': 'normal'
         },
         'sink': {
-            'xp': 328,
-            'yp': 382,
+            'xp': 334,
+            'yp': 388,
             'room': 'kitchen',
             'imtask': 'kitchensink'
         },
         'pickuptable': {
-            'xp': 140,
-            'yp': 411,
+            'xp': 146,
+            'yp': 418,
             'room': 'kitchen',
             'imtask': 'pickuptable',
             'taskless': 'custom_taskless'
         },
         'kitchen_idk': {
-            'xp': 228,
-            'yp': 145,
+            'xp': 234,
+            'yp': 150,
             'room': 'kitchen',
             'imtask': 'kitchenidk'
         },

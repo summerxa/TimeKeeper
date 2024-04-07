@@ -9,7 +9,7 @@ label start:
     # This label unlocks all characters and sets their names when uncommented
     call meet_all_chars
 
-    call chap1_test_spritesall
+    # call chap1_test_spritesall
 
 
     # --- Minigame stuff ---

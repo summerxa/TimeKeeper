@@ -66,8 +66,6 @@ screen btn_roomarrow(b, hov_id):
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
 
-# basically a layered button, but doesn't render if button has no task
-# unless the button has an idle label to call
 screen btn_tsk(b, hov_id=None):
     if b['curtask'] or not 'hidden' in b:
         imagebutton:
@@ -95,7 +93,7 @@ screen btn_tsk(b, hov_id=None):
                     unhovered SetVariable('cur_hov', None)
                     at highlight_hov(cur_hov, hov_id)
 
-# layered button that holds a grabbable item
+# item holder
 screen btn_item(b, hov_id):
     imagebutton:
         xpos b['xp']
@@ -270,17 +268,29 @@ screen mini_screen:
             if b['floor'] == curfloor:
                 use btn_room(b, bn)
     else:
-        frame:
+        fixed:
             xalign 0.5 yalign 0.5
             minimum roomDims[curlevel][curroom]
             maximum roomDims[curlevel][curroom]
-            background Frame(f"mini/map/map_{curlevel}_{curroom}.png")
+            add f"mini/map/map_{curlevel}_{curroom}.png":
+                xalign 0.5 yalign 0.5
             for bn, b in taskButtons[curlevel].items():
                 if curroom == b['room']:
                     use btn_tsk(b, bn)
             for hn, h in itemHolders[curlevel].items():
                 if curroom == h['room']:
                     use btn_item(h, hn)
+        # frame:
+        #     xalign 0.5 yalign 0.5
+        #     minimum roomDims[curlevel][curroom]
+        #     maximum roomDims[curlevel][curroom]
+        #     background Frame(f"mini/map/map_{curlevel}_{curroom}.png")
+        #     for bn, b in taskButtons[curlevel].items():
+        #         if curroom == b['room']:
+        #             use btn_tsk(b, bn)
+        #     for hn, h in itemHolders[curlevel].items():
+        #         if curroom == h['room']:
+        #             use btn_item(h, hn)
         use mini_sidebar('inroom')
         if curroom in roomArrows[curlevel]:
             for a in roomArrows[curlevel][curroom]:

@@ -344,17 +344,17 @@ screen startmenu_btn(xp, yp, b_id, act, hov):
 
 screen start_navigation(hov):
 
-    use startmenu_btn(0.18, 0.189, 'load', ShowMenu("load"), hov)
+    use startmenu_btn(349, 196, 'load', ShowMenu("load"), hov)
     
-    use startmenu_btn(0.165, 0.36, 'progress', ShowMenu("progress"), hov)
+    use startmenu_btn(317, 389, 'progress', ShowMenu("progress"), hov)
     
-    use startmenu_btn(0.15, 0.53, 'start', Start(), hov)
+    use startmenu_btn(288, 572, 'start', Start(), hov)
     
     # TODO merge preferences, help, about
-    use startmenu_btn(0.165, 0.695, 'settings', ShowMenu("preferences"), hov)
+    use startmenu_btn(317, 751, 'settings', ShowMenu("preferences"), hov)
 
     if renpy.variant("pc"):
-        use startmenu_btn(0.18, 0.86, 'quit', Quit(confirm=not main_menu), hov)
+        use startmenu_btn(349, 929, 'quit', Quit(confirm=not main_menu), hov)
 
 
 style navigation_button is gui_button
