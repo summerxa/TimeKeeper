@@ -302,10 +302,13 @@ label gotoroom_indirect:
             i2 = roomButtons[curlevel][curroom]['num']
             curtime += roomProxim[curlevel][curfloor][i1][i2]
             prevroom = 'main'
+            if i1 != i2:
+                hinttext = levelHints['default_idle']
     jump mini_main
 
 # just refreshes mini_main to check if time limit was reached...
 label gotoroom_direct:
+    $ hinttext = levelHints['default_idle']
     jump mini_main
 
 label give_item_prompt(vb='Give', both_hands=False):
