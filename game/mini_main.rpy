@@ -77,7 +77,7 @@ screen btn_tsk(b, hov_id=None):
                 # if persistent.showspecial and Task.SPECIAL in b['curtask']['tags']:
                 #     auto 'mini/task_special_%s.jpg'
                 # else:
-                auto b['imtask']
+                auto f"mini/btn_task/btn_{b['imtask']}_task_%s.jpg"
                 if 'item_req' in b['curtask']:
                     if task_can_proceed(b['curtask']['item_req']):
                         action b['act']
@@ -86,7 +86,7 @@ screen btn_tsk(b, hov_id=None):
                 else:
                     action b['act']
             else:
-                auto b['imidle']
+                auto f"mini/btn_task/btn_{b['imtask']}_%s.jpg"
                 action b['act']
             if 'htext' in b and not len(b['htext']) == 0:
                 if b['curtask']:
@@ -341,9 +341,6 @@ label mini_launch(startroom='main', startfloor=0):
                     b['act'] = SetVariable('hinttext', levelHints[b['taskless']])
                 else:
                     b['act'] = SetVariable('hinttext', levelHints['default_taskless'])
-            imname = b['imtask']
-            b['imtask'] = f'mini/btn_task/btn_{imname}_task_%s.jpg'
-            b['imidle'] = f'mini/btn_task/btn_{imname}_%s.jpg'
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1

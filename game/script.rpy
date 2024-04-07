@@ -7,9 +7,9 @@ label start:
     # $ config.rollback_enabled = False
 
     # This label unlocks all characters and sets their names when uncommented
-    # call meet_all_chars
+    call meet_all_chars
 
-    call chap1_test_namechange
+    # call chap1_test_namechange
 
 
     # --- Minigame stuff ---

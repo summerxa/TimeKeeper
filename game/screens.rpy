@@ -332,61 +332,29 @@ screen navigation():
             ## Web.
             textbutton _("Quit") action Quit(confirm=not main_menu)
 
+screen startmenu_btn(xp, yp, b_id, act, hov):
+    imagebutton:
+        xpos xp ypos yp
+        xanchor 0.5 yanchor 0.5
+        auto f'mainmenu/start/start_{b_id}_%s.png'
+        action act
+        hovered SetScreenVariable('hov', b_id)
+        unhovered SetScreenVariable('hov', None)
+        at siz(1.05 if hov == b_id else 1.0)
+
 screen start_navigation(hov):
 
-    imagebutton:
-        xpos 0.18 ypos 0.18
-        xanchor 0.5 yanchor 0.5
-        auto 'mainmenu/start/start_load_%s.png'
-        action ShowMenu("load")
-        hovered SetScreenVariable('hov', 'load')
-        unhovered SetScreenVariable('hov', None)
-        if hov == 'load':
-            at siz(1.05)
+    use startmenu_btn(0.18, 0.189, 'load', ShowMenu("load"), hov)
     
-    imagebutton:
-        xpos 0.165 ypos 0.355
-        xanchor 0.5 yanchor 0.5
-        auto 'mainmenu/start/start_progress_%s.png'
-        action ShowMenu("progress")
-        hovered SetScreenVariable('hov', 'progress')
-        unhovered SetScreenVariable('hov', None)
-        if hov == 'progress':
-            at siz(1.05)
+    use startmenu_btn(0.165, 0.36, 'progress', ShowMenu("progress"), hov)
     
-    imagebutton:
-        xpos 0.15 ypos 0.53
-        xanchor 0.5 yanchor 0.5
-        auto 'mainmenu/start/start_start_%s.png'
-        action Start()
-        hovered SetScreenVariable('hov', 'start')
-        unhovered SetScreenVariable('hov', None)
-        if hov == 'start':
-            at siz(1.05)
+    use startmenu_btn(0.15, 0.53, 'start', Start(), hov)
     
-    imagebutton:
-        xpos 0.165 ypos 0.695
-        xanchor 0.5 yanchor 0.5
-        auto 'mainmenu/start/start_settings_%s.png'
-        action ShowMenu("preferences") # TODO merge preferences, help, about
-        hovered SetScreenVariable('hov', 'settings')
-        unhovered SetScreenVariable('hov', None)
-        if hov == 'settings':
-            at siz(1.05)
+    # TODO merge preferences, help, about
+    use startmenu_btn(0.165, 0.695, 'settings', ShowMenu("preferences"), hov)
 
     if renpy.variant("pc"):
-
-        ## The quit button is banned on iOS and unnecessary on Android and
-        ## Web.
-        imagebutton:
-            xpos 0.18 ypos 0.86
-            xanchor 0.5 yanchor 0.5
-            auto 'mainmenu/start/start_quit_%s.png'
-            action Quit(confirm=not main_menu)
-            hovered SetScreenVariable('hov', 'quit')
-            unhovered SetScreenVariable('hov', None)
-            if hov == 'quit':
-                at siz(1.05)
+        use startmenu_btn(0.18, 0.86, 'quit', Quit(confirm=not main_menu), hov)
 
 
 style navigation_button is gui_button
