@@ -240,12 +240,12 @@ screen floor_sidebar(curstate='game'):
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
 screen mc_hintbox:
-    add 'mc 1a s':
+    add 'mc minigame':
         zoom 1.05
         xalign 1.07
         yalign 0.
         matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
-    add 'mc 1a s':
+    add 'mc minigame':
         zoom 1.05
         xalign 1.1
         yalign 0.5

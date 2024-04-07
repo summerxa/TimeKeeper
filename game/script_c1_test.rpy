@@ -55,11 +55,9 @@
 
     n2 'No way, me too!'
 
-    s 5a s '...'
+    s 5a '...'
 
     s '(how did these random npcs spawn out of nowhere??)'
-
-    show mc 5a
 
     m 'Hello random npcs'
 
