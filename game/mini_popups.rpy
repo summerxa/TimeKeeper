@@ -283,7 +283,7 @@ screen popup_map:
     window:
         xalign 0
         yalign 0
-        background getMiniMap(curlevel, 'main', mapfloor)
+        background getMainMap(curlevel, mapfloor)
     
     use mini_sidebar('map')
     use floor_sidebar('map')

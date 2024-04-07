@@ -262,22 +262,26 @@ screen mc_hintbox:
 screen mini_screen:
     modal True
 
-    add getMiniMap(curlevel, curroom, curfloor):
-        xalign 0.5 yalign 0.5
-
     if curroom == 'main':
+        add getMainMap(curlevel, curfloor):
+            xalign 0.5 yalign 0.5
         use mini_sidebar
         for bn, b in roomButtons[curlevel].items():
             if b['floor'] == curfloor:
                 use btn_room(b, bn)
     else:
+        frame:
+            xalign 0.5 yalign 0.5
+            minimum roomDims[curlevel][curroom]
+            maximum roomDims[curlevel][curroom]
+            background Frame(f"mini/map/map_{curlevel}_{curroom}.png")
+            for bn, b in taskButtons[curlevel].items():
+                if curroom == b['room']:
+                    use btn_tsk(b, bn)
+            for hn, h in itemHolders[curlevel].items():
+                if curroom == h['room']:
+                    use btn_item(h, hn)
         use mini_sidebar('inroom')
-        for bn, b in taskButtons[curlevel].items():
-            if curroom == b['room']:
-                use btn_tsk(b, bn)
-        for hn, h in itemHolders[curlevel].items():
-            if curroom == h['room']:
-                use btn_item(h, hn)
         if curroom in roomArrows[curlevel]:
             for a in roomArrows[curlevel][curroom]:
                 use btn_roomarrow(a, f"to_{a['toroom']}_btn")

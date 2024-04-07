@@ -45,6 +45,15 @@ default levelHints = {
     'waterpour_cup_full': "This glass is full; I can't pour into it."
 }
 
+default roomDims = {
+    1: {
+        'ballroom': (1920, 1080),
+        'kitchen': (1331, 800),
+        'laundry': (793, 877),
+        'room 4': (1926, 1079)
+    }
+}
+
 default roomButtons = {
     1: {
         'ballroom': {
@@ -154,29 +163,29 @@ default taskButtons = {
             'imtask': 'normal'
         },
         'sink': {
-            'xp': 0.3275,
-            'yp': 0.489,
+            'xp': 328,
+            'yp': 382,
             'room': 'kitchen',
             'imtask': 'kitchensink'
         },
         'pickuptable': {
-            'xp': 0.23,
-            'yp': 0.5165,
+            'xp': 140,
+            'yp': 411,
             'room': 'kitchen',
             'imtask': 'pickuptable',
             'taskless': 'custom_taskless'
         },
         'kitchen_idk': {
-            'xp': 0.287,
-            'yp': 0.287,
+            'xp': 228,
+            'yp': 145,
             'room': 'kitchen',
             'imtask': 'kitchenidk'
         },
         'laundry_1': {
-            'xp': 0.525,
-            'yp': 0.285,
+            'xp': 440,
+            'yp': 201,
             'room': 'laundry',
-            'imtask': 'laundryMachine'
+            'imtask': 'laundrymachine'
         }
     }
 }

@@ -1,6 +1,6 @@
 init python:
-    def getMiniMap(lvl, room, floor):
-        return f"mini/map/map_{lvl}_{room}_{floor}.png"
+    def getMainMap(lvl, floor):
+        return f"mini/map/map_{lvl}_main_{floor}.png"
 
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
