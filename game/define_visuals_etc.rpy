@@ -192,7 +192,7 @@ transform opac(a):
 
 image snowtest = Snow('seal.png')
 
-define cfade = Fade(fadetime, 0.0, fadetime)
+default cfade = Fade(fadetime, 0.0, fadetime)
 
 # --- UI STUFF ---
 
@@ -280,6 +280,9 @@ image mother 7a = Comp_CS_('mother', 467, 239, '1_7', '1_a', 1.1)
 
 image npc1 = CS_('npc1', 'sprites/npc/n1.png')
 image npc2 = CS_('npc2', 'sprites/npc/n2.png')
+image npc3 = CS_('npc3', 'sprites/npc/n3.png')
+image npc4 = CS_('npc4', 'sprites/npc/n4.png')
+image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 
 # --- CHARACTER STUFF ---
 # technically these aren't visuals...
@@ -296,10 +299,16 @@ define b = Character('bella_name', image='bella', callback=functools.partial(set
 default maria_name = '???'
 define l = Character('maria_name', image='maria', callback=functools.partial(set_cur_speaker, ch='maria'), dynamic=True)
 
-# young noble m npc
-define n1 = Character('NPC 1', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
-# old noble m npc
-define n2 = Character('NPC 2', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
+# young noble m
+define n1 = Character('Noble', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
+# old noble m
+define n2 = Character('Noble', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
+# maid
+define n3 = Character('Maid', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'))
+# young noble f
+define n4 = Character('Noble', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'))
+# old noble f
+define n5 = Character('Noble', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'))
 
 # --- POSITION STUFF ---
 

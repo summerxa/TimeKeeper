@@ -63,6 +63,47 @@
 
     return
 
+label chap1_test_spritesall:
+    scene bg room
+
+    $ talks_next = 'mc'
+    show mc 1a
+    s 'Pose a expression 1'
+    s 6b 'Pose b expression 6'
+
+    scene bg room
+    $ talks_next = 'mother'
+    show mother 7a
+    m 'Pose a expression 7'
+    m 1a 'Pose a expression 1'
+
+    scene bg room
+    $ talks_next = 'npc1'
+    show npc1
+    n1 'testing'
+
+    scene bg room
+    $ talks_next = 'npc2'
+    show npc2
+    n2 'testing'
+
+    scene bg room
+    $ talks_next = 'npc3'
+    show npc3
+    n3 'testing'
+
+    scene bg room
+    $ talks_next = 'npc4'
+    show npc4
+    n4 'testing'
+
+    scene bg room
+    $ talks_next = 'npc5'
+    show npc5
+    n5 'testing'
+
+    return
+
 label chap1_test_charmenu:
     scene bg joyce why
 
