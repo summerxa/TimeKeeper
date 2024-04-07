@@ -153,24 +153,30 @@ default taskButtons = {
             'room': 'ballroom',
             'imtask': 'normal'
         },
-        't21': {
-            'xp': 0.5,
-            'yp': 0.5,
+        'sink': {
+            'xp': 0.3275,
+            'yp': 0.489,
             'room': 'kitchen',
-            'imtask': 't2'
+            'imtask': 'kitchensink'
         },
-        't31': {
-            'xp': 0.5,
-            'yp': 0.5,
-            'room': 'laundry',
-            'imtask': 'normal'
-        },
-        't41': {
-            'xp': 0.3,
-            'yp': 0.7,
+        'pickuptable': {
+            'xp': 0.23,
+            'yp': 0.5165,
             'room': 'kitchen',
-            'imtask': 'normal',
+            'imtask': 'pickuptable',
             'taskless': 'custom_taskless'
+        },
+        'kitchen_idk': {
+            'xp': 0.287,
+            'yp': 0.287,
+            'room': 'kitchen',
+            'imtask': 'kitchenidk'
+        },
+        'laundry_1': {
+            'xp': 0.525,
+            'yp': 0.285,
+            'room': 'laundry',
+            'imtask': 'laundryMachine'
         }
     }
 }
@@ -225,7 +231,7 @@ default tasks = {
         't2': {
             'name': 't2',
             'desc': 'Drop off dirty dishes',
-            'btn': 't21',
+            'btn': 'sink',
             'tlabel': 'task_c1_dropdishes',
             'fail_id': 'dropdishes_fail',
             'item_req': ['dirty_dishes'],
@@ -250,7 +256,7 @@ default tasks = {
         't3': {
             'name': 't3',
             'desc': 'Drop off test item 3',
-            'btn': 't31',
+            'btn': 'laundry_1',
             'tlabel': 'c1_t1',
             'tcost': 5,
             't0': -1,
@@ -262,7 +268,7 @@ default tasks = {
         't4': {
             'name': 't4',
             'desc': 'Click on all the Cat MC pictures :D',
-            'btn': 't41',
+            'btn': 'pickuptable',
             'tlabel': 'task_c1_toggle',
             'tcost': 5,
             't0': -1,

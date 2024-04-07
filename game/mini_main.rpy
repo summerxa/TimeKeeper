@@ -71,13 +71,10 @@ screen btn_roomarrow(b, hov_id):
 screen btn_tsk(b, hov_id=None):
     if b['curtask'] or not 'hidden' in b:
         imagebutton:
-            xpos b['xp']
-            ypos b['yp']
+            xpos b['xp'] ypos b['yp']
+            xanchor 0.5 yanchor 0.5
             if b['curtask']:
-                # if persistent.showspecial and Task.SPECIAL in b['curtask']['tags']:
-                #     auto 'mini/task_special_%s.jpg'
-                # else:
-                auto f"mini/btn_task/btn_{b['imtask']}_task_%s.jpg"
+                auto f"mini/btn_task/btn_{b['imtask']}_task_%s.png"
                 if 'item_req' in b['curtask']:
                     if task_can_proceed(b['curtask']['item_req']):
                         action b['act']
@@ -86,7 +83,7 @@ screen btn_tsk(b, hov_id=None):
                 else:
                     action b['act']
             else:
-                auto f"mini/btn_task/btn_{b['imtask']}_%s.jpg"
+                auto f"mini/btn_task/btn_{b['imtask']}_%s.png"
                 action b['act']
             if 'htext' in b and not len(b['htext']) == 0:
                 if b['curtask']:
@@ -265,10 +262,8 @@ screen mc_hintbox:
 screen mini_screen:
     modal True
 
-    window:
-        xalign 0
-        yalign 0
-        background getMiniMap(curlevel, curroom, curfloor)
+    add getMiniMap(curlevel, curroom, curfloor):
+        xalign 0.5 yalign 0.5
 
     if curroom == 'main':
         use mini_sidebar
