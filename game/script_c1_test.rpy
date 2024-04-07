@@ -391,7 +391,7 @@ label task_c1_toggle:
     jump mini_main
 
 label task_c1_waterpour:
-    scene bg room
+    scene bg hallway
 
     $ hinttext = levelHints['waterpour_idle']
 

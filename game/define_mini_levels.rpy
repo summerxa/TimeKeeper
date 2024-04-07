@@ -311,19 +311,19 @@ default tasks = {
                 'yp': 0.5,
                 'cups': [
                     {
-                        'xp': 0.35,
+                        'xp': 0.24,
                         'colors': ['#920e0e']
                     },
                     {
-                        'xp': 0.45,
+                        'xp': 0.38,
                         'colors': ['#920e0e', '#a4f910', '#920e0e', '#eedfab']
                     },
                     {
-                        'xp': 0.55,
+                        'xp': 0.52,
                         'colors': ['#eedfab', '#a4f910', '#a4f910', '#920e0e']
                     },
                     {
-                        'xp': 0.65,
+                        'xp': 0.66,
                         'colors': ['#eedfab', '#eedfab', '#a4f910']
                     }
                 ]
