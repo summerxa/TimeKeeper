@@ -207,9 +207,10 @@ screen floor_sidebar(curstate='game'):
             yanchor 0.5
             if curstate == 'map':
                 action SetVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
+                hovered SetVariable('cur_hov', 'floor_up_btn')
             else:
                 action act1 + [SetVariable('curfloor', curfloor+1)] + act2
-            hovered [SetVariable('cur_hov', 'floor_up_btn'), SetVariable('hinttext', f"Go upstairs ({levelInfo[curlevel]['tstairs']} min)")]
+                hovered [SetVariable('cur_hov', 'floor_up_btn'), SetVariable('hinttext', f"Go upstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_up_btn')
     text f'{curfloor+1}F':
@@ -228,9 +229,10 @@ screen floor_sidebar(curstate='game'):
             yanchor 0.5
             if curstate == 'map':
                 action SetVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
+                hovered SetVariable('cur_hov', 'floor_down_btn')
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
-            hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
+                hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
