@@ -73,9 +73,15 @@ label chap1_test_spritesall:
 
     scene bg room
     $ talks_next = 'mother'
-    show mother 7a
+    show mother 7a at siz(1.1)
     m 'Pose a expression 7'
     m 1a 'Pose a expression 1'
+
+    scene bg room
+    $ talks_next = 'amelia'
+    show amelia 1a
+    a 'What'
+    a 8a 'SHOOKETH'
 
     scene bg room
     $ talks_next = 'npc1'

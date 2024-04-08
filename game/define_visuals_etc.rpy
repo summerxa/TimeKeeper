@@ -251,8 +251,8 @@ image bg seal room = 'bgs/seal room.png'
 image bg hallway = 'bgs/hallway.png'
 image bg joyce why = 'bgs/joyce why.png'
 
-image mc minigame = Comp_('mc', 641, 386, '01', '0a')
 
+image mc minigame = Comp_('mc', 641, 386, '01', '0a')
 
 image mc 1a = Comp_CS_('mc', 641, 386, '01', '0a')
 image mc 2a = Comp_CS_('mc', 641, 386, '02', '0a')
@@ -276,7 +276,17 @@ image mother 3a = Comp_CS_('mother', 467, 239, '1_3', '1_a', 1.1)
 image mother 4a = Comp_CS_('mother', 467, 239, '1_4', '1_a', 1.1)
 image mother 5a = Comp_CS_('mother', 467, 239, '1_5', '1_a', 1.1)
 image mother 6a = Comp_CS_('mother', 467, 239, '1_6', '1_a', 1.1)
-image mother 7a = Comp_CS_('mother', 467, 239, '1_7', '1_a', 1.1)
+image mother 7a = Comp_CS_('mother', 467, 239, '1_7', '1_a')
+
+
+image amelia 1a = Comp_CS_('amelia', 450, 412, '2_1', '2_1')
+image amelia 2a = Comp_CS_('amelia', 450, 412, '2_2', '2_1')
+image amelia 3a = Comp_CS_('amelia', 450, 412, '2_3', '2_1')
+image amelia 4a = Comp_CS_('amelia', 450, 412, '2_4', '2_1')
+image amelia 5a = Comp_CS_('amelia', 450, 412, '2_5', '2_1')
+image amelia 6a = Comp_CS_('amelia', 450, 412, '2_6', '2_1')
+image amelia 7a = Comp_CS_('amelia', 450, 412, '2_7', '2_1')
+image amelia 8a = Comp_CS_('amelia', 450, 412, '2_8', '2_1')
 
 
 image npc1 = CS_('npc1', 'sprites/npc/n1.png')
