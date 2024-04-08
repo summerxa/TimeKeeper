@@ -148,20 +148,16 @@ screen mgame_waterpour:
                     )
                 )
             )
-            hovered SetVariable('cur_hov', f'cup_{i}')
-            unhovered SetVariable('cur_hov', None)
-            at highlight_hov(cur_hov, f'cup_{i}')
         for j, curcolor in list(enumerate(c['colors'])):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
                 xpos c['xp']
                 ypos curgame['yp'] - (0.1 if sel == i else 0.)
                 xanchor 0.5 yanchor 0.5
-                at tint(curcolor), highlight_hov(cur_hov, f'cup_{i}')
+                at tint(curcolor)
         add 'mini/tgame/waterpour/waterpour_highlights.png':
             xpos c['xp']
             ypos curgame['yp'] - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
-            at highlight_hov(cur_hov, f'cup_{i}')
     
     use mini_sidebar('mgame', curgame['type'])
     use mc_hintbox
