@@ -85,6 +85,14 @@ label chap1_test_spritesall:
     a 8a 'SHOOKETH'
     hide amelia
 
+    $ talks_next = 'amelia'
+    show bella 1a
+    b 'Evil bella be like,'
+    b 6a "I'm sorry I hurt your feelings"
+    b 8a 'Tsundere moment??????'
+    b 4a 'Bullying.'
+    hide bella
+
     $ talks_next = 'npc1'
     show npc1
     n1 'testing'
