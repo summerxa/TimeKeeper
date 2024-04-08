@@ -280,10 +280,10 @@ screen popup_map:
 
     on "show" action SetVariable('mapfloor', curfloor)
 
-    window:
-        xalign 0
-        yalign 0
-        background getMainMap(curlevel, mapfloor)
+    add "bg minigame":
+        xalign 0.5 yalign 0.5
+    add getMainMap(curlevel, mapfloor):
+        xalign 0.5 yalign 0.5
     
     use mini_sidebar('map')
     use floor_sidebar('map')
