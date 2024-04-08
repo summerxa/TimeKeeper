@@ -319,6 +319,8 @@ screen navigation():
 
         textbutton _("Progress") action ShowMenu("progress")
 
+        textbutton _("Settings") action ShowMenu("settings")
+
         textbutton _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
@@ -571,7 +573,11 @@ screen about():
     ## This use statement includes the game_menu screen inside this one. The
     ## vbox child is then included inside the viewport inside the game_menu
     ## screen.
-    use game_menu(_("About"), scroll="viewport"):
+    viewport:
+        mousewheel True
+        draggable True
+        scrollbars "vertical"
+        vscrollbar_unscrollable "hide"
 
         style_prefix "about"
 
@@ -954,6 +960,34 @@ style slot_button:
 style slot_button_text:
     properties gui.button_text_properties("slot_button")
 
+# WOAH a second custom screen -snail
+screen settings():
+
+    tag menu
+
+    default s_tab = "preferences"
+    default device = "keyboard"
+
+    use game_menu(_("Settings")):
+
+        style_prefix "help"
+
+        vbox:
+            spacing 23
+
+            hbox:
+
+                textbutton _("Preferences") action SetScreenVariable("s_tab", "preferences")
+                textbutton _("Help") action SetScreenVariable("s_tab", "help")
+                textbutton _("About") action SetScreenVariable("s_tab", "about")
+
+            if s_tab == "preferences":
+                use preferences
+            elif s_tab == "help":
+                use help(device)
+            elif s_tab == "about":
+                use about
+
 
 ## Preferences screen ##########################################################
 ##
@@ -966,7 +1000,11 @@ screen preferences():
 
     tag menu
 
-    use game_menu(_("Preferences"), scroll="viewport"):
+    viewport:
+        mousewheel True
+        draggable True
+        scrollbars "vertical"
+        vscrollbar_unscrollable "hide"
 
         vbox:
 
@@ -1218,13 +1256,15 @@ style history_label_text:
 ## screens (keyboard_help, mouse_help, and gamepad_help) to display the actual
 ## help.
 
-screen help():
+screen help(device='keyboard'):
 
     tag menu
 
-    default device = "keyboard"
-
-    use game_menu(_("Help"), scroll="viewport"):
+    viewport:
+        mousewheel True
+        draggable True
+        scrollbars "vertical"
+        vscrollbar_unscrollable "hide"
 
         style_prefix "help"
 

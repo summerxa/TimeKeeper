@@ -269,6 +269,7 @@ image mc 5b = Comp_CS_('mc', 641, 386, '05', '0b')
 image mc 6b = Comp_CS_('mc', 641, 386, '06', '0b')
 
 
+# TODO if we decide to resize her sprite manually, remove the zm argument from Comp_CS_
 image mother 1a = Comp_CS_('mother', 467, 239, '1_1', '1_a', 1.1)
 image mother 2a = Comp_CS_('mother', 467, 239, '1_2', '1_a', 1.1)
 image mother 3a = Comp_CS_('mother', 467, 239, '1_3', '1_a', 1.1)
