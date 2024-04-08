@@ -298,7 +298,7 @@ screen popup_map:
     for bn, b in roomButtons[curlevel].items():
         if b['floor'] != mapfloor:
             continue
-        text b['name']:
+        text b['name'].upper():
             xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5
             style 'fancy_font'
             textalign 0.5

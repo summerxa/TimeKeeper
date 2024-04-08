@@ -70,43 +70,45 @@ label chap1_test_spritesall:
     show mc 1a
     s 'Pose a expression 1'
     s 6b 'Pose b expression 6'
+    hide mc
 
-    scene bg room
     $ talks_next = 'mother'
     show mother 7a at siz(1.1)
     m 'Pose a expression 7'
-    m 1a 'Pose a expression 1'
+    show mother 1a at siz(1.1)
+    m 'Pose a expression 1'
+    hide mother
 
-    scene bg room
     $ talks_next = 'amelia'
     show amelia 1a
     a 'What'
     a 8a 'SHOOKETH'
+    hide amelia
 
-    scene bg room
     $ talks_next = 'npc1'
     show npc1
     n1 'testing'
+    hide npc1
 
-    scene bg room
     $ talks_next = 'npc2'
     show npc2
     n2 'testing'
+    hide npc2
 
-    scene bg room
     $ talks_next = 'npc3'
     show npc3
     n3 'testing'
+    hide npc3
 
-    scene bg room
     $ talks_next = 'npc4'
     show npc4
     n4 'testing'
+    hide npc4
 
-    scene bg room
     $ talks_next = 'npc5'
     show npc5
     n5 'testing'
+    hide npc5
 
     return
 

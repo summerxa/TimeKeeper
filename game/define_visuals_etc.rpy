@@ -236,14 +236,14 @@ init python:
         im_pose = f"sprites/{charname}/{pose}.png"
         return Composite((imwidth, 1080), (0, 0), im_face, (0, headheight), im_pose)
 
-    def CS_(charname, spr_im, zm=1.):
+    def CS_(charname, spr_im):
         return ConditionSwitch(
-            f"current_speaker == '{charname}' or talks_next == '{charname}'", At(spr_im, siz(zm)),
-            "True", At(spr_im, darken_sprite, siz(zm))
+            f"current_speaker == '{charname}' or talks_next == '{charname}'", spr_im,
+            "True", At(spr_im, darken_sprite)
         )
     
-    def Comp_CS_(charname, imwidth, headheight, face, pose, zm=1.):
-        return CS_(charname, Comp_(charname, imwidth, headheight, face, pose), zm)
+    def Comp_CS_(charname, imwidth, headheight, face, pose):
+        return CS_(charname, Comp_(charname, imwidth, headheight, face, pose))
 
 
 image bg minigame = 'mini/ui_backrgons.jpg'
@@ -269,13 +269,12 @@ image mc 5b = Comp_CS_('mc', 641, 386, '05', '0b')
 image mc 6b = Comp_CS_('mc', 641, 386, '06', '0b')
 
 
-# TODO if we decide to resize her sprite manually, remove the zm argument from Comp_CS_
-image mother 1a = Comp_CS_('mother', 467, 239, '1_1', '1_a', 1.1)
-image mother 2a = Comp_CS_('mother', 467, 239, '1_2', '1_a', 1.1)
-image mother 3a = Comp_CS_('mother', 467, 239, '1_3', '1_a', 1.1)
-image mother 4a = Comp_CS_('mother', 467, 239, '1_4', '1_a', 1.1)
-image mother 5a = Comp_CS_('mother', 467, 239, '1_5', '1_a', 1.1)
-image mother 6a = Comp_CS_('mother', 467, 239, '1_6', '1_a', 1.1)
+image mother 1a = Comp_CS_('mother', 467, 239, '1_1', '1_a')
+image mother 2a = Comp_CS_('mother', 467, 239, '1_2', '1_a')
+image mother 3a = Comp_CS_('mother', 467, 239, '1_3', '1_a')
+image mother 4a = Comp_CS_('mother', 467, 239, '1_4', '1_a')
+image mother 5a = Comp_CS_('mother', 467, 239, '1_5', '1_a')
+image mother 6a = Comp_CS_('mother', 467, 239, '1_6', '1_a')
 image mother 7a = Comp_CS_('mother', 467, 239, '1_7', '1_a')
 
 

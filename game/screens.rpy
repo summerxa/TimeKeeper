@@ -353,7 +353,7 @@ screen start_navigation(hov):
     use startmenu_btn(288, 572, 'start', Start(), hov)
     
     # TODO merge preferences, help, about
-    use startmenu_btn(317, 751, 'settings', ShowMenu("preferences"), hov)
+    use startmenu_btn(317, 751, 'settings', ShowMenu("settings"), hov)
 
     if renpy.variant("pc"):
         use startmenu_btn(349, 929, 'quit', Quit(confirm=not main_menu), hov)
@@ -768,9 +768,13 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
 screen endings_menu():
+    tag menu
+    
     text "pretend there's something really cool here... (endings edition)"
 
 screen cgs_menu():
+    tag menu
+    
     text "pretend there's something really cool here... (cg menu edition)"
 
 
