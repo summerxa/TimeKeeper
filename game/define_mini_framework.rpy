@@ -105,11 +105,11 @@ init python:
     def set_room_text():
         if prevroom and prevroom != 'main':
             froRoom = roomButtons[curlevel][prevroom]['num']
-            for name, b in roomButtons[curlevel].items():
-                if b['floor'] != curfloor:
+            for name, bt in roomButtons[curlevel].items():
+                if bt['floor'] != curfloor:
                     continue
-                toRoom = b['num']
-                bname = b['name'].upper()
+                toRoom = bt['num']
+                bname = bt['name'].upper()
                 if toRoom == froRoom:
                     bname += "\n(YOU ARE HERE)"
                 else:
@@ -159,7 +159,7 @@ init python:
             elif not t['done'] and (t['t0'] <= store.curtime and store.curtime <= t['tf']):
                 t['activated'] = True
 
-            b = store.taskButtons[curlevel][t['btn']]
+            bt = store.taskButtons[curlevel][t['btn']]
             if t in store.taskq:
                 if not t['activated']:
                     store.taskq.remove(t)
@@ -169,24 +169,24 @@ init python:
                         store.taskrq.remove(tn)
                     except:
                         pass
-                    b['curtask'] = None
-                    b['htext'] = ''
-                    if 'hidden' in b:
-                        b['act'] = []
+                    bt['curtask'] = None
+                    bt['htext'] = ''
+                    if 'hidden' in bt:
+                        bt['act'] = []
                     else:
-                        if 'taskless' in b:
-                            b['act'] = SetVariable('hinttext', levelHints[b['taskless']])
+                        if 'taskless' in bt:
+                            bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
                         else:
-                            b['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                            bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             else:
                 if t['activated']:
                     store.taskq.append(t)
-                    b['curtask'] = t
-                    b['act'] = [SetVariable('curtask', t)]
+                    bt['curtask'] = t
+                    bt['act'] = [SetVariable('curtask', t)]
                     if 'game' in t:
-                        b['act'].append(SetVariable('curgame', t['game']))
-                    b['act'] += [Return(t['tlabel']), With(cfade)]
-                    b['htext'] = fmtTskButton(b['curtask'])
+                        bt['act'].append(SetVariable('curgame', t['game']))
+                    bt['act'] += [Return(t['tlabel']), With(cfade)]
+                    bt['htext'] = fmtTskButton(bt['curtask'])
         generateTodo()
         return
 

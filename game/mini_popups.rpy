@@ -78,18 +78,16 @@ screen popup_onhand:
 
         label "On-hand"
 
-        text ltext:
-            xpos 0.2
-            ypos 0.5
-            xanchor 0.5
-            yanchor 0.5
-            textalign 0.5
-        text rtext:
-            xpos 0.7
-            ypos 0.5
-            xanchor 0.5
-            yanchor 0.5
-            textalign 0.5
+        hbox:
+            xalign 0.5
+            yalign 0.6
+            spacing 100
+            text ltext:
+                xalign 0.
+                textalign 0.5
+            text rtext:
+                xalign 1.
+                textalign 0.5
     
         use popup_button_close(1., 0., 'popup_onhand')
 
@@ -295,11 +293,11 @@ screen popup_map:
         style 'fancy_font'
         size 50
 
-    for bn, b in roomButtons[curlevel].items():
-        if b['floor'] != mapfloor:
+    for bn, bt in roomButtons[curlevel].items():
+        if bt['floor'] != mapfloor:
             continue
-        text b['name'].upper():
-            xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5
+        text bt['name'].upper():
+            xpos bt['xp'] ypos bt['yp'] xanchor 0.5 yanchor 0.5
             style 'fancy_font'
             textalign 0.5
             size 50

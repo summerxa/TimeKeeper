@@ -11,6 +11,8 @@ label start:
 
     call chap1_test_spritesall
 
+    call chap1_test_bgs
+
 
     # --- Minigame stuff ---
 

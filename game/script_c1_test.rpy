@@ -120,6 +120,24 @@ label chap1_test_spritesall:
 
     return
 
+label chap1_test_bgs:
+    menu bgprompt:
+        'bg 1':
+            scene bg guestroom 1
+        'bg 2':
+            scene bg guestroom 2
+        'leave for now':
+            return
+    
+    $ talks_next = 'bella'
+
+    'blah blah'
+
+    # Maybe an excerpt from mother inspection cutscene??
+    # part where mc finds a+b talking
+
+    jump bgprompt
+
 label chap1_test_charmenu:
     scene bg joyce why
 

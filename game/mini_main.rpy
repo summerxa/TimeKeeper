@@ -1,6 +1,6 @@
-screen btn_room(b, b_id):
-    textbutton b['btext']:
-        xpos b['xp'] ypos b['yp'] xanchor 0.5 yanchor 0.5
+screen btn_room(bt, b_id):
+    textbutton bt['btext']:
+        xpos bt['xp'] ypos bt['yp'] xanchor 0.5 yanchor 0.5
         action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
         text_style 'fancy_font'
         text_align 0.5
@@ -9,52 +9,26 @@ screen btn_room(b, b_id):
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, f'{b_id}_room_btn')
 
-screen btn_im(b, act=None):
-    imagebutton:
-        xpos b['xp']
-        ypos b['yp']
-        if 'xa' in b:
-            xanchor b['xa']
-            yanchor b['ya']
-        else:
-            xanchor 0.5
-            yanchor 0.5
-        if 'im' in b:
-            auto b['im']
-        else:
-            auto 'mini/icon_map_mc_%s.png'
-        # 'act' argument takes priority over pre-existing b['act']
-        if act:
-            action act
-        elif 'act' in b:
-            action b['act']
-        else:
-            action NullAction()
-        if 'rot' in b:
-            at rot(b['rot'])
-        if 'htext' in b:
-            hovered SetVariable('hinttext', b['htext'])
-
-screen btn_roomarrow(b, hov_id):
-    default act = [SetVariable('prevroom', curroom), SetVariable('curroom', b['toroom']), SetVariable('curtime', curtime+b['tcost']), Return('gotoroom_direct')]
+screen btn_roomarrow(bt, hov_id):
+    default act = [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
     
     imagebutton:
         auto 'mini/ui/btn_room_down_%s.png'
-        if b['dir'] == 'up':
+        if bt['dir'] == 'up':
             at highlight_hov(cur_hov, hov_id), rot(180)
             ypos 0.15
         else:
             at highlight_hov(cur_hov, hov_id)
             ypos 0.85
-        xpos b['xp']
+        xpos bt['xp']
         action act
         xanchor 0.5
         yanchor 0.5
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
-    textbutton b['btext']:
-        xpos b['xp']
-        if b['dir'] == 'up':
+    textbutton bt['btext']:
+        xpos bt['xp']
+        if bt['dir'] == 'up':
             ypos 0.15 - room_arrow_yoffset
         else:
             ypos 0.85 + room_arrow_yoffset
@@ -66,41 +40,41 @@ screen btn_roomarrow(b, hov_id):
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
 
-screen btn_tsk(b, hov_id=None):
-    if b['curtask'] or not 'hidden' in b:
+screen btn_tsk(bt, hov_id=None):
+    if bt['curtask'] or not 'hidden' in bt:
         imagebutton:
-            xpos b['xp'] ypos b['yp']
+            xpos bt['xp'] ypos bt['yp']
             xanchor 0.5 yanchor 0.5
-            if b['curtask']:
-                auto f"mini/btn_task/btn_{b['imtask']}_task_%s.png"
-                if 'item_req' in b['curtask']:
-                    if task_can_proceed(b['curtask']['item_req']):
-                        action b['act']
+            if bt['curtask']:
+                auto f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
+                if 'item_req' in bt['curtask']:
+                    if task_can_proceed(bt['curtask']['item_req']):
+                        action bt['act']
                     else:
-                        action SetVariable('hinttext', levelHints[b['curtask']['fail_id']])
+                        action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
                 else:
-                    action b['act']
+                    action bt['act']
             else:
-                auto f"mini/btn_task/btn_{b['imtask']}_%s.png"
-                action b['act']
-            if 'htext' in b and not len(b['htext']) == 0:
-                if b['curtask']:
-                    if Task.SPECIAL in b['curtask']['tags']:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(b['htext']))]
+                auto f"mini/btn_task/btn_{bt['imtask']}_%s.png"
+                action bt['act']
+            if 'htext' in b and not len(bt['htext']) == 0:
+                if bt['curtask']:
+                    if Task.SPECIAL in bt['curtask']['tags']:
+                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(bt['htext']))]
                     else:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', b['htext'])]
+                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
                     
                     unhovered SetVariable('cur_hov', None)
                     at highlight_hov(cur_hov, hov_id)
 
 # item holder
-screen btn_item(b, hov_id):
+screen btn_item(bt, hov_id):
     imagebutton:
-        xpos b['xp']
-        ypos b['yp']
-        auto itemsAll[b['item']['id']]['im']
-        action [SetVariable('curholder', b), If(inventoryOk(b['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
-        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(b['item']['id'], b['item']['stack']))]
+        xpos bt['xp']
+        ypos bt['yp']
+        auto itemsAll[bt['item']['id']]['im']
+        action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
+        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
 
@@ -135,15 +109,15 @@ screen mini_sidebar(curstate='main', gametype=None):
             xalign 0.5
             yalign 1.
             maximum(189, 848)
-            for b in baseButtons:
+            for bt in baseButtons:
                 imagebutton:
                     xalign 0.5
-                    yalign b['y']
-                    auto b['im']
-                    hovered SetVariable('cur_hov', b['hov_id'])
+                    yalign bt['y']
+                    auto bt['im']
+                    hovered SetVariable('cur_hov', bt['hov_id'])
                     unhovered SetVariable('cur_hov', None)
-                    at highlight_hov(cur_hov, b['hov_id'])
-                    action b['act']
+                    at highlight_hov(cur_hov, bt['hov_id'])
+                    action bt['act']
             imagebutton:
                 xalign 0.5
                 yalign 0.75
@@ -267,9 +241,9 @@ screen mini_screen:
         add getMainMap(curlevel, curfloor):
             xalign 0.5 yalign 0.5
         use mini_sidebar
-        for bn, b in roomButtons[curlevel].items():
-            if b['floor'] == curfloor:
-                use btn_room(b, bn)
+        for bn, bt in roomButtons[curlevel].items():
+            if bt['floor'] == curfloor:
+                use btn_room(bt, bn)
     else:
         fixed:
             xalign 0.5 yalign 0.5
@@ -277,27 +251,16 @@ screen mini_screen:
             maximum roomDims[curlevel][curroom]
             add f"mini/map/map_{curlevel}_{curroom}.png":
                 xalign 0.5 yalign 0.5
-            for bn, b in taskButtons[curlevel].items():
-                if curroom == b['room']:
-                    use btn_tsk(b, bn)
-            for hn, h in itemHolders[curlevel].items():
-                if curroom == h['room']:
-                    use btn_item(h, hn)
-        # frame:
-        #     xalign 0.5 yalign 0.5
-        #     minimum roomDims[curlevel][curroom]
-        #     maximum roomDims[curlevel][curroom]
-        #     background Frame(f"mini/map/map_{curlevel}_{curroom}.png")
-        #     for bn, b in taskButtons[curlevel].items():
-        #         if curroom == b['room']:
-        #             use btn_tsk(b, bn)
-        #     for hn, h in itemHolders[curlevel].items():
-        #         if curroom == h['room']:
-        #             use btn_item(h, hn)
+            for bn, bt in taskButtons[curlevel].items():
+                if curroom == bt['room']:
+                    use btn_tsk(bt, bn)
+            for hn, ht in itemHolders[curlevel].items():
+                if curroom == ht['room']:
+                    use btn_item(ht, hn)
         use mini_sidebar('inroom')
         if curroom in roomArrows[curlevel]:
-            for a in roomArrows[curlevel][curroom]:
-                use btn_roomarrow(a, f"to_{a['toroom']}_btn")
+            for ar in roomArrows[curlevel][curroom]:
+                use btn_roomarrow(ar, f"to_{ar['toroom']}_btn")
     
     use floor_sidebar('game')
     use mc_hintbox(True)
@@ -342,17 +305,17 @@ label mini_launch(startroom='main', startfloor=0):
         tlimit = levelInfo[curlevel]['tf']
         invitems = ['air', 'air']
         invstacks = [1, 1]
-        for bn, b in roomButtons[curlevel].items():
-            b['btext'] = b['name'].upper()
-        for bn, b in taskButtons[curlevel].items():
-            b['curtask'] = None
-            if 'hidden' in b:
-                b['act'] = []
+        for bn, bt in roomButtons[curlevel].items():
+            bt['btext'] = bt['name'].upper()
+        for bn, bt in taskButtons[curlevel].items():
+            bt['curtask'] = None
+            if 'hidden' in bt:
+                bt['act'] = []
             else:
-                if 'taskless' in b:
-                    b['act'] = SetVariable('hinttext', levelHints[b['taskless']])
+                if 'taskless' in bt:
+                    bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
                 else:
-                    b['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                    bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
@@ -362,11 +325,11 @@ label mini_launch(startroom='main', startfloor=0):
             t['room'] = taskButtons[curlevel][t['btn']]['room']
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
-            for a in ra:
+            for ar in ra:
                 i1 = roomButtons[curlevel][fromroom]['num']
-                i2 = roomButtons[curlevel][a['toroom']]['num']
+                i2 = roomButtons[curlevel][ar['toroom']]['num']
                 tcost = roomProxim[curlevel][curfloor][i1][i2]
-                aname = roomButtons[curlevel][a['toroom']]['name'].upper()
-                a['btext'] = f'{aname}({tcost})'
-                a['tcost'] = tcost
+                aname = roomButtons[curlevel][ar['toroom']]['name'].upper()
+                ar['btext'] = f'{aname}({tcost})'
+                ar['tcost'] = tcost
     jump mini_main
