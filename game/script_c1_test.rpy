@@ -64,7 +64,6 @@
     return
 
 label chap1_test_spritesall:
-    scene bg room
 
     $ talks_next = 'mc'
     show mc 1a
@@ -88,9 +87,8 @@ label chap1_test_spritesall:
     $ talks_next = 'amelia'
     show bella 1a
     b 'Evil bella be like,'
-    b 6a "I'm sorry I hurt your feelings"
+    b 6a "\"I'm sorry I hurt your feelings\""
     b 8a 'Tsundere moment??????'
-    b 4a 'Bullying.'
     hide bella
 
     $ talks_next = 'npc1'
@@ -129,12 +127,7 @@ label chap1_test_bgs:
         'leave for now':
             return
     
-    $ talks_next = 'bella'
-
-    'blah blah'
-
-    # Maybe an excerpt from mother inspection cutscene??
-    # part where mc finds a+b talking
+    call chap1_test_spritesall
 
     jump bgprompt
 
@@ -218,12 +211,22 @@ label chap1_test_charmenu:
 label chap1_test_snow:
     show bg seal room
 
-    show mc 1b s
-    show snowtest
+    show mc 1b
+    show snow1
 
-    $ talks_next = 'mc'
+    'snow 1'
 
     s '...'
+
+    hide snow1
+    show snow2
+
+    'snow 2'
+
+    s '...'
+
+    hide mc
+    hide snow2
 
     return
 

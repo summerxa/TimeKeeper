@@ -190,7 +190,10 @@ transform siz(a):
 transform opac(a):
     matrixcolor OpacityMatrix(a)
 
-image snowtest = Snow('seal.png')
+
+image snow1 = Snow('particles/particle_snow_1.png')
+image snow2 = Snow('particles/particle_snow_2.png')
+image snowmenu = Snow('particles/particle_gold.png')
 
 default cfade = Fade(fadetime, 0.0, fadetime)
 
@@ -247,6 +250,10 @@ init python:
 
 
 image bg minigame = 'mini/ui_backrgons.jpg'
+
+image bg guestroom 1 = 'bgs/guestroom 1.jpg'
+image bg guestroom 2 = 'bgs/guestroom 2.jpg'
+
 image bg seal room = 'bgs/seal room.png'
 image bg hallway = 'bgs/hallway.png'
 image bg joyce why = 'bgs/joyce why.png'
