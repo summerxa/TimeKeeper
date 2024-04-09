@@ -328,15 +328,15 @@ default maria_name = '???'
 define l = Character('maria_name', image='maria', callback=functools.partial(set_cur_speaker, ch='maria'), dynamic=True)
 
 # young noble m
-define n1 = Character('Noble', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
+define n1 = Character('NOBLE', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
 # old noble m
-define n2 = Character('Noble', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
+define n2 = Character('NOBLE', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
 # maid
-define n3 = Character('Maid', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'))
+define n3 = Character('MAID', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'))
 # young noble f
-define n4 = Character('Noble', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'))
+define n4 = Character('NOBLE', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'))
 # old noble f
-define n5 = Character('Noble', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'))
+define n5 = Character('NOBLE', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'))
 
 # --- POSITION STUFF ---
 

@@ -31,13 +31,14 @@ label after_load:
 
     return
 
+# for testing purposes only
 label meet_all_chars:
     $ char_unlock('mc')
     $ char_unlock('mother')
     $ char_unlock('amelia')
     $ char_unlock('bella')
 
-    $ mother_name = 'Mother'
-    $ amelia_name = 'Amelia'
-    $ bella_name = 'Bella'
-    $ maria_name = 'Maria'
+    $ mother_name = 'MOTHER'
+    $ amelia_name = 'AMELIA'
+    $ bella_name = 'BELLA'
+    $ maria_name = 'MARIA'
