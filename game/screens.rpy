@@ -295,19 +295,13 @@ screen navigation():
 
         spacing gui.navigation_spacing
 
-        if main_menu:
-
-            textbutton _("Start") action Start()
-
-        else:
+        if not main_menu:
 
             textbutton _("History") action ShowMenu("history")
 
             textbutton _("Save") action ShowMenu("save")
 
         textbutton _("Load") action ShowMenu("load")
-
-        textbutton _("Preferences") action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -319,14 +313,11 @@ screen navigation():
 
         textbutton _("Progress") action ShowMenu("progress")
 
+        if main_menu:
+
+            textbutton _("Start") action Start()
+
         textbutton _("Settings") action ShowMenu("settings")
-
-        textbutton _("About") action ShowMenu("about")
-
-        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-
-            ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
 
         if renpy.variant("pc"):
 
@@ -646,11 +637,11 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
 
     # character menu
     default curstate = 'multi'
-    default m = 6
+    default pg_m = 6
     default single_page = 0
     default single_max = len(charmenu_data)
     default multi_page = 0
-    default multi_max = (single_max // m) + min(1, single_max % m)
+    default multi_max = (single_max // pg_m) + min(1, single_max % pg_m)
 
     use game_menu(_("Progress")):
 
@@ -677,13 +668,13 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 textbutton _("Back to Progress") action SetScreenVariable("p_tab", "main")
 
                 if p_tab == "characters":
-                    use character_menu(charmenu_data, curstate, m, single_page, single_max, multi_page, multi_max)
+                    use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
                     use endings_menu
                 elif p_tab == "cgs":
                     use cgs_menu
 
-screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi_page, multi_max):
+screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max):
     tag menu
 
     style_prefix "about"
@@ -692,7 +683,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
         grid 3 2:
             area(10, 10, 1300, 690)
 
-            for i in range(multi_page * m, min(single_max, multi_page * m + (m - 1))):
+            for i in range(multi_page * pg_m, min(single_max, multi_page * pg_m + (pg_m - 1))):
                 $ d = charmenu_data[i]
                 if not main_menu:
                     $ c = chars_current[d['id_name']]
@@ -762,7 +753,7 @@ screen character_menu(charmenu_data, curstate, m, single_page, single_max, multi
 
             textbutton _('Back to Gallery'):
                 xalign 0.5 yalign 0.5
-                action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // m))]
+                action [SetScreenVariable('curstate', 'multi'), SetScreenVariable('multi_page', (single_page // pg_m))]
 
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
@@ -982,7 +973,10 @@ screen settings():
             hbox:
 
                 textbutton _("Preferences") action SetScreenVariable("s_tab", "preferences")
-                textbutton _("Help") action SetScreenVariable("s_tab", "help")
+
+                if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+                    textbutton _("Help") action SetScreenVariable("s_tab", "help")
+
                 textbutton _("About") action SetScreenVariable("s_tab", "about")
 
             if s_tab == "preferences":
