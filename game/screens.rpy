@@ -343,7 +343,6 @@ screen start_navigation(hov):
     
     use startmenu_btn(288, 572, 'start', Start(), hov)
     
-    # TODO merge preferences, help, about
     use startmenu_btn(317, 751, 'settings', ShowMenu("settings"), hov)
 
     if renpy.variant("pc"):
@@ -378,7 +377,9 @@ screen main_menu():
     add 'mainmenu/start/start_bg.png'
     use start_navigation(hov)
     add 'mainmenu/start/start_mc.png'
-    add 'snowmenu'
+    # add 'snowmenu base'
+    # add 'snowmenu opac'
+    add 'snowmenu tinted'
 
     if gui.show_name:
 

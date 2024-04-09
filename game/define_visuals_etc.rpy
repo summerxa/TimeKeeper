@@ -193,7 +193,10 @@ transform opac(a):
 
 image snow1 = Snow('particles/particle_snow_1.png')
 image snow2 = Snow('particles/particle_snow_2.png')
-image snowmenu = Snow('particles/particle_gold.png')
+
+image snowmenu base = Snow('particles/particle_gold.png')
+image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.5)))
+image snowmenu tinted = Snow(At('particles/particle_gold.png', darken_sprite))
 
 default cfade = Fade(fadetime, 0.0, fadetime)
 
