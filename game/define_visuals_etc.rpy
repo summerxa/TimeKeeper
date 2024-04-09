@@ -192,7 +192,6 @@ transform opac(a):
 
 
 image snow1 = Snow('particles/particle_snow_1.png')
-image snow2 = Snow('particles/particle_snow_2.png')
 
 image snowmenu base = Snow('particles/particle_gold.png')
 image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.5)))
@@ -254,8 +253,7 @@ init python:
 
 image bg minigame = 'mini/ui_backrgons.jpg'
 
-image bg guestroom 1 = 'bgs/guestroom 1.jpg'
-image bg guestroom 2 = 'bgs/guestroom 2.jpg'
+image bg guestroom = 'bgs/guestroom.jpg'
 
 image bg seal room = 'bgs/seal room.png'
 image bg hallway = 'bgs/hallway.png'

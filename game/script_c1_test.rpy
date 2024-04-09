@@ -123,9 +123,10 @@ label chap1_test_spritesall:
 label chap1_test_bgs:
     menu bgprompt:
         'bg 1':
-            scene bg guestroom 1
+            'sorry bg 1 got deleted :('
+            jump bgprompt
         'bg 2':
-            scene bg guestroom 2
+            scene bg guestroom
         'leave for now':
             return
     
