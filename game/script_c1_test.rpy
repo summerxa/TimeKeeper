@@ -72,10 +72,12 @@ label chap1_test_spritesall:
     hide mc
 
     $ talks_next = 'mother'
-    show mother 7a at siz(1.1)
-    m 'Pose a expression 7'
-    show mother 1a at siz(1.1)
+    show mother 1a
     m 'Pose a expression 1'
+    show mother 7a
+    m 'Ayo new expression???'
+    show mother 8a
+    m 'Pose a expression 8'
     hide mother
 
     $ talks_next = 'amelia'

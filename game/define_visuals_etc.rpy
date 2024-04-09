@@ -276,13 +276,14 @@ image mc 5b = Comp_CS_('mc', 641, 386, '05', '0b')
 image mc 6b = Comp_CS_('mc', 641, 386, '06', '0b')
 
 
-image mother 1a = Comp_CS_('mother', 467, 239, '1_1', '1_a')
-image mother 2a = Comp_CS_('mother', 467, 239, '1_2', '1_a')
-image mother 3a = Comp_CS_('mother', 467, 239, '1_3', '1_a')
-image mother 4a = Comp_CS_('mother', 467, 239, '1_4', '1_a')
-image mother 5a = Comp_CS_('mother', 467, 239, '1_5', '1_a')
-image mother 6a = Comp_CS_('mother', 467, 239, '1_6', '1_a')
-image mother 7a = Comp_CS_('mother', 467, 239, '1_7', '1_a')
+image mother 1a = Comp_CS_('mother', 467, 281, '1_1', '1_a')
+image mother 2a = Comp_CS_('mother', 467, 281, '1_2', '1_a')
+image mother 3a = Comp_CS_('mother', 467, 281, '1_3', '1_a')
+image mother 4a = Comp_CS_('mother', 467, 281, '1_4', '1_a')
+image mother 5a = Comp_CS_('mother', 467, 281, '1_5', '1_a')
+image mother 6a = Comp_CS_('mother', 467, 281, '1_6', '1_a')
+image mother 7a = Comp_CS_('mother', 467, 281, '1_7', '1_a')
+image mother 8a = Comp_CS_('mother', 467, 281, '1_8', '1_a')
 
 
 image amelia 1a = Comp_CS_('amelia', 450, 412, '2_1', '2_a')
