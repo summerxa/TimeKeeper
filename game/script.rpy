@@ -9,7 +9,7 @@ label start:
     # Unlock all characters and set their names (for testing purposes only)
     call meet_all_chars
 
-    call chap1_test_snow
+    call chap1_test_audio
 
 
     # --- Minigame stuff ---

@@ -298,6 +298,33 @@ label chap1_test_namechange:
 
     return
 
+label chap1_test_audio:
+    play music boowomp
+
+    $ talks_next = 'mc'
+
+    show mc 1a at l1_3
+
+    s 'Hmmm nice music'
+
+    s '...'
+
+    show bella 1a at r1_4, flip
+
+    s '...?'
+
+    play audio vineboom
+
+    b 'That music SUCKS'
+
+    stop music fadeout 1.0
+
+    s '...'
+
+    s 'Ok happy?'
+
+    return
+
 label chap1_test_part2:
     scene bg hello person reading this with cfade
 
