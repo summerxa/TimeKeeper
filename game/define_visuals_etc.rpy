@@ -247,7 +247,7 @@ init python:
             "True", At(spr_im, darken_sprite)
         )
     
-    def Comp_CS_(charname, imwidth, headheight, face, pose):
+    def CCS_(charname, imwidth, headheight, face, pose):
         return CS_(charname, Comp_(charname, imwidth, headheight, face, pose))
 
 
@@ -262,49 +262,49 @@ image bg joyce why = 'bgs/joyce why.png'
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0a')
 
-image mc 1a = Comp_CS_('mc', 641, 386, '01', '0a')
-image mc 2a = Comp_CS_('mc', 641, 386, '02', '0a')
-image mc 3a = Comp_CS_('mc', 641, 386, '03', '0a')
-image mc 4a = Comp_CS_('mc', 641, 386, '04', '0a')
-image mc 5a = Comp_CS_('mc', 641, 386, '05', '0a')
-image mc 6a = Comp_CS_('mc', 641, 386, '06', '0a')
+image mc 1a = CCS_('mc', 641, 386, '01', '0a')
+image mc 2a = CCS_('mc', 641, 386, '02', '0a')
+image mc 3a = CCS_('mc', 641, 386, '03', '0a')
+image mc 4a = CCS_('mc', 641, 386, '04', '0a')
+image mc 5a = CCS_('mc', 641, 386, '05', '0a')
+image mc 6a = CCS_('mc', 641, 386, '06', '0a')
 
-image mc 1b = Comp_CS_('mc', 641, 386, '01', '0b')
-image mc 2b = Comp_CS_('mc', 641, 386, '02', '0b')
-image mc 3b = Comp_CS_('mc', 641, 386, '03', '0b')
-image mc 4b = Comp_CS_('mc', 641, 386, '04', '0b')
-image mc 5b = Comp_CS_('mc', 641, 386, '05', '0b')
-image mc 6b = Comp_CS_('mc', 641, 386, '06', '0b')
-
-
-image mother 1a = Comp_CS_('mother', 467, 281, '1_1', '1_a')
-image mother 2a = Comp_CS_('mother', 467, 281, '1_2', '1_a')
-image mother 3a = Comp_CS_('mother', 467, 281, '1_3', '1_a')
-image mother 4a = Comp_CS_('mother', 467, 281, '1_4', '1_a')
-image mother 5a = Comp_CS_('mother', 467, 281, '1_5', '1_a')
-image mother 6a = Comp_CS_('mother', 467, 281, '1_6', '1_a')
-image mother 7a = Comp_CS_('mother', 467, 281, '1_7', '1_a')
-image mother 8a = Comp_CS_('mother', 467, 281, '1_8', '1_a')
+image mc 1b = CCS_('mc', 641, 386, '01', '0b')
+image mc 2b = CCS_('mc', 641, 386, '02', '0b')
+image mc 3b = CCS_('mc', 641, 386, '03', '0b')
+image mc 4b = CCS_('mc', 641, 386, '04', '0b')
+image mc 5b = CCS_('mc', 641, 386, '05', '0b')
+image mc 6b = CCS_('mc', 641, 386, '06', '0b')
 
 
-image amelia 1a = Comp_CS_('amelia', 450, 412, '2_1', '2_a')
-image amelia 2a = Comp_CS_('amelia', 450, 412, '2_2', '2_a')
-image amelia 3a = Comp_CS_('amelia', 450, 412, '2_3', '2_a')
-image amelia 4a = Comp_CS_('amelia', 450, 412, '2_4', '2_a')
-image amelia 5a = Comp_CS_('amelia', 450, 412, '2_5', '2_a')
-image amelia 6a = Comp_CS_('amelia', 450, 412, '2_6', '2_a')
-image amelia 7a = Comp_CS_('amelia', 450, 412, '2_7', '2_a')
-image amelia 8a = Comp_CS_('amelia', 450, 412, '2_8', '2_a')
+image mother 1a = CCS_('mother', 467, 281, '1_1', '1_a')
+image mother 2a = CCS_('mother', 467, 281, '1_2', '1_a')
+image mother 3a = CCS_('mother', 467, 281, '1_3', '1_a')
+image mother 4a = CCS_('mother', 467, 281, '1_4', '1_a')
+image mother 5a = CCS_('mother', 467, 281, '1_5', '1_a')
+image mother 6a = CCS_('mother', 467, 281, '1_6', '1_a')
+image mother 7a = CCS_('mother', 467, 281, '1_7', '1_a')
+image mother 8a = CCS_('mother', 467, 281, '1_8', '1_a')
 
 
-image bella 1a = Comp_CS_('bella', 536, 318, '3_1', '3_a')
-image bella 2a = Comp_CS_('bella', 536, 318, '3_2', '3_a')
-image bella 3a = Comp_CS_('bella', 536, 318, '3_3', '3_a')
-image bella 4a = Comp_CS_('bella', 536, 318, '3_4', '3_a')
-image bella 5a = Comp_CS_('bella', 536, 318, '3_5', '3_a')
-image bella 6a = Comp_CS_('bella', 536, 318, '3_6', '3_a')
-image bella 7a = Comp_CS_('bella', 536, 318, '3_7', '3_a')
-image bella 8a = Comp_CS_('bella', 536, 318, '3_8', '3_a')
+image amelia 1a = CCS_('amelia', 450, 412, '2_1', '2_a')
+image amelia 2a = CCS_('amelia', 450, 412, '2_2', '2_a')
+image amelia 3a = CCS_('amelia', 450, 412, '2_3', '2_a')
+image amelia 4a = CCS_('amelia', 450, 412, '2_4', '2_a')
+image amelia 5a = CCS_('amelia', 450, 412, '2_5', '2_a')
+image amelia 6a = CCS_('amelia', 450, 412, '2_6', '2_a')
+image amelia 7a = CCS_('amelia', 450, 412, '2_7', '2_a')
+image amelia 8a = CCS_('amelia', 450, 412, '2_8', '2_a')
+
+
+image bella 1a = CCS_('bella', 536, 318, '3_1', '3_a')
+image bella 2a = CCS_('bella', 536, 318, '3_2', '3_a')
+image bella 3a = CCS_('bella', 536, 318, '3_3', '3_a')
+image bella 4a = CCS_('bella', 536, 318, '3_4', '3_a')
+image bella 5a = CCS_('bella', 536, 318, '3_5', '3_a')
+image bella 6a = CCS_('bella', 536, 318, '3_6', '3_a')
+image bella 7a = CCS_('bella', 536, 318, '3_7', '3_a')
+image bella 8a = CCS_('bella', 536, 318, '3_8', '3_a')
 
 
 image npc1 = CS_('npc1', 'sprites/npc/n1.png')
