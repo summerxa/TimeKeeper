@@ -1,7 +1,7 @@
 ﻿label chap1_test_sprites:
     scene bg room
 
-    $ talks_next = 'mc'
+    $ talk_next('mc')
 
     show mc 1a with dissolve
 
@@ -45,7 +45,7 @@
 
     m 4a 'Check out this cool new facial expression'
 
-    $ talks_next = 'npc1'
+    $ talk_next('npc1')
 
     show npc1 at left
     show npc2 at right
@@ -65,7 +65,7 @@
 
 label chap1_test_spritesall:
 
-    $ talks_next = 'mc'
+    $ talk_next('mc')
     show mc 1a
     s 'Pose a expression 1'
     s 6b 'Pose b expression 6'
@@ -73,7 +73,7 @@ label chap1_test_spritesall:
     s 'Get flipped >:D'
     hide mc
 
-    $ talks_next = 'mother'
+    $ talk_next('mother')
     show mother 1a
     m 'Pose a expression 1'
     show mother 7a
@@ -82,40 +82,40 @@ label chap1_test_spritesall:
     m 'Pose a expression 8'
     hide mother
 
-    $ talks_next = 'amelia'
+    $ talk_next('amelia')
     show amelia 1a
     a 'What'
     a 8a 'SHOOKETH'
     hide amelia
 
-    $ talks_next = 'amelia'
+    $ talk_next('amelia')
     show bella 1a
     b 'Evil bella be like,'
     b 6a "\"I'm sorry I hurt your feelings\""
     b 8a 'Tsundere moment??????'
     hide bella
 
-    $ talks_next = 'npc1'
+    $ talk_next('npc1')
     show npc1
     n1 'testing'
     hide npc1
 
-    $ talks_next = 'npc2'
+    $ talk_next('npc2')
     show npc2
     n2 'testing'
     hide npc2
 
-    $ talks_next = 'npc3'
+    $ talk_next('npc3')
     show npc3
     n3 'testing'
     hide npc3
 
-    $ talks_next = 'npc4'
+    $ talk_next('npc4')
     show npc4
     n4 'testing'
     hide npc4
 
-    $ talks_next = 'npc5'
+    $ talk_next('npc5')
     show npc5
     n5 'testing'
     hide npc5
@@ -165,7 +165,7 @@ label chap1_test_charmenu:
 
     "go to the character menu - she isn't unlocked yet"
 
-    $ talks_next = 'mc'
+    $ talk_next('mc')
 
     show mc 1a at l1_4 with dissolve
 
@@ -272,7 +272,7 @@ label chap1_test_namechange:
 
     b 'My name is bella'
 
-    $ talks_next = 'mother'
+    $ talk_next('mother')
 
     show mother 1a
 
@@ -301,7 +301,7 @@ label chap1_test_namechange:
 label chap1_test_audio:
     play music boowomp
 
-    $ talks_next = 'mc'
+    $ talk_next('mc')
 
     show mc 1a at l1_3
 
@@ -330,12 +330,28 @@ label chap1_test_audio:
 
     return
 
+label chap1_test_animation:
+    $ talk_next('mc')
+    $ talk_next('mother')
+    $ talk_next('bella')
+    $ talk_next('amelia')
+
+    show mc 1a at boogie, left
+    show mother 1a at boogie, l1_3
+    show bella 1a at boogie, r1_3
+    show amelia 1a at boogie, right
+    pause
+
+    $ talks_next.clear()
+
+    return
+
 label chap1_test_part2:
     scene bg hello person reading this with cfade
 
     show mc 1b
 
-    $ talks_next = 'mc'
+    $ talk_next('mc')
 
     s "minigame over, your score was [completion]"
 
@@ -356,7 +372,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
 label c1_t1:
     scene bg seal room with cfade
 
-    $ talks_next = 'npc2'
+    $ talk_next('npc2')
 
     show npc2
 

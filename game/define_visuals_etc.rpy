@@ -237,7 +237,10 @@ init python:
 
         if event == 'show':
             current_speaker = ch
-            talks_next = None
+            talks_next.clear()
+    
+    def talk_next(ch):
+        talks_next.add(ch)
     
     def Comp_(charname, imwidth, headheight, face, pose):
         im_face = f"sprites/{charname}/{face}.png"
@@ -246,7 +249,7 @@ init python:
 
     def CS_(charname, spr_im):
         return ConditionSwitch(
-            f"current_speaker == '{charname}' or talks_next == '{charname}'", spr_im,
+            f"current_speaker == '{charname}' or '{charname}' in talks_next", spr_im,
             "True", At(spr_im, darken_sprite)
         )
     
@@ -362,3 +365,11 @@ transform r1_4:
     xalign 0.75
 transform r1_3:
     xalign 0.67
+
+# animation test >:3
+transform boogie:
+    flip
+    pause 0.1
+    unflip
+    pause 0.1
+    repeat
