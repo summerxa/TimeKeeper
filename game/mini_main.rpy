@@ -29,9 +29,9 @@ screen btn_roomarrow(bt, hov_id):
     textbutton bt['btext']:
         xpos bt['xp']
         if bt['dir'] == 'up':
-            ypos 0.15 - room_arrow_yoffset
+            ypos 0.03
         else:
-            ypos 0.85 + room_arrow_yoffset
+            ypos 0.97
         action act
         xanchor 0.5
         yanchor 0.5

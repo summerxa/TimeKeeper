@@ -15,11 +15,6 @@ default save_version = None
 default current_speaker = None
 default talks_next = None
 
-# --- CONST VALUES FOR UI ---
-define room_arrow_yoffset = 0.12
-define fadetime = 0.5
-# ^ 0.0 to skip animation, 0.5 for normal fade in/out
-
 # --- CUSTOM SETTINGS ---
 define persistent.showspecial = True # highlights recommended quests if True
 define persistent.namesaves = True # prompts user to name save files if True

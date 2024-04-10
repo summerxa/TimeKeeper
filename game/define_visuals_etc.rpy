@@ -197,7 +197,9 @@ image snowmenu base = Snow('particles/particle_gold.png')
 image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.5)))
 image snowmenu tinted = Snow(At('particles/particle_gold.png', darken_sprite))
 
-default cfade = Fade(fadetime, 0.0, fadetime)
+
+default cfade = Fade(0.5, 0.0, 0.5)
+# ^ 0.5 for normal fade, 0.0 to skip fade animation
 
 # --- UI STUFF ---
 
@@ -340,6 +342,9 @@ define n4 = Character('NOBLE', image='npc4', callback=functools.partial(set_cur_
 define n5 = Character('NOBLE', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'))
 
 # --- POSITION STUFF ---
+
+transform flip:
+    xzoom -1
 
 transform l1_5:
     xalign 0.2

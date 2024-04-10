@@ -69,6 +69,8 @@ label chap1_test_spritesall:
     show mc 1a
     s 'Pose a expression 1'
     s 6b 'Pose b expression 6'
+    show mc 6b at flip
+    s 'Get flipped >:D'
     hide mc
 
     $ talks_next = 'mother'
@@ -221,15 +223,8 @@ label chap1_test_snow:
 
     s '...'
 
-    hide snow1
-    show snow2
-
-    'snow 2'
-
-    s '...'
-
     hide mc
-    hide snow2
+    hide snow1
 
     return
 
