@@ -377,9 +377,7 @@ screen main_menu():
     add 'mainmenu/start/start_bg.png'
     use start_navigation(hov)
     add 'mainmenu/start/start_mc.png'
-    # add 'snowmenu base'
-    # add 'snowmenu opac'
-    add 'snowmenu tinted'
+    add 'snowmenu opac'
 
     if gui.show_name:
 

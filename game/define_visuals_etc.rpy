@@ -65,7 +65,9 @@ init python:
             # the maximum depth of the screen. Higher values lead to more varying particles size,
             # but it also uses more memory. Default value is 10 and it should be okay for most
             # games, since particles sizes are calculated as percentage of this value.
-            self.depth = kwargs.get("depth", 10)
+            self.depthmin = kwargs.get("depthmin", 1)
+
+            self.depthmax = kwargs.get("depthmax", 10)
             
             # initialize the images
             self.image = self.image_init(image)
@@ -81,14 +83,14 @@ init python:
             if particles is None or len(particles) < self.max_particles:
                 
                 # generate a random depth for the particle
-                depth = random.randint(1, self.depth)
+                depth = random.randint(self.depthmin, self.depthmax)
                 
                 # We expect that particles falling far from the screen will move slowly than those
                 # that are falling near the screen. So we change the speed of particles based on
                 # its depth =D
-                depth_speed = 1.5-depth/(self.depth+0.0)
+                depth_speed = 1.5-depth/(self.depthmax+0.0)
                 
-                return [ SnowParticle(self.image[depth-1],      # the image used by the particle 
+                return [ SnowParticle(self.image[depth-self.depthmin-1],      # the image used by the particle 
                                     random.uniform(-self.wind, self.wind)*depth_speed,  # wind's force
                                     self.speed*depth_speed,  # the vertical speed of the particle
                                     random.randint(self.xborder[0], self.xborder[1]), # horizontal border
@@ -105,9 +107,9 @@ init python:
             rv = [ ]
             
             # generate the array of images for each possible depth value.
-            for depth in range(self.depth):
+            for depth in range(self.depthmax - self.depthmin + 1):
                 # Resize and adjust the alpha value based on the depth of the image
-                p = 1.1 - depth/(self.depth+0.0)
+                p = 1.1 - depth/(self.depthmax+0.0)
                 if p > 1:
                     p = 1.0
                 
@@ -191,11 +193,10 @@ transform opac(a):
     matrixcolor OpacityMatrix(a)
 
 
-image snow1 = Snow('particles/particle_snow_1.png')
+image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmin=6)
+image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=4)
 
-image snowmenu base = Snow('particles/particle_gold.png')
-image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.5)))
-image snowmenu tinted = Snow(At('particles/particle_gold.png', darken_sprite))
+image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.25)))
 
 
 default cfade = Fade(0.5, 0.0, 0.5)

@@ -216,15 +216,13 @@ label chap1_test_charmenu:
 label chap1_test_snow:
     show bg seal room
 
+    show snowback
     show mc 1b
-    show snow1
+    show snowfront
 
     'snow 1'
 
     s '...'
-
-    hide mc
-    hide snow1
 
     return
 
