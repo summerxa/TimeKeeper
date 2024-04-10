@@ -1482,6 +1482,51 @@ style confirm_button:
 style confirm_button_text:
     properties gui.button_text_properties("confirm_button")
 
+# Custom popup to warn the player when their save file is on a different
+# version than their base game
+#  -snail
+screen prompt_diffversion(v_saved, v_current):
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
+
+    default msg = '''This save file was not made on the current version.
+Save file version: [v_saved]
+Current game version: [v_current]
+Attempting to use this save may cause unexpected crashes and plot holes.'''
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (900, 600)
+        vbox:
+            xalign 0.5 yalign 0.5
+            spacing 25
+            label "Warning!":
+                xalign 0.5
+            text msg:
+                xalign 0.5 yalign 0.5
+            textbutton "Don't show this message again.":
+                xalign 0.5 ypos 0.7 yanchor 0.5
+                text_align 0.5
+                action ToggleVariable('persistent.showversionwarning')
+                if persistent.showversionwarning:
+                    text_color '#aaa'
+                else:
+                    text_color '#fff'
+            hbox:
+                xalign 0.5
+                textbutton "Load anyway":
+                    xpos 0.3 xanchor 0.5
+                    text_align 0.5
+                    action Hide('prompt_diffversion')
+                textbutton "Go back":
+                    xpos 0.7 xanchor 0.5
+                    text_align 0.5
+                    action ShowMenu("load")
+
 
 ## Skip indicator screen #######################################################
 ##

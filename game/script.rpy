@@ -3,13 +3,11 @@ label start:
 
     $ all_init_and_load()
 
-    # The following line disables the "back" button when uncommented
+    # Disable the "back" button (commented out for testing purposes)
     # $ config.rollback_enabled = False
 
-    # This label unlocks all characters and sets their names when uncommented
+    # Unlock all characters and set their names (for testing purposes only)
     call meet_all_chars
-
-    call chap1_test_bgs
 
     call chap1_test_snow
 
@@ -25,7 +23,7 @@ label start:
 
 label after_load:
     if save_version != config.version and persistent.showversionwarning:
-        show screen popup_diffversion_prompt(save_version, config.version)
+        show screen prompt_diffversion(save_version, config.version)
 
     $ all_init_and_load()
 
