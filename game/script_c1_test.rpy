@@ -315,11 +315,16 @@ label chap1_test_audio:
 
     play audio vineboom
 
-    b 'That music SUCKS'
+    b 6a 'That music SUCKS'
+
+    show bella 1a
+    show mc at flip
 
     stop music fadeout 1.0
 
     s '...'
+
+    show mc at unflip
 
     s 'Ok happy?'
 

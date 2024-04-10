@@ -346,6 +346,8 @@ define n5 = Character('NOBLE', image='npc5', callback=functools.partial(set_cur_
 
 transform flip:
     xzoom -1
+transform unflip:
+    xzoom 1
 
 transform l1_5:
     xalign 0.2
