@@ -57,7 +57,7 @@ screen btn_tsk(bt, hov_id=None):
             else:
                 auto f"mini/btn_task/btn_{bt['imtask']}_%s.png"
                 action bt['act']
-            if 'htext' in b and not len(bt['htext']) == 0:
+            if 'htext' in bt and not len(bt['htext']) == 0:
                 if bt['curtask']:
                     if Task.SPECIAL in bt['curtask']['tags']:
                         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(bt['htext']))]
