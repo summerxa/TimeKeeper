@@ -9,8 +9,13 @@ label start:
     # Unlock all characters and set their names (for testing purposes only)
     call meet_all_chars
 
-    call chap1_test_animation
+    call chapter1
 
+    return
+
+label chapter1:
+
+    # call chap1_test_animation
 
     # --- Minigame stuff ---
 

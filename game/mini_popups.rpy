@@ -235,7 +235,7 @@ screen popup_map:
 
     on "show" action SetVariable('mapfloor', curfloor)
 
-    add "bg minigame":
+    add "bg mgame_main":
         xalign 0.5 yalign 0.5
     add getMainMap(curlevel, mapfloor):
         xalign 0.5 yalign 0.5

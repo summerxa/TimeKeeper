@@ -128,11 +128,17 @@ screen mgame_toggle:
 
 screen mgame_waterpour:
     default sel = -1
+    default yp = 0.513
 
     for i, c in enumerate(curgame['cups']):
+        if sel != i:
+            add 'mini/tgame/waterpour/waterpour_reflection.png':
+                xpos c['xp']
+                ypos yp + 0.22
+                xanchor 0.5 yanchor 0.5
         imagebutton:
             xpos c['xp']
-            ypos curgame['yp'] - (0.1 if sel == i else 0.)
+            ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
             auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
             action If(
@@ -151,13 +157,13 @@ screen mgame_waterpour:
         for j, curcolor in list(enumerate(c['colors'])):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
                 xpos c['xp']
-                ypos curgame['yp'] - (0.1 if sel == i else 0.)
+                ypos yp - (0.1 if sel == i else 0.)
                 xanchor 0.5 yanchor 0.5
                 at tint(curcolor)
         add 'mini/tgame/waterpour/waterpour_highlights.png':
             xpos c['xp']
-            ypos curgame['yp'] - (0.1 if sel == i else 0.)
+            ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
     
     use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox
+    use mc_hintbox(True)

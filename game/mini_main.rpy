@@ -266,8 +266,13 @@ screen mini_screen:
     use mc_hintbox(True)
 
 label mini_main():
-    # TODO maybe hide quickmenu? if its too obtrusive
-    scene bg minigame
+    # TODO maybe hide quickmenu if its too obtrusive
+
+    # TODO play soundtrack (if not playing already) - alt version based on how much time left
+    # if we feeling fancy, make transition from normal to fast version smoother by calculating
+    # where to start in the fast track based on position in the normal track
+
+    scene bg mgame_main
 
     $ update_taskq()
 

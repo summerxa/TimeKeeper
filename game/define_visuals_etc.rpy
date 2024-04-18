@@ -257,7 +257,8 @@ init python:
         return CS_(charname, Comp_(charname, imwidth, headheight, face, pose))
 
 
-image bg minigame = 'mini/ui_backrgons.jpg'
+image bg mgame_main = 'mini/ui_backrgons.jpg'
+image bg mgame_waterpour = 'mini/tgame/waterpour/waterpour_bg.jpg'
 
 image bg guestroom = 'bgs/guestroom.jpg'
 

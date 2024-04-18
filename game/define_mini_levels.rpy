@@ -309,7 +309,6 @@ default tasks = {
             'tags': [],
             'game': {
                 'type': 'waterpour',
-                'yp': 0.5,
                 'cups': [
                     {
                         'xp': 0.24,
