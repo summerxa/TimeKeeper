@@ -21,6 +21,12 @@ define persistent.namesaves = True # prompts user to name save files if True
 define persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
 define persistent.showversionwarning = True # if True, warns user when they load a diff version save file
 
+# --- STORY STUFF ---
+
+default c1_ending = None
+default c1_saw_bella_watch = False
+default c1_has_bella_watch = False
+
 # --- MINIGAME STUFF ---
 init python:
     from enum import Enum

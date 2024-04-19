@@ -1,4 +1,154 @@
-﻿label chap1_test_sprites:
+﻿label c1_scene1:
+    "Scene 1 (Memory)"
+    return
+
+label c1_scene2:
+    "Scene 2 (Intro + tasks)"
+    return
+
+label c1_scene3:
+    "Scene 3 (amelia sick scene)"
+    return
+
+label c1_fetch1:
+    "Fetch quest 1"
+    return
+
+label c1_fetch2:
+    "Fetch quest 2"
+    return
+
+label c1_fetch3:
+    "Fetch quest 3"
+    return
+
+label c1_fetch4:
+    "Fetch quest 4"
+    menu:
+        "Bella confrontation"
+
+        "Do nothing":
+            "mc does nothing"
+        "Confront Bella":
+            "mc confronts"
+            $ c1_saw_bella_watch = True
+            menu:
+                "Bella drops pocketwatch"
+
+                "Leave it behind":
+                    pass # This ends the scene
+                "Pick it up":
+                    $ c1_has_bella_watch = True
+    return
+
+label c1_scene5:
+    "Scene 5"
+    return
+
+label c1_scene6:
+    menu:
+        "Mother inspection"
+        "Yes":
+            menu:
+                "Who was it?"
+                "Amelia":
+                    call c1_amelia_ending
+                "Bella" if c1_has_bella_watch:
+                    call c1_bella_ending
+                "MC":
+                    call c1_mc_ending
+        "Say nothing":
+            menu:
+                "Who was it?"
+                "Amelia":
+                    call c1_amelia_ending
+                "Bella" if c1_has_bella_watch:
+                    call c1_bella_ending
+                "MC":
+                    call c1_mc_ending
+                "Say nothing":
+                    menu:
+                        "bella accuses, mother asks 'is this true?'"
+                        "Bella" if c1_has_bella_watch:
+                            call c1_bella_ending(c1_blame_bella_dialogue=False)
+                        "Say nothing":
+                            call c1_mc_ending("gets_accused")
+        "No":
+            menu:
+                "Are you sure you did not?"
+                "Not sure":
+                    menu:
+                        "Who was it?"
+                        "Amelia":
+                            call c1_amelia_ending
+                        "Bella" if c1_has_bella_watch:
+                            call c1_bella_ending
+                "Yes":
+                    menu:
+                        "Were there any idle maids?"
+                        "Yes":
+                            menu:
+                                "Amelia":
+                                    call c1_amelia_ending
+                                "Bella" if c1_has_bella_watch:
+                                    call c1_bella_ending
+                                "MC":
+                                    call c1_mc_ending
+                        "No":
+                            menu:
+                                "Did you see anything unusual?"
+                                "Yes":
+                                    menu:
+                                        "What was that?"
+                                        "Amelia":
+                                            call c1_amelia_ending
+                                        "Bella" if c1_has_bella_watch:
+                                            call c1_bella_ending
+                                "No":
+                                    menu:
+                                        "Who would you suspect?"
+                                        "Amelia":
+                                            call c1_amelia_ending(c1_justify_blame=False)
+                                        "Bella" if c1_has_bella_watch:
+                                            call c1_bella_ending(c1_justify_blame=False)
+                                        "MC":
+                                            call c1_mc_ending
+    return
+
+label c1_amelia_ending(c1_justify_blame=True):
+    $ c1_ending = "amelia"
+    if c1_justify_blame:
+        "mc gives reason for blaming amelia"
+    else:
+        "Mc accuses amelia with no reason"
+    "blame amelia"
+    "amelia by herself"
+    "amelia ded"
+    return
+
+label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
+    $ c1_ending = "bella"
+    if c1_blame_bella_dialogue:
+        if c1_justify_blame:
+            "mc gives reason for blaming bella"
+        else:
+            "Mc accuses bella with no reason"
+    "blame bella"
+    "hear abt ded bella"
+    return
+
+label c1_mc_ending(variant="takes_blame"):
+    $ c1_ending = "mc " + variant
+    "mc takes/gets blame"
+    "mother leaves; amelia and bella talk to mc"
+    return
+
+label c1_scene7:
+    "Reached ending: [c1_ending]"
+    "The end of the chapter"
+    return
+
+label chap1_test_sprites:
     scene bg room
 
     $ talk_next('mc')
