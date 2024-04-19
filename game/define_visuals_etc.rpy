@@ -210,7 +210,7 @@ transform rot(a):
 
 style fancy_font:
     color '#906548'
-    font 'Sacramento.ttf'
+    font 'Nephilm.otf'
     textalign 0.5
 
 transform highlight_hov(hov, myname):

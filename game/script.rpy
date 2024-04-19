@@ -15,7 +15,7 @@ label start:
 
 label chapter1:
 
-    call chap1_test_bgs
+    # call chap1_test_bgs
 
     # --- Minigame stuff ---
 

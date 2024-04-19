@@ -229,23 +229,36 @@ screen popup_mgame_leave:
 #                 'act': close_leave
 #             })
 
+screen tx_room(bt, b_id):
+    default cords = roomRects[curlevel][bt['floor']][b_id]
+    default xp = (cords[2] + cords[0]) // 2
+    default yp = (cords[3] + cords[1]) // 2
+    default tx = bt['btext'] + ('\n(YOU ARE HERE)' if (curroom == b_id or prevroom == b_id) else '')
+    text tx:
+        xpos xp
+        ypos yp
+        xanchor 0.5 yanchor 0.5
+        style 'fancy_font'
+        textalign 0.5
+        size 60
+
 # doesn't follow the same code as the other popups but idk where else to put this lol
 screen popup_map:
     modal True
 
-    on "show" action SetVariable('mapfloor', curfloor)
+    default mapfloor = curfloor
 
     add "bg mgame_main":
         xalign 0.5 yalign 0.5
-    add getMainMap(curlevel, mapfloor):
-        xalign 0.5 yalign 0.5
+    
+    use mini_mapbase(mapfloor)
     
     use mini_sidebar('map')
-    use floor_sidebar('map')
+    use floor_sidebar('map', mapfloor)
 
     text '(Currently viewing map, rooms are not interactable)':
         xalign 0.5
-        yalign 0.05
+        ypos 45 yanchor 0.5
         textalign 0.5
         style 'fancy_font'
         size 50
@@ -253,21 +266,4 @@ screen popup_map:
     for bn, bt in roomButtons[curlevel].items():
         if bt['floor'] != mapfloor:
             continue
-        text bt['name'].upper():
-            xpos bt['xp'] ypos bt['yp'] xanchor 0.5 yanchor 0.5
-            style 'fancy_font'
-            textalign 0.5
-            size 50
-
-    if curfloor == mapfloor:
-        $ room = None
-        if curroom != 'main':
-            $ room = curroom
-        elif prevroom and prevroom != 'main':
-            $ room = prevroom
-        if room:
-            add 'mini/icon_map_mc.png':
-                xpos mcIconLoc[curlevel][room][0]
-                ypos mcIconLoc[curlevel][room][1]
-                xanchor 0.5
-                yanchor 0.5
+        use tx_room(bt, bn)

@@ -45,13 +45,18 @@ default levelHints = {
     'waterpour_cup_full': "This glass is full; I can't pour into it."
 }
 
-# dimensions (w,h) of room map img
-default roomDims = {
+# size/pos of room on main floor map
+# (topleft x, y, bottomright x, y)
+default roomRects = {
     1: {
-        'ballroom': (1920, 1080),
-        'kitchen': (1331, 800),
-        'laundry': (793, 877),
-        'room 4': (1926, 1079)
+        0: {
+            'ballroom': (494, 86, 1442, 562),
+            'kitchen': (848, 598, 1442, 971),
+            'laundry': (494, 598, 815, 971)
+        },
+        1: {
+            'room 4': (520, 166, 1476, 816)
+        }
     }
 }
 
@@ -138,16 +143,6 @@ default roomArrows = {
     }
 }
 
-# location of MC's icon on preview map
-default mcIconLoc = {
-    1: {
-        'ballroom': [0.5, 0.3],
-        'kitchen': [0.6, 0.8],
-        'laundry': [0.3, 0.8],
-        'room 4': [0.5, 0.6]
-    }
-}
-
 default taskButtons = {
     1: {
         't11': {
@@ -164,27 +159,27 @@ default taskButtons = {
             'imtask': 'normal'
         },
         'sink': {
-            'xp': 334,
-            'yp': 388,
+            'xp': 647,
+            'yp': 530,
             'room': 'kitchen',
             'imtask': 'kitchensink'
         },
         'pickuptable': {
-            'xp': 146,
-            'yp': 418,
+            'xp': 459,
+            'yp': 560,
             'room': 'kitchen',
             'imtask': 'pickuptable',
             'taskless': 'custom_taskless'
         },
         'kitchen_idk': {
-            'xp': 234,
-            'yp': 150,
+            'xp': 550,
+            'yp': 292,
             'room': 'kitchen',
             'imtask': 'kitchenidk'
         },
         'laundry_1': {
-            'xp': 440,
-            'yp': 201,
+            'xp': 910,
+            'yp': 330,
             'room': 'laundry',
             'imtask': 'laundrymachine'
         }

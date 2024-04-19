@@ -39,7 +39,6 @@ default completion = 0
 default curroom = 'main'
 default prevroom = None
 default curfloor = 0
-default mapfloor = 0
 
 default curtask = None
 default curgame = None

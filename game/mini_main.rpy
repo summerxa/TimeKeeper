@@ -1,10 +1,15 @@
 screen btn_room(bt, b_id):
+    default cords = roomRects[curlevel][bt['floor']][b_id]
+    default xp = (cords[2] + cords[0]) // 2
+    default yp = (cords[3] + cords[1]) // 2
     textbutton bt['btext']:
-        xpos bt['xp'] ypos bt['yp'] xanchor 0.5 yanchor 0.5
+        xpos xp
+        ypos yp
+        xanchor 0.5 yanchor 0.5
         action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
         text_style 'fancy_font'
         text_align 0.5
-        text_size 50
+        text_size 60
         hovered SetVariable('cur_hov', f'{b_id}_room_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, f'{b_id}_room_btn')
@@ -169,7 +174,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                 rotate (curtime / 720) * 360
                 at highlight_hov(cur_hov, 'clock_btn')
 
-screen floor_sidebar(curstate='game'):
+screen floor_sidebar(curstate='game', mapfloor=0):
     default act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
     default act2 = [SetVariable('curtime', curtime+levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
     if curfloor < levelInfo[curlevel]['nfloors']-1 or curstate == 'map':
@@ -180,7 +185,7 @@ screen floor_sidebar(curstate='game'):
             xanchor 0.5
             yanchor 0.5
             if curstate == 'map':
-                action SetVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
+                action SetScreenVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
                 hovered SetVariable('cur_hov', 'floor_up_btn')
             else:
                 action act1 + [SetVariable('curfloor', curfloor+1)] + act2
@@ -202,7 +207,7 @@ screen floor_sidebar(curstate='game'):
             xanchor 0.5
             yanchor 0.5
             if curstate == 'map':
-                action SetVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
+                action SetScreenVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
                 hovered SetVariable('cur_hov', 'floor_down_btn')
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
@@ -233,23 +238,28 @@ screen mc_hintbox:
             vscrollbar_unscrollable "hide"
             text hinttext
 
+screen mini_mapbase(floor=curfloor):
+    for rname, rm in roomRects[curlevel][floor].items():
+        add 'mini/map/map_roomrect.png':
+            xpos rm[0] ypos rm[1]
+            xanchor 0.0 yanchor 0.
+            xysize (rm[2] - rm[0], rm[3] - rm[1])
+
 screen mini_screen:
     modal True
 
     if curroom == 'main':
-        add getMainMap(curlevel, curfloor):
-            xalign 0.5 yalign 0.5
+        use mini_mapbase
         use mini_sidebar
         for bn, bt in roomButtons[curlevel].items():
             if bt['floor'] == curfloor:
                 use btn_room(bt, bn)
     else:
+        add f"mini/map/map_{curlevel}_{curroom}.png":
+            xalign 0.5 yalign 0.5
         fixed:
             xalign 0.5 yalign 0.5
-            minimum roomDims[curlevel][curroom]
-            maximum roomDims[curlevel][curroom]
-            add f"mini/map/map_{curlevel}_{curroom}.png":
-                xalign 0.5 yalign 0.5
+            minimum (1920,1080)
             for bn, bt in taskButtons[curlevel].items():
                 if curroom == bt['room']:
                     use btn_tsk(bt, bn)
