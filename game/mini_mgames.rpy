@@ -166,4 +166,4 @@ screen mgame_waterpour:
             xanchor 0.5 yanchor 0.5
     
     use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox(True)
+    use mc_hintbox

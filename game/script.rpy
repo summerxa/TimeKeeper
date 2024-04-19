@@ -15,7 +15,7 @@ label start:
 
 label chapter1:
 
-    # call chap1_test_animation
+    call chap1_test_spritesall
 
     # --- Minigame stuff ---
 

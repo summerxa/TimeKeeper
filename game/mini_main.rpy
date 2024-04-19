@@ -210,13 +210,12 @@ screen floor_sidebar(curstate='game'):
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
-screen mc_hintbox(dropshadow=False):
-    if dropshadow:
-        add 'mc minigame':
-            zoom 1.05
-            xalign 1.07
-            yalign 0.
-            matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
+screen mc_hintbox:
+    add 'mc minigame':
+        zoom 1.05
+        xalign 1.07
+        yalign 0.
+        matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
     add 'mc minigame':
         zoom 1.05
         xalign 1.1
@@ -263,7 +262,7 @@ screen mini_screen:
                 use btn_roomarrow(ar, f"to_{ar['toroom']}_btn")
     
     use floor_sidebar('game')
-    use mc_hintbox(True)
+    use mc_hintbox
 
 label mini_main():
     # TODO maybe hide quickmenu if its too obtrusive
