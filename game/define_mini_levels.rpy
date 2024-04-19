@@ -262,7 +262,7 @@ default tasks = {
             'name': 't3',
             'desc': 'Drop off test item 3',
             'btn': 'laundry_1',
-            'tlabel': 'c1_t1',
+            'tlabel': 'chap1_test_t1',
             'tcost': 5,
             't0': -1,
             'tf': 9999,

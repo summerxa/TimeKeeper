@@ -41,6 +41,7 @@ screen btn_roomarrow(bt, hov_id):
         xanchor 0.5
         yanchor 0.5
         text_style 'fancy_font'
+        text_size 50
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)

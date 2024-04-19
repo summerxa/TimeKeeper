@@ -11,6 +11,8 @@ label start:
 
     call chapter1
 
+    call mgame_testing
+
     return
 
 label chapter1:

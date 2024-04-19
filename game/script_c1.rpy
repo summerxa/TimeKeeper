@@ -519,7 +519,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
         else:
             npc "If you're seeing this dialogue, something's broken :("
 
-label c1_t1:
+label chap1_test_t1:
     scene bg seal room with cfade
 
     $ talk_next('npc2')
@@ -537,7 +537,7 @@ label c1_t1:
 
     jump mini_main
 
-label c1_t2:
+label chap1_test_t2:
     "drag left button to left square, right button to right square"
 
     python:
@@ -569,12 +569,12 @@ label c500_default_idle:
 
     jump mini_main
 
-label c1_t2_idle:
+label chap1_test_t2_idle:
     "task 2 isnt available, go do something else"
     
     jump mini_main
 
-label c1_t3:
+label chap1_test_t3:
     $ ichoice = False
     $ showlh = (invitems[0] != 'air')
     $ showrh = (invitems[1] != 'air' and invitems[1] != invitems[0])
