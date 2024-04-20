@@ -139,17 +139,37 @@ screen popup_help(curstate='main'):
 
     style_prefix "confirm"
 
+    default h_tab = "main" if (curstate == 'main' or not curstate in levelHelp) else 'rules'
+
     frame:
         xalign 0.5
         yalign 0.5
-        maximum (800, 500)
+        maximum (1000, 800)
 
         label "Help"
 
-        text '[curstate]':
-            xalign 0.5
-            yalign 0.5
+        vbox:
+            area (0, 60, 900, 600)
+            spacing 23
 
+            if curstate != 'main' and curstate in levelHelp:
+                hbox:
+
+                    textbutton "Minigame rules" action SetScreenVariable("h_tab", "rules")
+
+                    textbutton "Main gameplay" action SetScreenVariable("h_tab", "main")
+
+            viewport:
+                mousewheel True
+                draggable True
+                scrollbars "vertical"
+                vscrollbar_unscrollable "hide"
+
+                if h_tab == 'main':
+                    text levelHelp['main']
+                else:
+                    text levelHelp[curstate]
+        
         use popup_button_close(1., 0., 'popup_help')
 
 screen popup_mgame_leave:

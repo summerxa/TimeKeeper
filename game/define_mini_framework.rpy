@@ -71,7 +71,7 @@ init python:
     def fmtSpecialTask(t, forced=False):
         if not persistent.showspecial and not forced:
             return t
-        return "{color=#ebe834}" + t + "{/color}"
+        return "{i}" + t + "{/i}"
 
     def fmtBaseTask(t):
         return f"- {fmtTsk(t)} [[{roomButtons[curlevel][t['room']]['name']}]"

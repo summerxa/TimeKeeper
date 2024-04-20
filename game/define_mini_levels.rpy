@@ -45,14 +45,60 @@ default levelHints = {
     'waterpour_cup_full': "This glass is full; I can't pour into it."
 }
 
+default levelHelp = {
+    'main': '''
+{b}BASIC GAMEPLAY{/b}
+Manage your time wisely and complete tasks before it's too late!
+Click on the name of a room to go to it, or the up/down arrows on the left to go up/down stairs.
+Some furniture will be highlighted, which means there's a task you need to complete.
+Click on an item to pick it up, or an empty space to place an item down. You can only carry one item in each hand, so you may be prompted to drop an item before picking up something else.
+Hovering over a task or item will show information about it.
+
+{b}LEFT SIDEBAR{/b}
+Clock: shows the time and how long you have left.
+Notebook: shows your current tasks.
+    Be sure to check your notes often, as new tasks could appear at any time.
+    Some tasks are related to the story and will be written in italics. You can disable "highlight recommended tasks" in settings to remove this feature.
+Map: previews every floor map.
+    You can use this to locate a task without physically moving to another room, which takes time!
+On-hand: shows the contents of your inventory.
+Help: shows this popup!
+    The contents of this popup will change based on your current activity.
+    If you are currently in a task minigame, it will show instructions on how to complete the task in addition to this text.
+Leave: exits the current game state.
+    If you are in a main floor map, pauses the game and opens the save menu.
+    If you are in a room map, exits to the main floor map.
+    If you are using the preview map, closes the map and returns to normal gameplay.
+    And if you are in a task minigame, causes you to leave the task. Be careful with this; leaving a task will take some time even if you didn't complete it!
+
+{b}COMPLETION{/b}
+The notebook will show your progress using two separate displays.
+The first one shows how many major quests you have completed.
+    These quests are related to the story, and you are recommended to complete them for the best experience.
+The second one is an approval rating, indicating a low/medium/high completion of all tasks.
+    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
+''',
+    'grabdishes': '''
+Drag a dirty dish from the table to pick it up and place it in your inventory.
+To complete the task, collect all dirty dishes from this table.''',
+    'dropdishes': '''
+Drag a dirty dish from the stack into the sink. This removes the dishes from your inventory.
+You can drop off as many dirty dishes as you like at any time, but you will only complete the task after every single dish is dropped off.''',
+    'waterpour': '''Click on a cup to select it, and click again to deselect it.
+Click on another cup to pour the topmost later of water into it.
+You can only pour into a cup if it has at least one empty slot.
+To complete the task, sort the drinks until each cup is either empty or contains all one color.
+Two or more cups cannot contain the same color.''',
+}
+
 # size/pos of room on main floor map
 # (topleft x, y, bottomright x, y)
 default roomRects = {
     1: {
         0: {
-            'ballroom': (494, 86, 1442, 562),
-            'kitchen': (848, 598, 1442, 971),
-            'laundry': (494, 598, 815, 971)
+            'ballroom': (490, 85, 1440, 560),
+            'kitchen': (850, 600, 1440, 970),
+            'laundry': (490, 600, 815, 970)
         },
         1: {
             'room 4': (520, 166, 1476, 816)
