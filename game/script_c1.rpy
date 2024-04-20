@@ -137,8 +137,8 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     "hear abt ded bella"
     return
 
-label c1_mc_ending(variant="takes_blame"):
-    $ c1_ending = "mc " + variant
+label c1_mc_ending(c1_mc_type="takes_blame"):
+    $ c1_ending = "mc " + c1_mc_type
     "mc takes/gets blame"
     "mother leaves; amelia and bella talk to mc"
     return
