@@ -353,19 +353,22 @@ transform flip:
 transform unflip:
     xzoom 1
 
-transform l1_5:
-    xalign 0.2
-transform l1_4:
-    xalign 0.25
-transform l1_3:
-    xalign 0.33
+transform xpa(x):
+    xpos x xanchor 0.5
 
-transform r1_5:
-    xalign 0.8
-transform r1_4:
-    xalign 0.75
+transform l1_5:
+    xpa(384)
+transform l1_4:
+    xpa(480)
+transform l1_3:
+    xpa(640)
+
 transform r1_3:
-    xalign 0.67
+    xpa(1280)
+transform r1_4:
+    xpa(1440)
+transform r1_5:
+    xpa(1536)
 
 # animation test >:3
 transform boogie:
