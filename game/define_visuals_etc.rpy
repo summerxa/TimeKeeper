@@ -323,9 +323,10 @@ image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 # --- CHARACTER STUFF ---
 # technically these aren't visuals...
 # but let's keep this a little secret between you and me, okay?
+# ok, lol
 
 define narrator = Character(callback=functools.partial(set_cur_speaker))
-define s = Character('MC', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
+define s = Character('ANASTASIA', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
 default mother_name = '???'
 define m = Character('mother_name', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'), dynamic=True)
 default amelia_name = '???'
