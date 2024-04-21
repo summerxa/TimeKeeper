@@ -339,12 +339,10 @@ define s = Character('ANASTASIA', image='mc', callback=functools.partial(set_cur
 define m = Character('mother_name', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'), dynamic=True)
 define a = Character('amelia_name', image='amelia', callback=functools.partial(set_cur_speaker, ch='amelia'), dynamic=True)
 define b = Character('bella_name', image='bella', callback=functools.partial(set_cur_speaker, ch='bella'), dynamic=True)
-define l = Character('maria_name', image='maria', callback=functools.partial(set_cur_speaker, ch='maria'), dynamic=True)
 
 default mother_name = '???'
 default amelia_name = '???'
 default bella_name = '???'
-default maria_name = '???'
 
 # young noble m
 define n1 = Character('npc1_name', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'), dynamic=True)
