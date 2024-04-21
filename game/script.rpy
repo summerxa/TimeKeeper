@@ -6,12 +6,7 @@ label start:
     # Disable the "back" button (commented out for testing purposes)
     # $ config.rollback_enabled = False
 
-    # Unlock all characters and set their names (for testing purposes only)
-    #call meet_all_chars
-
-    # call chap1_test_spritesall
-
-    # call chapter1
+    call chapter1
 
     call mgame_testing
 

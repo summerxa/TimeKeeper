@@ -230,17 +230,25 @@ init python:
     import functools
     def set_cur_speaker(event, interact=True, ch=None, **kwargs):
         global current_speaker
-        global talks_next
+        global focus_dict
 
         if not interact:
             return
 
-        if event == 'show':
+        if event == 'begin':
             current_speaker = ch
-            talks_next.clear()
+            # remove highlighted characters after one line of dialogue is shown
+            chk = list(focus_dict.keys())
+            for ch in chk:
+                if focus_dict[ch]:
+                    del focus_dict[ch]
+            for ch in focus_dict:
+                focus_dict[ch] = True
     
-    def talk_next(ch):
-        talks_next.add(ch)
+    def focus_on(chs):
+        store.current_speaker = None
+        for ch in chs:
+            focus_dict[ch] = False
     
     def Comp_(charname, imwidth, headheight, face, pose):
         im_face = f"sprites/{charname}/{face}.png"
@@ -249,7 +257,8 @@ init python:
 
     def CS_(charname, spr_im):
         return ConditionSwitch(
-            f"current_speaker == '{charname}' or '{charname}' in talks_next", spr_im,
+            f"current_speaker == '{charname}' or '{charname}' in focus_dict", spr_im,
+            # f"not current_speaker or current_speaker == '{charname}' or '{charname}' in focus_dict", spr_im,
             "True", At(spr_im, darken_sprite)
         )
     
@@ -325,27 +334,34 @@ image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 # but let's keep this a little secret between you and me, okay?
 # ok, lol
 
-define narrator = Character(callback=functools.partial(set_cur_speaker))
+define narrator = Character(callback=functools.partial(set_cur_speaker, ch=None))
 define s = Character('ANASTASIA', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
-default mother_name = '???'
 define m = Character('mother_name', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'), dynamic=True)
-default amelia_name = '???'
 define a = Character('amelia_name', image='amelia', callback=functools.partial(set_cur_speaker, ch='amelia'), dynamic=True)
-default bella_name = '???'
 define b = Character('bella_name', image='bella', callback=functools.partial(set_cur_speaker, ch='bella'), dynamic=True)
-default maria_name = '???'
 define l = Character('maria_name', image='maria', callback=functools.partial(set_cur_speaker, ch='maria'), dynamic=True)
 
+default mother_name = '???'
+default amelia_name = '???'
+default bella_name = '???'
+default maria_name = '???'
+
 # young noble m
-define n1 = Character('NOBLE', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'))
+define n1 = Character('npc1_name', image='npc1', callback=functools.partial(set_cur_speaker, ch='npc1'), dynamic=True)
 # old noble m
-define n2 = Character('NOBLE', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'))
+define n2 = Character('npc2_name', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'), dynamic=True)
 # maid
-define n3 = Character('MAID', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'))
+define n3 = Character('npc3_name', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'), dynamic=True)
 # young noble f
-define n4 = Character('NOBLE', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'))
+define n4 = Character('npc4_name', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'), dynamic=True)
 # old noble f
-define n5 = Character('NOBLE', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'))
+define n5 = Character('npc5_name', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'), dynamic=True)
+
+default npc1_name = 'NOBLE'
+default npc2_name = 'NOBLE'
+default npc3_name = 'MAID'
+default npc4_name = 'NOBLE'
+default npc5_name = 'NOBLE'
 
 # --- POSITION STUFF ---
 
@@ -363,7 +379,11 @@ transform l1_4:
     xpa(480)
 transform l1_3:
     xpa(640)
+transform l2_5:
+    xpa(768)
 
+transform r2_5:
+    xpa(1152)
 transform r1_3:
     xpa(1280)
 transform r1_4:

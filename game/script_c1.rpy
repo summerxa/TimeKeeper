@@ -35,7 +35,7 @@ label c1_scene1:
         #set zoom to 1.0 to reset
     #linear + circles
 
-#label c1_scene1_5: 
+label c1_scene1_5: 
    
     scene bg joyce why with cfade
     "test scene"
@@ -207,7 +207,9 @@ label c1_scene2:
     $ bella_name = "???"
     $ amelia_name = "???"
 
-    show npc2 at r1_5
+    show npc2: # for some reason the animation bugs out unless all the xaligns are written like this
+        xalign 0.8
+    
     n2 "These are the most proficient of your maids, madam?"
 
     show mother 2a:
@@ -216,6 +218,10 @@ label c1_scene2:
         
     m "Yes, Lord Layton."
 
+    $ npc2_name = 'LORD LAYTON'
+    
+    $ focus_on(['mc'])
+
     show mother 2a:
         flip
         easein 0.8 xalign 0.2
@@ -223,12 +229,14 @@ label c1_scene2:
     show mc 1b:
         flip
         xalign .5
-    
+
     m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
 
     n2 "I see."
 
     n2 "I suppose I might hire one of your maids in the near future."
+
+    $ npc2_name = 'NOBLE' # reset npc name for the next time we use this character
 
     show mother 3a
     m "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
@@ -244,7 +252,7 @@ label c1_scene2:
         unflip
         linear .8 xalign 0.4
 
-    show mc 1b: 
+    show mc 1b:
         unflip
         linear .8 xalign 0.7
 
@@ -272,6 +280,8 @@ label c1_scene2:
     show bella 6a at unflip
     b "Mother, I—"
 
+    $ focus_on(['mother', 'bella'])
+
     show mother 7a:
         easein .6 xalign 0.31
 
@@ -283,11 +293,13 @@ label c1_scene2:
         ease 0.8 xalign 1.0
     a "!!!"
 
+    $ focus_on(['amelia'])
+
     "Another maid looks on in horror and covers her mouth with her hand."
 
     m "It seems I need to {i}reeducate{/i} you, Bella."
 
-    $ bella_name = "Bella"
+    $ bella_name = "BELLA"
    
     show bella 6a
     b "No! I-"
@@ -297,6 +309,8 @@ label c1_scene2:
 
     show mother 1a at flip
     m "Could you clean this up, my dears?"
+
+    $ focus_on(['mother', 'bella'])
 
     show mother 7a:
         unflip
@@ -309,17 +323,19 @@ label c1_scene2:
     
     "Mother grips Bella’s arm tightly and drags her out of the ballroom."
 
+    $ focus_on(['amelia'])
+
     #TODO: figure out what to do here LMAO; amelia's expression does NOT match 
     pause 1.0
     show amelia 7a
     "Anastasia and the other maids pull themselves together and clean up the mess."
 
-    scene    
-    #TODO: screen should be black here
+    # turns out renpy has a built in black bg hooray -snail
+    scene black with dissolve
 
     "One hour later…"
 
-    scene bg joyce why with cfade
+    scene bg joyce why with dissolve
     #TODO: replace with ballroom bg later
 
     #TODO: animate them better     
@@ -335,6 +351,7 @@ label c1_scene2:
         pause .65
         unflip
 
+    $ focus_on(['mother', 'mc'])
 
     "Mother returns to the ballroom alone and walks to Anastasia."
 
@@ -368,6 +385,8 @@ label c1_scene2:
     show mc 4b
     s "I will."
 
+    $ focus_on(['mother'])
+
     pause 1.0
     show mother 2a
     pause .5
@@ -375,6 +394,8 @@ label c1_scene2:
 
     scene bg guestroom with cfade
     #TODO: replace with ballroom bg later
+
+    $ focus_on(['bella'])
 
     show bella 8a at r1_4
     b "Ugh... Where is it? The cloth was here just a second ago!"
@@ -385,15 +406,19 @@ label c1_scene2:
         easein 1.0 xalign 0.25
     a "Here, take this."
 
+    $ focus_on(['bella'])
+
     show bella 1a at flip
 
-    $ amelia_name = "Amelia"
+    $ amelia_name = "AMELIA"
 
     pause 0.5
     b "Oh. Thanks, Amelia…"
 
     show amelia 3a
     a "No problem, Bella."
+
+    $ focus_on(['bella'])
 
     show bella 8a
     "Bella holds her hand to her face."
@@ -402,6 +427,8 @@ label c1_scene2:
 
     show amelia 6a
     a "Are you okay, Bella?"
+
+    $ focus_on(['bella'])
 
     show bella 5a
     pause .5
@@ -419,15 +446,23 @@ label c1_scene2:
     show amelia 1a
     a "If you say so…" 
 
+    $ focus_on(['amelia'])
+
     show amelia 1a:
         unflip
         easeout 1.0 xalign 0.2
     "Amelia starts to walk away, but—"
 
     #TODO: screen shakes and/or there’s a falling sound maybe??
+    # i made an animation maybe...? -snail
+
+    # i made the manual highlight clear after one line cuz that works *most* of the time,
+    # but now you have to call focus_on after every line of narration for this section :Troy: -snail
+    $ focus_on(['amelia'])
 
     show amelia 8a
-    "!!!"
+    "!!!{w=1}{nw}" # amelia automatically falls after 1 second
+    hide amelia with vpunch
 
     show bella 6a #not sure if this expression quite matches up... but oh well
     b "Amelia, are you alright?!"
@@ -449,6 +484,8 @@ label c1_scene2:
     show amelia 6a
     a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
 
+    $ focus_on(['bella'])
+
     show bella 1a
     pause 0.5
     show bella 7a
@@ -468,11 +505,14 @@ label c1_scene2:
     show bella 5a
     b "Amelia, I know you've been worried about me all this time, but if you feel tired, {i}please{/i}, tell me."
     #this line... doesn't flow quite smoothly...
+    # maybe remove the first "I know"- feels kinda redundant(?) idk how to word it... -snail
+    # or break into two lines "...all this time" -> "But if you..." for a thoughtful pause effect :D
 
     show amelia 5a
     a "Don’t worry Bella, I’ll be alright."
 
     #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
+    # maybe try 7a? it makes her look in amelia's general direction :D -snail
     b "If you say so..."
 
     $ char_unlock("amelia")
@@ -625,7 +665,7 @@ label c1_scene7:
 label chap1_test_sprites:
     scene bg room
 
-    $ talk_next('mc')
+    $ focus_on(['mc'])
 
     show mc 1a with dissolve
 
@@ -669,7 +709,7 @@ label chap1_test_sprites:
 
     m 4a 'Check out this cool new facial expression'
 
-    $ talk_next('npc1')
+    $ focus_on(['npc1'])
 
     show npc1 at left
     show npc2 at right
@@ -689,7 +729,6 @@ label chap1_test_sprites:
 
 label chap1_test_spritesall:
 
-    $ talk_next('mc')
     show mc 1a
     s 'Pose a expression 1'
     s 6b 'Pose b expression 6'
@@ -697,7 +736,6 @@ label chap1_test_spritesall:
     s 'Get flipped >:D'
     hide mc
 
-    $ talk_next('mother')
     show mother 1a
     m 'Pose a expression 1'
     show mother 7a
@@ -706,40 +744,33 @@ label chap1_test_spritesall:
     m 'Pose a expression 8'
     hide mother
 
-    $ talk_next('amelia')
     show amelia 1a
     a 'What'
     a 8a 'SHOOKETH'
     hide amelia
 
-    $ talk_next('amelia')
     show bella 1a
     b 'Evil bella be like,'
     b 6a "\"I'm sorry I hurt your feelings\""
     b 8a 'Tsundere moment??????'
     hide bella
 
-    $ talk_next('npc1')
     show npc1
     n1 'testing'
     hide npc1
 
-    $ talk_next('npc2')
     show npc2
     n2 'testing'
     hide npc2
 
-    $ talk_next('npc3')
     show npc3
     n3 'testing'
     hide npc3
 
-    $ talk_next('npc4')
     show npc4
     n4 'testing'
     hide npc4
 
-    $ talk_next('npc5')
     show npc5
     n5 'testing'
     hide npc5
@@ -789,7 +820,7 @@ label chap1_test_charmenu:
 
     "go to the character menu - she isn't unlocked yet"
 
-    $ talk_next('mc')
+    $ focus_on(['mc'])
 
     show mc 1a at l1_4 with dissolve
 
@@ -896,7 +927,7 @@ label chap1_test_namechange:
 
     b 'My name is bella'
 
-    $ talk_next('mother')
+    $ focus_on(['mother'])
 
     show mother 1a
 
@@ -925,7 +956,7 @@ label chap1_test_namechange:
 label chap1_test_audio:
     play music boowomp
 
-    $ talk_next('mc')
+    $ focus_on(['mc'])
 
     show mc 1a at l1_3
 
@@ -955,10 +986,7 @@ label chap1_test_audio:
     return
 
 label chap1_test_animation:
-    $ talk_next('mc')
-    $ talk_next('mother')
-    $ talk_next('bella')
-    $ talk_next('amelia')
+    $ focus_on(['mc', 'mother', 'bella', 'amelia'])
 
     show mc 1a at boogie, left
     show mother 1a at boogie, l1_3
@@ -966,7 +994,7 @@ label chap1_test_animation:
     show amelia 1a at boogie, right
     pause
 
-    $ talks_next.clear()
+    $ focus_dict.clear()
 
     return
 
@@ -975,7 +1003,7 @@ label chap1_test_part2:
 
     show mc 1b
 
-    $ talk_next('mc')
+    $ focus_on(['mc'])
 
     s "minigame over, your score was [completion]"
 
@@ -996,7 +1024,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
 label chap1_test_t1:
     scene bg seal room with cfade
 
-    $ talk_next('npc2')
+    $ focus_on(['npc2'])
 
     show npc2
 

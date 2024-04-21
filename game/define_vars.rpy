@@ -13,7 +13,7 @@ default save_version = None
 
 # --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
 default current_speaker = None
-default talks_next = set()
+default focus_dict = {}
 
 # --- CUSTOM SETTINGS ---
 define persistent.showspecial = True # highlights recommended quests if True
