@@ -593,9 +593,9 @@ screen progress():
     default charmenu_data = [
         {
             'id_name': 'mc',
-            'disp_name': 'MC',
+            'disp_name': 'Anastasia',
             'desc_default':
-                '''Sophronia is Mother's finest maid: she listens to Mother's every command, completes every task, and makes no mistakes. Will she stay a perfect maid or will she choose another path? How her journey unfolds will be up to you.''',
+                '''Anastasia is Mother's finest maid: she listens to Mother's every command, completes every task, and makes no mistakes. Will she stay a perfect maid or will she choose another path? How her journey unfolds will be up to you.''',
             'small_default': 'mainmenu/charmenu/small/mc_default_%s.png',
             'big_default': 'mainmenu/charmenu/small/mc_default_idle.png'
         },

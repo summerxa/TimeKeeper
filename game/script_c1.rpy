@@ -207,36 +207,27 @@ label c1_scene2:
     $ bella_name = "???"
     $ amelia_name = "???"
 
-    show npc2: # for some reason the animation bugs out unless all the xaligns are written like this
-        xalign 0.8
+    show npc2 at r1_5
     
     n2 "These are the most proficient of your maids, madam?"
 
-    show mother 2a:
-        flip
-        xalign .4
+    show mother 2a at flip, l2_5
         
     m "Yes, Lord Layton."
 
     $ npc2_name = 'LORD LAYTON'
     
-    $ focus_on(['mc'])
+    $ focus_on(['mc', 'mother'])
 
-    show mother 2a:
-        flip
-        easein 0.8 xalign 0.2
+    show mother 2a at flip, ein(0.8, 0.2)
 
-    show mc 1b:
-        flip
-        xalign .5
+    show mc 1b at flip, center
 
     m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
 
     n2 "I see."
 
     n2 "I suppose I might hire one of your maids in the near future."
-
-    $ npc2_name = 'NOBLE' # reset npc name for the next time we use this character
 
     show mother 3a
     m "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
@@ -248,22 +239,14 @@ label c1_scene2:
     #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
     #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
 
-    show mother 8a:
-        unflip
-        linear .8 xalign 0.4
+    show mother 8a at unflip, lin(0.8, 0.4)
 
-    show mc 1b:
-        unflip
-        linear .8 xalign 0.7
+    show mc 1b at unflip, lin(0.8, 0.7)
 
-    show npc2:
-        linear .8 xalign 1.1
+    show npc2 at lin(0.8, 1.1)
 
-    show bella 8a:
-        pause 0.7
-        flip
-        xalign -0.3
-        easein 0.7 xalign 0.0
+    pause 0.7
+    show bella 8a at flip, ein(0.7, 0.0)
 
     pause 2.5 
     show mother 5a
@@ -272,8 +255,7 @@ label c1_scene2:
     show mother 8a at flip
     m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
 
-    show npc2:
-        easeout 2.0 xalign 2.0
+    show npc2 at eout(2.0, 2.0)
     
     show mother 6a at unflip
 
@@ -282,15 +264,16 @@ label c1_scene2:
 
     $ focus_on(['mother', 'bella'])
 
-    show mother 7a:
-        easein .6 xalign 0.31
+    show mother 7a at ein(0.6, 0.31)
 
     show bella 8a
     "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
+    
+    hide npc2 # hiding sprites saves a teeny bit of processing power
+    $ npc2_name = 'NOBLE' # reset npc name for the next time we use this character
 
-    show amelia 8a:
-        xalign 1.2 yalign 0
-        ease 0.8 xalign 1.0
+    # uh... for some reason it shows amelia at the far left if these are merged into one line :Troy:
+    show amelia 8a at eaf(1.2, 0.8, 1.0)
     a "!!!"
 
     $ focus_on(['amelia'])
@@ -312,14 +295,10 @@ label c1_scene2:
 
     $ focus_on(['mother', 'bella'])
 
-    show mother 7a:
-        unflip
-        ease 1.2 xalign -1.0
+    show mother 7a at flip, ea(1.2, -1.0)
 
-    show bella 8a:
-        pause 0.5
-        flip
-        ease 1.0 xalign -1.0
+    pause 0.5
+    show bella 8a at flip, ea(1.0, -1.0)
     
     "Mother grips Bella’s arm tightly and drags her out of the ballroom."
 
@@ -338,20 +317,15 @@ label c1_scene2:
     scene bg joyce why with dissolve
     #TODO: replace with ballroom bg later
 
-    #TODO: animate them better     
-    show mc 3b:
-        flip
-        xalign 0.75
-
-    show mother 1a:
-        flip
-        easein 1.0 xalign 0.25
-
-    show mc 1b:
-        pause .65
-        unflip
-
     $ focus_on(['mother', 'mc'])
+
+    #TODO: animate them better
+    show mc 3b at flip, r1_4
+
+    show mother 1a at flip, ein(1.0, 0.25)
+
+    pause .65
+    show mc 1b at unflip
 
     "Mother returns to the ballroom alone and walks to Anastasia."
 
@@ -400,10 +374,7 @@ label c1_scene2:
     show bella 8a at r1_4
     b "Ugh... Where is it? The cloth was here just a second ago!"
 
-    show amelia 2a:
-        flip
-        xalign -.2
-        easein 1.0 xalign 0.25
+    show amelia 2a at flip, einf(-0.2, 1.0 ,0.25)
     a "Here, take this."
 
     $ focus_on(['bella'])
@@ -448,20 +419,20 @@ label c1_scene2:
 
     $ focus_on(['amelia'])
 
-    show amelia 1a:
-        unflip
-        easeout 1.0 xalign 0.2
+    show amelia 1a at unflip, eout(1.0, 0.2)
     "Amelia starts to walk away, but—"
 
-    #TODO: screen shakes and/or there’s a falling sound maybe??
     # i made an animation maybe...? -snail
+    # TODO add a falling sound
 
     # i made the manual highlight clear after one line cuz that works *most* of the time,
     # but now you have to call focus_on after every line of narration for this section :Troy: -snail
     $ focus_on(['amelia'])
 
     show amelia 8a
-    "!!!{w=1}{nw}" # amelia automatically falls after 1 second
+    "!!!{w=1}{nw}" # amelia automatically falls after 1 second (has a more jarring/shocking effect?)
+    # screen shake feels a lil too intense for someone falling over
+    # LMK if u want a less intense shake- i can make a custom one for this scene :3 -snail
     hide amelia with vpunch
 
     show bella 6a #not sure if this expression quite matches up... but oh well
@@ -569,7 +540,7 @@ label c1_scene6:
                     call c1_amelia_ending
                 "Bella" if c1_has_bella_watch:
                     call c1_bella_ending
-                "MC":
+                "Anastasia":
                     call c1_mc_ending
         "Say nothing":
             menu:
@@ -578,7 +549,7 @@ label c1_scene6:
                     call c1_amelia_ending
                 "Bella" if c1_has_bella_watch:
                     call c1_bella_ending
-                "MC":
+                "Anastasia":
                     call c1_mc_ending
                 "Say nothing":
                     menu:
@@ -606,7 +577,7 @@ label c1_scene6:
                                     call c1_amelia_ending
                                 "Bella" if c1_has_bella_watch:
                                     call c1_bella_ending
-                                "MC":
+                                "Anastasia":
                                     call c1_mc_ending
                         "No":
                             menu:
@@ -625,7 +596,7 @@ label c1_scene6:
                                             call c1_amelia_ending(c1_justify_blame=False)
                                         "Bella" if c1_has_bella_watch:
                                             call c1_bella_ending(c1_justify_blame=False)
-                                        "MC":
+                                        "Anastasia":
                                             call c1_mc_ending
     return
 

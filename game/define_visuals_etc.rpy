@@ -370,26 +370,47 @@ transform flip:
 transform unflip:
     xzoom 1
 
-transform xpa(x):
-    xpos x xanchor 0.5
+transform xal(x):
+    xalign x
+
+transform lin(t, x):
+    linear t xalign x
+transform ea(t, x):
+    ease t xalign x
+transform ein(t, x):
+    easein t xalign x
+transform eout(t, x):
+    easeout t xalign x
+
+transform linf(x0, t, x):
+    xalign x0
+    linear t xalign x
+transform eaf(x0, t, x):
+    xalign x0
+    ease t xalign x
+transform einf(x0, t, x):
+    xalign x0
+    easein t xalign x
+transform eoutf(x0, t, x):
+    xalign x0
+    easeout t xalign x
 
 transform l1_5:
-    xpa(384)
+    xal(0.2)
 transform l1_4:
-    xpa(480)
+    xal(0.25)
 transform l1_3:
-    xpa(640)
+    xal(0.333)
 transform l2_5:
-    xpa(768)
-
+    xal(0.4)
 transform r2_5:
-    xpa(1152)
+    xal(0.6)
 transform r1_3:
-    xpa(1280)
+    xal(0.667)
 transform r1_4:
-    xpa(1440)
+    xal(0.75)
 transform r1_5:
-    xpa(1536)
+    xal(0.8)
 
 # animation test >:3
 transform boogie:
