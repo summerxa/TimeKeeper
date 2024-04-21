@@ -267,7 +267,7 @@ image bg seal room = 'bgs/seal room.png'
 image bg joyce why = 'bgs/joyce why.png'
 
 
-image mc minigame = Comp_('mc', 641, 386, '01', '0a')
+image mc minigame = Comp_('mc', 641, 386, '01', '0b')
 
 image mc 1a = CCS_('mc', 641, 386, '01', '0a')
 image mc 2a = CCS_('mc', 641, 386, '02', '0a')

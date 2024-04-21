@@ -208,26 +208,26 @@ default taskButtons = {
             'xp': 647,
             'yp': 530,
             'room': 'kitchen',
-            'imtask': 'kitchensink'
+            'imtask': 'kitchen_sink'
         },
         'pickuptable': {
             'xp': 459,
-            'yp': 560,
+            'yp': 558,
             'room': 'kitchen',
-            'imtask': 'pickuptable',
+            'imtask': 'kitchen_pickup',
             'taskless': 'custom_taskless'
         },
         'kitchen_idk': {
             'xp': 550,
             'yp': 292,
             'room': 'kitchen',
-            'imtask': 'kitchenidk'
+            'imtask': 'kitchen_idk'
         },
         'laundry_1': {
             'xp': 910,
             'yp': 330,
             'room': 'laundry',
-            'imtask': 'laundrymachine'
+            'imtask': 'laundry_machine'
         }
     }
 }
