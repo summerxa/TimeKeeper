@@ -17,34 +17,33 @@ screen btn_room(bt, b_id):
 screen btn_roomarrow(bt, hov_id):
     default act = [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
     
-    imagebutton:
-        auto 'mini/ui/btn_room_down_%s.png'
+    hbox:
         if bt['dir'] == 'up':
-            at highlight_hov(cur_hov, hov_id), rot(180)
-            ypos 0.15
+            ypos 0.07
         else:
+            ypos 0.90
+        xpos bt['xp']
+        xanchor 0.5 yanchor 0.5
+        spacing 0
+        imagebutton:
+            auto 'mini/ui/btn_room_down_%s.png'
+            if bt['dir'] == 'up':
+                at highlight_hov(cur_hov, hov_id), rot(180), siz(0.5)
+            else:
+                at highlight_hov(cur_hov, hov_id), rot(0), siz(0.5)
+            action act
+            xanchor 0.0 yanchor 0.5
+            ypos 0.5
+            hovered SetVariable('cur_hov', hov_id)
+            unhovered SetVariable('cur_hov', None)
+        textbutton bt['btext']:
+            action act
+            yalign 0.5
+            text_style 'fancy_font'
+            text_size 40
+            hovered SetVariable('cur_hov', hov_id)
+            unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, hov_id)
-            ypos 0.85
-        xpos bt['xp']
-        action act
-        xanchor 0.5
-        yanchor 0.5
-        hovered SetVariable('cur_hov', hov_id)
-        unhovered SetVariable('cur_hov', None)
-    textbutton bt['btext']:
-        xpos bt['xp']
-        if bt['dir'] == 'up':
-            ypos 0.03
-        else:
-            ypos 0.97
-        action act
-        xanchor 0.5
-        yanchor 0.5
-        text_style 'fancy_font'
-        text_size 50
-        hovered SetVariable('cur_hov', hov_id)
-        unhovered SetVariable('cur_hov', None)
-        at highlight_hov(cur_hov, hov_id)
 
 screen btn_tsk(bt, hov_id=None):
     if bt['curtask'] or not 'hidden' in bt:
@@ -345,7 +344,7 @@ label mini_launch(startroom='main', startfloor=0):
                 i2 = roomButtons[curlevel][ar['toroom']]['num']
                 tcost = roomProxim[curlevel][curfloor][i1][i2]
                 aname = roomButtons[curlevel][ar['toroom']]['name'].upper()
-                ar['btext'] = f'{aname}({tcost})'
+                ar['btext'] = f'{aname} {tcost}'
                 ar['tcost'] = tcost
     jump mini_main
 

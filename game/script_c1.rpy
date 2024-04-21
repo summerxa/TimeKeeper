@@ -497,15 +497,15 @@ label c1_scene3:
 
 label c1_fetch1:
     "Fetch quest 1"
-    return
+    return # TODO jump mini_main
 
 label c1_fetch2:
     "Fetch quest 2"
-    return
+    return # TODO jump mini_main
 
 label c1_fetch3:
     "Fetch quest 3"
-    return
+    return # TODO jump mini_main
 
 label c1_fetch4:
     "Fetch quest 4"
@@ -524,7 +524,7 @@ label c1_fetch4:
                     pass # This ends the scene
                 "Pick it up":
                     $ c1_has_bella_watch = True
-    return
+    return # TODO jump mini_main
 
 label c1_scene5:
     "Scene 5"
