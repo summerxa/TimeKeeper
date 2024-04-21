@@ -1,9 +1,483 @@
-﻿label c1_scene1:
+﻿ 
+label c1_scene1:
+    
     "Scene 1 (Memory)"
+    
+    $ mother_name = "???"
+
+    show snowback
+    m "You will be perfect, won’t you?"
+    
+    show mc 3b
+    s "Yes."
+
+    m "My perfect little doll."
+
+    show mc 1b
+    s "Yes, Mother."
+    
+    $ char_unlock("mc") 
+    $ char_unlock("mother")
+
     return
 
+#animations:
+    #align, xalign, and yalign set position and anchor (relative to top left) to this value, so xalign 0.0 and yalign 0.0 set current postion and anchor as 0.0,0.0
+    #linear, ease, easein, easeout all move the sprites: first # affects speed (larger # = slower), second # affects position
+        #linear moves sprite at level speed all thorughout
+        #ease starts slow, speeds up, then ends slow
+        #easein starts fast, ends slow
+        #easeout starts slow, ends fast
+        #linear 1.0 xalign 1.0: speed divided by 1, move to right (if start at <1.0)
+    #pause (for x time), rotate (for x degrees), and repeat are self-explanatory
+    #zoom, xzoom, yzoom all zoom in; xzoom and yzoom only affect horizontal/vertical
+        #negative values will flip the sprite horizontally/vertically
+        #set zoom to 1.0 to reset
+    #linear + circles
+
+#label c1_scene1_5: 
+   
+    scene bg joyce why with cfade
+    "test scene"
+    #testing out animations bc AHHHH
+    
+    show mc 2b
+    s "what sprite is this?"
+    s 1a "ohhh"
+
+    "let's see how these positions look"
+
+    show mc 3b at flip
+    s 4a "hmmm"
+
+    show mc 5a at l1_5
+    show mc 6a at r1_5
+
+    s 2a "well..."
+    show mc 5a:
+
+        xalign 0.0 yalign 0.0
+
+        linear 2.0 xalign 1.0
+
+    s "it looks ok ig"
+
+    show bella 1a at offscreenleft
+    b "what are you doing?"
+
+    s "testing, {i}duh{i}"
+
+    show amelia 3a at left
+    a "it's... pretty obvious, bella"
+
+    show mc 2b:
+
+        xalign 0.0 yalign 0.0
+
+        linear 1.0 xalign 0.5
+
+    s "Yeah, listen to your gf, {i}bella{i}"
+
+    show bella 6a:
+
+        xalign 0.0 yalign 0.0
+
+        linear 0.5 xalign 0.3
+
+    b "she's not my gf!!"
+    b 8a "y-yet..."
+
+    show amelia 1a at left
+    a "i'm... not??"
+
+    show bella 6a:
+
+        xalign 0.0 yalign 0.0
+
+        linear 2.0 xalign 1.0
+        xzoom -1.0
+        easein 2.0 xalign 0.0
+        xzoom 1.0
+        repeat
+
+    b "u-um..."
+
+    show amelia 3a at left
+    a "it's ok, bella"
+    a 4a "that just means that we havent become gfs yet!"
+
+    show bella 7a at flip, l1_3
+    b 'y-yeah...'
+
+    show amelia 3a:
+        xalign 0.0 yalign 0.1
+        zoom 3.0
+
+    s "yeet"
+
+    show mc 6a:
+        easein 3.0 xalign 0.5
+        easeout 3.0 xalign 0.0
+        pause 1.0
+        repeat
+    s "not really sure if easein/out makes a major difference"
+
+    show amelia 1a:
+        xzoom 2.0
+    a "horizontal zoommm"
+
+    show bella 3a:
+        xalign 0.001
+        yzoom 2.0
+    b "vertical zoom"
+
+    show amelia 1a:
+        xalign 0.15 yalign 0.0
+        zoom 1
+        xzoom 1
+
+    show mc 5a:
+        anchor (0,0)
+        linear 2.0 clockwise circles 3
+        #for some reason, the anchor will depend on where mc is at before player clicks, so circles either will be big or small depending on how close mc is to top side
+
+    s "weee"
+
+    show mc 6a:
+        xalign 1.0 yalign 0.0
+        anchor (0.5,0)
+        linear 4.5 clockwise circles 4
+
+    s "getting kinda dizzy ngl"
+    
+    show mc 6a:
+        xalign 1.0 yalign 0.0
+
+    s "hmmm"
+
+    show mc 5a:
+        rotate 30
+    
+    s "im rotated"
+    
+    show mc 6a:
+        rotate -30
+
+    s "interesting"
+
+    show mc 6a:
+        rotate 0
+    
+    s "did anything happen?"
+
+    show mc 5a:
+        xpan 40
+
+    s "did this work?"
+
+    show mc 6a:
+        xpan 0
+
+    s "oh woe, a dismembered hand!"
+
+    hide amelia 1a
+
+    s "oh, there goes amelia lmao"
+    
+    show snowfront
+    show snowback
+
+    s "oh, snow!"
+
+    show snowmenu opac
+
+    s "oooh, {i}fancy{i} snow"
+    #end of testing
+    
+    return
+  
 label c1_scene2:
+    
+    scene bg joyce why with cfade
+    #TODO: replace with ballroom bg later
+    
     "Scene 2 (Intro + tasks)"
+
+    $ mother_name = "MOTHER"
+    $ bella_name = "???"
+    $ amelia_name = "???"
+
+    show npc2 at r1_5
+    n2 "These are the most proficient of your maids, madam?"
+
+    show mother 2a:
+        flip
+        xalign .4
+        
+    m "Yes, Lord Layton."
+
+    show mother 2a:
+        flip
+        easein 0.8 xalign 0.2
+
+    show mc 1b:
+        flip
+        xalign .5
+    
+    m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
+
+    n2 "I see."
+
+    n2 "I suppose I might hire one of your maids in the near future."
+
+    show mother 3a
+    m "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
+
+    show bella 8a at offscreenleft
+    b "Ah!"
+
+    play sound "<from 30.5 to 32>a lot of glass breaking.mp3" volume 0.1
+    #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
+    #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
+
+    show mother 8a:
+        unflip
+        linear .8 xalign 0.4
+
+    show mc 1b: 
+        unflip
+        linear .8 xalign 0.7
+
+    show npc2:
+        linear .8 xalign 1.1
+
+    show bella 8a:
+        pause 0.7
+        flip
+        xalign -0.3
+        easein 0.7 xalign 0.0
+
+    pause 2.5 
+    show mother 5a
+    m "...Ah."
+
+    show mother 8a at flip
+    m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
+
+    show npc2:
+        easeout 2.0 xalign 2.0
+    
+    show mother 6a at unflip
+
+    show bella 6a at unflip
+    b "Mother, I—"
+
+    show mother 7a:
+        easein .6 xalign 0.31
+
+    show bella 8a
+    "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
+
+    show amelia 8a:
+        xalign 1.2 yalign 0
+        ease 0.8 xalign 1.0
+    a "!!!"
+
+    "Another maid looks on in horror and covers her mouth with her hand."
+
+    m "It seems I need to {i}reeducate{/i} you, Bella."
+
+    $ bella_name = "Bella"
+   
+    show bella 6a
+    b "No! I-"
+
+    show mother 7a
+    m "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
+
+    show mother 1a at flip
+    m "Could you clean this up, my dears?"
+
+    show mother 7a:
+        unflip
+        ease 1.2 xalign -1.0
+
+    show bella 8a:
+        pause 0.5
+        flip
+        ease 1.0 xalign -1.0
+    
+    "Mother grips Bella’s arm tightly and drags her out of the ballroom."
+
+    #TODO: figure out what to do here LMAO; amelia's expression does NOT match 
+    pause 1.0
+    show amelia 7a
+    "Anastasia and the other maids pull themselves together and clean up the mess."
+
+    scene    
+    #TODO: screen should be black here
+
+    "One hour later…"
+
+    scene bg joyce why with cfade
+    #TODO: replace with ballroom bg later
+
+    #TODO: animate them better     
+    show mc 3b:
+        flip
+        xalign 0.75
+
+    show mother 1a:
+        flip
+        easein 1.0 xalign 0.25
+
+    show mc 1b:
+        pause .65
+        unflip
+
+
+    "Mother returns to the ballroom alone and walks to Anastasia."
+
+    show mother 1a
+    m "Anastasia, dear."
+
+    m "There are some tasks that I would like you to complete tonight."
+
+    m "Firstly, the candles and fireplaces in the guest rooms must be lit up, and make sure to tidy any cluttered rooms that you come across."
+
+    m "On the off chance that a few of the nobles might wish to rest or converse in private, it is best that we prepare the rooms ahead of time."
+
+    m "Then, you must go to the kitchens and bring the trays of food to the ballroom. Our guests will surely still be hungry, so that would hopefully keep them satisfied." 
+
+    m "Lastly, empty trays must be taken to the kitchen and washed lest the ball room appears disorganized."
+
+    show mother 5a
+    m "Please finish all these tasks by eight o’clock."
+
+    show mc 3b
+    s "Yes, Mother."
+
+    show mother 1a
+    m "If any of the guests require your service, you must assist them before completing your tasks."
+
+    s "Yes, Mother."
+
+    show mother 6a
+    m "And remember to report any disobedient maids."
+
+    show mc 4b
+    s "I will."
+
+    pause 1.0
+    show mother 2a
+    pause .5
+    m "Don’t disappoint me, Anastasia."
+
+    scene bg guestroom with cfade
+    #TODO: replace with ballroom bg later
+
+    show bella 8a at r1_4
+    b "Ugh... Where is it? The cloth was here just a second ago!"
+
+    show amelia 2a:
+        flip
+        xalign -.2
+        easein 1.0 xalign 0.25
+    a "Here, take this."
+
+    show bella 1a at flip
+
+    $ amelia_name = "Amelia"
+
+    pause 0.5
+    b "Oh. Thanks, Amelia…"
+
+    show amelia 3a
+    a "No problem, Bella."
+
+    show bella 8a
+    "Bella holds her hand to her face."
+
+    b "Tch."
+
+    show amelia 6a
+    a "Are you okay, Bella?"
+
+    show bella 5a
+    pause .5
+    show bella 8a
+    pause 1.0
+    b "I…"
+    pause 1.0
+    show bella 7a
+    pause 1.0
+    show bella 1a
+    #you can adjust times and order if it feels weird bc i give up bro ;-;
+
+    b "I just feel tired. That’s all. I’ll probably be fine after a while."
+
+    show amelia 1a
+    a "If you say so…" 
+
+    show amelia 1a:
+        unflip
+        easeout 1.0 xalign 0.2
+    "Amelia starts to walk away, but—"
+
+    #TODO: screen shakes and/or there’s a falling sound maybe??
+
+    show amelia 8a
+    "!!!"
+
+    show bella 6a #not sure if this expression quite matches up... but oh well
+    b "Amelia, are you alright?!"
+
+    show amelia 1a at flip
+    a "I-I’m okay..."
+
+    show bella 5a
+    b "Are you sure? Maybe you should take a break."
+
+    show amelia 5a #expression not quite right...
+    a "No— I’m okay! It’s probably nothing."
+
+    b "I can finish your tasks if you need me to…"
+
+    show amelia 7a
+    a "N-no, I can do them!"
+
+    show amelia 6a
+    a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
+
+    show bella 1a
+    pause 0.5
+    show bella 7a
+    pause 0.5
+
+    b "Nah, it's..."
+    
+    show bella 2a
+    pause 1.5
+    show bella 7a
+    pause 0.5
+    show bella 1a
+    #again, you can adjust these times and the order stuff is in if it feels wack :P
+
+    b "...It’s fine. Won’t open up unless I get punished again or something, though I’ll be doing everything I can to avoid that."
+
+    show bella 5a
+    b "Amelia, I know you've been worried about me all this time, but if you feel tired, {i}please{/i}, tell me."
+    #this line... doesn't flow quite smoothly...
+
+    show amelia 5a
+    a "Don’t worry Bella, I’ll be alright."
+
+    #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
+    b "If you say so..."
+
+    $ char_unlock("amelia")
+    $ char_unlock("bella")
+
     return
 
 label c1_scene3:
@@ -403,11 +877,11 @@ label chap1_test_longtext:
     
     m "To belong in a family means that everyone must work together and contribute. Right, Joanne?"
 
-    "SOPHRONIA shoves the maids to the side."
+    "Anastasia shoves the maids to the side."
     
     "At first glance,  it seems that the normally pure white snow is only marred by a few drops of blood."
     
-    "But as SOPHRONIA traces the trail of blood with her eyes, the drops gather and multiply, transforming the snow into small, dark clumps."
+    "But as Anastasia traces the trail of blood with her eyes, the drops gather and multiply, transforming the snow into small, dark clumps."
     
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
     

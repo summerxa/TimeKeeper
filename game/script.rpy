@@ -7,7 +7,7 @@ label start:
     # $ config.rollback_enabled = False
 
     # Unlock all characters and set their names (for testing purposes only)
-    call meet_all_chars
+    #call meet_all_chars
 
     # call chap1_test_spritesall
 
@@ -20,6 +20,7 @@ label start:
 label chapter1:
 
     call c1_scene1
+    #call c1_scene1_5 #only for testing
     call c1_scene2
 
     # call the minigame, since amelia cutscene is after the tutorial level
