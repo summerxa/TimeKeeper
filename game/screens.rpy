@@ -377,7 +377,7 @@ screen main_menu():
     add 'mainmenu/start/start_bg.png'
     use start_navigation(hov)
     add 'mainmenu/start/start_mc.png'
-    add 'snowmenu opac'
+    add 'snowmenu'
 
     if gui.show_name:
 
@@ -1078,6 +1078,11 @@ screen preferences():
 
                             if config.sample_voice:
                                 textbutton _("Test") action Play("voice", config.sample_voice)
+                    
+                    label _("Ambience Volume")
+
+                    hbox:
+                        bar value Preference("mixer ambience volume")
 
                     if config.has_music or config.has_sound or config.has_voice:
                         null height gui.pref_spacing

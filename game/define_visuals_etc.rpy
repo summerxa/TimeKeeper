@@ -1,16 +1,10 @@
+# Snow particles base code credit to Renpy wiki
+# Tweaked it a little to have a max/min depth
 init python:
-    
-    #################################################################
-    # Here we use random module for some random stuffs (since we don't
-    # want Ren'Py saving the random number's we'll generate.
     import random
     
-    # initialize random numbers
     random.seed()
-    
-    #################################################################
-    # Snow particles
-    # ----------------
+
     def Snow(image, max_particles=50, speed=150, wind=100, xborder=(0,100), yborder=(50,400), **kwargs):
         """
         This creates the snow effect. You should use this function instead of instancing
@@ -40,7 +34,6 @@ init python:
         """
         return Particles(SnowFactory(image, max_particles, speed, wind, xborder, yborder, **kwargs))
     
-    # ---------------------------------------------------------------
     class SnowFactory(object):
         """
         The factory that creates the particles we use in the snow effect.
@@ -124,8 +117,7 @@ init python:
             are using. It's expected to return a list of images to predict.
             """ 
             return self.image
-            
-    # ---------------------------------------------------------------
+
     class SnowParticle(object):
         """
         Represents every particle in the screen.
@@ -193,14 +185,23 @@ transform opac(a):
     matrixcolor OpacityMatrix(a)
 
 
-image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmin=6)
-image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=4)
+image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=2)
+image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthin=6)
 
-image snowmenu opac = Snow(At('particles/particle_gold.png', opac(0.25)))
+image snowmenu = Snow(At('particles/particle_gold.png', opac(0.25)))
 
 
 default cfade = Fade(0.5, 0.0, 0.5)
 # ^ 0.5 for normal fade, 0.0 to skip fade animation
+
+# --- SOUND STUFF ---
+
+init:
+    $ renpy.music.register_channel("ambience", "ambience", loop=True)
+
+define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
+
+define audio.glass_break_sfx = "<from 30.5 to 32>a lot of glass breaking.mp3"
 
 # --- UI STUFF ---
 

@@ -189,7 +189,7 @@ label c1_scene1_5:
 
     s "oh, snow!"
 
-    show snowmenu opac
+    show snowmenu
 
     s "oooh, {i}fancy{i} snow"
     #end of testing
@@ -201,6 +201,8 @@ label c1_scene2:
     scene bg joyce why with cfade
     #TODO: replace with ballroom bg later
     
+    play ambience ballroom_ambience
+
     "Scene 2 (Intro + tasks)"
 
     $ mother_name = "MOTHER"
@@ -235,7 +237,7 @@ label c1_scene2:
     show bella 8a at offscreenleft
     b "Ah!"
 
-    play sound "<from 30.5 to 32>a lot of glass breaking.mp3" volume 0.1
+    play sound glass_break_sfx volume 0.1
     #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
     #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
 
