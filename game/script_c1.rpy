@@ -432,7 +432,12 @@ label c1_scene2:
     $ focus_on(['amelia'])
 
     show amelia 8a
-    "!!!{w=1}{nw}" # amelia automatically falls after 1 second (has a more jarring/shocking effect?)
+    # amelia automatically falls after 0.5 sec (has a more jarring/shocking effect?)
+    # OR after text finishes playing (if player has chosen a slower text speed)
+    # depends on which one happens last, 0.5 sec passes or text finishes playing -snail
+    # btw u can tweak the time if u like- im not sure if 0.5 sec is the right wait time lol
+    $ wtime = 0.5 if (not preferences.text_cps or preferences.text_cps < 6) else 0.5 - (3 / preferences.text_cps)
+    "!!!{w=[wtime]}{nw}"
     # screen shake feels a lil too intense for someone falling over
     # LMK if u want a less intense shake- i can make a custom one for this scene :3 -snail
     hide amelia with vpunch
