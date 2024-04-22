@@ -1,5 +1,7 @@
+# --- SPECIAL EFFECTS ---
+
 # Snow particles base code credit to Renpy wiki
-# Tweaked it a little to have a max/min depth
+# Tweaked it a little to have a max/min depth (lower = closer to the viewer, higher = farther)
 init python:
     import random
     
@@ -106,7 +108,7 @@ init python:
                 if p > 1:
                     p = 1.0
                 
-                rv.append( At( At(image, opac(p)), siz(p) ) )
+                rv.append( At( At(image, opac(p)), zm(p) ) )
 
             return rv
         
@@ -178,15 +180,15 @@ init python:
             # it (internal positions use float for smooth movements =D)
             return int(self.xpos), int(self.ypos), st, self.image
 
-transform siz(a):
+transform zm(a):
     zoom a
 
 transform opac(a):
     matrixcolor OpacityMatrix(a)
 
 
-image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=2)
-image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthin=6)
+image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=3)
+image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthin=9)
 
 image snowmenu = Snow(At('particles/particle_gold.png', opac(0.25)))
 
@@ -199,9 +201,9 @@ default cfade = Fade(0.5, 0.0, 0.5)
 init:
     $ renpy.music.register_channel("ambience", "ambience", loop=True)
 
-define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
-
 define audio.glass_break_sfx = "<from 30.5 to 32>a lot of glass breaking.mp3"
+
+define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
 
 # --- UI STUFF ---
 
@@ -241,15 +243,15 @@ init python:
             # remove highlighted characters after one line of dialogue is shown
             chk = list(focus_dict.keys())
             for ch in chk:
-                if focus_dict[ch]:
+                if not focus_dict[ch]:
                     del focus_dict[ch]
             for ch in focus_dict:
-                focus_dict[ch] = True
+                focus_dict[ch] -= 1
     
-    def focus_on(chs):
+    def focus_on(chs, cht={}):
         store.current_speaker = None
         for ch in chs:
-            focus_dict[ch] = False
+            focus_dict[ch] = cht[ch] if ch in cht else 1
     
     def Comp_(charname, imwidth, headheight, face, pose):
         im_face = f"sprites/{charname}/{face}.png"

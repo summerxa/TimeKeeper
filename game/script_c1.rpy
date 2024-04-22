@@ -404,17 +404,13 @@ label c1_scene2:
 
     a 1a "If you say so…" 
 
-    $ focus_on(['amelia'])
+    $ focus_on(['amelia'], {'amelia': 2})
 
     show amelia 1a at unflip, eout(1.0, 0.2)
     "Amelia starts to walk away, but—"
 
     # i made an animation maybe...? -snail
     # TODO add a falling sound
-
-    # i made the manual highlight clear after one line cuz that works *most* of the time,
-    # but now you have to call focus_on after every line of narration for this section :Troy: -snail
-    $ focus_on(['amelia'])
 
     show amelia 8a
     # amelia automatically falls after 0.5 sec (has a more jarring/shocking effect?)

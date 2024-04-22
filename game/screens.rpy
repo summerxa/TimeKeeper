@@ -333,7 +333,7 @@ screen startmenu_btn(xp, yp, b_id, act, hov):
         action act
         hovered SetScreenVariable('hov', b_id)
         unhovered SetScreenVariable('hov', None)
-        at siz(1.05 if hov == b_id else 1.0)
+        at zm(1.05 if hov == b_id else 1.0)
 
 screen start_navigation(hov):
 

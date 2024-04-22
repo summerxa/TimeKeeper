@@ -28,9 +28,9 @@ screen btn_roomarrow(bt, hov_id):
         imagebutton:
             auto 'mini/ui/btn_room_down_%s.png'
             if bt['dir'] == 'up':
-                at highlight_hov(cur_hov, hov_id), rot(180), siz(0.5)
+                at highlight_hov(cur_hov, hov_id), rot(180), zm(0.5)
             else:
-                at highlight_hov(cur_hov, hov_id), rot(0), siz(0.5)
+                at highlight_hov(cur_hov, hov_id), rot(0), zm(0.5)
             action act
             xanchor 0.0 yanchor 0.5
             ypos 0.5
