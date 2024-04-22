@@ -8,6 +8,8 @@ game/cache/
 *.o
 *.so
 
+*.bak
+
 *.rpyc
 *.rpymc
 

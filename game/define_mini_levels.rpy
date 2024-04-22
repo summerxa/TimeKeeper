@@ -191,18 +191,125 @@ default roomArrows = {
 
 default taskButtons = {
     1: {
-        't11': {
-            'xp': 0.5,
-            'yp': 0.5,
+        '4_1': {
+            'xp': 547,
+            'yp': 272,
             'room': 'ballroom',
-            'hidden': True,
-            'imtask': 'normal'
+            'imtask': 'br_4seat',
+            'rot': 30
         },
-        't12': {
-            'xp': 0.5,
-            'yp': 0.3,
+        '4_2': {
+            'xp': 677,
+            'yp': 285,
             'room': 'ballroom',
-            'imtask': 'normal'
+            'imtask': 'br_4seat',
+            'rot': 10
+        },
+        '4_3': {
+            'xp': 815,
+            'yp': 269,
+            'room': 'ballroom',
+            'imtask': 'br_4seat',
+            'rot': -10
+        },
+        '4_4': {
+            'xp': 540,
+            'yp': 793,
+            'room': 'ballroom',
+            'imtask': 'br_4seat',
+            'rot': 15
+        },
+        '4_5': {
+            'xp': 667,
+            'yp': 800,
+            'room': 'ballroom',
+            'imtask': 'br_4seat',
+            'rot': 5
+        },
+        '4_6': {
+            'xp': 810,
+            'yp': 790,
+            'room': 'ballroom',
+            'imtask': 'br_4seat',
+            'rot': -15
+        },
+        'long1': {
+            'xp': 981,
+            'yp': 375,
+            'room': 'ballroom',
+            'imtask': 'br_longtable'
+        },
+        'long2': {
+            'xp': 981,
+            'yp': 683,
+            'room': 'ballroom',
+            'imtask': 'br_longtable'
+        },
+        '6_1': {
+            'xp': 1132,
+            'yp': 391,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_2': {
+            'xp': 1132,
+            'yp': 529,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_3': {
+            'xp': 1132,
+            'yp': 667,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_4': {
+            'xp': 1261,
+            'yp': 327,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_5': {
+            'xp': 1261,
+            'yp': 461,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_6': {
+            'xp': 1261,
+            'yp': 596,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_7': {
+            'xp': 1261,
+            'yp': 729,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_8': {
+            'xp': 1390,
+            'yp': 391,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_9': {
+            'xp': 1390,
+            'yp': 529,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        '6_10': {
+            'xp': 1390,
+            'yp': 667,
+            'room': 'ballroom',
+            'imtask': 'br_6seat'
+        },
+        'bar': {
+            'xp': 1490,
+            'yp': 542,
+            'room': 'ballroom',
+            'imtask': 'br_bar'
         },
         'sink': {
             'xp': 647,
@@ -241,7 +348,7 @@ default tasks = {
         't1': {
             'name': 't1',
             'desc': 'Clear the table',
-            'btn': 't11',
+            'btn': '6_2',
             'tlabel': 'task_c1_grabdishes',
             'fail_id': 'grabdishes_fail',
             'item_req': ['air', 'dirty_dishes'],
@@ -307,13 +414,13 @@ default tasks = {
         't3': {
             'name': 't3',
             'desc': 'Drop off test item 3',
-            'btn': 'laundry_1',
+            'btn': '4_5',
             'tlabel': 'chap1_test_t1',
             'tcost': 5,
             't0': -1,
             'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
+            'scorebonus': 1,
+            'scorepenalty': 1,
             'tags': [Task.SPECIAL]
         },
         't4': {
@@ -340,7 +447,7 @@ default tasks = {
         't5': {
             'name': 't5',
             'desc': 'MC we need to cook',
-            'btn': 't12',
+            'btn': 'bar',
             'tlabel': 'task_c1_waterpour',
             'tcost': 5,
             't0': -1,
@@ -402,8 +509,8 @@ default itemHolders = {
                 'id': 'dirty_dishes',
                 'stack': 1
             },
-            'xp': 0.2,
-            'yp': 0.1,
+            'xp': 0.1,
+            'yp': -0.1,
             'room': 'ballroom'
         },
         'h12': {
@@ -411,24 +518,24 @@ default itemHolders = {
                 'id': 'dirty_dishes',
                 'stack': 2
             },
-            'xp': 0.6,
-            'yp': 0.5,
+            'xp': 0.3,
+            'yp': -0.1,
             'room': 'ballroom'
         },
         'h21': {
             'item': {
                 'id': 'test_3'
             },
-            'xp': 0.6,
-            'yp': 0.1,
+            'xp': 0.5,
+            'yp': -0.1,
             'room': 'ballroom'
         },
         'h31': {
             'item': {
                 'id': 'test_3'       
             },
-            'xp': 0.2,
-            'yp': 0.5,
+            'xp': 0.7,
+            'yp': -0.1,
             'room': 'ballroom'
         }
     }

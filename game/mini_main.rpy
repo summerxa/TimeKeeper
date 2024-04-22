@@ -70,7 +70,10 @@ screen btn_tsk(bt, hov_id=None):
                         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
                     
                     unhovered SetVariable('cur_hov', None)
-                    at highlight_hov(cur_hov, hov_id)
+            if 'rot' in bt:
+                at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
+            else:
+                at highlight_hov(cur_hov, hov_id)
 
 # item holder
 screen btn_item(bt, hov_id):
