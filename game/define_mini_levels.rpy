@@ -245,71 +245,71 @@ default taskButtons = {
             'room': 'ballroom',
             'imtask': 'br_longtable'
         },
+        'bar': {
+            'xp': 1120,
+            'yp': 542,
+            'room': 'ballroom',
+            'imtask': 'br_bar'
+        },
         '6_1': {
-            'xp': 1132,
+            'xp': 1240,
             'yp': 391,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_2': {
-            'xp': 1132,
+            'xp': 1240,
             'yp': 529,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_3': {
-            'xp': 1132,
+            'xp': 1240,
             'yp': 667,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_4': {
-            'xp': 1261,
+            'xp': 1360,
             'yp': 327,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_5': {
-            'xp': 1261,
+            'xp': 1360,
             'yp': 461,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_6': {
-            'xp': 1261,
+            'xp': 1360,
             'yp': 596,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_7': {
-            'xp': 1261,
+            'xp': 1360,
             'yp': 729,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_8': {
-            'xp': 1390,
+            'xp': 1480,
             'yp': 391,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_9': {
-            'xp': 1390,
+            'xp': 1480,
             'yp': 529,
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_10': {
-            'xp': 1390,
+            'xp': 1480,
             'yp': 667,
             'room': 'ballroom',
             'imtask': 'br_6seat'
-        },
-        'bar': {
-            'xp': 1490,
-            'yp': 542,
-            'room': 'ballroom',
-            'imtask': 'br_bar'
         },
         'sink': {
             'xp': 647,
