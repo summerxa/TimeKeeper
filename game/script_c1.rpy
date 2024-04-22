@@ -13,8 +13,7 @@ label c1_scene1:
 
     m "My perfect little doll."
 
-    show mc 1b
-    s "Yes, Mother."
+    s 1b "Yes, Mother."
     
     $ char_unlock("mc") 
     $ char_unlock("mother")
@@ -231,8 +230,7 @@ label c1_scene2:
 
     n2 "I suppose I might hire one of your maids in the near future."
 
-    show mother 3a
-    m "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
+    m 3a "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
 
     show bella 8a at offscreenleft
     b "Ah!"
@@ -250,9 +248,8 @@ label c1_scene2:
     pause 0.7
     show bella 8a at flip, ein(0.7, 0.0)
 
-    pause 2.5 
-    show mother 5a
-    m "...Ah."
+    pause 2.5
+    m 5a "...Ah."
 
     show mother 8a at flip
     m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
@@ -274,7 +271,6 @@ label c1_scene2:
     hide npc2 # hiding sprites saves a teeny bit of processing power
     $ npc2_name = 'NOBLE' # reset npc name for the next time we use this character
 
-    # uh... for some reason it shows amelia at the far left if these are merged into one line :Troy:
     show amelia 8a at eaf(1.2, 0.8, 1.0)
     a "!!!"
 
@@ -286,11 +282,9 @@ label c1_scene2:
 
     $ bella_name = "BELLA"
    
-    show bella 6a
-    b "No! I-"
+    b 6a "No! I-"
 
-    show mother 7a
-    m "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
+    m 7a "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
 
     show mother 1a at flip
     m "Could you clean this up, my dears?"
@@ -331,7 +325,6 @@ label c1_scene2:
 
     "Mother returns to the ballroom alone and walks to Anastasia."
 
-    show mother 1a
     m "Anastasia, dear."
 
     m "There are some tasks that I would like you to complete tonight."
@@ -344,22 +337,17 @@ label c1_scene2:
 
     m "Lastly, empty trays must be taken to the kitchen and washed lest the ball room appears disorganized."
 
-    show mother 5a
-    m "Please finish all these tasks by eight o’clock."
+    m 5a "Please finish all these tasks by eight o’clock."
 
-    show mc 3b
-    s "Yes, Mother."
+    s 3b "Yes, Mother."
 
-    show mother 1a
-    m "If any of the guests require your service, you must assist them before completing your tasks."
+    m 1a "If any of the guests require your service, you must assist them before completing your tasks."
 
     s "Yes, Mother."
 
-    show mother 6a
-    m "And remember to report any disobedient maids."
+    m 6a "And remember to report any disobedient maids."
 
-    show mc 4b
-    s "I will."
+    s 4b "I will."
 
     $ focus_on(['mother'])
 
@@ -388,8 +376,7 @@ label c1_scene2:
     pause 0.5
     b "Oh. Thanks, Amelia…"
 
-    show amelia 3a
-    a "No problem, Bella."
+    a 3a "No problem, Bella."
 
     $ focus_on(['bella'])
 
@@ -398,8 +385,7 @@ label c1_scene2:
 
     b "Tch."
 
-    show amelia 6a
-    a "Are you okay, Bella?"
+    a 6a "Are you okay, Bella?"
 
     $ focus_on(['bella'])
 
@@ -416,8 +402,7 @@ label c1_scene2:
 
     b "I just feel tired. That’s all. I’ll probably be fine after a while."
 
-    show amelia 1a
-    a "If you say so…" 
+    a 1a "If you say so…" 
 
     $ focus_on(['amelia'])
 
@@ -442,25 +427,22 @@ label c1_scene2:
     # LMK if u want a less intense shake- i can make a custom one for this scene :3 -snail
     hide amelia with vpunch
 
-    show bella 6a #not sure if this expression quite matches up... but oh well
-    b "Amelia, are you alright?!"
+    #not sure if this expression quite matches up... but oh well
+    b 6a "Amelia, are you alright?!"
 
     show amelia 1a at flip
     a "I-I’m okay..."
 
-    show bella 5a
-    b "Are you sure? Maybe you should take a break."
+    b 5a "Are you sure? Maybe you should take a break."
 
-    show amelia 5a #expression not quite right...
-    a "No— I’m okay! It’s probably nothing."
+    #expression not quite right...
+    a 5a "No— I’m okay! It’s probably nothing."
 
     b "I can finish your tasks if you need me to…"
 
-    show amelia 7a
-    a "N-no, I can do them!"
+    a 7a "N-no, I can do them!"
 
-    show amelia 6a
-    a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
+    a 6a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
 
     $ focus_on(['bella'])
 
@@ -480,14 +462,12 @@ label c1_scene2:
 
     b "...It’s fine. Won’t open up unless I get punished again or something, though I’ll be doing everything I can to avoid that."
 
-    show bella 5a
-    b "Amelia, I know you've been worried about me all this time, but if you feel tired, {i}please{/i}, tell me."
+    b 5a "Amelia, I know you've been worried about me all this time, but if you feel tired, {i}please{/i}, tell me."
     #this line... doesn't flow quite smoothly...
     # maybe remove the first "I know"- feels kinda redundant(?) idk how to word it... -snail
     # or break into two lines "...all this time" -> "But if you..." for a thoughtful pause effect :D
 
-    show amelia 5a
-    a "Don’t worry Bella, I’ll be alright."
+    a 5a "Don’t worry Bella, I’ll be alright."
 
     #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
     # maybe try 7a? it makes her look in amelia's general direction :D -snail
