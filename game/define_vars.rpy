@@ -12,7 +12,6 @@ init python:
 default save_version = None
 
 # --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
-default current_speaker = None
 default focus_dict = {}
 
 # --- CUSTOM SETTINGS ---
