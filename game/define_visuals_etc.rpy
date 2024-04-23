@@ -232,13 +232,14 @@ transform darken_sprite:
 init python:
     import functools
     def set_cur_speaker(event, interact=True, ch=None, **kwargs):
+        global current_speaker
         global focus_dict
 
         if not interact:
             return
 
         if event == 'begin':
-            focus_dict[ch] = 1
+            current_speaker = ch
             # remove highlighted characters after one line of dialogue is shown
             chk = list(focus_dict.keys())
             for ch in chk:
@@ -248,6 +249,7 @@ init python:
                 focus_dict[ch] -= 1
     
     def focus_on(chs, cht={}):
+        store.current_speaker = None
         for ch in chs:
             focus_dict[ch] = cht[ch] if ch in cht else 1
     
@@ -258,7 +260,7 @@ init python:
 
     def CS_(charname, spr_im):
         return ConditionSwitch(
-            f"'{charname}' in focus_dict", spr_im,
+            f"current_speaker == '{charname}' or '{charname}' in focus_dict", spr_im,
             "True", At(spr_im, darken_sprite)
         )
     
