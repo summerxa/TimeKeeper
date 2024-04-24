@@ -8,7 +8,7 @@ screen popup_button_close(xp, yp, screenname):
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, 'popup_close_btn')
 
-screen popup_notes:
+screen popup_notes():
     modal True
     zorder 200
     add 'gui/overlay/confirm.png'
@@ -46,6 +46,7 @@ screen popup_notes:
             viewport:
                 area (50, 75, 900, 500)
 
+                # TODO change to screen variable - change tx screen var when tab button clicked
                 $ tx = ''
                 if notes_tab == 'tasks':
                     if persistent.showspecial:
@@ -61,7 +62,7 @@ screen popup_notes:
                 vscrollbar_unscrollable "hide"
                 text tx
 
-screen popup_onhand:
+screen popup_onhand():
     modal True
     zorder 200
     add 'gui/overlay/confirm.png'
@@ -91,7 +92,7 @@ screen popup_onhand:
     
         use popup_button_close(1., 0., 'popup_onhand')
 
-screen popup_trade:
+screen popup_trade():
     modal True
     zorder 200
     add 'gui/overlay/confirm.png'
@@ -172,7 +173,7 @@ screen popup_help(curstate='main'):
         
         use popup_button_close(1., 0., 'popup_help')
 
-screen popup_mgame_leave:
+screen popup_mgame_leave():
     modal True
     zorder 200
     add 'gui/overlay/confirm.png'
@@ -263,7 +264,7 @@ screen tx_room(bt, b_id):
         size 60
 
 # doesn't follow the same code as the other popups but idk where else to put this lol
-screen popup_map:
+screen popup_map():
     modal True
 
     default mapfloor = curfloor

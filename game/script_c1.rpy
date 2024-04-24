@@ -617,7 +617,7 @@ label c1_scene7:
     return
 
 label chap1_test_sprites:
-    scene bg room
+    scene bg hallway
 
     $ focus_on(['mc'])
 
@@ -848,9 +848,9 @@ label chap1_test_longtext:
     
     'Chef' "Miss, perhaps you should not stay here too long. The oil could sully your clothes. We are almost done preparing the food, and you could find a seat with your parents."
 
-    l "OH, and they said that I couldn’t study law, because ‘it was {i}unladylike{/i},’ and ‘no {i}good{/i} family would dare marry their son to a lady like that.’"
+    "Luna" "OH, and they said that I couldn’t study law, because ‘it was {i}unladylike{/i},’ and ‘no {i}good{/i} family would dare marry their son to a lady like that.’"
     
-    l "But why should I not be allowed to do so? There’s nothing stopping women from being good at law, and doing so doesn’t suddenly make me less of a lady. Their argument has no real basis."
+    "Luna" "But why should I not be allowed to do so? There’s nothing stopping women from being good at law, and doing so doesn’t suddenly make me less of a lady. Their argument has no real basis."
 
     b "You must be proud, huh?"
     
@@ -895,13 +895,13 @@ label chap1_test_namechange:
 
     $ maria_name = 'Maria'
 
-    l "Who's mother?????????????????"
+    "Luna" "Who's mother?????????????????"
 
     m "im mother"
 
     $ mother_name = 'Mother'
 
-    l "Oh cool nice to meet you mother"
+    "Luna" "Oh cool nice to meet you mother"
 
     m 'Nice to meet you too :)'
 
@@ -953,7 +953,7 @@ label chap1_test_animation:
     return
 
 label chap1_test_part2:
-    scene bg hello person reading this with cfade
+    scene bg hallway with cfade
 
     show mc 1b
 

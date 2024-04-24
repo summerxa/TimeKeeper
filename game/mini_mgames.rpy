@@ -56,7 +56,7 @@ screen mgame_hint(tcost):
 #             ypos 0.1
 #             text tx
 
-screen mgame_dragdrop:
+screen mgame_dragdrop():
     draggroup:
         # drop
         for d in curgame['drop']:
@@ -82,7 +82,7 @@ screen mgame_dragdrop:
     
     use mini_sidebar('mgame', curgame['type'])
 
-screen mgame_dragdrop_dishes:
+screen mgame_dragdrop_dishes():
     draggroup:
         # drop
         for d in curgame['drop']:
@@ -113,7 +113,7 @@ screen mgame_dragdrop_dishes:
     use mini_sidebar('mgame', curgame['type'])
     use mc_hintbox
 
-screen mgame_toggle:
+screen mgame_toggle():
     for i in range(len(curgame['goal'])):
         imagebutton:
             xpos curgame['xp'][i]
@@ -126,7 +126,7 @@ screen mgame_toggle:
     use mini_sidebar('mgame', curgame['type'])
     use mc_hintbox
 
-screen mgame_waterpour:
+screen mgame_waterpour():
     default sel = -1
     default yp = 0.513
 

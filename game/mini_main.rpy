@@ -218,7 +218,7 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
 
-screen mc_hintbox:
+screen mc_hintbox():
     add 'mc minigame':
         zoom 1.05
         xalign 1.07
@@ -248,7 +248,7 @@ screen mini_mapbase(floor=curfloor):
             xanchor 0.0 yanchor 0.
             xysize (rm[2] - rm[0], rm[3] - rm[1])
 
-screen mini_screen:
+screen mini_screen():
     modal True
 
     if curroom == 'main':
