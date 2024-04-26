@@ -80,7 +80,7 @@ screen btn_item(bt, hov_id):
     imagebutton:
         xpos bt['xp']
         ypos bt['yp']
-        auto itemsAll[bt['item']['id']]['im']
+        auto f"mini/btn_item/item_{bt['item']['id']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered SetVariable('cur_hov', None)

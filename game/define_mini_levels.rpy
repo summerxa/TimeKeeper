@@ -484,19 +484,16 @@ default tasks = {
 default itemsAll = {
     'air': {
         'name': 'empty',
-        'im': 'mini/btn_item/test_item0_%s.jpg',
         'desc': 'An empty spot. An item can be placed here.',
         'stackable': False
     },
     'test_3': {
         'name': 'test item 3',
-        'im': 'mini/btn_item/test_item3_%s.jpg',
         'desc': 'I guess this is an item too?? It\'s called test item 3.',
         'stackable': False
     },
     'dish_dirty': {
         'name': 'dirty dishes',
-        'im': 'mini/btn_item/test_item1_%s.jpg',
         'desc': 'A stack of dirty dishes.',
         'stackable': True
     }
