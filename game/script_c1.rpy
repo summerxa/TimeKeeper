@@ -267,7 +267,6 @@ label c1_scene2:
     "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
     
     hide npc2 # hiding sprites saves a teeny bit of processing power
-    $ npc2_name = 'NOBLE' # reset npc name for the next time we use this character
 
     show amelia 8a at eaf(1.2, 0.8, 1.0)
     a "!!!"
@@ -295,6 +294,9 @@ label c1_scene2:
     show bella 8a at flip, ea(1.0, -1.0)
     
     "Mother grips Bella’s arm tightly and drags her out of the ballroom."
+
+    hide mother
+    hide bella
 
     $ focus_on(['amelia'])
 
@@ -411,22 +413,24 @@ label c1_scene2:
     # TODO add a falling sound
 
     show amelia 8a
-    # amelia automatically falls after 0.5 sec (has a more jarring/shocking effect?)
-    # OR after text finishes playing (if player has chosen a slower text speed)
-    # depends on which one happens last, 0.5 sec passes or text finishes playing -snail
-    # btw u can tweak the time if u like- im not sure if 0.5 sec is the right wait time lol
+    # amelia falls immediately (more jarring/shocking effect)
+    # if text plays too fast, waits until 0.5 secs have passed until making amelia fall
     $ wtime = 0.5 if (not preferences.text_cps or preferences.text_cps < 6) else 0.5 - (3 / preferences.text_cps)
     "!!!{w=[wtime]}{nw}"
-    
+
+    # falling animation
+    hide amelia with easeoutbottom
+
     play sound metal_pipe volume .23
     #hehe :3
 
-    # screen shake feels a lil too intense for someone falling over
-    # LMK if u want a less intense shake- i can make a custom one for this scene :3 -snail
+    # screen shake (might be a bit too intense?) -snail
     hide amelia with vpunch
 
     #not sure if this expression quite matches up... but oh well
     #might need a pause here bc otherwise might feel too fast
+    # is this too long...? -snail
+    pause 0.6
     b 6a "Amelia, are you alright?!"
 
     show amelia 1a at flip, l1_5
