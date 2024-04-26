@@ -205,6 +205,7 @@ define audio.glass_break_sfx = "<from 30.5 to 32>a lot of glass breaking.mp3"
 
 define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
 
+define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
 # --- UI STUFF ---
 
 # keep an image rotated to angle "a"

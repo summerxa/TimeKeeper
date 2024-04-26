@@ -215,8 +215,6 @@ label c1_scene2:
     show mother 2a at flip, l2_5
         
     m "Yes, Lord Layton."
-
-    $ npc2_name = 'LORD LAYTON'
     
     $ focus_on(['mc', 'mother'])
 
@@ -235,7 +233,7 @@ label c1_scene2:
     show bella 8a at offscreenleft
     b "Ah!"
 
-    play sound glass_break_sfx volume 0.1
+    play sound glass_break_sfx volume 0.15
     #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
     #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
 
@@ -347,7 +345,7 @@ label c1_scene2:
 
     m 6a "And remember to report any disobedient maids."
 
-    s 4b "I will."
+    s 1b "I will."
 
     $ focus_on(['mother'])
 
@@ -419,14 +417,19 @@ label c1_scene2:
     # btw u can tweak the time if u like- im not sure if 0.5 sec is the right wait time lol
     $ wtime = 0.5 if (not preferences.text_cps or preferences.text_cps < 6) else 0.5 - (3 / preferences.text_cps)
     "!!!{w=[wtime]}{nw}"
+    
+    play sound metal_pipe volume .23
+    #hehe :3
+
     # screen shake feels a lil too intense for someone falling over
     # LMK if u want a less intense shake- i can make a custom one for this scene :3 -snail
     hide amelia with vpunch
 
     #not sure if this expression quite matches up... but oh well
+    #might need a pause here bc otherwise might feel too fast
     b 6a "Amelia, are you alright?!"
 
-    show amelia 1a at flip
+    show amelia 1a at flip, l1_5
     a "I-I’m okay..."
 
     b 5a "Are you sure? Maybe you should take a break."
@@ -436,9 +439,9 @@ label c1_scene2:
 
     b "I can finish your tasks if you need me to…"
 
-    a 7a "N-no, I can do them!"
+    a 6a "N-no, I can do them!"
 
-    a 6a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
+    a 1a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
 
     $ focus_on(['bella'])
 
@@ -458,7 +461,10 @@ label c1_scene2:
 
     b "...It’s fine. Won’t open up unless I get punished again or something, though I’ll be doing everything I can to avoid that."
 
-    b 5a "Amelia, I know you've been worried about me all this time, but if you feel tired, {i}please{/i}, tell me."
+    b 5a "But Amelia, you've been worried about me... all this time."
+    
+    b "If you feel tired... {i}please{/i}, tell me."
+    
     #this line... doesn't flow quite smoothly...
     # maybe remove the first "I know"- feels kinda redundant(?) idk how to word it... -snail
     # or break into two lines "...all this time" -> "But if you..." for a thoughtful pause effect :D
@@ -467,7 +473,8 @@ label c1_scene2:
 
     #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
     # maybe try 7a? it makes her look in amelia's general direction :D -snail
-    b "If you say so..."
+    #hopefully luna will provide us with a scared/worried expression soon T_T
+    b 7a "If you say so..."
 
     $ char_unlock("amelia")
     $ char_unlock("bella")
