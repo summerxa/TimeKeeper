@@ -16,6 +16,7 @@ screen popup_notes():
     style_prefix "confirm"
 
     default notes_tab = 'tasks'
+    default tx = notes_text_s if persistent.showspecial else notes_text
 
     frame:
         xalign 0.5
@@ -33,7 +34,14 @@ screen popup_notes():
                             xpos tab[0]
                             xanchor 0.
                             yalign 0.
-                            action SetScreenVariable('notes_tab', tab[1])
+                            action [
+                                SetScreenVariable('notes_tab', tab[1]),
+                                If(
+                                    (tab[1] == 'tasks'),
+                                    true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
+                                    false=SetScreenVariable('tx', levelInfo[curlevel][tab[1]] if tab[1] in levelInfo[curlevel] else "This is an error message :(")
+                                )
+                            ]
                             auto tab[2]
                             hovered SetVariable('cur_hov', f'{tab[1]}_tab')
                             unhovered SetVariable('cur_hov', None)
@@ -45,16 +53,6 @@ screen popup_notes():
 
             viewport:
                 area (50, 75, 900, 500)
-
-                # TODO change to screen variable - change tx screen var when tab button clicked
-                $ tx = ''
-                if notes_tab == 'tasks':
-                    if persistent.showspecial:
-                        $ tx = notes_text_s
-                    else:
-                        $ tx = notes_text
-                else:
-                    $ tx = levelInfo[curlevel][notes_tab]
                 
                 mousewheel True
                 draggable True
@@ -209,46 +207,6 @@ screen popup_mgame_leave():
                 textbutton "No":
                     text_align 0.5
                     action close_leave
-
-# TODO fix the alignment and change btn_tx to textbutton... if this screen is actually needed, LOL
-# screen popup_mgame_hint(tcost):
-#     modal True
-#     zorder 200
-#     add 'gui/overlay/confirm.png'
-
-#     style_prefix "confirm"
-
-#     frame:
-#         xalign 0.5
-#         yalign 0.5
-#         maximum(500, 300)
-#         $ close_leave = [Hide('popup_mgame_hint')]
-#         if showhint:
-#             text 'No more hints available.':
-#                 xalign 0.5
-#                 yalign 0.3
-#             use btn_tx({
-#                 'xp': 0.5,
-#                 'yp': 0.7,
-#                 'btext': 'Close',
-#                 'act': close_leave,
-#             })
-#         else:
-#             text 'Do you want a hint?\nHint will cost [tcost] minute(s).':
-#                 xalign 0.5
-#                 yalign 0.3
-#             use btn_tx({
-#                 'xp': 0.4,
-#                 'yp': 0.7,
-#                 'btext': 'Yes',
-#                 'act': close_leave + [SetVariable('curtime', curtime+tcost), SetVariable('showhint', True)]
-#             })
-#             use btn_tx({
-#                 'xp': 0.6,
-#                 'yp': 0.7,
-#                 'btext': 'No',
-#                 'act': close_leave
-#             })
 
 screen tx_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]

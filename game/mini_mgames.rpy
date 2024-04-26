@@ -49,13 +49,6 @@ screen mgame_hint(tcost):
         yalign 0.
         action Show('popup_mgame_hint', tcost=tcost)
 
-# screen mgame_hinttext(tx):
-#     if showhint:
-#         vbox:
-#             xpos 0.3
-#             ypos 0.1
-#             text tx
-
 screen mgame_dragdrop():
     draggroup:
         # drop

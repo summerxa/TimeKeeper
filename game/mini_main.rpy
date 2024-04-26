@@ -353,6 +353,6 @@ label mini_launch(startroom='main', startfloor=0):
 
 label mini_failed:
     # TODO make this actually look good
-    # TODO (check w/ others) does the game kick you out or progress story as normal?
+    # also check w/ others: does the game kick you out or progress story as normal?
     "Minigame failed, skill issue"
     return
