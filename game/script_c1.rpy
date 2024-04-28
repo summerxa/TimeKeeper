@@ -289,6 +289,7 @@ label c1_scene2:
     "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
     
     hide npc2 # hiding sprites saves a teeny bit of processing power #really? i didn't know that -jade
+    # well, that's what renpy wiki told me lol -snail
 
     show amelia 6a at eaf(1.2, 0.8, 1.0)
     a "!!!"
@@ -459,6 +460,7 @@ label c1_scene2:
     #might need a pause here bc otherwise might feel too fast
     # is this too long...? -snail
     #it should be fine :) -jade
+    # hooray :D -snail
     pause 0.6
     b 6a "Amelia, are you alright?!"
 
@@ -525,6 +527,9 @@ label c1_scene3:
     scene cg amelia tired v1 with cfade
     "She eventually walks into Room 7, where Amelia is leaning against the wall. She seems to be in some discomfort." 
 
+    # i think we're gonna transition into this cutscene from the tutorial minigame
+    # so we may not need the intro section? -snail
+
     "Anatasia lights up the candles and the fireplace in the room before approaching the bed."
 
     s "What are you doing?"
@@ -548,6 +553,7 @@ label c1_scene3:
 
     a "It’s just that I keep getting these headaches and I can’t think straight." 
     #bc she aint straight LMAO -jade
+    # ayooooo -snail
 
     a "B-but, I’ll be fine! J-just give me a few minutes and I’ll be doing perfect work."
 
@@ -561,6 +567,7 @@ label c1_scene3:
 
     scene black with dissolve
     #shrug -jade
+    # i think this transition should be fine- check with luna tho lol -snail
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     return
