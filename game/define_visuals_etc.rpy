@@ -201,7 +201,7 @@ default cfade = Fade(0.5, 0.0, 0.5)
 init:
     $ renpy.music.register_channel("ambience", "ambience", loop=True)
 
-define audio.glass_break_sfx = "<from 30.5 to 32>a lot of glass breaking.mp3"
+define audio.glass_break_sfx = "<from 31.4 to 32>a lot of glass breaking.mp3"
 
 define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
 
@@ -277,6 +277,9 @@ image bg hallway = 'bgs/hallway.jpg'
 
 image bg seal room = 'bgs/seal room.png'
 image bg joyce why = 'bgs/joyce why.png'
+
+image cg amelia tired v1 = 'cgs/Amelia_Cutscene look away.jpg'
+image cg amelia tired v2 = 'cgs/Amelia_Cutscene look at you.jpg' 
 
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0b')

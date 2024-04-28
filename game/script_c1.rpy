@@ -5,10 +5,12 @@ label c1_scene1:
     
     $ mother_name = "???"
 
-    show snowback
     m "You will be perfect, won’t you?"
     
-    show mc 3b
+    $ focus_on('[mc]') 
+    show mc 3b with Dissolve(.5,alpha=True) 
+    #i think normal dissolve is ..5 automatically?
+    
     s "Yes."
 
     m "My perfect little doll."
@@ -33,6 +35,11 @@ label c1_scene1:
         #negative values will flip the sprite horizontally/vertically
         #set zoom to 1.0 to reset
     #linear + circles
+    #zorder (number) makes image above others with smaller number
+    #use behind to... make iamges behind each other
+    #idk if it's better to increase/decrease zorder for diff images, or set zorder to value, set back to 0, then use behind #shrug
+    # use $ focus_on(['xyz']) to focus on someone
+    #scene black with dissolve
 
 label c1_scene1_5: 
    
@@ -208,55 +215,70 @@ label c1_scene2:
     $ bella_name = "???"
     $ amelia_name = "???"
 
-    show npc2 at r1_5
+    show npc2 at center
     
     n2 "These are the most proficient of your maids, madam?"
 
-    show mother 2a at flip, l2_5
+    show mother 2a at l1_5
+    #flip
         
     m "Yes, Lord Layton."
     
     $ focus_on(['mc', 'mother'])
 
-    show mother 2a at flip, ein(0.8, 0.2)
+    show mother 2a at ein(0.8, 0.15)
+    #flip,
 
-    show mc 1b at flip, center
+    show npc2 at ein(.8, .95) 
+    #magic number .95
+
+    show mc 1b at center
+    #flip,
 
     m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
 
+    
     n2 "I see."
 
     n2 "I suppose I might hire one of your maids in the near future."
 
+    show mc 1b zorder 2.0
     m 3a "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
-
-    show bella 8a at offscreenleft
-    b "Ah!"
 
     play sound glass_break_sfx volume 0.15
     #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
     #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
 
-    show mother 8a at unflip, lin(0.8, 0.4)
+    show mother 5a
+    
+    show bella 8a at offscreenleft
+    b "Ah!"
+    
+    show mother 6a at lin(0.8, 0.4)
+    #unflip
 
-    show mc 1b at unflip, lin(0.8, 0.7)
+    show mc 4b at lin(0.8, 0.7)
+    #unflip
 
     show npc2 at lin(0.8, 1.1)
 
     pause 0.7
-    show bella 8a at flip, ein(0.7, 0.0)
+    show bella 8a at ein(0.7, 0.0)
+    #flip
 
     pause 2.5
-    m 5a "...Ah."
+    m 7a "...Ah."
 
-    show mother 8a at flip
+    show mother 8a #at flip
     m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
 
-    show npc2 at eout(2.0, 2.0)
+    play sound metal_pipe volume .23
+    hide npc2 with Dissolve(.4,alpha=True)
+   
     
-    show mother 6a at unflip
+    show mother 6a #at unflip
 
-    show bella 6a at unflip
+    show bella 6a #at unflip
     b "Mother, I—"
 
     $ focus_on(['mother', 'bella'])
@@ -266,9 +288,9 @@ label c1_scene2:
     show bella 8a
     "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
     
-    hide npc2 # hiding sprites saves a teeny bit of processing power
+    hide npc2 # hiding sprites saves a teeny bit of processing power #really? i didn't know that -jade
 
-    show amelia 8a at eaf(1.2, 0.8, 1.0)
+    show amelia 6a at eaf(1.2, 0.8, 1.0)
     a "!!!"
 
     $ focus_on(['amelia'])
@@ -283,15 +305,17 @@ label c1_scene2:
 
     m 7a "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
 
-    show mother 1a at flip
+    show mother 1a #at flip
     m "Could you clean this up, my dears?"
 
     $ focus_on(['mother', 'bella'])
 
-    show mother 7a at flip, ea(1.2, -1.0)
+    show mother 7a at ea(1.2, -1.0)
+    #flip
 
     pause 0.5
-    show bella 8a at flip, ea(1.0, -1.0)
+    show bella 8a at ea(1.0, -1.0)
+    #flip
     
     "Mother grips Bella’s arm tightly and drags her out of the ballroom."
 
@@ -302,7 +326,7 @@ label c1_scene2:
 
     #TODO: figure out what to do here LMAO; amelia's expression does NOT match 
     pause 1.0
-    show amelia 7a
+    show amelia 1a
     "Anastasia and the other maids pull themselves together and clean up the mess."
 
     # turns out renpy has a built in black bg hooray -snail
@@ -316,12 +340,14 @@ label c1_scene2:
     $ focus_on(['mother', 'mc'])
 
     #TODO: animate them better
-    show mc 3b at flip, r1_4
+    show mc 3b at r1_4
+    #flip
 
-    show mother 1a at flip, ein(1.0, 0.25)
+    show mother 1a at ein(1.0, 0.25)
+    #flip
 
     pause .65
-    show mc 1b at unflip
+    show mc 1b #at unflip
 
     "Mother returns to the ballroom alone and walks to Anastasia."
 
@@ -356,7 +382,7 @@ label c1_scene2:
     pause .5
     m "Don’t disappoint me, Anastasia."
 
-    scene bg guestroom with cfade
+    scene hallway with cfade
     #TODO: replace with ballroom bg later
 
     $ focus_on(['bella'])
@@ -364,12 +390,13 @@ label c1_scene2:
     show bella 8a at r1_4
     b "Ugh... Where is it? The cloth was here just a second ago!"
 
-    show amelia 2a at flip, einf(-0.2, 1.0 ,0.25)
+    show amelia 2a at einf(-0.2, 1.0 ,0.25)
+    #flip
     a "Here, take this."
 
     $ focus_on(['bella'])
 
-    show bella 1a at flip
+    show bella 1a #at flip
 
     $ amelia_name = "AMELIA"
 
@@ -406,7 +433,8 @@ label c1_scene2:
 
     $ focus_on(['amelia'], {'amelia': 2})
 
-    show amelia 1a at unflip, eout(1.0, 0.2)
+    show amelia 1a at eout(1.0, 0.2)
+    #unflip
     "Amelia starts to walk away, but—"
 
     # i made an animation maybe...? -snail
@@ -430,15 +458,16 @@ label c1_scene2:
     #not sure if this expression quite matches up... but oh well
     #might need a pause here bc otherwise might feel too fast
     # is this too long...? -snail
+    #it should be fine :) -jade
     pause 0.6
     b 6a "Amelia, are you alright?!"
 
-    show amelia 1a at flip, l1_5
+    show amelia 1a at l1_5
+    #flip
     a "I-I’m okay..."
 
     b 5a "Are you sure? Maybe you should take a break."
 
-    #expression not quite right...
     a 5a "No— I’m okay! It’s probably nothing."
 
     b "I can finish your tasks if you need me to…"
@@ -486,7 +515,54 @@ label c1_scene2:
     return
 
 label c1_scene3:
+    scene black with dissolve
+
     "Scene 3 (amelia sick scene)"
+
+    #shrug -jade
+    "Anatasia walks to the guestrooms, lighting the candles one by one."
+
+    scene cg amelia tired v1 with cfade
+    "She eventually walks into Room 7, where Amelia is leaning against the wall. She seems to be in some discomfort." 
+
+    "Anatasia lights up the candles and the fireplace in the room before approaching the bed."
+
+    s "What are you doing?"
+    
+    show cg amelia tired v2
+    a "!!!"
+
+    "Amelia steps towards Anatasia."
+
+    a "Wait! I- D-Don’t tell Mother!"
+
+    s "... "
+
+    a "Please... "
+
+    a "I- You… you know what she does to those who break the rules! P-please... I don’t want to be punished..."
+
+    a "I’m not trying to slack off! I really am trying to live up to Mother’s expectations! I—"
+
+    "Amelia pauses for a moment and breathes heavily; Her face briefly scrunching up in pain."
+
+    a "It’s just that I keep getting these headaches and I can’t think straight." 
+    #bc she aint straight LMAO -jade
+
+    a "B-but, I’ll be fine! J-just give me a few minutes and I’ll be doing perfect work."
+
+    a "You would remember, right? I-I have never messed up before this! And it won’t ever happen again! I promise!"
+
+    a "Please… don’t tell her."
+
+    s "..."
+
+    "Amelia struggles to stand up and return to work."
+
+    scene black with dissolve
+    #shrug -jade
+    "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
+
     return
 
 label c1_fetch1:
@@ -536,22 +612,6 @@ label c1_scene6:
                     call c1_bella_ending
                 "Anastasia":
                     call c1_mc_ending
-        "Say nothing":
-            menu:
-                "Who was it?"
-                "Amelia":
-                    call c1_amelia_ending
-                "Bella" if c1_has_bella_watch:
-                    call c1_bella_ending
-                "Anastasia":
-                    call c1_mc_ending
-                "Say nothing":
-                    menu:
-                        "bella accuses, mother asks 'is this true?'"
-                        "Bella" if c1_has_bella_watch:
-                            call c1_bella_ending(c1_blame_bella_dialogue=False)
-                        "Say nothing":
-                            call c1_mc_ending("gets_accused")
         "No":
             menu:
                 "Are you sure you did not?"
@@ -592,6 +652,22 @@ label c1_scene6:
                                             call c1_bella_ending(c1_justify_blame=False)
                                         "Anastasia":
                                             call c1_mc_ending
+        "Say nothing":
+            menu:
+                "Who was it?"
+                "Amelia":
+                    call c1_amelia_ending
+                "Bella" if c1_has_bella_watch:
+                    call c1_bella_ending
+                "Anastasia":
+                    call c1_mc_ending
+                "Say nothing":
+                    menu:
+                        "bella accuses, mother asks 'is this true?'"
+                        "Bella" if c1_has_bella_watch:
+                            call c1_bella_ending(c1_blame_bella_dialogue=False)
+                        "Say nothing":
+                            call c1_mc_ending("gets_accused")
     return
 
 label c1_amelia_ending(c1_justify_blame=True):
