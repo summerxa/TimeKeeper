@@ -551,7 +551,7 @@ label c1_scene3:
 
     "Amelia pauses for a moment and breathes heavily; Her face briefly scrunching up in pain."
 
-    a "It’s just that I keep getting these headaches and I can’t think straight." 
+    a "It’s just that I keep getting these headaches and I can’t think straight."
     #bc she aint straight LMAO -jade
     # ayooooo -snail
 
@@ -1206,7 +1206,7 @@ label task_c1_grabdishes:
             curgame['try'] = [0] * mgame_goal
             for i in range(mgame_goal):
                 curgame['drag'][i]['n'] = str(i)
-                curgame['drag'][i]['im'] = 'mini/icon_map_mc_idle.png'
+                curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
         mgame_try = curgame['try']
     
     scene bg hallway
@@ -1235,13 +1235,13 @@ label task_c1_dropdishes:
             curgame['try'].append(0)
             curgame['drag'].append({
                 'n': str(i),
-                'xp': curgame['xp'],
-                'yp': (0.8 - (i * 0.1)),
+                'xp': (1400 + (i * 50)),
+                'yp': 620,
                 'im': curgame['im']
             })
         mgame_try = curgame['try']
     
-    scene bg hallway
+    scene bg mgame_dropdishes
 
     $ hinttext = levelHints['dropdishes_idle']
 

@@ -42,13 +42,6 @@ init python:
     def is_win_count(tocount):
         return store.mgame_try.count(tocount) == store.mgame_goal
 
-screen mgame_hint(tcost):
-    imagebutton:
-        auto 'mini/icon_map_mc_%s.png'
-        xalign 1.
-        yalign 0.
-        action Show('popup_mgame_hint', tcost=tcost)
-
 screen mgame_dragdrop():
     draggroup:
         # drop
@@ -76,24 +69,31 @@ screen mgame_dragdrop():
     use mini_sidebar('mgame', curgame['type'])
 
 screen mgame_dragdrop_dishes():
+    if curgame['type'] == 'dropdishes' and 1 in mgame_try:
+        add curgame['in_sink']['im']:
+            xpos curgame['in_sink']['xp'] xanchor 0.5
+            ypos curgame['in_sink']['yp'] yanchor 0.5
+    
     draggroup:
         # drop
         for d in curgame['drop']:
             drag:
                 drag_name d['n']
-                xpos d['xp']
-                ypos d['yp']
+                xpos d['xp'] xanchor 0.
+                ypos d['yp'] yanchor 0.
                 draggable False
                 droppable True
-                child d['im']
+                add 'mini/mini_rect.png':
+                    xysize(d['w'], d['h'])
+                    at opac(0.0)
         
         # drag
         for d in curgame['drag']:
             if not mgame_try[int(d['n'])]:
                 drag:
                     drag_name d['n']
-                    xpos d['xp']
-                    ypos d['yp']
+                    xpos d['xp'] xanchor 0.5
+                    ypos d['yp'] yanchor 0.5
                     draggable True
                     droppable False
                     if curgame['type'] == 'grabdishes':

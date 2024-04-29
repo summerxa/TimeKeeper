@@ -361,6 +361,7 @@ default tasks = {
             'game': {
                 'type': 'grabdishes',
                 'goal': 5,
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
                 'drag': [
                     {
                         'xp': 0.2, 'yp': 0.3
@@ -380,7 +381,7 @@ default tasks = {
                 ],
                 'drop': [
                     {
-                        'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
+                        'n': 'goal','xp': 369, 'yp': 356, 'w': 784, 'h': 525
                     }
                 ],
                 'hint': [2, 'this is a very helpful hint']
@@ -402,12 +403,15 @@ default tasks = {
             'game': {
                 'type': 'dropdishes',
                 'xp': 0.5,
-                'im': 'mini/icon_map_mc_idle.png',
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
                 'drop': [
                     {
-                        'n': 'goal','xp': 0.2, 'yp': 0.6, 'im': 'mini/btn_item/test_item0_idle.jpg'
+                        'n': 'goal','xp': 369, 'yp': 356, 'w': 784, 'h': 525
                     }
                 ],
+                'in_sink': {
+                    'xp': 778, 'yp': 618, 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
+                },
                 'hint': [2, 'this is another hint']
             }
         },
@@ -440,7 +444,7 @@ default tasks = {
                 'xp': [0.3, 0.7],
                 'yp': [0.5, 0.5],
                 'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
-                'on': ['mini/btn_item/test_item0_%s.jpg', 'mini/btn_item/test_item0_%s.jpg'],
+                'on': ['mini/btn_item/test_item0_%s.png', 'mini/btn_item/test_item0_%s.png'],
                 'hint': [1, 'Click on the items to pick them up/put them down']
             }
         },

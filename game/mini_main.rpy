@@ -243,10 +243,11 @@ screen mc_hintbox():
 
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():
-        add 'mini/map/map_roomrect.png':
+        add 'mini/mini_rect.png':
             xpos rm[0] ypos rm[1]
             xanchor 0.0 yanchor 0.
             xysize (rm[2] - rm[0], rm[3] - rm[1])
+            at tint('#692b22')
 
 screen mini_screen():
     modal True
