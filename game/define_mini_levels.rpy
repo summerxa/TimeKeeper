@@ -412,6 +412,11 @@ default tasks = {
                 'in_sink': {
                     'xp': 778, 'yp': 618, 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
                 },
+                'overlay': [
+                    {
+                        'xp': 678, 'yp': 413, 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
+                    }
+                ],
                 'hint': [2, 'this is another hint']
             }
         },

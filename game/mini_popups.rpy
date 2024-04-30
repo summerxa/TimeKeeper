@@ -193,9 +193,9 @@ screen popup_mgame_leave():
                 text_align 0.5
                 action ToggleVariable('persistent.showleavewarning')
                 if persistent.showleavewarning:
-                    text_color '#aaa'
+                    text_color gui.idle_color
                 else:
-                    text_color '#fff'
+                    text_color gui.selected_color
             
             hbox:
                 xalign 0.5

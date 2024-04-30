@@ -102,6 +102,13 @@ screen mgame_dragdrop_dishes():
                         dragged dragged_dropdishes
                     drag_raise True
                     child d['im']
+        
+    if 'overlay' in curgame:
+        for overlay_itm in curgame['overlay']:
+            add overlay_itm['im']:
+                xpos overlay_itm['xp']
+                ypos overlay_itm['yp']
+                xanchor 0.5 yanchor 0.5
     
     use mini_sidebar('mgame', curgame['type'])
     use mc_hintbox
