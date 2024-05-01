@@ -141,6 +141,7 @@ screen mgame_waterpour():
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
             auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
+            activate_sound audio.waterpour_click_sfx
             action If(
                 sel < 0, true=SetScreenVariable('sel', i), false=If(
                     sel == i, true=SetScreenVariable('sel', -1), false=If(

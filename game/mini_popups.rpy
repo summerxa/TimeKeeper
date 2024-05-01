@@ -7,6 +7,7 @@ screen popup_button_close(xp, yp, screenname):
         hovered SetVariable('cur_hov', 'popup_close_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, 'popup_close_btn')
+        activate_sound audio.button_click_sfx
 
 screen popup_notes():
     modal True
@@ -46,6 +47,7 @@ screen popup_notes():
                             hovered SetVariable('cur_hov', f'{tab[1]}_tab')
                             unhovered SetVariable('cur_hov', None)
                             at highlight_hov(cur_hov, f'{tab[1]}_tab')
+                            activate_sound audio.button_click_sfx
                 hbox:
                     xalign 1.
                     yalign 0.
@@ -122,12 +124,14 @@ screen popup_trade():
                     yalign 0.6
                     xanchor 0.5
                     action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+                    activate_sound audio.button_click_sfx
 
                 textbutton rtext:
                     xpos 0.7
                     yalign 0.6
                     xanchor 0.5
                     action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+                    activate_sound audio.button_click_sfx
     
         use popup_button_close(1., 0., 'popup_trade')
 
@@ -148,15 +152,22 @@ screen popup_help(curstate='main'):
         label "Help"
 
         vbox:
-            area (0, 60, 900, 600)
+            area (0, 60, 880, 600)
             spacing 23
 
             if curstate != 'main' and curstate in levelHelp:
                 hbox:
+                    spacing 23
 
-                    textbutton "Minigame rules" action SetScreenVariable("h_tab", "rules")
+                    textbutton "Minigame rules":
+                        action SetScreenVariable("h_tab", "rules")
+                        activate_sound audio.button_click_sfx
+                        xalign 0.
 
-                    textbutton "Main gameplay" action SetScreenVariable("h_tab", "main")
+                    textbutton "Main gameplay":
+                        action SetScreenVariable("h_tab", "main")
+                        activate_sound audio.button_click_sfx
+                        xalign 1.
 
             viewport:
                 mousewheel True
@@ -196,6 +207,7 @@ screen popup_mgame_leave():
                     text_color gui.idle_color
                 else:
                     text_color gui.selected_color
+                activate_sound audio.button_click_sfx
             
             hbox:
                 xalign 0.5
@@ -204,9 +216,11 @@ screen popup_mgame_leave():
                 textbutton "Yes":
                     text_align 0.5
                     action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('leave'), With(cfade)]
+                    activate_sound audio.button_click_sfx
                 textbutton "No":
                     text_align 0.5
                     action close_leave
+                    activate_sound audio.button_click_sfx
 
 screen tx_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]

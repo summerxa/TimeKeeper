@@ -334,6 +334,7 @@ screen startmenu_btn(xp, yp, b_id, act, hov):
         hovered SetScreenVariable('hov', b_id)
         unhovered SetScreenVariable('hov', None)
         at zm(1.05 if hov == b_id else 1.0)
+        activate_sound audio.button_click_sfx
 
 screen start_navigation(hov):
 
@@ -655,12 +656,15 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 textbutton _("Characters"):
                     xalign 0. yalign 0.5 text_align 0.5
                     action SetScreenVariable("p_tab", "characters")
+                    activate_sound audio.button_click_sfx
                 textbutton _("Endings"):
                     xalign 0.5 yalign 0.5 text_align 0.5
                     action SetScreenVariable("p_tab", "endings")
+                    activate_sound audio.button_click_sfx
                 textbutton _("CGs"):
                     xalign 1. yalign 0.5 text_align 0.5
                     action SetScreenVariable("p_tab", "cgs")
+                    activate_sound audio.button_click_sfx
         else:
             vbox:
                 spacing 23
@@ -696,6 +700,7 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
                     action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i)]
                     if not d['id_name'] in persistent.chars_unlocked:
                         at darken_sprite
+                    activate_sound audio.button_click_sfx
             
         hbox:
             xminimum 1300

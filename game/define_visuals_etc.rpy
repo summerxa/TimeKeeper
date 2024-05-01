@@ -201,11 +201,17 @@ default cfade = Fade(0.5, 0.0, 0.5)
 init:
     $ renpy.music.register_channel("ambience", "ambience", loop=True)
 
+# SFX
+# story
 define audio.glass_break_sfx = "<from 31.4 to 32>a lot of glass breaking.mp3"
+define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
+# minigame
+define audio.button_click_sfx = "btn_click_light_2.mp3"
+define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
 
+# AMBIENCE
 define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
 
-define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
 # --- UI STUFF ---
 
 # keep an image rotated to angle "a"

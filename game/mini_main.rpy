@@ -13,6 +13,7 @@ screen btn_room(bt, b_id):
         hovered SetVariable('cur_hov', f'{b_id}_room_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, f'{b_id}_room_btn')
+        activate_sound audio.button_click_sfx
 
 screen btn_roomarrow(bt, hov_id):
     default act = [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
@@ -36,6 +37,7 @@ screen btn_roomarrow(bt, hov_id):
             ypos 0.5
             hovered SetVariable('cur_hov', hov_id)
             unhovered SetVariable('cur_hov', None)
+            activate_sound audio.button_click_sfx
         textbutton bt['btext']:
             action act
             yalign 0.5
@@ -44,6 +46,7 @@ screen btn_roomarrow(bt, hov_id):
             hovered SetVariable('cur_hov', hov_id)
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, hov_id)
+            activate_sound audio.button_click_sfx
 
 screen btn_tsk(bt, hov_id=None):
     if bt['curtask'] or not 'hidden' in bt:
@@ -59,6 +62,7 @@ screen btn_tsk(bt, hov_id=None):
                         action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
                 else:
                     action bt['act']
+                activate_sound audio.button_click_sfx
             else:
                 auto f"mini/btn_task/btn_{bt['imtask']}_%s.png"
                 action bt['act']
@@ -85,6 +89,7 @@ screen btn_item(bt, hov_id):
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, hov_id)
+        activate_sound audio.button_click_sfx
 
 screen mini_sidebar(curstate='main', gametype=None):
     default baseButtons = [
@@ -126,6 +131,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     unhovered SetVariable('cur_hov', None)
                     at highlight_hov(cur_hov, bt['hov_id'])
                     action bt['act']
+                    activate_sound audio.button_click_sfx
             imagebutton:
                 xalign 0.5
                 yalign 0.75
@@ -137,6 +143,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     action Show('popup_help', curstate='main')
                 elif curstate == 'mgame':
                     action Show('popup_help', curstate=gametype)
+                activate_sound audio.button_click_sfx
             imagebutton:
                 xalign 0.5
                 yalign 0.95
@@ -152,6 +159,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
                 elif curstate == 'map':
                     action Hide('popup_map')
+                activate_sound audio.button_click_sfx
         fixed:
             maximum(240, 303) # resolution of clock background image
             imagebutton:
@@ -162,6 +170,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                 hovered SetVariable('cur_hov', 'clock_btn')
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'clock_btn')
+                activate_sound audio.button_click_sfx
             add 'mini/ui/clock_minute.png':
                 xpos 0.505
                 ypos 0.61
@@ -195,6 +204,7 @@ screen floor_sidebar(curstate='game', mapfloor=0):
                 hovered [SetVariable('cur_hov', 'floor_up_btn'), SetVariable('hinttext', f"Go upstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_up_btn')
+            activate_sound audio.button_click_sfx
     text f'{curfloor+1}F':
         xpos 0.14
         ypos 0.5
@@ -217,6 +227,7 @@ screen floor_sidebar(curstate='game', mapfloor=0):
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
+            activate_sound audio.button_click_sfx
 
 screen mc_hintbox():
     add 'mc minigame':
