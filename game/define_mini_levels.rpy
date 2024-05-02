@@ -101,7 +101,8 @@ default roomRects = {
             'laundry': (490, 600, 815, 970)
         },
         1: {
-            'room 4': (520, 166, 1476, 816)
+            'guestroom l': (340, 278, 904, 746),
+            'guestroom r': (924, 278, 1489, 746)
         }
     }
 }
@@ -111,30 +112,27 @@ default roomButtons = {
         'ballroom': {
             'name': 'ballroom',
             'floor': 0,
-            'num': 0,
-            'xp': 0.5,
-            'yp': 0.2,
+            'num': 0
         },
         'kitchen': {
             'name': 'kitchen',
             'floor': 0,
-            'num': 1,
-            'xp': 0.6,
-            'yp': 0.7
+            'num': 1
         },
         'laundry': {
             'name': 'laundry',
             'floor': 0,
-            'num': 2,
-            'xp': 0.35,
-            'yp': 0.7
+            'num': 2
         },
-        'room 4': {
-            'name': 'room 4',
+        'guestroom l': {
+            'name': 'left guestrooms',
             'floor': 1,
-            'num': 0,
-            'xp': 0.5,
-            'yp': 0.5
+            'num': 0
+        },
+        'guestroom r': {
+            'name': 'right guestrooms',
+            'floor': 1,
+            'num': 1
         }
     }
 }
@@ -142,9 +140,10 @@ default roomButtons = {
 default roomProxim = {
     1: {
         0: [[0,1,1],
-            [1,0,5],
-            [1,5,0]],
-        1: [[0]]
+            [1,0,2],
+            [1,2,0]],
+        1: [[0,1],
+            [1,0]]
     }
 }
 
@@ -184,6 +183,20 @@ default roomArrows = {
                 'toroom': 'kitchen',
                 'dir': 'up',
                 'xp': 0.6
+            }
+        ],
+        'guestroom l': [
+            {
+                'toroom': 'guestroom r',
+                'dir': 'up',
+                'xp': 0.5
+            }
+        ],
+        'guestroom r': [
+            {
+                'toroom': 'guestroom l',
+                'dir': 'down',
+                'xp': 0.5
             }
         ]
     }
