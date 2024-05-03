@@ -462,7 +462,7 @@ default tasks = {
                 'xp': [0.3, 0.7],
                 'yp': [0.5, 0.5],
                 'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
-                'on': ['mini/btn_item/test_item0_%s.png', 'mini/btn_item/test_item0_%s.png'],
+                'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png'],
                 'hint': [1, 'Click on the items to pick them up/put them down']
             }
         },
