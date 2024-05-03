@@ -1065,20 +1065,143 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
         if not ichoice or ichoice == goal_choice:
             return
         if ichoice == 'dish_dirty':
-            npc "...Are those dirty dishes??"
+            npc "What— What is this?! Why are you giving me your dirty dishes?!"
+
+            s "I am extremely sorry; I’ll go get what you wanted."
+
+            npc "These maids, honestly."
+        elif item_is_of_type(ichoice, 'food'):
+            npc "This… this is {i}not{/i} what I wanted."
+
+            s "My apologies, I’ll go retrieve what you wanted."
+        elif ichoice == 'candle' or ichoice == 'match':
+            npc "What am I supposed to do with this?!"
+
+            s "Perhaps it would help keep you warm at night?"
+
+            npc "Keep— Keep me warm at night?! What are you insinuating?!"
+
+            s "...?"
+
+            npc "Oh lord."
+
+            npc "I. Don’t. Need. It!"
+
+            s "Understood."
+        elif item_is_of_type(ichoice, 'jacket'):
+            npc "This isn’t what I asked for, and it’s not even my jacket!"
+
+            s "Are you quite sure you don’t want it?"
+
+            npc "NO, I don’t want another person’s jacket! Just give me what I asked for!"
+
+            s "Of course. My apologies."
+        elif ichoice == 'wine_bottle':
+            npc "I didn’t ask for any wine."
+
+            s "Would you want a different drink?"
+
+            npc "I would like to drink to forget this entire conversation…"
+
+            s "I will immediately go and get another for you."
+
+            npc "NO! I don’t need a drink! Just give me what I asked for."
+
+            s "Understood."
         else:
-            npc "If you're seeing this dialogue, something's broken :("
+            npc "This is NOT what I wanted!"
+
+            s "Apologies, I’ll immediately go retrieve what you wanted."
+
+            npc "...The best maid of the lot, huh?"
+
+# TODO give item prompt but you can choose ANY item u want
+label c1_give_item_prompt_HACKED(npc=None, goal_choice=''):
+    $ ichoice = 'air'
+
+    while True:
+        menu:
+            "Choose any item to try"
+            "dirty dishes":
+                $ ichoice = 'dish_dirty'
+            "plates/trays of food":
+                $ ichoice = 'food_blahblahblah'
+            "candle/match":
+                $ ichoice = 'candle'
+            "jacket":
+                $ ichoice = 'jacket_amogus'
+            "bottle of wine":
+                $ ichoice = 'wine_bottle'
+            "other":
+                $ ichoice = 'beesechurger'
+            "(leave)":
+                return
+        if ichoice == 'dish_dirty':
+            npc "What— What is this?! Why are you giving me your dirty dishes?!"
+
+            s "I am extremely sorry; I’ll go get what you wanted."
+
+            npc "These maids, honestly."
+        elif item_is_of_type(ichoice, 'food'):
+            npc "This… this is {i}not{/i} what I wanted."
+
+            s "My apologies, I’ll go retrieve what you wanted."
+        elif ichoice == 'candle' or ichoice == 'match':
+            npc "What am I supposed to do with this?!"
+
+            s "Perhaps it would help keep you warm at night?"
+
+            npc "Keep— Keep me warm at night?! What are you insinuating?!"
+
+            s "...?"
+
+            npc "Oh lord."
+
+            npc "I. Don’t. Need. It!"
+
+            s "Understood."
+        elif item_is_of_type(ichoice, 'jacket'):
+            npc "This isn’t what I asked for, and it’s not even my jacket!"
+
+            s "Are you quite sure you don’t want it?"
+
+            npc "NO, I don’t want another person’s jacket! Just give me what I asked for!"
+
+            s "Of course. My apologies."
+        elif ichoice == 'wine_bottle':
+            npc "I didn’t ask for any wine."
+
+            s "Would you want a different drink?"
+
+            npc "I would like to drink to forget this entire conversation…"
+
+            s "I will immediately go and get another for you."
+
+            npc "NO! I don’t need a drink! Just give me what I asked for."
+
+            s "Understood."
+        else:
+            npc "This is NOT what I wanted!"
+
+            s "Apologies, I’ll immediately go retrieve what you wanted."
+
+            npc "...The best maid of the lot, huh?"
 
 label chap1_test_t1:
     scene bg seal room with cfade
 
-    $ focus_on(['npc2'])
+    # $ focus_on(['npc2'])
 
-    show npc2
+    show npc2 at l1_4
 
-    n2 'welcome to the seal room, please deposit a test item 3'
+    show mc 1b at r1_4
 
-    call c1_give_item_prompt(n2, 'test_3')
+    s 'hi random npc'
+
+    # n2 'welcome to the seal room, please deposit a test item 3'
+
+    # call c1_give_item_prompt(n2, 'test_3')
+    call c1_give_item_prompt_HACKED(n2)
 
     if ichoice == 'test_3':
         n2 'good job, you chose the right item'

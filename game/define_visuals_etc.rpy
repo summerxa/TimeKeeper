@@ -224,7 +224,7 @@ style fancy_font:
     textalign 0.5
 
 style plaque1_font:
-    color '000000'
+    color '#000000'
     font 'Nephilm.otf'
     textalign 0.5
 

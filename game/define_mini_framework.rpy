@@ -294,6 +294,11 @@ init python:
                 curholder['item'] = giveitem
         
         store.curhand = -1
+    
+    # check if an item is of a certain type
+    def item_is_of_type(itm, typ):
+        itm_split = itm.split("_")
+        return itm_split[0] == typ
 
 # only if going to a room indirectly using the large map
 label gotoroom_indirect:

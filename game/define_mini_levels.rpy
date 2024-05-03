@@ -770,6 +770,11 @@ default itemsAll = {
         'name': 'dirty dishes',
         'desc': 'A stack of dirty dishes.',
         'stackable': True
+    },
+    'wine_bottle': {
+        'name': 'bottle of wine',
+        'desc': 'A bottle of wine.',
+        'stackable': False
     }
 }
 
@@ -803,7 +808,7 @@ default itemHolders = {
         },
         'h31': {
             'item': {
-                'id': 'test_3'       
+                'id': 'wine_bottle'       
             },
             'xp': 0.7,
             'yp': -0.1,
