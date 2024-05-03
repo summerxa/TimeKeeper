@@ -1124,25 +1124,24 @@ label chap1_test_t2_idle:
     
     jump mini_main
 
-label chap1_test_t3:
-    $ ichoice = False
-    $ showlh = (invitems[0] != 'air')
-    $ showrh = (invitems[1] != 'air' and invitems[1] != invitems[0])
+label chap1_test_t6:
+    scene bg guestroom
 
-    call give_item_prompt(vb='Place', both_hands=True)
+    show amelia 6a at l1_3
 
-    if type(ichoice) is list:
-        if 'test_1' in ichoice and 'test_3' in ichoice:
-            'task 3 complete'
-            $ update_inv(myitem='test_1', useholder=False)
-            $ update_inv(myitem='test_3', useholder=False)
-            $ docurtask()
-        else:
-            'wrong items smh'
-            $ docurtask(False)
-    elif ichoice:
-        'why only one item smh'
-        $ docurtask(False)
+    a "(Man i miss bella...)"
+
+    show bella 1a at r1_3
+
+    a 3a "(Oh there she is)"
+
+    a 4a "Hi bella :D"
+
+    show amelia 3a
+
+    b "Hi amelia"
+
+    $ docurtask()
 
     jump mini_main
 

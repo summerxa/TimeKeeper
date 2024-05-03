@@ -223,6 +223,11 @@ style fancy_font:
     font 'Nephilm.otf'
     textalign 0.5
 
+style plaque1_font:
+    color '000000'
+    font 'Nephilm.otf'
+    textalign 0.5
+
 transform highlight_hov(hov, myname):
     # matrixcolor BrightnessMatrix(0.2 if (hov == myname) else 0.0) * ContrastMatrix(1.0 if (hov == myname) else 1.0)
     matrixcolor InvertMatrix(1.0 if (hov == myname) else 0.0) * TintMatrix('#aaaaaa' if (hov == myname) else '#ffffff') * InvertMatrix(1.0 if (hov == myname) else 0.0)

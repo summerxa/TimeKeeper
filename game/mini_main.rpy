@@ -74,10 +74,22 @@ screen btn_tsk(bt, hov_id=None):
                         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
                     
                     unhovered SetVariable('cur_hov', None)
-            if 'rot' in bt:
-                at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
+            if bt['curtask']:
+                if 'rot' in bt:
+                    at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
+                else:
+                    at highlight_hov(cur_hov, hov_id)
             else:
-                at highlight_hov(cur_hov, hov_id)
+                if 'rot' in bt:
+                    at rot(bt['rot'])
+        if 'tx' in bt:
+            text bt['tx']['text']:
+                xpos bt['xp'] ypos bt['yp']
+                xanchor 0.5 yanchor 0.5
+                if 'style' in bt['tx']:
+                    style bt['tx']['style']
+                if bt['curtask']:
+                    at highlight_hov(cur_hov, hov_id)
 
 # item holder
 screen btn_item(bt, hov_id):
@@ -271,9 +283,11 @@ screen mini_screen():
                 use btn_room(bt, bn)
     else:
         viewport:
-            area (300, 150, 1200, 800)
+            area (310, 150, 1250, 800)
             
             mousewheel True
+            xinitial 335
+            yinitial 140
             draggable True
             scrollbars "horizontal"
             vscrollbar_unscrollable "hide"

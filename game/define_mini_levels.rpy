@@ -348,6 +348,246 @@ default taskButtons = {
             'yp': 330,
             'room': 'laundry',
             'imtask': 'laundry_machine'
+        },
+        'gr_1': {
+            'xp': 405,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '401',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_2': {
+            'xp': 600,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '402',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_3': {
+            'xp': 795,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '403',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_4': {
+            'xp': 1120,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '404',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_5': {
+            'xp': 1315,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '405',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_6': {
+            'xp': 1510,
+            'yp': 360,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '406',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_7': {
+            'xp': 405,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '407',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_8': {
+            'xp': 600,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '408',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_9': {
+            'xp': 795,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '409',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_10': {
+            'xp': 1120,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '410',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_11': {
+            'xp': 1315,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '411',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_12': {
+            'xp': 1510,
+            'yp': 720,
+            'room': 'guestroom l',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '412',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_21': {
+            'xp': 405,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '421',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_22': {
+            'xp': 600,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '422',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_23': {
+            'xp': 795,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '423',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_24': {
+            'xp': 1120,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '424',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_25': {
+            'xp': 1315,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '425',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_26': {
+            'xp': 1510,
+            'yp': 360,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '426',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_27': {
+            'xp': 405,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '427',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_28': {
+            'xp': 600,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '428',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_29': {
+            'xp': 795,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '429',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_30': {
+            'xp': 1120,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '430',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_31': {
+            'xp': 1315,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '431',
+                'style': 'plaque1_font'
+            }
+        },
+        'gr_32': {
+            'xp': 1510,
+            'yp': 720,
+            'room': 'guestroom r',
+            'imtask': 'guestr_plaque',
+            'tx': {
+                'text': '432',
+                'style': 'plaque1_font'
+            }
         }
     }
 }
@@ -498,6 +738,18 @@ default tasks = {
                     }
                 ]
             }
+        },
+        't6': {
+            'name': 't6',
+            'desc': 'Testing task lol',
+            'btn': 'gr_5',
+            'tlabel': 'chap1_test_t6',
+            'tcost': 5,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 1,
+            'scorepenalty': 1,
+            'tags': []
         }
     }
 }
