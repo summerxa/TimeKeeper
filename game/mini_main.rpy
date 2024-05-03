@@ -283,11 +283,11 @@ screen mini_screen():
                 use btn_room(bt, bn)
     else:
         viewport:
-            area (310, 150, 1250, 800)
+            area (310, 100, 1250, 825)
             
             mousewheel True
             xinitial 335
-            yinitial 140
+            yinitial 127
             draggable True
             scrollbars "horizontal"
             vscrollbar_unscrollable "hide"
