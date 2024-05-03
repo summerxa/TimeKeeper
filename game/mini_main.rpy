@@ -283,26 +283,25 @@ screen mini_screen():
                 use btn_room(bt, bn)
     else:
         viewport:
-            area (310, 100, 1250, 825)
+            area (0, 0, 1920, 1080)
             
-            mousewheel True
-            xinitial 335
-            yinitial 127
+            mousewheel "horizontal"
+            xinitial 480
             draggable True
-            scrollbars "horizontal"
-            vscrollbar_unscrollable "hide"
             fixed:
-                xalign 0.5 yalign 0.5
-                xmaximum 1920
-                yminimum 1080
-                add f"mini/map/map_{curlevel}_{curroom}.png":
+                minimum(2880, 1080)
+                fixed:
                     xalign 0.5 yalign 0.5
-                for bn, bt in taskButtons[curlevel].items():
-                    if curroom == bt['room']:
-                        use btn_tsk(bt, bn)
-                for hn, ht in itemHolders[curlevel].items():
-                    if curroom == ht['room']:
-                        use btn_item(ht, hn)
+                    xmaximum 1920
+                    yminimum 1080
+                    add f"mini/map/map_{curlevel}_{curroom}.png":
+                        xalign 0.5 yalign 0.5
+                    for bn, bt in taskButtons[curlevel].items():
+                        if curroom == bt['room']:
+                            use btn_tsk(bt, bn)
+                    for hn, ht in itemHolders[curlevel].items():
+                        if curroom == ht['room']:
+                            use btn_item(ht, hn)
         use mini_sidebar('inroom')
         if curroom in roomArrows[curlevel]:
             for ar in roomArrows[curlevel][curroom]:
