@@ -27,7 +27,7 @@ define config.check_conflicting_properties = True
 # TODO remember to regenerate gui images once colors are finalized
 
 ## An accent color used throughout the interface to label and highlight text.
-define gui.accent_color = '#906548'
+define gui.accent_color = '#B8815C'
 
 ## The color used for a text button when it is neither selected nor hovered.
 define gui.idle_color = '#906548'
@@ -41,7 +41,7 @@ define gui.hover_color = '#c8a892'
 
 ## The color used for a text button when it is selected but not focused. A
 ## button is selected if it is the current screen or preference value.
-define gui.selected_color = '#FFC299'
+define gui.selected_color = '#DEA985'
 
 ## The color used for a text button when it cannot be selected.
 define gui.insensitive_color = '#c8a8927f'
