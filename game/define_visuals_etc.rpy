@@ -339,6 +339,8 @@ image bella 5a = CCS_('bella', 536, 318, '3_5', '3_a')
 image bella 6a = CCS_('bella', 536, 318, '3_6', '3_a')
 image bella 7a = CCS_('bella', 536, 318, '3_7', '3_a')
 image bella 8a = CCS_('bella', 536, 318, '3_8', '3_a')
+image bella 9a = CCS_('bella', 536, 318, '3_9', '3_a')
+image bella 10a = CCS_('bella', 536, 318, '3_10', '3_a')
 
 
 image npc1 = CS_('npc1', 'sprites/npc/n1.png')
