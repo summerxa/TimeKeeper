@@ -226,7 +226,7 @@ screen tx_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]
     default xp = (cords[2] + cords[0]) // 2
     default yp = (cords[3] + cords[1]) // 2
-    default tx = bt['name'].upper() + ('\n{size=-20}* YOU ARE HERE{/size}' if (curroom == b_id or prevroom == b_id) else '')
+    default tx = get_room_text(b_id, True)
     text tx:
         xpos xp
         ypos yp

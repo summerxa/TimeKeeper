@@ -102,20 +102,25 @@ init python:
 
     # --- ROOM/MAP STUFF ---
 
-    def set_room_text():
-        if prevroom and prevroom != 'main':
-            froRoom = roomButtons[curlevel][prevroom]['num']
-            for name, bt in roomButtons[curlevel].items():
-                if bt['floor'] != curfloor:
-                    continue
-                toRoom = bt['num']
-                bname = bt['name'].upper() + "{size=-20}"
-                if toRoom == froRoom:
-                    bname += "\n* YOU ARE HERE"
-                else:
-                    bname += "\n" + str(roomProxim[curlevel][curfloor][froRoom][toRoom]) + " MIN"
-                bname += "{/size}"
-                roomButtons[curlevel][name]['btext'] = bname
+    def get_room_text(toRoom, is_map=False):
+        if curroom == 'main' and not prevroom:
+            return toRoom.upper()
+
+        tx = toRoom.upper()
+
+        froRoom = roomButtons[curlevel][prevroom if curroom == 'main' else curroom]['num']
+        toRoom = roomButtons[curlevel][toRoom]['num']
+        
+        add_line = (toRoom == froRoom or not is_map)
+
+        if add_line:
+            tx += "\n{size=-20}"
+            if toRoom == froRoom:
+                tx += "* YOU ARE HERE"
+            elif not is_map:
+                tx += f"{roomProxim[curlevel][curfloor][froRoom][toRoom]} MIN"
+
+        return tx + ("{/size}" if add_line else "")
 
     # --- TASK STUFF ---
 

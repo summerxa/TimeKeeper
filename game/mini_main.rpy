@@ -2,7 +2,8 @@ screen btn_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]
     default xp = (cords[2] + cords[0]) // 2
     default yp = (cords[3] + cords[1]) // 2
-    textbutton bt['btext']:
+    default tx = get_room_text(b_id)
+    textbutton tx:
         xpos xp
         ypos yp
         xanchor 0.5 yanchor 0.5
@@ -166,7 +167,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                 if curstate == 'main':
                     action [ShowMenu('save')]
                 elif curstate == 'inroom':
-                    action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main'), Function(set_room_text)]
+                    action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
                 elif curstate == 'mgame':
                     action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
                 elif curstate == 'map':
@@ -355,8 +356,6 @@ label mini_launch(startroom='main', startfloor=0):
         tlimit = levelInfo[curlevel]['tf']
         invitems = ['air', 'air']
         invstacks = [1, 1]
-        for bn, bt in roomButtons[curlevel].items():
-            bt['btext'] = bt['name'].upper()
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
             if 'hidden' in bt:
