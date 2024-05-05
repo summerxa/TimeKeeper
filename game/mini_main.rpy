@@ -318,6 +318,8 @@ label mini_main():
     # if we feeling fancy, make transition from normal to fast version smoother by calculating
     # where to start in the fast track based on position in the normal track
 
+    stop ambience
+
     scene bg mgame_main
 
     $ update_taskq()
