@@ -595,10 +595,22 @@ label c1_fetch1:
     # TODO mark 1st part as done
     
     "placeholder: fetch quest gameplay, in kitchen"
+
+    jump c1_fetch1_end # TODO jump mini_main
+
+label c1_fetch1_end:
+    scene bg hallway with cfade
+    #TODO: change this later maybe LMAO
+
+    # TODO uncomment following line in actual minigame
+    # play ambience ballroom_ambience
+
+    show npc2 at l1_4
+    show mc 1b at r1_4
     
     #after item is obtained, interacting with nobleman again triggers this
 
-    # TODO call c1_give_item_prompt(insert npc, "wine_bottle")
+    # TODO call c1_give_item_prompt(n2, "wine_bottle")
 
     s 1b "Your wine, sir."
 
@@ -636,7 +648,16 @@ label c1_fetch2:
 
     "fetch quest stuff"
 
-    # TODO call c1_give_item_prompt(insert npc, "red_jacket")
+    jump c1_fetch2_end # TODO jump mini_main
+
+label c1_fetch2_end:
+    scene bg guestroom with cfade
+    #TODO: replace bg with ballroom maybe
+
+    show npc1 at l1_5
+    show mc 1b at r1_5
+
+    # TODO call c1_give_item_prompt(n1, "jacket_red")
     
     $ focus_on(["mc"])
     "Anastasia returns to the ballroom with the jacket and hands it to the noble."
@@ -653,7 +674,7 @@ label c1_fetch2:
 
     show bella 8a at ein(.6,.2)
     show mother 1a at offscreenright
-    show mother 1a at ein(.8,.8)
+    show mother at ein(.8,.8)
     m "Bella?"
 
     show bella 9a
@@ -705,6 +726,10 @@ label c1_fetch3:
 
     #TODO mark 1st part complete
 
+    jump c1_fetch3_end # TODO jump mini_main
+
+label c1_fetch3_end:
+
     scene bg guestroom with cfade
     #only for placeholder; not in actual game
 
@@ -717,7 +742,7 @@ label c1_fetch3:
 
     show bella 4a at eout(.8,1.4)
     s 4a "???"
-    hide bella 4a
+    hide bella
 
     # TODO remove finished tray from inventory
 
@@ -738,7 +763,7 @@ label c1_fetch3:
 
     n2 "Yeah, yeah."
     
-    hide bella 1a
+    hide bella
 
     n2 "Wait, did the maid always look like that?"
 
@@ -759,6 +784,8 @@ label c1_fetch4:
     n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
 
     s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
+
+    # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
 
     scene bg hallway with cfade
     #placeholder: not in actual game
@@ -790,7 +817,6 @@ label c1_fetch4:
 
     s "I see. Thank you for telling me."
     
-    # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
     scene bg guestroom with cfade
 
     show npc4 at l1_5
@@ -823,7 +849,7 @@ label c1_fetch4:
 
             "Bella leaves to complete more tasks."
 
-            hide bella 10a
+            hide bella
 
         "Confront Bella":
 
@@ -847,7 +873,7 @@ label c1_fetch4:
 
             "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
 
-            hide bella 5a
+            hide bella
 
             menu:
 
@@ -871,11 +897,10 @@ label c1_scene5:
     "Scene 5"
 
     show mc 1a at center
-    $ focus_on(['mc'])
+    $ focus_on(['mc'], {'mc': 3})
     "Anastasia goes to the ballroom and looks out a window. There’s an intense blizzard outside."
 
     show mc 1b
-    $ focus_on(['mc'])
     "Anastasia looks at the pocket watch. It’s time."
 
     scene bg hallway with cfade
@@ -884,7 +909,6 @@ label c1_scene5:
     show mc 1b at ein(1.3,.2)
     show mother 1a at r1_5
 
-    $ focus_on(['mc'])
     "Anastasia walks away and goes to look for Mother, who waves her over."
 
     m "Anastasia, please inform the rest of the maids to go to Room 7 for the inspection."
@@ -1484,10 +1508,9 @@ label chap1_test_t1:
 
     s 'hi random npc'
 
-    # n2 'welcome to the seal room, please deposit a test item 3'
+    n2 'welcome to the seal room, please deposit a test item 3'
 
-    # call c1_give_item_prompt(n2, 'test_3')
-    call c1_give_item_prompt_HACKED(n2) from _call_c1_give_item_prompt_HACKED
+    call c1_give_item_prompt(n2, 'test_3') from _call_c1_give_item_prompt
 
     if ichoice == 'test_3':
         n2 'good job, you chose the right item'
