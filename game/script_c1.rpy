@@ -1119,14 +1119,7 @@ label chap1_test_spritesall:
     return
 
 label chap1_test_bgs:
-    menu bgprompt:
-        'bg 1':
-            'sorry bg 1 got deleted :('
-            jump bgprompt
-        'bg 2':
-            scene bg guestroom
-        'leave for now':
-            return
+    scene kitchen
     
     call chap1_test_spritesall from _call_chap1_test_spritesall
 

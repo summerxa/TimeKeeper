@@ -287,6 +287,7 @@ image bg mgame_dropdishes = 'mini/tgame/grab_dropdishes/dropdishes_bg.jpg'
 
 image bg guestroom = 'bgs/guestroom.jpg'
 image bg hallway = 'bgs/hallway.jpg'
+image bg kitchen = 'bgs/kitchen.jpg'
 
 image bg seal room = 'bgs/seal room.png'
 image bg joyce why = 'bgs/joyce why.png'
