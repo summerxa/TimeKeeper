@@ -462,7 +462,7 @@ label c1_scene2:
     #it should be fine :) -jade
     # hooray :D -snail
     pause 0.6
-    b 6a "Amelia, are you alright?!"
+    b 9a "Amelia, are you alright?!"
 
     show amelia 1a at l1_5
     #flip
@@ -509,7 +509,7 @@ label c1_scene2:
     #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
     # maybe try 7a? it makes her look in amelia's general direction :D -snail
     #hopefully luna will provide us with a scared/worried expression soon T_T
-    b 7a "If you say so..."
+    b 8a "If you say so..."
 
     $ char_unlock("amelia")
     $ char_unlock("bella")
@@ -518,6 +518,8 @@ label c1_scene2:
 
 label c1_scene3:
     scene black with dissolve
+
+    stop ambience
 
     "Scene 3 (amelia sick scene)"
 
@@ -529,6 +531,7 @@ label c1_scene3:
 
     # i think we're gonna transition into this cutscene from the tutorial minigame
     # so we may not need the intro section? -snail
+    #ahh, true true -jade
 
     "Anatasia lights up the candles and the fireplace in the room before approaching the bed."
 
@@ -554,6 +557,7 @@ label c1_scene3:
     a "It’s just that I keep getting these headaches and I can’t think straight."
     #bc she aint straight LMAO -jade
     # ayooooo -snail
+    #( ͡° ͜ʖ ͡°) -jade
 
     a "B-but, I’ll be fine! J-just give me a few minutes and I’ll be doing perfect work."
 
@@ -568,48 +572,337 @@ label c1_scene3:
     scene black with dissolve
     #shrug -jade
     # i think this transition should be fine- check with luna tho lol -snail
+    #ok -jade
+    play sound clothes_rustle volume 1.5
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     return
 
 label c1_fetch1:
+    
+    scene bg hallway with cfade
+    #TODO: change this later maybe LMAO
+
     "Fetch quest 1"
+
+    play ambience ballroom_ambience
+
+    show npc2 at l1_4
+    show mc 1b at r1_4
+
+    n2 "Hey! You there. Bring me a bottle of red wine. The finest quality only!"
+
+    # TODO mark 1st part as done
+    
+    "placeholder: fetch quest gameplay, in kitchen"
+    
+    #after item is obtained, interacting with nobleman again triggers this
+
+    # TODO call c1_give_item_prompt(insert npc, "wine_bottle")
+
+    s 1b "Your wine, sir."
+
+    n2 "Ah, perfect. Just the type I was looking for."
+
+    # TODO mark 2nd part as done, remove wine from inventory
+
     return # TODO jump mini_main
 
 label c1_fetch2:
+    
+    scene bg guestroom with cfade
+    #TODO: replace bg with ballroom maybe
+    
     "Fetch quest 2"
+
+    show npc1 at l1_5
+    show mc 1b at r1_5
+
+    n1 "Are you the head maid?"
+
+    s "Yes, I am."
+
+    n1 "Excellent. I need you to go to the laundry room and bring my jacket to me." 
+
+    n1 "It is the red one with the golden trim."
+
+    s "Affirmative, sir."
+
+    # TODO mark 1st part complete
+
+    #[mc goes to the laundry room.] 
+
+    #[mc sees a dark blue jacket, a black jacket, a red jacket, and a dark green jacket.]
+
+    "fetch quest stuff"
+
+    # TODO call c1_give_item_prompt(insert npc, "red_jacket")
+    
+    $ focus_on(["mc"])
+    "Anastasia returns to the ballroom with the jacket and hands it to the noble."
+
+    n1 "Hmph. It appears that these maids are somewhat competent." 
+
+    # TODO mark 2nd part complete, remove jacket from inventory
+
+    scene bg hallway with cfade
+    #TODO: replace bg w/ something else
+
+    show bella 8a at center
+    b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
+
+    show bella 8a at ein(.6,.2)
+    show mother 1a at offscreenright
+    show mother 1a at ein(.8,.8)
+    m "Bella?"
+
+    show bella 9a
+    #TODO: replace w/ shocked expression
+    b "Y-yes, Mother?"
+
+    $ focus_on(['mother'])
+    show mother 5a
+    pause .8
+    show mother 6a
+    m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
+
+    m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
+
+    b 8a "..."
+
+    m 6a "Make sure you finish the rest of your tasks." 
+
+    b 5a "...Yes, Mother."
+    #is this the right expression? -jade
+
     return # TODO jump mini_main
 
 label c1_fetch3:
+    
+    scene bg hallway with cfade
+    #TODO: change bg
+
     "Fetch quest 3"
+
+    show npc2 at l1_5
+    show npc3 at r1_5
+
+    n3 "Sir, did you need something?"
+
+    n2 "Are you the head maid? I only want service from the best around here."
+
+    n3 "No, sir."
+
+    n2 "Then what are you standing there for? Hurry up and find them!"
+
+    show mc 1b at r1_5
+    hide npc3
+    with dissolve
+
+    s "That would be me."
+
+    n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
+
+    #TODO mark 1st part complete
+
+    scene bg guestroom with cfade
+    #only for placeholder; not in actual game
+
+    show mc 1b at center
+    "fetch quest gameplay in kitchen; ask the chefs around the place to compile a list of the best desserts; After the tray is completed, scene triggers"
+
+    show mc 1b at ea(.8,.2)
+    show bella 4a at eaf(1.2,.8,.8)
+    b "So, these are the desserts? I’ll be taking it."
+
+    show bella 4a at eout(.8,1.4)
+    s 4a "???"
+    hide bella 4a
+
+    # TODO remove finished tray from inventory
+
+    #when mc returns to ballroom, next scene triggers"
+
+    scene bg hallway with cfade
+    #TODO: replace with ballroom times a billion
+
+    show bella 1a at r1_5
+    show npc2 at center
+
+    b "Here’s your cake, sir."
+
+    n2 "Perfect."
+
+    show bella at eout(.8,1.4)
+    b "Call me if you have any other requests, sir."
+
+    n2 "Yeah, yeah."
+    
+    hide bella 1a
+
+    n2 "Wait, did the maid always look like that?"
+
+    # TODO mark last part complete, set current room to ballroom
+
     return # TODO jump mini_main
 
 label c1_fetch4:
+    
+    scene bg guestroom with cfade
+    #TODO: replace with ballroom bg
+
     "Fetch quest 4"
+
+    show npc4 at l1_5
+    show mc 1b at r1_5
+
+    n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
+
+    s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
+
+    scene bg hallway with cfade
+    #placeholder: not in actual game
+
+    show npc3 at r1_5
+    show mc 1b at l1_5
+
+    n3 "I’ll make the food for you."
+
+    n3 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
+
+    s "..."
+
+    n3 "...Is that a yes?"
+
+    s "..."
+
+    n3 "Um, okay, I guess."
+
+    "some time later..."
+
+    s "Is the food finished?"
+
+    n3 "Oh, I gave it to Bella."
+
+    s 4b "...Bella?"
+
+    n3 "Yeah, she said that she would take the food for you."
+
+    s "I see. Thank you for telling me."
+    
+    # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
+    scene bg guestroom with cfade
+
+    show npc4 at l1_5
+    show bella 1a at r1_5
+
+    n4 "So there is the possibility of good food. Tell your master to add Bertrose food on the menu next time, or else I’m not attending."
+
+    show npc4 at eout(.8,-1.0)
+
+    b "Of course, ma’am."
+
+    show bella 1a at ein(1.2,.2)
+    show mc 1b at einf(1.2,.9,.8)
+
+    pause 1.2
+
     menu:
-        "Bella confrontation"
+
+        b 5a "...Hmmm?"
+
+        # TODO mark part as complete/set room to ballroom
 
         "Do nothing":
-            "mc does nothing"
+
+            b 10a "What are you staring at? Don’t you have work to do as the head maid?"
+
+            show bella 10a at eout(1.2,-.8)
+
+            $ focus_on(['bella'])
+
+            "Bella leaves to complete more tasks."
+
+            hide bella 10a
+
         "Confront Bella":
-            "mc confronts"
+
+            s 1b "Why have you been taking my tasks?"
+
+            b 1a "Oh, it’s you." 
+
+            b 5a "You already have enough errands to do as a head maid, why shouldn’t {i}I{/i} be able to take up a few of them?"
+
+            b 6a "You must be proud, huh?"
+
+            b "Finding every little nitpick to report others on just because you’re the head maid. Why don’t you go do that while I do the real tasks?"
+
+            b "You don’t even understand what it means to be punished."
+
+            show bella 5a at eout(.8,-.8)
+
+            $ focus_on(['bella'])
+
             $ c1_saw_bella_watch = True
+
+            "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
+
+            hide bella 5a
+
             menu:
-                "Bella drops pocketwatch"
 
                 "Leave it behind":
+
+                    "skill issue lmao"
+
                     pass # This ends the scene
                 "Pick it up":
+
+                    "you got Bella's pocket watch! yippee!"
+
                     $ c1_has_bella_watch = True
     return # TODO jump mini_main
 
 label c1_scene5:
+    
+    scene bg guestroom with cfade
+    #TODO: replace w/ ballroom bg
+    
     "Scene 5"
+
+    show mc 1a at center
+    $ focus_on(['mc'])
+    "Anastasia goes to the ballroom and looks out a window. There’s an intense blizzard outside."
+
+    show mc 1b
+    $ focus_on(['mc'])
+    "Anastasia looks at the pocket watch. It’s time."
+
+    scene bg hallway with cfade
+
+    show mc 1b at offscreenleft
+    show mc 1b at ein(1.3,.2)
+    show mother 1a at r1_5
+
+    $ focus_on(['mc'])
+    "Anastasia walks away and goes to look for Mother, who waves her over."
+
+    m "Anastasia, please inform the rest of the maids to go to Room 7 for the inspection."
+
+    s "Yes, Mother."
+
     return
 
 label c1_scene6:
+    
+    scene bg guestroom with cfade
+
     menu:
         "Mother inspection"
+
+
+
+
         "Yes":
             menu:
                 "Who was it?"

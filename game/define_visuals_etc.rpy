@@ -205,6 +205,7 @@ init:
 # story
 define audio.glass_break_sfx = "<from 31.4 to 32>a lot of glass breaking.mp3"
 define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
+define audio.clothes_rustle = "<from 0.5 to 3>fabric-rustling-and-sliding-25971.mp3"
 # minigame
 define audio.button_click_sfx = "btn_click_light_2.mp3"
 define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
