@@ -614,11 +614,11 @@ label c1_scene6:
             menu:
                 "Who was it?"
                 "Amelia":
-                    call c1_amelia_ending
+                    call c1_amelia_ending from _call_c1_amelia_ending
                 "Bella" if c1_has_bella_watch:
-                    call c1_bella_ending
+                    call c1_bella_ending from _call_c1_bella_ending
                 "Anastasia":
-                    call c1_mc_ending
+                    call c1_mc_ending from _call_c1_mc_ending
         "No":
             menu:
                 "Are you sure you did not?"
@@ -626,20 +626,20 @@ label c1_scene6:
                     menu:
                         "Who was it?"
                         "Amelia":
-                            call c1_amelia_ending
+                            call c1_amelia_ending from _call_c1_amelia_ending_1
                         "Bella" if c1_has_bella_watch:
-                            call c1_bella_ending
+                            call c1_bella_ending from _call_c1_bella_ending_1
                 "Yes":
                     menu:
                         "Were there any idle maids?"
                         "Yes":
                             menu:
                                 "Amelia":
-                                    call c1_amelia_ending
+                                    call c1_amelia_ending from _call_c1_amelia_ending_2
                                 "Bella" if c1_has_bella_watch:
-                                    call c1_bella_ending
+                                    call c1_bella_ending from _call_c1_bella_ending_2
                                 "Anastasia":
-                                    call c1_mc_ending
+                                    call c1_mc_ending from _call_c1_mc_ending_1
                         "No":
                             menu:
                                 "Did you see anything unusual?"
@@ -647,34 +647,34 @@ label c1_scene6:
                                     menu:
                                         "What was that?"
                                         "Amelia":
-                                            call c1_amelia_ending
+                                            call c1_amelia_ending from _call_c1_amelia_ending_3
                                         "Bella" if c1_has_bella_watch:
-                                            call c1_bella_ending
+                                            call c1_bella_ending from _call_c1_bella_ending_3
                                 "No":
                                     menu:
                                         "Who would you suspect?"
                                         "Amelia":
-                                            call c1_amelia_ending(c1_justify_blame=False)
+                                            call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
                                         "Bella" if c1_has_bella_watch:
-                                            call c1_bella_ending(c1_justify_blame=False)
+                                            call c1_bella_ending(c1_justify_blame=False) from _call_c1_bella_ending_4
                                         "Anastasia":
-                                            call c1_mc_ending
+                                            call c1_mc_ending from _call_c1_mc_ending_2
         "Say nothing":
             menu:
                 "Who was it?"
                 "Amelia":
-                    call c1_amelia_ending
+                    call c1_amelia_ending from _call_c1_amelia_ending_5
                 "Bella" if c1_has_bella_watch:
-                    call c1_bella_ending
+                    call c1_bella_ending from _call_c1_bella_ending_5
                 "Anastasia":
-                    call c1_mc_ending
+                    call c1_mc_ending from _call_c1_mc_ending_3
                 "Say nothing":
                     menu:
                         "bella accuses, mother asks 'is this true?'"
                         "Bella" if c1_has_bella_watch:
-                            call c1_bella_ending(c1_blame_bella_dialogue=False)
+                            call c1_bella_ending(c1_blame_bella_dialogue=False) from _call_c1_bella_ending_6
                         "Say nothing":
-                            call c1_mc_ending("gets_accused")
+                            call c1_mc_ending("gets_accused") from _call_c1_mc_ending_4
     return
 
 label c1_amelia_ending(c1_justify_blame=True):
@@ -835,7 +835,7 @@ label chap1_test_bgs:
         'leave for now':
             return
     
-    call chap1_test_spritesall
+    call chap1_test_spritesall from _call_chap1_test_spritesall
 
     jump bgprompt
 
@@ -1061,7 +1061,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
     $ ichoice = 'air'
 
     while True:
-        call give_item_prompt
+        call give_item_prompt from _call_give_item_prompt
         if not ichoice or ichoice == goal_choice:
             return
         if ichoice == 'dish_dirty':
@@ -1201,7 +1201,7 @@ label chap1_test_t1:
     # n2 'welcome to the seal room, please deposit a test item 3'
 
     # call c1_give_item_prompt(n2, 'test_3')
-    call c1_give_item_prompt_HACKED(n2)
+    call c1_give_item_prompt_HACKED(n2) from _call_c1_give_item_prompt_HACKED
 
     if ichoice == 'test_3':
         n2 'good job, you chose the right item'
