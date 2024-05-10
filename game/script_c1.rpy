@@ -1556,7 +1556,7 @@ label chap1_test_t2_idle:
     jump mini_main
 
 label chap1_test_t6:
-    scene bg guestroom
+    scene bg guestroom with cfade
 
     show amelia 6a at l1_3
 
@@ -1589,22 +1589,31 @@ label task_c1_toggle:
 
     $ hinttext = levelHints['toggle_idle']
 
+    show screen mgame_overlay
+
     $ game_ret = 'refresh'
-    while game_ret != 'leave' and game_ret != 'done':
+    while game_ret == 'refresh':
         call screen mgame_toggle
         $ game_ret = _return
 
     if game_ret == 'done':
-        # kind of a cheesed method of fading out but oh well
         show screen mgame_toggle
-        hide screen mgame_toggle with cfade
+        hide screen mgame_toggle with dissolve
+    
+    if game_ret == 'done':
+        # kind of a cheesed method of fading out but oh well
+        hide screen mgame_overlay
+        scene bg joyce why
+        with cfade
         "task 4 complete (hooray!!!)"
     else:
+        hide screen mgame_overlay
+        scene bg hellway
+        with cfade
         "task 4 not complete (not hooray!!!)"
     
     $ docurtask(is_win_listeq())
 
-    $ mgame_needs_fade = True
     jump mini_main
 
 label task_c1_waterpour:
@@ -1612,16 +1621,17 @@ label task_c1_waterpour:
 
     $ hinttext = levelHints['waterpour_idle']
 
+    show screen mgame_overlay
+
     $ game_ret = 'refresh'
-    while game_ret != 'leave' and game_ret != 'done':
+    while game_ret == 'refresh':
         call screen mgame_waterpour
         $ game_ret = _return
 
     $ docurtask(game_ret == 'done')
-    # if game_ret == 'done':
-    #     show screen mgame_waterpour
-
-    $ mgame_prevgame = 'mgame_waterpour'
+    if game_ret == 'done':
+        show screen mgame_waterpour
+        hide screen mgame_waterpour with dissolve
 
     jump mini_main
 
@@ -1639,16 +1649,18 @@ label task_c1_grabdishes:
 
     $ hinttext = levelHints['grabdishes_idle']
 
-    call screen mgame_dragdrop_dishes
+    show screen mgame_overlay
 
-    $ game_ret = _return
-
+    $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
     
-    $ docurtask(not 0 in mgame_try)
+    $ docurtask(game_ret == 'done')
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
+    if game_ret == 'done':
+        show screen mgame_dragdrop_dishes
+        hide screen mgame_dragdrop_dishes with dissolve
 
     jump mini_main
 
@@ -1660,8 +1672,8 @@ label task_c1_dropdishes:
             curgame['try'].append(0)
             curgame['drag'].append({
                 'n': str(i),
-                'xp': (1400 + (i * 50)),
-                'yp': 620,
+                'xp': (1200 + (i * 50)),
+                'yp': 390,
                 'im': curgame['im']
             })
         mgame_try = curgame['try']
@@ -1670,10 +1682,9 @@ label task_c1_dropdishes:
 
     $ hinttext = levelHints['dropdishes_idle']
 
-    call screen mgame_dragdrop_dishes
+    show screen mgame_overlay
 
-    $ game_ret = _return
-
+    $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
@@ -1683,6 +1694,9 @@ label task_c1_dropdishes:
         $ docurtask(True)
     else:
         $ docurtask(False, False)
+    if game_ret == 'done':
+        show screen mgame_dragdrop_dishes
+        hide screen mgame_dragdrop_dishes with dissolve
 
     jump mini_main
 

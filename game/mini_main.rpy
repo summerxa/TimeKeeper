@@ -265,6 +265,10 @@ screen mc_hintbox():
             vscrollbar_unscrollable "hide"
             text hinttext
 
+screen mini_overlay(curstate='main', gametype=None):
+    use mini_sidebar(curstate, gametype)
+    use mc_hintbox
+
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():
         add 'mini/mini_rect.png':
@@ -278,7 +282,7 @@ screen mini_screen():
 
     if curroom == 'main':
         use mini_mapbase
-        use mini_sidebar
+        use mini_overlay
         for bn, bt in roomButtons[curlevel].items():
             if bt['floor'] == curfloor:
                 use btn_room(bt, bn)
@@ -303,13 +307,12 @@ screen mini_screen():
                     for hn, ht in itemHolders[curlevel].items():
                         if curroom == ht['room']:
                             use btn_item(ht, hn)
-        use mini_sidebar('inroom')
+        use mini_overlay('inroom')
         if curroom in roomArrows[curlevel]:
             for ar in roomArrows[curlevel][curroom]:
                 use btn_roomarrow(ar, f"to_{ar['toroom']}_btn")
     
     use floor_sidebar('game')
-    use mc_hintbox
 
 label mini_main():
     # TODO maybe hide quickmenu if its too obtrusive
@@ -326,13 +329,8 @@ label mini_main():
 
     # time is not up, still remaining tasks
     if curtime < tlimit and (taskq or taskrq):
-        if mgame_prevgame:
-            hide screen expression mgame_prevgame
-            $ mgame_prevgame = None
-        if mgame_needs_fade:
-            $ mgame_needs_fade = False
-            call screen mini_screen with cfade
-        elif was_from_roomchange():
+        hide screen mgame_overlay
+        if was_from_roomchange():
             call screen mini_screen
         else:
             call screen mini_screen with cfade
@@ -364,7 +362,6 @@ label mini_launch(startroom='main', startfloor=0):
         tlimit = levelInfo[curlevel]['tf']
         invitems = ['air', 'air']
         invstacks = [1, 1]
-        mgame_needs_fade = False
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
             if 'hidden' in bt:

@@ -18,20 +18,22 @@ init python:
         store.curgame['drag'][dragnum]['yp'] = drags[0].y
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
-            return 'refresh'
+            return 'done' if not 0 in store.mgame_try else 'refresh'
         return 'none'
 
     def dragged_grabdishes(drags, drop):
         ret = dishes_act(drags, drop)
-        if ret == 'refresh':
+        if ret == 'refresh' or ret == 'done':
             update_inv(otheritem='dish_dirty', otherstack=1)
             return ret
+        return 'refresh'
     
     def dragged_dropdishes(drags, drop):
         ret = dishes_act(drags, drop)
-        if ret == 'refresh':
+        if ret == 'refresh' or ret == 'done':
             update_inv(myitem='dish_dirty', mystack=1)
             return ret
+        return 'refresh'
     
     def waterpour_ok(cups):
         all_colors = []
@@ -56,14 +58,6 @@ init python:
         store.curgame['cups'][dest]['colors'].append(color)
         return waterpour_ok(curgame['cups'])
 
-    def waterpour_act1(sel, dest):
-        cups = []
-        for cup in curgame['cups']:
-            cups.append({'colors': cup['colors'].copy()})
-        color = cups[sel]['colors'].pop()
-        cups[dest]['colors'].append(color)
-        return waterpour_ok(cups)
-
     def is_win_listeq():
         for i in range(len(store.mgame_try)):
             if store.mgame_try[i] != store.mgame_goal[i]:
@@ -74,8 +68,7 @@ init python:
         return store.mgame_try.count(tocount) == store.mgame_goal
 
 screen mgame_overlay():
-    use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox
+    use mini_overlay('mgame', curgame['type'])
 
 screen mgame_dragdrop():
     draggroup:
@@ -100,8 +93,6 @@ screen mgame_dragdrop():
                 dragged items_dragged
                 drag_raise True
                 child d['im']
-    
-    use mgame_overlay
 
 screen mgame_dragdrop_dishes():
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
@@ -120,15 +111,15 @@ screen mgame_dragdrop_dishes():
                 droppable True
                 add 'mini/mini_rect.png':
                     xysize(d['w'], d['h'])
-                    at opac(0.0)
+                    # at opac(0.0)
         
         # drag
         for d in curgame['drag']:
             if not mgame_try[int(d['n'])]:
                 drag:
                     drag_name d['n']
-                    xpos d['xp'] xanchor 0.5
-                    ypos d['yp'] yanchor 0.5
+                    xpos d['xp'] xanchor 0.
+                    ypos d['yp'] yanchor 0.
                     draggable True
                     droppable False
                     if curgame['type'] == 'grabdishes':
@@ -144,8 +135,6 @@ screen mgame_dragdrop_dishes():
                 xpos overlay_itm['xp']
                 ypos overlay_itm['yp']
                 xanchor 0.5 yanchor 0.5
-    
-    use mgame_overlay
 
 screen mgame_toggle():
     for i in range(len(curgame['goal'])):
@@ -156,8 +145,6 @@ screen mgame_toggle():
             yanchor 0.5
             auto (curgame['on' if mgame_try[i] else 'off'][i])
             action Function(toggle_act, i)
-
-    use mgame_overlay
 
 screen mgame_waterpour():
     default sel = -1
@@ -175,35 +162,19 @@ screen mgame_waterpour():
             xanchor 0.5 yanchor 0.5
             auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
             activate_sound audio.waterpour_click_sfx
-            if waterpour_act1(sel, i) == 'done':
-                action If(
-                    sel < 0, true=SetScreenVariable('sel', i), false=If(
-                        sel == i, true=SetScreenVariable('sel', -1), false=If(
-                            len(c['colors']) >= 4,
-                            true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
-                            false=[
-                                Function(waterpour_act, sel=sel, dest=i),
-                                SetScreenVariable('sel', -1),
-                                SetVariable('hinttext', levelHints['waterpour_idle']),
-                                With(cfade)
-                            ]
-                        )
+            action If(
+                sel < 0, true=SetScreenVariable('sel', i), false=If(
+                    sel == i, true=SetScreenVariable('sel', -1), false=If(
+                        len(c['colors']) >= 4,
+                        true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
+                        false=[
+                            Function(waterpour_act, sel=sel, dest=i),
+                            SetScreenVariable('sel', -1),
+                            SetVariable('hinttext', levelHints['waterpour_idle'])
+                        ]
                     )
                 )
-            else:
-                action If(
-                    sel < 0, true=SetScreenVariable('sel', i), false=If(
-                        sel == i, true=SetScreenVariable('sel', -1), false=If(
-                            len(c['colors']) >= 4,
-                            true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
-                            false=[
-                                Function(waterpour_act, sel=sel, dest=i),
-                                SetScreenVariable('sel', -1),
-                                SetVariable('hinttext', levelHints['waterpour_idle'])
-                            ]
-                        )
-                    )
-                )
+            )
         for j, curcolor in list(enumerate(c['colors'])):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
                 xpos c['xp']
@@ -214,5 +185,3 @@ screen mgame_waterpour():
             xpos c['xp']
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
-    
-    use mgame_overlay
