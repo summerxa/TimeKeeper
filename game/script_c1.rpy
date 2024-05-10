@@ -1649,8 +1649,6 @@ label task_c1_grabdishes:
 
     $ hinttext = levelHints['grabdishes_idle']
 
-    show screen mgame_overlay
-
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes
@@ -1659,7 +1657,8 @@ label task_c1_grabdishes:
     $ docurtask(game_ret == 'done')
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
     if game_ret == 'done':
-        show screen mgame_dragdrop_dishes
+        show screen mgame_dragdrop_dishes(shaded=False)
+        show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
 
     jump mini_main
@@ -1682,8 +1681,6 @@ label task_c1_dropdishes:
 
     $ hinttext = levelHints['dropdishes_idle']
 
-    show screen mgame_overlay
-
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes
@@ -1695,7 +1692,8 @@ label task_c1_dropdishes:
     else:
         $ docurtask(False, False)
     if game_ret == 'done':
-        show screen mgame_dragdrop_dishes
+        show screen mgame_dragdrop_dishes(shaded=False)
+        show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
 
     jump mini_main
@@ -1704,6 +1702,16 @@ label task_c1_laundry:
     scene hellway
 
     "hi this is the laundry room (minigame is wip)"
+
+    python:
+        # TODO generate times
+        if not 'try' in curgame:
+            curgame['try'] = []
+            # TODO generate clothes
+            # for i in range(len(mgame_goal)):
+            #     curgame['try'].append(False)
+        mgame_try = curgame['try']
+
 
     $ docurtask(True)
 

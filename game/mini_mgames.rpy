@@ -67,8 +67,8 @@ init python:
     def is_win_count(tocount):
         return store.mgame_try.count(tocount) == store.mgame_goal
 
-screen mgame_overlay():
-    use mini_overlay('mgame', curgame['type'])
+screen mgame_overlay(shaded=True):
+    use mini_overlay('mgame', curgame['type'], shaded)
 
 screen mgame_dragdrop():
     draggroup:
@@ -94,7 +94,7 @@ screen mgame_dragdrop():
                 drag_raise True
                 child d['im']
 
-screen mgame_dragdrop_dishes():
+screen mgame_dragdrop_dishes(shaded=True):
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
         add curgame['in_sink']['im']:
             xpos curgame['in_sink']['xp'] xanchor 0.5
@@ -111,7 +111,7 @@ screen mgame_dragdrop_dishes():
                 droppable True
                 add 'mini/mini_rect.png':
                     xysize(d['w'], d['h'])
-                    # at opac(0.0)
+                    at opac(0.0)
         
         # drag
         for d in curgame['drag']:
@@ -129,6 +129,8 @@ screen mgame_dragdrop_dishes():
                     drag_raise True
                     child d['im']
         
+    use mgame_overlay(shaded=shaded)
+
     if 'overlay' in curgame:
         for overlay_itm in curgame['overlay']:
             add overlay_itm['im']:

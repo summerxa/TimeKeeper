@@ -242,12 +242,13 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 
-screen mc_hintbox():
-    add 'mc minigame':
-        zoom 1.05
-        xalign 1.07
-        yalign 0.
-        matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
+screen mc_hintbox(shaded=True):
+    if shaded:
+        add 'mc minigame':
+            zoom 1.05
+            xalign 1.07
+            yalign 0.
+            matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
     add 'mc minigame':
         zoom 1.05
         xalign 1.1
@@ -265,9 +266,9 @@ screen mc_hintbox():
             vscrollbar_unscrollable "hide"
             text hinttext
 
-screen mini_overlay(curstate='main', gametype=None):
+screen mini_overlay(curstate='main', gametype=None, shaded=True):
     use mini_sidebar(curstate, gametype)
-    use mc_hintbox
+    use mc_hintbox(shaded)
 
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():
