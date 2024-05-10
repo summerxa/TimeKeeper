@@ -42,6 +42,10 @@ init python:
     def is_win_count(tocount):
         return store.mgame_try.count(tocount) == store.mgame_goal
 
+screen mgame_overlay():
+    use mini_sidebar('mgame', curgame['type'])
+    use mc_hintbox
+
 screen mgame_dragdrop():
     draggroup:
         # drop
@@ -66,7 +70,7 @@ screen mgame_dragdrop():
                 drag_raise True
                 child d['im']
     
-    use mini_sidebar('mgame', curgame['type'])
+    use mgame_overlay
 
 screen mgame_dragdrop_dishes():
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
@@ -110,8 +114,7 @@ screen mgame_dragdrop_dishes():
                 ypos overlay_itm['yp']
                 xanchor 0.5 yanchor 0.5
     
-    use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox
+    use mgame_overlay
 
 screen mgame_toggle():
     for i in range(len(curgame['goal'])):
@@ -123,8 +126,7 @@ screen mgame_toggle():
             auto (curgame['on' if mgame_try[i] else 'off'][i])
             action ToggleDict(mgame_try, i)
 
-    use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox
+    use mgame_overlay
 
 screen mgame_waterpour():
     default sel = -1
@@ -166,5 +168,4 @@ screen mgame_waterpour():
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
     
-    use mini_sidebar('mgame', curgame['type'])
-    use mc_hintbox
+    use mgame_overlay

@@ -1691,3 +1691,12 @@ label task_c1_dropdishes:
         $ docurtask(False, False)
 
     jump mini_main
+
+label task_c1_laundry:
+    scene kitchen
+
+    "hi this is the laundry room, defs not the kitchen (minigame is wip)"
+
+    $ docurtask(True)
+
+    jump mini_main

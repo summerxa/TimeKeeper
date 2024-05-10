@@ -750,6 +750,21 @@ default tasks = {
             'scorebonus': 1,
             'scorepenalty': 1,
             'tags': []
+        },
+        'laundry1': {
+            'name': 'laundry1',
+            'desc': 'Do the laundry :D',
+            'btn': 'laundry_1',
+            'tlabel': 'task_c1_laundry',
+            'tcost': 20,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 1,
+            'scorepenalty': 1,
+            'tags': [],
+            'game': {
+                'type': 'laundry'
+            }
         }
     }
 }
