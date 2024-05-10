@@ -66,6 +66,9 @@ default cur_hov = None
 default hinttext = 'Welcome.'
 default task_failed_return = False
 
+default mgame_needs_fade = False
+default mgame_prevgame = None
+
 # --- MINIGAME TASK STUFF ---
 
 default mgame_try = None

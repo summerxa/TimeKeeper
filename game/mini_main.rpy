@@ -326,10 +326,16 @@ label mini_main():
 
     # time is not up, still remaining tasks
     if curtime < tlimit and (taskq or taskrq):
-        if not was_from_roomchange():
+        if mgame_prevgame:
+            hide screen expression mgame_prevgame
+            $ mgame_prevgame = None
+        if mgame_needs_fade:
+            $ mgame_needs_fade = False
             call screen mini_screen with cfade
-        else:
+        elif was_from_roomchange():
             call screen mini_screen
+        else:
+            call screen mini_screen with cfade
     
         $ tolabel = _return
 
@@ -358,6 +364,7 @@ label mini_launch(startroom='main', startfloor=0):
         tlimit = levelInfo[curlevel]['tf']
         invitems = ['air', 'air']
         invstacks = [1, 1]
+        mgame_needs_fade = False
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
             if 'hidden' in bt:

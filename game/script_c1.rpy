@@ -1538,7 +1538,6 @@ label chap1_test_t2:
         "task 2 not complete :|"
     $ docurtask(is_win_listeq())
 
-    $ show_hint = False
     jump mini_main
 
 label c1_default_idle:
@@ -1590,16 +1589,22 @@ label task_c1_toggle:
 
     $ hinttext = levelHints['toggle_idle']
 
-    call screen mgame_toggle
-    
-    if is_win_listeq():
+    $ game_ret = 'refresh'
+    while game_ret != 'leave' and game_ret != 'done':
+        call screen mgame_toggle
+        $ game_ret = _return
+
+    if game_ret == 'done':
+        # kind of a cheesed method of fading out but oh well
+        show screen mgame_toggle
+        hide screen mgame_toggle with cfade
         "task 4 complete (hooray!!!)"
     else:
         "task 4 not complete (not hooray!!!)"
     
     $ docurtask(is_win_listeq())
 
-    $ show_hint = False
+    $ mgame_needs_fade = True
     jump mini_main
 
 label task_c1_waterpour:
@@ -1607,26 +1612,16 @@ label task_c1_waterpour:
 
     $ hinttext = levelHints['waterpour_idle']
 
-    call screen mgame_waterpour
+    $ game_ret = 'refresh'
+    while game_ret != 'leave' and game_ret != 'done':
+        call screen mgame_waterpour
+        $ game_ret = _return
 
-    python:
-        all_colors = []
-        failed = False
-        for cup in curgame['cups']:
-            cup_colors = cup['colors']
-            if not len(cup_colors):
-                continue
-            curcolor = cup_colors[0]
-            for c in cup_colors:
-                if c in all_colors or c != curcolor:
-                    failed = True
-                    break
-            if failed or curcolor in all_colors:
-                failed = True
-                break
-            all_colors.append(curcolor)
+    $ docurtask(game_ret == 'done')
+    # if game_ret == 'done':
+    #     show screen mgame_waterpour
 
-    $ docurtask(not failed)
+    $ mgame_prevgame = 'mgame_waterpour'
 
     jump mini_main
 
@@ -1655,7 +1650,6 @@ label task_c1_grabdishes:
     $ docurtask(not 0 in mgame_try)
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
 
-    $ show_hint = False
     jump mini_main
 
 label task_c1_dropdishes:
@@ -1693,9 +1687,9 @@ label task_c1_dropdishes:
     jump mini_main
 
 label task_c1_laundry:
-    scene kitchen
+    scene hellway
 
-    "hi this is the laundry room, defs not the kitchen (minigame is wip)"
+    "hi this is the laundry room (minigame is wip)"
 
     $ docurtask(True)
 
