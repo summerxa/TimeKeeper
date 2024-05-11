@@ -221,12 +221,12 @@ transform rot(a):
 
 style fancy_font:
     color '#906548'
-    font 'Nephilm.otf'
+    font 'Maitree-Regular.ttf'
     textalign 0.5
 
 style plaque1_font:
     color '#000000'
-    font 'Nephilm.otf'
+    font 'Maitree-Regular.ttf'
     textalign 0.5
 
 transform highlight_hov(hov, myname):
