@@ -20,6 +20,8 @@ label c1_scene1:
     $ char_unlock("mc") 
     $ char_unlock("mother")
 
+    $ node_unlock('c1_scene1')
+
     return
 
 #animations:
@@ -383,6 +385,8 @@ label c1_scene2:
     pause .5
     m "Don’t disappoint me, Anastasia."
 
+    $ node_unlock('c1_scene2_tasks')
+
     scene hallway with cfade
     #TODO: replace with ballroom bg later
 
@@ -576,6 +580,8 @@ label c1_scene3:
     play sound clothes_rustle volume 1.5
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
+    $ node_unlock('c1_scene3')
+
     return
 
 label c1_fetch1:
@@ -617,6 +623,8 @@ label c1_fetch1_end:
     n2 "Ah, perfect. Just the type I was looking for."
 
     # TODO mark 2nd part as done, remove wine from inventory
+    
+    $ node_unlock('c1_fetch1')
 
     return # TODO jump mini_main
 
@@ -833,6 +841,8 @@ label c1_fetch4:
 
     pause 1.2
 
+    $ node_unlock('c1_fetch4')
+
     menu:
 
         b 5a "...Hmmm?"
@@ -848,6 +858,8 @@ label c1_fetch4:
             $ focus_on(['bella'])
 
             "Bella leaves to complete more tasks."
+
+            $ node_unlock('c1_fetch4_n')
 
             hide bella
 
@@ -872,6 +884,8 @@ label c1_fetch4:
             $ c1_saw_bella_watch = True
 
             "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
+            
+            $ node_unlock('c1_fetch4_c')
 
             hide bella
 
@@ -881,10 +895,14 @@ label c1_fetch4:
 
                     "skill issue lmao"
 
+                    $ node_unlock('c1_fetch4_c_leave')
+
                     pass # This ends the scene
                 "Pick it up":
 
                     "you got Bella's pocket watch! yippee!"
+                    
+                    $ node_unlock('c1_fetch4_c_pickup')
 
                     $ c1_has_bella_watch = True
     return # TODO jump mini_main
@@ -915,11 +933,15 @@ label c1_scene5:
 
     s "Yes, Mother."
 
+    $ node_unlock('c1_scene5')
+
     return
 
 label c1_scene6:
     
     scene bg guestroom with cfade
+
+    $ node_unlock('c1_scene6')
 
     menu:
         "Mother inspection"
@@ -1001,8 +1023,10 @@ label c1_amelia_ending(c1_justify_blame=True):
     else:
         "Mc accuses amelia with no reason"
     "blame amelia"
+    $ node_unlock('c1_amelia_blame')
     "amelia by herself"
     "amelia ded"
+    $ node_unlock('c1_amelia_end')
     return
 
 label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
@@ -1013,18 +1037,23 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
         else:
             "Mc accuses bella with no reason"
     "blame bella"
+    $ node_unlock('c1_bella_blame')
     "hear abt ded bella"
+    $ node_unlock('c1_bella_end')
     return
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
     $ c1_ending = "mc " + c1_mc_type
     "mc takes/gets blame"
+    $ node_unlock('c1_mc_blame')
     "mother leaves; amelia and bella talk to mc"
+    $ node_unlock('c1_mc_end')
     return
 
 label c1_scene7:
     "Reached ending: [c1_ending]"
     "The end of the chapter"
+    $ node_unlock('c1_scene7')
     return
 
 label chap1_test_sprites:

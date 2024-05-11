@@ -2,6 +2,10 @@ init python:
     # --- CHAR MENU
     def char_unlock(c):
         persistent.chars_unlocked.add(c)
+    
+    def node_unlock(n_):
+        persistent.nodes_unlocked.add(n_)
+        nodes_current.add(n_)
 
     def char_kill(c):
         store.chars_current[c]['alive'] = False
@@ -64,7 +68,6 @@ default notes_text_s = ''
 default cur_hov = None
 
 default hinttext = 'Welcome.'
-default task_failed_return = False
 
 # --- MINIGAME TASK STUFF ---
 
@@ -74,5 +77,7 @@ default mgame_goal = None
 # --- CHAR MENU ---
 
 default chars_current = {}
+default nodes_current = set()
 
 default persistent.chars_unlocked = set()
+default persistent.nodes_unlocked = set()

@@ -644,6 +644,64 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     default multi_page = 0
     default multi_max = (single_max // pg_m) + min(1, single_max % pg_m)
 
+    # endings menu
+    default endings_data = {
+        'c1_scene1': {
+            'name': 'Memory'
+        },
+        'c1_scene2_tasks': {
+            'name': 'Task Introduction'
+        },
+        'c1_scene3': {
+            'name': 'Amelia Sick'
+        },
+        'c1_fetch1': {
+            'name': 'Fetch Quest 1'
+        },
+        'c1_fetch4': {
+            'name': 'Fetch Quest 4'
+        },
+        'c1_fetch4_n': {
+            'name': 'Do Nothing'
+        },
+        'c1_fetch4_c': {
+            'name': 'Confront Bella'
+        },
+        'c1_fetch4_c_pickup': {
+            'name': 'Pick up'
+        },
+        'c1_fetch4_c_leave': {
+            'name': 'Leave'
+        },
+        'c1_scene5': {
+            'name': 'Scene 5'
+        },
+        'c1_scene6': {
+            'name': 'Scene 6'
+        },
+        'c1_amelia_blame': {
+            'name': 'Blame Amelia'
+        },
+        'c1_amelia_end': {
+            'name': 'Amelia Dies'
+        },
+        'c1_bella_blame': {
+            'name': 'Blame Bella'
+        },
+        'c1_bella_end': {
+            'name': 'Bella Dies'
+        },
+        'c1_mc_blame': {
+            'name': 'Blame Anastasia'
+        },
+        'c1_mc_end': {
+            'name': 'Amelia and Bella Talk'
+        },
+        'c1_scene7': {
+            'name': 'Scene 7'
+        }
+    }
+
     use game_menu(_("Progress")):
 
         style_prefix "about"
@@ -674,7 +732,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 if p_tab == "characters":
                     use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu
+                    use endings_menu(endings_data)
                 elif p_tab == "cgs":
                     use cgs_menu
 
@@ -763,10 +821,22 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen endings_menu():
+screen endings_menu(endings_data):
     tag menu
-    
-    text "pretend there's something really cool here... (endings edition)"
+
+    viewport:
+        # mousewheel "horizontal"
+        mousewheel True
+        draggable True
+        scrollbars "horizontal"
+        vscrollbar_unscrollable "hide"
+        vbox:
+            for n_ in persistent.nodes_unlocked:
+                if not main_menu and n_ in nodes_current:
+                    text f"{endings_data[n_]['name']}":
+                        style 'fancy_font'
+                else:
+                    text f"{endings_data[n_]['name']}"
 
 screen cgs_menu():
     tag menu
