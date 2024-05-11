@@ -1704,15 +1704,59 @@ label task_c1_laundry:
     "hi this is the laundry room (minigame is wip)"
 
     python:
-        # TODO generate times
         if not 'try' in curgame:
-            curgame['try'] = []
-            # TODO generate clothes
-            # for i in range(len(mgame_goal)):
-            #     curgame['try'].append(False)
+            curgame['times'] = [0, 0, 0]
+            times = curgame['times']
+            for i in range(3):
+                tim = renpy.random.randint(30, 60)
+                while tim in times:
+                    tim = renpy.random.randint(30, 60)
+                times[i] = tim
+
+            curgame['type_to_ind'] = {
+                0: times.index(min(times)),
+                2: times.index(max(times))
+            }
+            for i in range(3):
+                if times[i] != min(times) and times[i] != max(times):
+                    curgame['type_to_ind'][1] = i
+                    break
+
+            tot = renpy.random.randint(4, 8)
+            curgame['try'] = [-1] * tot
+            curgame['goal'] = [0] * tot
+            curgame['drag'] = []
+            tot_running = 0
+            for i in range(3):
+                if tot - tot_running < 2 or i == 2:
+                    num = tot - tot_running
+                else:
+                    num = renpy.random.randint(1, min(3, tot - tot_running))
+                for j in range(num):
+                    curgame['drag'].append({
+                        'xp': renpy.random.randint(350, 1300),
+                        'yp': renpy.random.randint(540, 800),
+                        'type': i
+                    })
+                    curgame['goal'][tot_running] = curgame['type_to_ind'][i]
+                    tot_running += 1
         mgame_try = curgame['try']
+        mgame_goal = curgame['goal']
 
+    $ hinttext = levelHints['laundry_idle']
 
-    $ docurtask(True)
+    # TODO modify the rest of this code lmao
+
+    # $ game_ret = 'refresh'
+    # while game_ret == 'refresh':
+    #     call screen mgame_dragdrop_dishes
+    #     $ game_ret = _return
+    
+    # $ docurtask(game_ret == 'done')
+    # $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
+    # if game_ret == 'done':
+    #     show screen mgame_dragdrop_dishes(shaded=False)
+    #     show screen mgame_overlay
+    #     hide screen mgame_dragdrop_dishes with dissolve
 
     jump mini_main
