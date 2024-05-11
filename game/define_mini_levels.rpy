@@ -42,7 +42,8 @@ default levelHints = {
     'dropdishes_idle': "Dirty dish tower!!!!",
     'toggle_idle': "Meow",
     'waterpour_idle': "Time to cook :3",
-    'waterpour_cup_full': "This glass is full; I can't pour into it."
+    'waterpour_cup_full': "This glass is full; I can't pour into it.",
+    'laundry_idle': "Woahhh it's laundry :o"
 }
 
 default levelHelp = {
