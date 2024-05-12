@@ -1,6 +1,7 @@
 screen popup_button_close(xp, yp, screenname):
-    imagebutton:
-        auto 'mini/icon_map_mc_%s.png'
+    textbutton 'X':
+        text_color gui.hover_color
+        text_size 60
         xalign 1.
         yalign 0.
         action Hide(screenname)

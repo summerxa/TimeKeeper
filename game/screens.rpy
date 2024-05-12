@@ -75,6 +75,10 @@ style frame:
     padding gui.frame_borders.padding
     background Frame("gui/frame.png", gui.frame_borders, tile=gui.frame_tile)
 
+style hintbox_frame:
+    padding gui.frame_borders.padding
+    background Frame("mini/ui/mc_hintbox.png", gui.frame_borders, tile=gui.frame_tile)
+
 
 
 ################################################################################
@@ -985,7 +989,6 @@ screen prompt_savename(slot):
         input:
             xalign 0.5
             yalign 0.5
-            length 21
             value VariableInputValue('save_name')
         
         textbutton _('Save'):

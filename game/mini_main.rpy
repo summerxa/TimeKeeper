@@ -257,21 +257,13 @@ screen mc_hintbox(shaded=True):
     frame:
         xalign 0.9
         yalign 0.85
-        minimum (400, 250)
+        minimum (482, 288)
+        style 'hintbox_frame'
         fixed:
-            area (10, 10, 360, 200)
+            area (30, 30, 400, 200)
             text hinttext:
                 xalign 0.5 yalign 0.5
                 text_align 0.5
-        # viewport:
-        #     area (10, 10, 360, 200)
-        #     mousewheel True
-        #     draggable True
-        #     scrollbars "vertical"
-        #     vscrollbar_unscrollable "hide"
-        #     text hinttext:
-        #         text_align 0.5
-        #         xalign 0.5
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True):
     use mini_sidebar(curstate, gametype)
