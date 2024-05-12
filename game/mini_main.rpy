@@ -17,37 +17,37 @@ screen btn_room(bt, b_id):
         activate_sound audio.button_click_sfx
 
 screen btn_roomarrow(bt, hov_id):
-    default act = [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
-    
-    hbox:
+    button:
         if bt['dir'] == 'up':
             ypos 0.07
         else:
             ypos 0.90
         xpos bt['xp']
         xanchor 0.5 yanchor 0.5
-        spacing 0
-        imagebutton:
-            auto 'mini/ui/btn_room_down_%s.png'
+        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
+        hovered SetVariable('cur_hov', hov_id)
+        unhovered SetVariable('cur_hov', None)
+        activate_sound audio.button_click_sfx
+        vbox:
+            spacing -75
             if bt['dir'] == 'up':
-                at highlight_hov(cur_hov, hov_id), rot(180), zm(0.5)
+                add 'mini/ui/btn_room_down_idle.png':
+                    at highlight_hov(cur_hov, hov_id), rot(180), zm(0.5)
+                    xalign 0.5
+                text bt['btext']:
+                    xalign 0.5 text_align 0.5
+                    style 'fancy_font'
+                    size 40
+                    at highlight_hov(cur_hov, hov_id)
             else:
-                at highlight_hov(cur_hov, hov_id), rot(0), zm(0.5)
-            action act
-            xanchor 0.0 yanchor 0.5
-            ypos 0.5
-            hovered SetVariable('cur_hov', hov_id)
-            unhovered SetVariable('cur_hov', None)
-            activate_sound audio.button_click_sfx
-        textbutton bt['btext']:
-            action act
-            yalign 0.5
-            text_style 'fancy_font'
-            text_size 40
-            hovered SetVariable('cur_hov', hov_id)
-            unhovered SetVariable('cur_hov', None)
-            at highlight_hov(cur_hov, hov_id)
-            activate_sound audio.button_click_sfx
+                text bt['btext']:
+                    xalign 0.5 text_align 0.5
+                    style 'fancy_font'
+                    size 40
+                    at highlight_hov(cur_hov, hov_id)
+                add 'mini/ui/btn_room_down_idle.png':
+                    at highlight_hov(cur_hov, hov_id), rot(0), zm(0.5)
+                    xalign 0.5
 
 screen btn_tsk(bt, hov_id=None):
     if bt['curtask'] or not 'hidden' in bt:
@@ -258,13 +258,20 @@ screen mc_hintbox(shaded=True):
         xalign 0.9
         yalign 0.85
         minimum (400, 250)
-        viewport:
+        fixed:
             area (10, 10, 360, 200)
-            mousewheel True
-            draggable True
-            scrollbars "vertical"
-            vscrollbar_unscrollable "hide"
-            text hinttext
+            text hinttext:
+                xalign 0.5 yalign 0.5
+                text_align 0.5
+        # viewport:
+        #     area (10, 10, 360, 200)
+        #     mousewheel True
+        #     draggable True
+        #     scrollbars "vertical"
+        #     vscrollbar_unscrollable "hide"
+        #     text hinttext:
+        #         text_align 0.5
+        #         xalign 0.5
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True):
     use mini_sidebar(curstate, gametype)
@@ -386,7 +393,7 @@ label mini_launch(startroom='main', startfloor=0):
                 i2 = roomButtons[curlevel][ar['toroom']]['num']
                 tcost = roomProxim[curlevel][curfloor][i1][i2]
                 aname = roomButtons[curlevel][ar['toroom']]['name'].upper()
-                ar['btext'] = f'{aname} {tcost}'
+                ar['btext'] = f'{aname} ◆ {tcost}'
                 ar['tcost'] = tcost
     jump mini_main
 

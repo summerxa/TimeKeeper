@@ -152,7 +152,7 @@ screen popup_help(curstate='main'):
         label "Help"
 
         vbox:
-            area (0, 60, 880, 600)
+            area (0, 80, 880, 600)
             spacing 23
 
             if curstate != 'main' and curstate in levelHelp:

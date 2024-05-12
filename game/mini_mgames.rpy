@@ -11,6 +11,7 @@ init python:
             store.mgame_try[dragnum] = ''
         else:
             store.mgame_try[dragnum] = drop.drag_name
+        return 'done' if is_win_listeq() else 'refresh'
     
     def dishes_act(drags, drop):
         dragnum = int(drags[0].drag_name)
@@ -187,3 +188,39 @@ screen mgame_waterpour():
             xpos c['xp']
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
+
+screen mgame_dragdrop_laundry(shaded=True):
+    for i in range(3):
+        text f"{times[i]} MINUTES":
+            font gui.label_text_font
+            color '#ffffff'
+            size 60
+            yalign 0.1
+            xalign (0.25 * (i+1))
+
+    draggroup:
+        # drop
+        for i in range(3):
+            drag:
+                drag_name f"{i}"
+                xalign (0.25 * (i+1))
+                yalign 0.25
+                draggable False
+                droppable True
+                add 'mini/mini_rect.png':
+                    xysize(200, 200)
+                    # at opac(0.0)
+        
+        # drag
+        for d in curgame['drag']:
+            drag:
+                drag_name f"{d['n']}"
+                xpos d['xp'] xanchor 0.
+                ypos d['yp'] yanchor 0.
+                draggable True
+                droppable False
+                dragged items_dragged
+                drag_raise True
+                add f"mini/tgame/laundry/clothes_{d['type']}.png"
+
+    use mgame_overlay(shaded=shaded)

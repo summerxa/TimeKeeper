@@ -47,8 +47,7 @@ default levelHints = {
 }
 
 default levelHelp = {
-    'main': '''
-{b}BASIC GAMEPLAY{/b}
+    'main': '''{b}BASIC GAMEPLAY{/b}
 Manage your time wisely and complete tasks before it's too late!
 Click on the name of a room to go to it, or the up/down arrows on the left to go up/down stairs.
 Some furniture will be highlighted, which means there's a task you need to complete.
@@ -90,6 +89,11 @@ Click on another cup to pour the topmost later of water into it.
 You can only pour into a cup if it has at least one empty slot.
 To complete the task, sort the drinks until each cup is either empty or contains all one color.
 Two or more cups cannot contain the same color.''',
+    'laundry': '''Drag each article of clothing into the correct washing machine.
+Each washing machine is set to a certain amount of time.
+Light clothing needs to be washed for the least amount of time.
+Heavy clothing needs to be washed for the most amount of time.
+Lastly, medium clothing cannot be washed for too long or too short.'''
 }
 
 # size/pos of room on main floor map
