@@ -6,7 +6,7 @@ label start:
     # Disable the "back" button (commented out for testing purposes)
     # $ config.rollback_enabled = False
 
-    # call chapter1 from _call_chapter1
+    call chapter1 from _call_chapter1
 
     call mgame_testing from _call_mgame_testing
 
@@ -22,6 +22,7 @@ label chapter1:
     call mini_placeholder([("Amelia sick scene", "c1_scene3")]) from _call_mini_placeholder
 
     # actual minigame
+    $ node_unlock('c1_mgame')
     call mini_placeholder([
         ("Fetch quest 1 (wine)", "c1_fetch1"),
         ("Fetch quest 2 (jacket)", "c1_fetch2"),

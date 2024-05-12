@@ -329,7 +329,7 @@ screen navigation():
             ## Web.
             textbutton _("Quit") action Quit(confirm=not main_menu)
 
-screen startmenu_btn(xp, yp, b_id, act, hov):
+screen btn_startmenu(xp, yp, b_id, act, hov):
     imagebutton:
         xpos xp ypos yp
         xanchor 0.5 yanchor 0.5
@@ -342,16 +342,16 @@ screen startmenu_btn(xp, yp, b_id, act, hov):
 
 screen start_navigation(hov):
 
-    use startmenu_btn(349, 196, 'load', ShowMenu("load"), hov)
+    use btn_startmenu(349, 196, 'load', ShowMenu("load"), hov)
     
-    use startmenu_btn(317, 389, 'progress', ShowMenu("progress"), hov)
+    use btn_startmenu(317, 389, 'progress', ShowMenu("progress"), hov)
     
-    use startmenu_btn(288, 572, 'start', Start(), hov)
+    use btn_startmenu(288, 572, 'start', Start(), hov)
     
-    use startmenu_btn(317, 751, 'settings', ShowMenu("settings"), hov)
+    use btn_startmenu(317, 751, 'settings', ShowMenu("settings"), hov)
 
     if renpy.variant("pc"):
-        use startmenu_btn(349, 929, 'quit', Quit(confirm=not main_menu), hov)
+        use btn_startmenu(349, 929, 'quit', Quit(confirm=not main_menu), hov)
 
 
 style navigation_button is gui_button
@@ -595,6 +595,8 @@ screen progress():
 
     default p_tab = "main"
     
+    default hov = None
+    
     default charmenu_data = [
         {
             'id_name': 'mc',
@@ -649,62 +651,123 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     default multi_max = (single_max // pg_m) + min(1, single_max % pg_m)
 
     # endings menu
-    default endings_data = {
-        'c1_scene1': {
-            'name': 'Memory'
+    default node_data = {
+        'mc': {
+            'im': 'sprites/mc/01.png',
+            'crop': (170, 60, 471, 326),
+            'size': (238,165)
         },
-        'c1_scene2_tasks': {
-            'name': 'Task Introduction'
+        'mother': {
+            'im': 'sprites/mother/1_1.png',
+            'crop': (66, 0, 401, 281),
+            'size': (235,165)
         },
-        'c1_scene3': {
-            'name': 'Amelia Sick'
+        'amelia': {
+            'im': 'sprites/amelia/2_1.png',
+            'crop': (50, 130, 400, 282),
+            'size': (234,165)
         },
-        'c1_fetch1': {
-            'name': 'Fetch Quest 1'
-        },
-        'c1_fetch4': {
-            'name': 'Fetch Quest 4'
-        },
-        'c1_fetch4_n': {
-            'name': 'Do Nothing'
-        },
-        'c1_fetch4_c': {
-            'name': 'Confront Bella'
-        },
-        'c1_fetch4_c_pickup': {
-            'name': 'Pick up'
-        },
-        'c1_fetch4_c_leave': {
-            'name': 'Leave'
-        },
-        'c1_scene5': {
-            'name': 'Scene 5'
-        },
-        'c1_scene6': {
-            'name': 'Scene 6'
-        },
-        'c1_amelia_blame': {
-            'name': 'Blame Amelia'
-        },
-        'c1_amelia_end': {
-            'name': 'Amelia Dies'
-        },
-        'c1_bella_blame': {
-            'name': 'Blame Bella'
-        },
-        'c1_bella_end': {
-            'name': 'Bella Dies'
-        },
-        'c1_mc_blame': {
-            'name': 'Blame Anastasia'
-        },
-        'c1_mc_end': {
-            'name': 'Amelia and Bella Talk'
-        },
-        'c1_scene7': {
-            'name': 'Scene 7'
+        'bella': {
+            'im': 'sprites/bella/3_1.png',
+            'crop': (140, 45, 396, 273),
+            'size': (239,165)
         }
     }
+
+    default endings_data = [{
+        'c1_scene1': {
+            'tx': 'Memory',
+            'c': 'mc',
+            'p': (265,621)
+        },
+        'c1_scene2_tasks': {
+            'tx': 'Task Introduction',
+            'c': 'mother',
+            'p': (1073,621)
+        },
+        'c1_scene3': {
+            'tx': 'Amelia Sick',
+            'cg': 'cg amelia tired v1',
+            'p': (1848,621)
+        },
+        'c1_mgame': {
+            'tx': 'Minigame',
+            'c': 'mc',
+            'p': (2596,297)
+        },
+        'c1_fetch1': {
+            'tx': 'Fetch Quest 1',
+            'c': 'mc',
+            'p': (2263,793)
+        },
+        'c1_fetch4': {
+            'tx': 'Fetch Quest 4',
+            'c': 'bella',
+            'p': (2847,793)
+        },
+        'c1_fetch4_n': {
+            'tx': 'Do Nothing',
+            'c': 'mc',
+            'p': (3357,604)
+        },
+        'c1_fetch4_c': {
+            'tx': 'Confront Bella',
+            'c': 'bella',
+            'p': (3357,1010)
+        },
+        'c1_fetch4_c_pickup': {
+            'tx': 'Pick up',
+            'c': 'mc',
+            'p': (3728,886)
+        },
+        'c1_fetch4_c_leave': {
+            'tx': 'Leave',
+            'c': 'mc',
+            'p': (3728,1154)
+        },
+        'c1_scene5': {
+            'tx': 'Scene 5',
+            'c': 'mc',
+            'p': (4013,604)
+        },
+        'c1_scene6': {
+            'tx': 'Mother inspection',
+            'c': 'mother',
+            'p': (4621,604)
+        },
+        'c1_amelia_blame': {
+            'tx': 'Blame Amelia',
+            'c': 'amelia',
+            'p': (5019,371)
+        },
+        'c1_amelia_end': {
+            'tx': 'Amelia Dies',
+            'p': (5536,371)
+        },
+        'c1_bella_blame': {
+            'tx': 'Blame Bella',
+            'c': 'bella',
+            'p': (5019,611)
+        },
+        'c1_bella_end': {
+            'tx': 'Bella Dies',
+            'p': (5536,611)
+        },
+        'c1_mc_blame': {
+            'tx': 'Blame Anastasia',
+            'c': 'mc',
+            'p': (5019,837)
+        },
+        'c1_mc_end': {
+            'tx': 'Amelia and Bella Talk',
+            'p': (5536,837)
+        },
+        'c1_scene7': {
+            'tx': 'Scene 7',
+            'c': 'mother',
+            'p': (6049,611)
+        }
+    }]
 
     use game_menu(_("Progress")):
 
@@ -736,7 +799,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 if p_tab == "characters":
                     use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu(endings_data)
+                    use endings_menu(hov, endings_data, node_data)
                 elif p_tab == "cgs":
                     use cgs_menu
 
@@ -825,22 +888,71 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen endings_menu(endings_data):
+screen btn_node(hov, node_data, is_unlock, n_, n_id):
+    button:
+        if 'p' in n_:
+            pos n_['p']
+        else:
+            pos (100,100) # TODO can remove this once all positions are done
+        anchor (0.5,0.5)
+        action NullAction()
+        activate_sound audio.button_click_sfx
+        hovered SetScreenVariable('hov', n_id)
+        unhovered SetScreenVariable('hov', None)
+        fixed:
+            align (0.5,0.5)
+            maximum(310,165)
+            add 'mainmenu/timeline/node_lower.png':
+                align(0.5,0.5)
+                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
+            if is_unlock:
+                if 'c' in n_ and n_['c'] in node_data:
+                    add node_data[n_['c']]['im']:
+                        crop node_data[n_['c']]['crop']
+                        xysize node_data[n_['c']]['size']
+                        at highlight_hov(hov if is_unlock else "-", n_id), opac(0.5), tint('#fff' if is_unlock else '#888')
+                        align(0.,1.)
+                if 'cg' in n_:
+                    add n_['cg']:
+                        crop(0,29,1920,1022)
+                        xysize(310, 165)
+                        at highlight_hov(hov if is_unlock else "-", n_id), opac(0.5), tint('#fff' if is_unlock else '#888')
+                        align(0.5,0.)
+            add 'mainmenu/timeline/node_upper.png':
+                align(1.,0.5)
+                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
+            text (f"* {n_['tx'].upper()}" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
+                font gui.label_text_font
+                color gui.idle_color
+                size 30
+                text_align 1.
+                align (0.9, 0.25)
+                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
+
+screen endings_menu(hov, endings_data, node_data):
     tag menu
 
     viewport:
-        # mousewheel "horizontal"
-        mousewheel True
+        mousewheel "horizontal"
         draggable True
-        scrollbars "horizontal"
-        vscrollbar_unscrollable "hide"
-        vbox:
-            for n_ in persistent.nodes_unlocked:
-                if not main_menu and n_ in nodes_current:
-                    text f"{endings_data[n_]['name']}":
-                        style 'fancy_font'
-                else:
-                    text f"{endings_data[n_]['name']}"
+        scrollbars "both"
+        scrollbar_unscrollable "hide"
+
+        fixed:
+            align (0.5,0.5)
+            maximum (6255, 1444)
+            add 'mainmenu/timeline/c1_timeline.jpg':
+                align (0.5,0.5)
+            for chp in endings_data:
+                for n_id, n_ in chp.items():
+                    use btn_node(hov, node_data, n_id in persistent.nodes_unlocked, n_, n_id)
+        # vbox:
+        #     for n_ in persistent.nodes_unlocked:
+        #         if not main_menu and n_ in nodes_current:
+        #             text f"{endings_data[n_]['name']}":
+        #                 style 'fancy_font'
+        #         else:
+        #             text f"{endings_data[n_]['name']}"
 
 screen cgs_menu():
     tag menu

@@ -1416,12 +1416,12 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 label c1_mc_ending(c1_mc_type="takes_blame"):
     $ c1_ending = "mc " + c1_mc_type
     #if c1_mc_type == "takes_blame":
-       # s "That would be me, Mother."
+        # s "That would be me, Mother."
 
-       # m "...You were the disobedient maid. I see."
+        # m "...You were the disobedient maid. I see."
     #else:
 
-       # m "I see…"
+        # m "I see…"
 
 
     $ node_unlock('c1_mc_blame')
@@ -2083,8 +2083,7 @@ label task_c1_dropdishes:
             curgame['try'].append(0)
             curgame['drag'].append({
                 'n': str(i),
-                'xp': (1200 + (i * 50)),
-                'yp': 390,
+                'p': ((1200 + (i * 50)), 390),
                 'im': curgame['im']
             })
         mgame_try = curgame['try']
@@ -2145,8 +2144,7 @@ label task_c1_laundry:
                 for j in range(num):
                     curgame['drag'].append({
                         'n': tot_running,
-                        'xp': renpy.random.randint(350, 1300),
-                        'yp': renpy.random.randint(540, 800),
+                        'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
                         'type': i
                     })
                     curgame['goal'][tot_running] = f"{curgame['type_to_ind'][i]}"

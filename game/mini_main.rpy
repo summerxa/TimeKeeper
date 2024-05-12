@@ -52,7 +52,7 @@ screen btn_roomarrow(bt, hov_id):
 screen btn_tsk(bt, hov_id=None):
     if bt['curtask'] or not 'hidden' in bt:
         imagebutton:
-            xpos bt['xp'] ypos bt['yp']
+            pos bt['p']
             xanchor 0.5 yanchor 0.5
             if bt['curtask']:
                 auto f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
@@ -85,7 +85,7 @@ screen btn_tsk(bt, hov_id=None):
                     at rot(bt['rot'])
         if 'tx' in bt:
             text bt['tx']['text']:
-                xpos bt['xp'] ypos bt['yp']
+                pos bt['p']
                 xanchor 0.5 yanchor 0.5
                 if 'style' in bt['tx']:
                     style bt['tx']['style']
@@ -95,8 +95,7 @@ screen btn_tsk(bt, hov_id=None):
 # item holder
 screen btn_item(bt, hov_id):
     imagebutton:
-        xpos bt['xp']
-        ypos bt['yp']
+        pos bt['p']
         auto f"mini/btn_item/item_{bt['item']['id']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]

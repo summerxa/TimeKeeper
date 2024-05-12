@@ -210,153 +210,129 @@ default roomArrows = {
 default taskButtons = {
     1: {
         '4_1': {
-            'xp': 547,
-            'yp': 272,
+            'p': (547, 272),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': 30
         },
         '4_2': {
-            'xp': 677,
-            'yp': 285,
+            'p': (677, 285),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': 10
         },
         '4_3': {
-            'xp': 815,
-            'yp': 269,
+            'p': (815, 269),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': -10
         },
         '4_4': {
-            'xp': 540,
-            'yp': 793,
+            'p': (540, 793),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': 15
         },
         '4_5': {
-            'xp': 667,
-            'yp': 800,
+            'p': (667, 800),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': 5
         },
         '4_6': {
-            'xp': 810,
-            'yp': 790,
+            'p': (810, 790),
             'room': 'ballroom',
             'imtask': 'br_4seat',
             'rot': -15
         },
         'long1': {
-            'xp': 981,
-            'yp': 375,
+            'p': (981, 375),
             'room': 'ballroom',
             'imtask': 'br_longtable'
         },
         'long2': {
-            'xp': 981,
-            'yp': 683,
+            'p': (981, 683),
             'room': 'ballroom',
             'imtask': 'br_longtable'
         },
         'bar': {
-            'xp': 1120,
-            'yp': 542,
+            'p': (1120, 542),
             'room': 'ballroom',
             'imtask': 'br_bar'
         },
         '6_1': {
-            'xp': 1240,
-            'yp': 391,
+            'p': (1240, 391),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_2': {
-            'xp': 1240,
-            'yp': 529,
+            'p': (1240, 529),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_3': {
-            'xp': 1240,
-            'yp': 667,
+            'p': (1240, 667),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_4': {
-            'xp': 1360,
-            'yp': 327,
+            'p': (1360, 327),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_5': {
-            'xp': 1360,
-            'yp': 461,
+            'p': (1360, 461),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_6': {
-            'xp': 1360,
-            'yp': 596,
+            'p': (1360, 596),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_7': {
-            'xp': 1360,
-            'yp': 729,
+            'p': (1360, 729),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_8': {
-            'xp': 1480,
-            'yp': 391,
+            'p': (1480, 391),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_9': {
-            'xp': 1480,
-            'yp': 529,
+            'p': (1480, 529),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         '6_10': {
-            'xp': 1480,
-            'yp': 667,
+            'p': (1480, 667),
             'room': 'ballroom',
             'imtask': 'br_6seat'
         },
         'sink': {
-            'xp': 647,
-            'yp': 530,
+            'p': (647, 530),
             'room': 'kitchen',
             'imtask': 'kitchen_sink'
         },
         'pickuptable': {
-            'xp': 459,
-            'yp': 558,
+            'p': (459, 558),
             'room': 'kitchen',
             'imtask': 'kitchen_pickup',
             'taskless': 'custom_taskless'
         },
         'kitchen_idk': {
-            'xp': 550,
-            'yp': 292,
+            'p': (550, 292),
             'room': 'kitchen',
             'imtask': 'kitchen_idk'
         },
         'laundry_1': {
-            'xp': 910,
-            'yp': 330,
+            'p': (910, 330),
             'room': 'laundry',
             'imtask': 'laundry_machine'
         },
         'gr_1': {
-            'xp': 405,
-            'yp': 360,
+            'p': (405, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -365,8 +341,7 @@ default taskButtons = {
             }
         },
         'gr_2': {
-            'xp': 600,
-            'yp': 360,
+            'p': (600, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -375,8 +350,7 @@ default taskButtons = {
             }
         },
         'gr_3': {
-            'xp': 795,
-            'yp': 360,
+            'p': (795, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -385,8 +359,7 @@ default taskButtons = {
             }
         },
         'gr_4': {
-            'xp': 1120,
-            'yp': 360,
+            'p': (1120, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -395,8 +368,7 @@ default taskButtons = {
             }
         },
         'gr_5': {
-            'xp': 1315,
-            'yp': 360,
+            'p': (1315, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -405,8 +377,7 @@ default taskButtons = {
             }
         },
         'gr_6': {
-            'xp': 1510,
-            'yp': 360,
+            'p': (1510, 360),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -415,8 +386,7 @@ default taskButtons = {
             }
         },
         'gr_7': {
-            'xp': 405,
-            'yp': 720,
+            'p': (405, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -425,8 +395,7 @@ default taskButtons = {
             }
         },
         'gr_8': {
-            'xp': 600,
-            'yp': 720,
+            'p': (600, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -435,8 +404,7 @@ default taskButtons = {
             }
         },
         'gr_9': {
-            'xp': 795,
-            'yp': 720,
+            'p': (795, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -445,8 +413,7 @@ default taskButtons = {
             }
         },
         'gr_10': {
-            'xp': 1120,
-            'yp': 720,
+            'p': (1120, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -455,8 +422,7 @@ default taskButtons = {
             }
         },
         'gr_11': {
-            'xp': 1315,
-            'yp': 720,
+            'p': (1315, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -465,8 +431,7 @@ default taskButtons = {
             }
         },
         'gr_12': {
-            'xp': 1510,
-            'yp': 720,
+            'p': (1510, 720),
             'room': 'guestroom l',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -475,8 +440,7 @@ default taskButtons = {
             }
         },
         'gr_21': {
-            'xp': 405,
-            'yp': 360,
+            'p': (405, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -485,8 +449,7 @@ default taskButtons = {
             }
         },
         'gr_22': {
-            'xp': 600,
-            'yp': 360,
+            'p': (600, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -495,8 +458,7 @@ default taskButtons = {
             }
         },
         'gr_23': {
-            'xp': 795,
-            'yp': 360,
+            'p': (795, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -505,8 +467,7 @@ default taskButtons = {
             }
         },
         'gr_24': {
-            'xp': 1120,
-            'yp': 360,
+            'p': (1120, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -515,8 +476,7 @@ default taskButtons = {
             }
         },
         'gr_25': {
-            'xp': 1315,
-            'yp': 360,
+            'p': (1315, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -525,8 +485,7 @@ default taskButtons = {
             }
         },
         'gr_26': {
-            'xp': 1510,
-            'yp': 360,
+            'p': (1510, 360),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -535,8 +494,7 @@ default taskButtons = {
             }
         },
         'gr_27': {
-            'xp': 405,
-            'yp': 720,
+            'p': (405, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -545,8 +503,7 @@ default taskButtons = {
             }
         },
         'gr_28': {
-            'xp': 600,
-            'yp': 720,
+            'p': (600, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -555,8 +512,7 @@ default taskButtons = {
             }
         },
         'gr_29': {
-            'xp': 795,
-            'yp': 720,
+            'p': (795, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -565,8 +521,7 @@ default taskButtons = {
             }
         },
         'gr_30': {
-            'xp': 1120,
-            'yp': 720,
+            'p': (1120, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -575,8 +530,7 @@ default taskButtons = {
             }
         },
         'gr_31': {
-            'xp': 1315,
-            'yp': 720,
+            'p': (1315, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -585,8 +539,7 @@ default taskButtons = {
             }
         },
         'gr_32': {
-            'xp': 1510,
-            'yp': 720,
+            'p': (1510, 720),
             'room': 'guestroom r',
             'imtask': 'guestr_plaque',
             'tx': {
@@ -621,25 +574,15 @@ default tasks = {
                 'goal': 5,
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
                 'drag': [
-                    {
-                        'xp': 0.2, 'yp': 0.3
-                    },
-                    {
-                        'xp': 0.5, 'yp': 0.3
-                    },
-                    {
-                        'xp': 0.3, 'yp': 0.3
-                    },
-                    {
-                        'xp': 0.5, 'yp': 0.5
-                    },
-                    {
-                        'xp': 0.5, 'yp': 0.2
-                    }
+                    {'p': (0.2, 0.3)},
+                    {'p': (0.5, 0.3)},
+                    {'p': (0.3, 0.3)},
+                    {'p': (0.5, 0.5)},
+                    {'p': (0.5, 0.2)}
                 ],
                 'drop': [
                     {
-                        'n': 'goal','xp': 369, 'yp': 356, 'w': 784, 'h': 525
+                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
                     }
                 ],
                 'hint': [2, 'this is a very helpful hint']
@@ -664,15 +607,15 @@ default tasks = {
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
                 'drop': [
                     {
-                        'n': 'goal','xp': 369, 'yp': 356, 'w': 784, 'h': 525
+                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
                     }
                 ],
                 'in_sink': {
-                    'xp': 778, 'yp': 618, 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
+                    'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
                 },
                 'overlay': [
                     {
-                        'xp': 678, 'yp': 413, 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
+                        'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
                     }
                 ],
                 'hint': [2, 'this is another hint']
@@ -704,8 +647,7 @@ default tasks = {
             'game': {
                 'type': 'toggle',
                 'goal': [True, True],
-                'xp': [0.3, 0.7],
-                'yp': [0.5, 0.5],
+                'p': [(0.3, 0.5), (0.7, 0.5)],
                 'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
                 'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png'],
                 'hint': [1, 'Click on the items to pick them up/put them down']
@@ -805,8 +747,7 @@ default itemHolders = {
                 'id': 'dish_dirty',
                 'stack': 1
             },
-            'xp': 0.1,
-            'yp': -0.1,
+            'p': (0.1, -0.1),
             'room': 'ballroom'
         },
         'h12': {
@@ -814,24 +755,21 @@ default itemHolders = {
                 'id': 'dish_dirty',
                 'stack': 2
             },
-            'xp': 0.3,
-            'yp': -0.1,
+            'p': (0.3, -0.1),
             'room': 'ballroom'
         },
         'h21': {
             'item': {
                 'id': 'test_3'
             },
-            'xp': 0.5,
-            'yp': -0.1,
+            'p': (0.5, -0.1),
             'room': 'ballroom'
         },
         'h31': {
             'item': {
                 'id': 'wine_bottle'       
             },
-            'xp': 0.7,
-            'yp': -0.1,
+            'p': (0.7, -0.1),
             'room': 'ballroom'
         }
     }

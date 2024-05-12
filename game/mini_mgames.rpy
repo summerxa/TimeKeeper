@@ -5,8 +5,7 @@ init python:
 
     def items_dragged(drags, drop):
         dragnum = int(drags[0].drag_name)
-        store.curgame['drag'][dragnum]['xp'] = drags[0].x
-        store.curgame['drag'][dragnum]['yp'] = drags[0].y
+        store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if not drop:
             store.mgame_try[dragnum] = ''
         else:
@@ -15,8 +14,7 @@ init python:
     
     def dishes_act(drags, drop):
         dragnum = int(drags[0].drag_name)
-        store.curgame['drag'][dragnum]['xp'] = drags[0].x
-        store.curgame['drag'][dragnum]['yp'] = drags[0].y
+        store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'done' if not 0 in store.mgame_try else 'refresh'
@@ -77,8 +75,7 @@ screen mgame_dragdrop():
         for d in curgame['drop']:
             drag:
                 drag_name d['n']
-                xpos d['xp']
-                ypos d['yp']
+                pos d['p']
                 draggable False
                 droppable True
                 child d['im']
@@ -87,8 +84,7 @@ screen mgame_dragdrop():
         for d in curgame['drag']:
             drag:
                 drag_name d['n']
-                xpos d['xp']
-                ypos d['yp']
+                pos d['p']
                 draggable True
                 droppable False
                 dragged items_dragged
@@ -98,16 +94,16 @@ screen mgame_dragdrop():
 screen mgame_dragdrop_dishes(shaded=True):
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
         add curgame['in_sink']['im']:
-            xpos curgame['in_sink']['xp'] xanchor 0.5
-            ypos curgame['in_sink']['yp'] yanchor 0.5
+            pos curgame['in_sink']['p']
+            anchor (0.5,0.5)
     
     draggroup:
         # drop
         for d in curgame['drop']:
             drag:
                 drag_name d['n']
-                xpos d['xp'] xanchor 0.
-                ypos d['yp'] yanchor 0.
+                pos d['p']
+                anchor (0.,0.)
                 draggable False
                 droppable True
                 add 'mini/mini_rect.png':
@@ -119,8 +115,8 @@ screen mgame_dragdrop_dishes(shaded=True):
             if not mgame_try[int(d['n'])]:
                 drag:
                     drag_name d['n']
-                    xpos d['xp'] xanchor 0.
-                    ypos d['yp'] yanchor 0.
+                    pos d['p']
+                    anchor (0.,0.)
                     draggable True
                     droppable False
                     if curgame['type'] == 'grabdishes':
@@ -135,15 +131,13 @@ screen mgame_dragdrop_dishes(shaded=True):
     if 'overlay' in curgame:
         for overlay_itm in curgame['overlay']:
             add overlay_itm['im']:
-                xpos overlay_itm['xp']
-                ypos overlay_itm['yp']
+                pos overlay_itm['p']
                 xanchor 0.5 yanchor 0.5
 
 screen mgame_toggle():
     for i in range(len(curgame['goal'])):
         imagebutton:
-            xpos curgame['xp'][i]
-            ypos curgame['yp'][i]
+            pos curgame['p'][i]
             xanchor 0.5
             yanchor 0.5
             auto (curgame['on' if mgame_try[i] else 'off'][i])
@@ -215,8 +209,8 @@ screen mgame_dragdrop_laundry(shaded=True):
         for d in curgame['drag']:
             drag:
                 drag_name f"{d['n']}"
-                xpos d['xp'] xanchor 0.
-                ypos d['yp'] yanchor 0.
+                pos d['p']
+                anchor (0.,0.)
                 draggable True
                 droppable False
                 dragged items_dragged
