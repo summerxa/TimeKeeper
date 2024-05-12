@@ -203,16 +203,17 @@ init:
 
 # SFX
 # story
-define audio.glass_break_sfx = "<from 31.4 to 32>a lot of glass breaking.mp3"
+define audio.glass_break_sfx = "<from 31.4 to 32.8>a lot of glass breaking.mp3"
 define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
 define audio.clothes_rustle = "<from 0.5 to 3>fabric-rustling-and-sliding-25971.mp3"
+define audio.wind_howling = "<from .551 to 27.2>wind-blowing-sfx-12809.mp3"
 # minigame
 define audio.button_click_sfx = "btn_click_light_2.mp3"
 define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
 
 # AMBIENCE
-define audio.ballroom_ambience = "bustling-cafe-ambience.mp3"
-
+define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>bustling-cafe-ambience.mp3"
+define audio.ballroom_ambience_2 = "<from 3.5 to 7.0>busy-restaurant-dining-room-ambience-128466.mp3"
 # --- UI STUFF ---
 
 # keep an image rotated to angle "a"
@@ -349,6 +350,7 @@ image bella 10a = CCS_('bella', 536, 318, '3_10', '3_a')
 image npc1 = CS_('npc1', 'sprites/npc/n1.png')
 image npc2 = CS_('npc2', 'sprites/npc/n2.png')
 image npc3 = CS_('npc3', 'sprites/npc/n3.png')
+image npc3_1 = CS_('npc3_1','sprites/npc/n3_1.png')
 image npc4 = CS_('npc4', 'sprites/npc/n4.png')
 image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 
@@ -373,6 +375,8 @@ define n1 = Character('npc1_name', image='npc1', callback=functools.partial(set_
 define n2 = Character('npc2_name', image='npc2', callback=functools.partial(set_cur_speaker, ch='npc2'), dynamic=True)
 # maid
 define n3 = Character('npc3_name', image='npc3', callback=functools.partial(set_cur_speaker, ch='npc3'), dynamic=True)
+# alt maid
+define n3_1 = Character('npc3_1_name', image='npc3_1', callback=functools.partial(set_cur_speaker, ch='npc3_1'), dynamic=True)
 # young noble f
 define n4 = Character('npc4_name', image='npc4', callback=functools.partial(set_cur_speaker, ch='npc4'), dynamic=True)
 # old noble f
@@ -381,6 +385,7 @@ define n5 = Character('npc5_name', image='npc5', callback=functools.partial(set_
 default npc1_name = 'NOBLE'
 default npc2_name = 'NOBLE'
 default npc3_name = 'MAID'
+default npc3_1_name = 'MAID'
 default npc4_name = 'NOBLE'
 default npc5_name = 'NOBLE'
 
