@@ -598,7 +598,8 @@ label c1_fetch1:
 
     "Fetch quest 1"
 
-    play ambience ballroom_ambience
+    play ambience ballroom_ambience_1
+    # TODO are we using ambience 1 or 2? -snail
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -861,7 +862,10 @@ label c1_fetch4:
             b 10a "What are you staring at? Don’t you have work to do as the head maid?"
 
             show bella 10a at eout(1.2,1.4)
-            #TODO: make mc sprite shake when bella walks by + sound
+            pause 0.6
+            show mc at mc_gets_bonked
+            play sound chain_clink
+            # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
 
@@ -886,7 +890,10 @@ label c1_fetch4:
             b "You don’t even understand what it means to be punished."
 
             show bella 5a at eout(.8,1.4)
-            #TODO: make mc sprite shake when bella walks by + sound
+            pause 0.4
+            show mc at mc_gets_bonked
+            play sound chain_clink
+            # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
 
@@ -960,14 +967,13 @@ label c1_scene6:
         
     scene bg guestroom with cfade
     
-    $ focus_on(['bella','amelia'])
+    $ focus_on(['bella','amelia'], {'bella': 2, 'amelia': 2})
     show bella 5a at left
     show amelia 1a at l1_3
     pause.5
     show mc 1b at einf(1.2,.9,.9)
     "Anastasia eventually comes across Amelia and Bella in Room 405, talking to each other in low voices."
 
-    $ focus_on(['bella','amelia'])
     "Amelia looks better than when Anastasia last saw her, although Bella seems upset with her."
 
     b 6a "Why didn’t you tell me you were sick?!"
@@ -1276,7 +1282,8 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     "Anastasia leaves the room with the other maids." 
     
-    $ focus_on(['bella'])
+    $ focus_on(['bella'], {'bella': 2})
+    # added a highlight to bella as she leaves the room... not sure if it looks better this way -snail
     show bella 5a
     "At first, Bella doesn’t move and apprehensively looks at Amelia for a moment..."
     
@@ -1300,7 +1307,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     play ambience wind_howling_ambience fadein .57
 
     show amelia 7a
-    show snowfront
+    show snowfront zorder 10
 
     a "N-no! I— I can’t do it! I can’t shovel all the snow by myself! Wh-what am I going to do?!"
 
@@ -1325,7 +1332,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     #[snowy courtyard/whatever]
 
-    show black with dissolve
+    show black zorder 11 with dissolve
 
     scene bg hellway
     #TODO: replace w/ rooftop later
@@ -1343,7 +1350,8 @@ label c1_amelia_ending(c1_justify_blame=True):
     show npc3_1 at l1_5
     show npc3 at r1_5
 
-    show snowfront
+    # 'zorder [insert big number here]' makes sure the snow is always on top -snail
+    show snowfront zorder 10
 
     play ambience wind_howling_ambience fadein .6
 
@@ -1356,10 +1364,13 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3 "I guess."
 
-    show npc4 at offscreenleft
+    # btw u dont have to show a character's sprite in order to make them talk :D -snail
+    # show npc4 at offscreenleft
     $ npc4_name = "MAID 3"
 
-    show bg hellway with vpunch 
+    show bg hellway at vshake
+    show npc3 at vshake
+    show npc3_1 at vshake
     #show bg hellway with hpunch
     n4 "AHHHHHHHHH!!!"
 
@@ -1367,9 +1378,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3 "Oh my god!"
 
-    hide snowfront
     show mc 5a
-    show snowfront
     show npc3_1 at ein(.5,.05)
     show npc3 at ein(.5,.95)
     s "Step aside."
@@ -1377,10 +1386,11 @@ label c1_amelia_ending(c1_justify_blame=True):
     stop ambience fadeout 2.0
     scene black with dissolve
 
-    hide mc 5a
-    hide npc3_1
-    hide npc3
-    hide npc4
+    # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
+    # hide mc
+    # hide npc3_1
+    # hide npc3
+    # hide npc4
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
 

@@ -233,8 +233,7 @@ init python:
     def inventoryOk(item_id):
         oneHandEmpty = 'air' in invitems
         itemCanStack = (itemsAll[item_id]['stackable'] and invGetStack(item_id) >= 0)
-        bothHandsEqual = (invitems[0] == invitems[1])
-        return oneHandEmpty or itemCanStack or bothHandsEqual
+        return oneHandEmpty or itemCanStack
 
     def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:

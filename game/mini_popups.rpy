@@ -1,14 +1,56 @@
-screen popup_button_close(xp, yp, screenname):
+screen popup_button_close(screenname):
     textbutton 'X':
         text_color gui.hover_color
         text_size 60
-        xalign 1.
-        yalign 0.
+        align (1.,0.)
         action Hide(screenname)
         hovered SetVariable('cur_hov', 'popup_close_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, 'popup_close_btn')
         activate_sound audio.button_click_sfx
+
+screen popup_button_info(info_name, info_title):
+    imagebutton:
+        auto 'mini/ui/icon_popup_info_%s.png'
+        align (0.,1.)
+        action Show('popup_info', info_name=info_name, info_title=info_title)
+        hovered SetVariable('cur_hov', 'popup_info_btn')
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, 'popup_info_btn')
+
+screen popup_info(info_name, info_title):
+    modal True
+    zorder 210
+    add 'gui/overlay/confirm.png'
+    
+    style_prefix "confirm"
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (800, 600)
+
+        label f"◆ {info_title} ◆":
+            xalign 0.5
+
+        viewport:
+            area (25, 75, 900, 400)
+            
+            mousewheel True
+            draggable True
+            scrollbars "vertical"
+            vscrollbar_unscrollable "hide"
+            text infoText[info_name]
+        
+        textbutton 'X':
+            text_color gui.hover_color
+            text_size 60
+            align (1.,0.)
+            action Hide('popup_info')
+            hovered SetVariable('cur_hov', 'popup_close_btn_2')
+            unhovered SetVariable('cur_hov', None)
+            at highlight_hov(cur_hov, 'popup_close_btn_2')
+            activate_sound audio.button_click_sfx
 
 screen popup_notes():
     modal True
@@ -23,45 +65,50 @@ screen popup_notes():
     frame:
         xalign 0.5
         yalign 0.5
-        minimum (1000, 800)
-        # maximum (1000, 800)
-        side 't b':
-            hbox:
-                xminimum 1000
-                hbox:
-                    xalign 0.
-                    yalign 0.
-                    for tab in [[0., 'tasks', 'mini/icon_map_mc_%s.png'], [0.1, 'info', 'mini/icon_map_mc_%s.png']]:
-                        imagebutton:
-                            xpos tab[0]
-                            xanchor 0.
-                            yalign 0.
-                            action [
-                                SetScreenVariable('notes_tab', tab[1]),
-                                If(
-                                    (tab[1] == 'tasks'),
-                                    true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
-                                    false=SetScreenVariable('tx', levelInfo[curlevel][tab[1]] if tab[1] in levelInfo[curlevel] else "This is an error message :(")
-                                )
-                            ]
-                            auto tab[2]
-                            hovered SetVariable('cur_hov', f'{tab[1]}_tab')
-                            unhovered SetVariable('cur_hov', None)
-                            at highlight_hov(cur_hov, f'{tab[1]}_tab')
-                            activate_sound audio.button_click_sfx
-                hbox:
-                    xalign 1.
-                    yalign 0.
-                    use popup_button_close(1., 0., 'popup_notes')
+        maximum (1000, 800)
+        # side 't b':
+        #     hbox:
+        #         xminimum 1000
+        #         hbox:
+        #             xalign 0.
+        #             yalign 0.
+        #             for tab in [[0., 'tasks', 'mini/icon_map_mc_%s.png'], [0.1, 'info', 'mini/icon_map_mc_%s.png']]:
+        #                 imagebutton:
+        #                     xpos tab[0]
+        #                     xanchor 0.
+        #                     yalign 0.
+        #                     action [
+        #                         SetScreenVariable('notes_tab', tab[1]),
+        #                         If(
+        #                             (tab[1] == 'tasks'),
+        #                             true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
+        #                             false=SetScreenVariable('tx', levelInfo[curlevel][tab[1]] if tab[1] in levelInfo[curlevel] else "This is an error message :(")
+        #                         )
+        #                     ]
+        #                     auto tab[2]
+        #                     hovered SetVariable('cur_hov', f'{tab[1]}_tab')
+        #                     unhovered SetVariable('cur_hov', None)
+        #                     at highlight_hov(cur_hov, f'{tab[1]}_tab')
+        #                     activate_sound audio.button_click_sfx
+        #         hbox:
+        #             xalign 1.
+        #             yalign 0.
+        #             use popup_button_close('popup_notes')
 
-            viewport:
-                area (50, 75, 900, 500)
-                
-                mousewheel True
-                draggable True
-                scrollbars "vertical"
-                vscrollbar_unscrollable "hide"
-                text tx
+        label "◆ Notes ◆":
+            xalign 0.5
+
+        viewport:
+            area (25, 75, 900, 500)
+            
+            mousewheel True
+            draggable True
+            scrollbars "vertical"
+            vscrollbar_unscrollable "hide"
+            text tx
+        
+        use popup_button_close('popup_notes')
+        use popup_button_info('notes', 'About the Notebook')
 
 screen popup_onhand():
     modal True
@@ -78,7 +125,8 @@ screen popup_onhand():
         yalign 0.5
         maximum (800, 500)
 
-        label "On-hand"
+        label "◆ On-hand ◆":
+            xalign 0.5
 
         hbox:
             xalign 0.5
@@ -91,7 +139,8 @@ screen popup_onhand():
                 xalign 1.
                 textalign 0.5
     
-        use popup_button_close(1., 0., 'popup_onhand')
+        use popup_button_close('popup_onhand')
+        use popup_button_info('onhand', 'About On-hand')
 
 screen popup_trade():
     modal True
@@ -134,7 +183,8 @@ screen popup_trade():
                     action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
                     activate_sound audio.button_click_sfx
     
-        use popup_button_close(1., 0., 'popup_trade')
+        use popup_button_close('popup_trade')
+        use popup_button_info('trade', 'Both hands full')
 
 screen popup_help(curstate='main'):
     modal True
@@ -143,20 +193,21 @@ screen popup_help(curstate='main'):
 
     style_prefix "confirm"
 
-    default h_tab = "main" if (curstate == 'main' or not curstate in levelHelp) else 'rules'
+    default h_tab = "main" if (curstate == 'main' or not curstate in helpText) else 'rules'
 
     frame:
         xalign 0.5
         yalign 0.5
         maximum (1000, 800)
 
-        label "Help"
+        label "◆ Help ◆":
+            xalign 0.5
 
         vbox:
             area (0, 80, 880, 600)
             spacing 23
 
-            if curstate != 'main' and curstate in levelHelp:
+            if curstate != 'main' and curstate in helpText:
                 hbox:
                     spacing 23
 
@@ -177,11 +228,11 @@ screen popup_help(curstate='main'):
                 vscrollbar_unscrollable "hide"
 
                 if h_tab == 'main':
-                    text levelHelp['main']
+                    text helpText['main']
                 else:
-                    text levelHelp[curstate]
+                    text helpText[curstate]
         
-        use popup_button_close(1., 0., 'popup_help')
+        use popup_button_close('popup_help')
 
 screen popup_mgame_leave():
     modal True

@@ -596,6 +596,7 @@ screen progress():
     default p_tab = "main"
     
     default hov = None
+    default hov_chp = -1
     
     default charmenu_data = [
         {
@@ -665,12 +666,12 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         'amelia': {
             'im': 'sprites/amelia/2_1.png',
             'crop': (50, 130, 400, 282),
-            'size': (234,165)
+            'size': (213,150)
         },
         'bella': {
             'im': 'sprites/bella/3_1.png',
             'crop': (140, 45, 396, 273),
-            'size': (239,165)
+            'size': (217,150)
         }
     }
 
@@ -678,98 +679,117 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         'c1_scene1': {
             'tx': 'Memory',
             'c': 'mc',
-            'p': (265,621)
+            'p': (265,621),
+            'desc': "Anastasia's memory."
         },
         'c1_scene2_tasks': {
             'tx': 'Task Introduction',
             'c': 'mother',
-            'p': (1073,621)
+            'p': (1073,621),
+            'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
         },
         'c1_scene3': {
             'tx': 'Amelia Sick',
             'cg': 'cg amelia tired v1',
-            'p': (1848,621)
+            'p': (1848,621),
+            'desc': "Amelia doesn't want anyone to know she's sick."
         },
         'c1_mgame': {
             'tx': 'Minigame',
             'c': 'mc',
-            'p': (2596,297)
+            'p': (2596,297),
+            'desc': "Anastasia completes her tasks."
         },
         'c1_fetch1': {
             'tx': 'Fetch Quest 1',
             'c': 'mc',
-            'p': (2263,793)
+            'p': (2263,793),
+            'desc': "A noble makes a request."
         },
         'c1_fetch4': {
             'tx': 'Fetch Quest 4',
             'c': 'bella',
-            'p': (2847,793)
+            'p': (2847,793),
+            'desc': "A noble makes a request. Bella interferes."
         },
         'c1_fetch4_n': {
             'tx': 'Do Nothing',
             'c': 'mc',
-            'p': (3357,604)
+            'p': (3357,604),
+            'desc': "Anastasia does nothing to confront Bella."
         },
         'c1_fetch4_c': {
             'tx': 'Confront Bella',
             'c': 'bella',
-            'p': (3357,1010)
+            'p': (3357,1010),
+            'desc': "Anastasia confronts Bella for taking her task."
         },
         'c1_fetch4_c_pickup': {
             'tx': 'Pick up',
             'c': 'mc',
-            'p': (3728,886)
+            'p': (3728,886),
+            'desc': "Anastasia picks up Bella's lost pocketwatch."
         },
         'c1_fetch4_c_leave': {
             'tx': 'Leave',
             'c': 'mc',
-            'p': (3728,1154)
+            'p': (3728,1154),
+            'desc': "Anastasia leaves Bella's lost pocketwatch where it is."
         },
         'c1_scene5': {
-            'tx': 'Scene 5',
+            'tx': 'End of minigame',
             'c': 'mc',
-            'p': (4013,604)
+            'p': (4013,604),
+            'desc': "Mother calls all the maids for a meeting."
         },
         'c1_scene6': {
             'tx': 'Mother inspection',
             'c': 'mother',
-            'p': (4621,604)
+            'p': (4621,604),
+            'desc': "One of the rooms has not been cleaned. Whose fault was it?"
         },
         'c1_amelia_blame': {
             'tx': 'Blame Amelia',
             'c': 'amelia',
-            'p': (5019,371)
+            'p': (5019,371),
+            'desc': "Amelia's fault."
         },
         'c1_amelia_end': {
             'tx': 'Amelia Dies',
-            'p': (5536,371)
+            'p': (5536,371),
+            'desc': "Amelia fails to complete all her tasks."
         },
         'c1_bella_blame': {
             'tx': 'Blame Bella',
             'c': 'bella',
-            'p': (5019,611)
+            'p': (5019,611),
+            'desc': "Bella's fault."
         },
         'c1_bella_end': {
             'tx': 'Bella Dies',
-            'p': (5536,611)
+            'p': (5536,611),
+            'desc': "Bella is punished by Mother."
         },
         'c1_mc_blame': {
             'tx': 'Blame Anastasia',
             'c': 'mc',
-            'p': (5019,837)
+            'p': (5019,837),
+            'desc': "Anastasia's fault."
         },
         'c1_mc_end': {
             'tx': 'Amelia and Bella Talk',
-            'p': (5536,837)
+            'p': (5536,837),
+            'desc': "Anastasia protects Amelia and Bella from punishment."
         },
         'c1_scene7': {
-            'tx': 'Scene 7',
+            'tx': 'End of Chapter 1',
             'c': 'mother',
-            'p': (6049,611)
+            'p': (6049,611),
+            'desc': "Anastasia receives her next assignment. To be continued..."
         }
     }]
 
-    use game_menu(_("Progress")):
+    use game_menu(_(f"Progress")):
 
         style_prefix "about"
 
@@ -782,7 +802,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                     xalign 0. yalign 0.5 text_align 0.5
                     action SetScreenVariable("p_tab", "characters")
                     activate_sound audio.button_click_sfx
-                textbutton _("Endings"):
+                textbutton _("Timeline"):
                     xalign 0.5 yalign 0.5 text_align 0.5
                     action SetScreenVariable("p_tab", "endings")
                     activate_sound audio.button_click_sfx
@@ -799,7 +819,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 if p_tab == "characters":
                     use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu(hov, endings_data, node_data)
+                    use endings_menu(hov, hov_chp, endings_data, node_data)
                 elif p_tab == "cgs":
                     use cgs_menu
 
@@ -888,7 +908,7 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen btn_node(hov, node_data, is_unlock, n_, n_id):
+screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp):
     button:
         if 'p' in n_:
             pos n_['p']
@@ -897,39 +917,53 @@ screen btn_node(hov, node_data, is_unlock, n_, n_id):
         anchor (0.5,0.5)
         action NullAction()
         activate_sound audio.button_click_sfx
-        hovered SetScreenVariable('hov', n_id)
-        unhovered SetScreenVariable('hov', None)
+        if is_unlock:
+            hovered [SetScreenVariable('hov', n_id), SetScreenVariable('hov_chp', chp)]
+            unhovered [SetScreenVariable('hov', None), SetScreenVariable('hov_chp', -1)]
         fixed:
             align (0.5,0.5)
             maximum(310,165)
             add 'mainmenu/timeline/node_lower.png':
                 align(0.5,0.5)
-                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
+                at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
             if is_unlock:
                 if 'c' in n_ and n_['c'] in node_data:
                     add node_data[n_['c']]['im']:
                         crop node_data[n_['c']]['crop']
                         xysize node_data[n_['c']]['size']
-                        at highlight_hov(hov if is_unlock else "-", n_id), opac(0.5), tint('#fff' if is_unlock else '#888')
+                        at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
                         align(0.,1.)
                 if 'cg' in n_:
                     add n_['cg']:
                         crop(0,29,1920,1022)
                         xysize(310, 165)
-                        at highlight_hov(hov if is_unlock else "-", n_id), opac(0.5), tint('#fff' if is_unlock else '#888')
+                        at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
                         align(0.5,0.)
             add 'mainmenu/timeline/node_upper.png':
                 align(1.,0.5)
-                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
-            text (f"* {n_['tx'].upper()}" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
-                font gui.label_text_font
-                color gui.idle_color
-                size 30
-                text_align 1.
+                at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
+            fixed:
                 align (0.9, 0.25)
-                at highlight_hov(hov if is_unlock else "-", n_id), tint('#fff' if is_unlock else '#888')
+                maximum(200,165)
+                text (f"{n_['tx'].upper()}*" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
+                    font gui.label_text_font
+                    color gui.idle_color
+                    size 30
+                    text_align 1.
+                    align (1., 0.5)
+                    at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
 
-screen endings_menu(hov, endings_data, node_data):
+screen node_desc(n_, n_id):
+    frame:
+        xmaximum 400
+        anchor (0.5,1.)
+        pos (n_['p'][0], n_['p'][1] - 100)
+        padding (10,10,10,10)
+        text (f"* Encountered in current playthrough\n\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
+            align (0.5,0.5)
+            size 30
+
+screen endings_menu(hov, hov_chp, endings_data, node_data):
     tag menu
 
     viewport:
@@ -943,16 +977,11 @@ screen endings_menu(hov, endings_data, node_data):
             maximum (6255, 1444)
             add 'mainmenu/timeline/c1_timeline.jpg':
                 align (0.5,0.5)
-            for chp in endings_data:
-                for n_id, n_ in chp.items():
-                    use btn_node(hov, node_data, n_id in persistent.nodes_unlocked, n_, n_id)
-        # vbox:
-        #     for n_ in persistent.nodes_unlocked:
-        #         if not main_menu and n_ in nodes_current:
-        #             text f"{endings_data[n_]['name']}":
-        #                 style 'fancy_font'
-        #         else:
-        #             text f"{endings_data[n_]['name']}"
+            for chp in range(len(endings_data)):
+                for n_id, n_ in endings_data[chp].items():
+                    use btn_node(hov, hov_chp, node_data, n_id in persistent.nodes_unlocked, n_, n_id, chp)
+            if hov:
+                use node_desc(endings_data[hov_chp][hov], hov)
 
 screen cgs_menu():
     tag menu
@@ -1216,7 +1245,7 @@ screen preferences():
                 
                 vbox:
                     style_prefix "check"
-                    label _("Custom")
+                    label _("Gameplay")
                     textbutton _("Highlight recommended tasks") action ToggleVariable('persistent.showspecial')
                     textbutton _("Name save files") action ToggleVariable('persistent.namesaves')
                     textbutton _("Warn before leaving minigame") action ToggleVariable('persistent.showleavewarning')
@@ -1385,6 +1414,7 @@ screen history():
                     label h.who:
                         style "history_name"
                         substitute False
+                        text_size gui.text_size
 
                         ## Take the color of the who text from the Character, if
                         ## set.
@@ -1740,9 +1770,9 @@ screen skip_indicator():
 
             text _("Skipping")
 
-            text "▸" at delayed_blink(0.0, 1.0) style "skip_triangle"
-            text "▸" at delayed_blink(0.2, 1.0) style "skip_triangle"
-            text "▸" at delayed_blink(0.4, 1.0) style "skip_triangle"
+            text ">" at delayed_blink(0.0, 1.0) style "skip_triangle"
+            text ">" at delayed_blink(0.2, 1.0) style "skip_triangle"
+            text ">" at delayed_blink(0.4, 1.0) style "skip_triangle"
 
 
 ## This transform is used to blink the arrows one after another.

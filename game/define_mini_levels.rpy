@@ -46,19 +46,20 @@ default levelHints = {
     'laundry_idle': "Woahhh it's laundry :o"
 }
 
-default levelHelp = {
+default helpText = {
     'main': '''{b}BASIC GAMEPLAY{/b}
-Manage your time wisely and complete tasks before it's too late!
+Manage your time wisely and complete tasks before time runs out!
 Click on the name of a room to go to it, or the up/down arrows on the left to go up/down stairs.
 Some furniture will be highlighted, which means there's a task you need to complete.
 Click on an item to pick it up, or an empty space to place an item down. You can only carry one item in each hand, so you may be prompted to drop an item before picking up something else.
 Hovering over a task or item will show information about it.
 
 {b}LEFT SIDEBAR{/b}
-Clock: shows the time and how long you have left.
+Clock: shows the current time and how long you have left.
 Notebook: shows your current tasks.
-    Be sure to check your notes often, as new tasks could appear at any time.
-    Some tasks are related to the story and will be written in italics. You can disable "highlight recommended tasks" in settings to remove this feature.
+    Be sure to check this tab often, as new tasks could appear at any time.
+    Some tasks are related to the story and will be written in {i}italics{/i}.
+    You can remove this feature by unchecking "highlight recommended tasks" in settings.
 Map: previews every floor map.
     You can use this to locate a task without physically moving to another room, which takes time!
 On-hand: shows the contents of your inventory.
@@ -72,9 +73,9 @@ Leave: exits the current game state.
     And if you are in a task minigame, causes you to leave the task. Be careful with this; leaving a task will take some time even if you didn't complete it!
 
 {b}COMPLETION{/b}
-The notebook will show your progress using two separate displays.
+The notebook will show your completion progress using two separate displays.
 The first one shows how many major quests you have completed.
-    These quests are related to the story, and you are recommended to complete them for the best experience.
+    These quests are related to the story, and you are recommended to complete them for the best story experience.
 The second one is an approval rating, indicating a low/medium/high completion of all tasks.
     Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
 ''',
@@ -94,6 +95,26 @@ Each washing machine is set to a certain amount of time.
 Light clothing needs to be washed for the least amount of time.
 Heavy clothing needs to be washed for the most amount of time.
 Lastly, medium clothing cannot be washed for too long or too short.'''
+}
+
+default infoText = {
+    'notes': '''The notebook shows all your current tasks.
+    Be sure to check this tab often, as new tasks could appear at any time.
+    Some tasks are related to the story and will be written in {i}italics{/i}.
+    You can remove this feature by unchecking "highlight recommended tasks" in settings.
+
+The notebook will show your completion progress using two separate displays.
+The first one shows how many major quests you have completed.
+    These quests are related to the story, and you are recommended to complete them for the best story experience.
+The second one is an approval rating, indicating a low/medium/high completion of all tasks.
+    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.''',
+    'onhand': '''You can pick up items by finding them around the map or by completing certain tasks.
+You can only hold two items at a time, so make use of empty spaces around the map to keep track of all your items!
+Finally, some items, like empty plates, can be stacked on top of each other and will only count as one item once stacked.
+''',
+    'trade': '''Normally, grabbing or dropping an item will be done automatically when you click on an item around the map.
+However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
+'''
 }
 
 # size/pos of room on main floor map
@@ -767,10 +788,17 @@ default itemHolders = {
         },
         'h31': {
             'item': {
-                'id': 'wine_bottle'       
+                'id': 'test_3'       
             },
             'p': (0.7, -0.1),
             'room': 'ballroom'
+        },
+        'hkitchen': {
+            'item': {
+                'id': 'wine_bottle'       
+            },
+            'p': (0.7, -0.1),
+            'room': 'kitchen'
         }
     }
 }
