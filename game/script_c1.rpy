@@ -26,12 +26,14 @@ label c1_scene1:
 
 #animations:
     #align, xalign, and yalign set position and anchor (relative to top left) to this value, so xalign 0.0 and yalign 0.0 set current postion and anchor as 0.0,0.0
-    #linear, ease, easein, easeout all move the sprites: first # affects speed (larger # = slower), second # affects position
+    #linear, ease, easein, easeout all move the sprites: first # affects time (larger # = slower), second # affects position
         #linear moves sprite at level speed all thorughout
         #ease starts slow, speeds up, then ends slow
         #easein starts fast, ends slow
         #easeout starts slow, ends fast
-        #linear 1.0 xalign 1.0: speed divided by 1, move to right (if start at <1.0)
+        #linear 1.0 xalign 1.0
+    #use lin(), ein(), eout() instead!
+    #and linf(), einf(), eoutf() to set position first in not already on screen
     #pause (for x time), rotate (for x degrees), and repeat are self-explanatory
     #zoom, xzoom, yzoom all zoom in; xzoom and yzoom only affect horizontal/vertical
         #negative values will flip the sprite horizontally/vertically
@@ -40,8 +42,12 @@ label c1_scene1:
     #zorder (number) makes image above others with smaller number
     #use behind to... make iamges behind each other
     #idk if it's better to increase/decrease zorder for diff images, or set zorder to value, set back to 0, then use behind #shrug
+        #prolly easiest is to just keep increasing zorder
     # use $ focus_on(['xyz']) to focus on someone
     #scene black with dissolve
+    #to center 2 chars, use l1_5 and r1_5, or xal .2 and .8
+    #use -.8 to out offscreen left, 1.5 for offscreem right
+    #to display snow: show black with dissolve, scene bg xyz, show snowback, show black, pause x time, hide black with dissolve, show sprite, show snowfront
 
 label c1_scene1_5: 
    
@@ -209,7 +215,8 @@ label c1_scene2:
     scene bg joyce why with cfade
     #TODO: replace with ballroom bg later
     
-    play ambience ballroom_ambience
+    play ambience ballroom_ambience_1
+    #idk anymore... -jade
 
     "Scene 2 (Intro + tasks)"
 
@@ -531,7 +538,7 @@ label c1_scene3:
     "Anatasia walks to the guestrooms, lighting the candles one by one."
 
     scene cg amelia tired v1 with cfade
-    "She eventually walks into Room 7, where Amelia is leaning against the wall. She seems to be in some discomfort." 
+    "She eventually walks into Room 422, where Amelia is leaning against the wall. She seems to be in some discomfort." 
 
     # i think we're gonna transition into this cutscene from the tutorial minigame
     # so we may not need the intro section? -snail
@@ -577,7 +584,7 @@ label c1_scene3:
     #shrug -jade
     # i think this transition should be fine- check with luna tho lol -snail
     #ok -jade
-    play sound clothes_rustle volume 1.5
+    play sound clothes_rustle volume 2.0
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     $ node_unlock('c1_scene3')
@@ -593,8 +600,8 @@ label c1_fetch1:
 
     play ambience ballroom_ambience
 
-    show npc2 at l1_4
-    show mc 1b at r1_4
+    show npc2 at l1_5
+    show mc 1b at r1_5
 
     n2 "Hey! You there. Bring me a bottle of red wine. The finest quality only!"
 
@@ -611,8 +618,8 @@ label c1_fetch1_end:
     # TODO uncomment following line in actual minigame
     # play ambience ballroom_ambience
 
-    show npc2 at l1_4
-    show mc 1b at r1_4
+    show npc2 at l1_5
+    show mc 1b at r1_5
     
     #after item is obtained, interacting with nobleman again triggers this
 
@@ -686,7 +693,6 @@ label c1_fetch2_end:
     m "Bella?"
 
     show bella 9a
-    #TODO: replace w/ shocked expression
     b "Y-yes, Mother?"
 
     $ focus_on(['mother'])
@@ -738,8 +744,10 @@ label c1_fetch3:
 
 label c1_fetch3_end:
 
-    scene bg guestroom with cfade
+    scene bg kitchen with cfade
     #only for placeholder; not in actual game
+
+    #TODO: replace ballroom ambience w/ kitchen sounds
 
     show mc 1b at center
     "fetch quest gameplay in kitchen; ask the chefs around the place to compile a list of the best desserts; After the tray is completed, scene triggers"
@@ -762,10 +770,13 @@ label c1_fetch3_end:
     show bella 1a at r1_5
     show npc2 at center
 
+    show bella 1a zorder 1.0
     b "Here’s your cake, sir."
 
+    show npc2 zorder 2.0
     n2 "Perfect."
 
+    show bella zorder 3.0
     show bella at eout(.8,1.4)
     b "Call me if you have any other requests, sir."
 
@@ -794,24 +805,19 @@ label c1_fetch4:
     s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
 
     # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
-
-    scene bg hallway with cfade
+    
+    scene bg kitchen with cfade
     #placeholder: not in actual game
 
     show npc3 at r1_5
     show mc 1b at l1_5
+    #TODO: replace maid w/ chef, and insert luna part in actual game
 
     n3 "I’ll make the food for you."
 
     n3 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
 
-    s "..."
-
-    n3 "...Is that a yes?"
-
-    s "..."
-
-    n3 "Um, okay, I guess."
+    s "Yes, I can wash them."
 
     "some time later..."
 
@@ -836,6 +842,7 @@ label c1_fetch4:
 
     b "Of course, ma’am."
 
+    hide npc4
     show bella 1a at ein(1.2,.2)
     show mc 1b at einf(1.2,.9,.8)
 
@@ -853,7 +860,8 @@ label c1_fetch4:
 
             b 10a "What are you staring at? Don’t you have work to do as the head maid?"
 
-            show bella 10a at eout(1.2,-.8)
+            show bella 10a at eout(1.2,1.4)
+            #TODO: make mc sprite shake when bella walks by + sound
 
             $ focus_on(['bella'])
 
@@ -877,7 +885,8 @@ label c1_fetch4:
 
             b "You don’t even understand what it means to be punished."
 
-            show bella 5a at eout(.8,-.8)
+            show bella 5a at eout(.8,1.4)
+            #TODO: make mc sprite shake when bella walks by + sound
 
             $ focus_on(['bella'])
 
@@ -919,7 +928,7 @@ label c1_scene5:
     "Anastasia goes to the ballroom and looks out a window. There’s an intense blizzard outside."
 
     show mc 1b
-    "Anastasia looks at the pocket watch. It’s time."
+    "She looks at the pocket watch. It’s time."
 
     scene bg hallway with cfade
 
@@ -927,9 +936,9 @@ label c1_scene5:
     show mc 1b at ein(1.3,.2)
     show mother 1a at r1_5
 
-    "Anastasia walks away and goes to look for Mother, who waves her over."
+    "She walks away and goes to look for Mother, who waves her over."
 
-    m "Anastasia, please inform the rest of the maids to go to Room 7 for the inspection."
+    m "Anastasia, please inform the rest of the maids to go to Room 422 for the inspection."
 
     s "Yes, Mother."
 
@@ -943,24 +952,147 @@ label c1_scene6:
 
     $ node_unlock('c1_scene6')
 
+    stop ambience
+
+    "Mother inspection"
+
+    "Anastasia walks through the hallways and tells any maids that she finds to go to the room that Mother is in."
+        
+    scene bg guestroom with cfade
+    
+    $ focus_on(['bella','amelia'])
+    show bella 5a at left
+    show amelia 1a at l1_3
+    pause.5
+    show mc 1b at einf(1.2,.9,.9)
+    "Anastasia eventually comes across Amelia and Bella in Room 405, talking to each other in low voices."
+
+    $ focus_on(['bella','amelia'])
+    "Amelia looks better than when Anastasia last saw her, although Bella seems upset with her."
+
+    b 6a "Why didn’t you tell me you were sick?!"
+
+    a "Mother or the other maids might’ve overheard, and I didn’t want you to worry..."
+
+    b "Of course I would worry!"
+
+    show bella 5a
+    a "Bella, I… I also didn’t want you to have to make up my tasks, especially since you were already so tired from doing so many…"
+
+    a "I—"
+
+    show amelia 6a
+
+    $ focus_on(['amelia','mc'])
+    "Amelia suddenly spots Anastasia at the entrance of the room." 
+    
+    show bella 10a
+
+    $ focus_on(['bella'])
+    "Bella quickly turns around and also sees her."
+
+    b "Why are you here?"
+
+    s "Mother wants the maids to gather at Room 422 for inspection."
+
+    b 5a "Fine."
+
+    b 10a "Wait... Did you hear what we were talking about?"
+
+    s "..."
+
+    b "Did you, or did you not—"
+
+    show amelia 1a
+    a "Let’s just go, Bella."
+
+    show amelia at eout(.8,-.8)
+    show bella 5a at eout(.8,-.8)
+
+    scene black with dissolve
+    play sound clothes_rustle volume 2.0
+
+    "Anastasia searches for any other maids in the remaining rooms, then goes to Room 422, where Mother and the other maids are waiting." 
+
+    scene bg guestroom with cfade
+
+    show amelia 6a at xal(.265)
+    show bella 5a at xal(-.045)
+    show mother 1a at r1_4
+    show mc 1b at einf(1.4,.8,1.0902)
+
+    m "Anastasia."
+    # TODO calculate player’s completion here
+        
+        #{[player completion/progress good]
+
+            #m 2a "Your work today was excellent."
+
+            #m "Everyone should follow Anastasia’s example."
+
+            #m "This is what a good maid should be."}
+
+        #{[player completion/progress mid]
+
+            #m "Your work today was… a little inadequate, but I hope that you will do better next time."}
+
+        #{[player completion/progress bad]
+
+            #m 6a "Your work today was… quite frankly, dreadful." 
+
+            #m 1a "I am rather stunned that you managed to stoop this low, considering the fact that you were always the highest performing maid."
+
+            #m "Please improve next time, dear. You’re not making the best example for the other maids."}
+
+    m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
+
+    m 5a "However, one of the guestrooms has not been properly cleaned."
+
+    m 6a "In fact, it was this room that was not cleaned."
+
     menu:
-        "Mother inspection"
 
-
-
+        m "Anastasia, did you see any maids disobeying my orders?"
 
         "Yes":
+
+            s "Yes, I did see a disobedient maid."
+
+            m "Who was it?"
+
             menu:
-                "Who was it?"
+
+                #$ focus_on(['mother'])
+
+                m "Who was it?"
+
                 "Amelia":
+
+                    $ c1_justify_blame = True
+
                     call c1_amelia_ending from _call_c1_amelia_ending
+
                 "Bella" if c1_has_bella_watch:
+
+                    #$ c1_blame_bella dialogue = True
+
                     call c1_bella_ending from _call_c1_bella_ending
                 "Anastasia":
+
+                    #$ mc_takes_blame = True
+
                     call c1_mc_ending from _call_c1_mc_ending
         "No":
+
+            $ focus_on(['mc'])
+
+            "Anastasia shakes her head." 
+
+            m "Are you sure you did not?"
+
             menu:
                 "Are you sure you did not?"
+
                 "Not sure":
                     menu:
                         "Who was it?"
@@ -999,6 +1131,9 @@ label c1_scene6:
                                         "Anastasia":
                                             call c1_mc_ending from _call_c1_mc_ending_2
         "Say nothing":
+
+            m "Anastasia? Who was it?"
+
             menu:
                 "Who was it?"
                 "Amelia":
@@ -1019,14 +1154,250 @@ label c1_scene6:
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
     if c1_justify_blame:
-        "mc gives reason for blaming amelia"
+        s "That would be Amelia. She had not been working on her tasks and was instead resting in this room."
     else:
-        "Mc accuses amelia with no reason"
-    "blame amelia"
+        s "That would be Amelia."
+
     $ node_unlock('c1_amelia_blame')
-    "amelia by herself"
-    "amelia ded"
+
+    #might change sequence of shocked faces later... -jade
+
+    show amelia 8a zorder .001
+    a "!!!"
+    
+    show bella 9a zorder .002
+    b "!!!"
+
+    m 1a "Ah."
+
+    $ focus_on(['mother'])
+    "Mother looks at Amelia."
+
+    m 5a "Amelia…"
+
+    show amelia zorder .003
+    a "N-no, Mother! I—"
+
+    m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
+
+    m 1a "Is this true?" 
+
+    a "M-Mother, I—"
+
+    m 5a "Amelia, my dear… just calm down and answer the question."
+
+    a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
+
+    m 1a "Oh, Amelia…"
+
+    m "I still remember the day we first met. You were all alone, in the snow, because your parents thought you weren’t good enough. ‘A {i}failure{/i}’, that’s what they thought."
+
+    a 8a "!!!"
+
+    a "Mo—"
+
+    m 6a "But {i}I{/i} believed in you. {i}I{/i} took you in; {i}I{/i} gave you food; {i}I{/i} gave you an education; and {i}I{/i} gave you a place to call home."
+
+    m 1a "In exchange for everything I’ve given you, I’m not asking for much in return. In fact, you just need to contribute to this family."
+
+    #not sure abt this expression -jade
+    m "I love this family. I {i}really{/i} do. But if this keeps happening, this family won’t be able to stay together anymore, and some people will have to {i}leave{/i}."
+
+    #nor this one -jade
+    m 7a "You wouldn't want that to happen, {i}would you{/i}?"
+
+    a 7a "N-no, w-wait! Please, Mother— Just give me another chance! I— I’ll do better!"
+
+    m 1a "I want to believe you; I really do. But looking at the current situation, I’m not sure if I should."
+
+    a "P-please, Mother! I— I’ll do anything! J-just let me stay!"
+
+    m "In that case, please do clean up this room."
+
+    a 5a "Yes! I can do that."
+
+    m "Oh, I almost forgot— The owner just told me that they needed an extra hand for the cleanup at the ballroom today."
+
+    a 1a "I… I can do that too."
+
+    m 3a "Why {i}thank you{/i}, Amelia. I was worried about who to assign it to."
+
+    m 5a "Hmm… there was another task, was there not?" 
+    
+    m 1a "Joanne, do you recall what it was?"
+
+    show npc3 with Dissolve(.6,alpha=True)
+    show npc3 zorder .05
+
+    n3 "I-it was shoveling the snow on the rooftop, Mother."
+
+    show mother 1a zorder .1
+    m "I see. Joanne, is there currently anyone available for the task?"
+
+    show npc3 zorder .2
+    n3  "Um…"
+
+    show mother 2a zorder .3
+    m "Joanne, you made a mistake at the last manor, but I can see that you’ve been working hard to make up for it. That’s excellent."
+
+    show npc3 zorder .4
+    n3  "Th-thank you, Mother. Everyone’s— everyone has been booked today."
+
+    show mother 1a zorder .5
+    m "Ah, that’s not good. As a family, we’ve all been working to complete our tasks diligently, but it seems that this isn’t quite enough."
+
+    m "To belong in a family means that everyone must work together and contribute. Someone that doesn’t do their work properly is just a {i}burden{/i} to everyone else. Wouldn’t you agree, Joanne?"
+
+    show npc3 zorder .6
+    n3 "I-I agree, Mother."
+
+    show amelia zorder .65
+    a "I… I’ll do it."
+    #might change expression later -jade
+
+    show mother 1a zorder .7
+    m "Hmm?"
+
+    hide npc3 with dissolve
+
+    a "I’ll also help shovel the snow."
+
+    show bella 8a
+    m 2a "Good girl. I can tell that you really are seeking to help out the family, Amelia."
+
+    a "Yes, I— y-you won’t kick me out, r-right?"
+
+    m "Of course not. If you are able to complete all of these tasks perfectly, it would lighten everyone’s burden greatly. We would all be thankful to you."
+
+    m 3a "Everyone, thank you for coming, and I {i}encourage{/i} you all to keep up the excellent work. You are all dismissed."
+
+    $ focus_on(['mc'])
+    show mc 1b at eout(1.0,1.5)
+
+    "Anastasia leaves the room with the other maids." 
+    
+    $ focus_on(['bella'])
+    show bella 5a
+    "At first, Bella doesn’t move and apprehensively looks at Amelia for a moment..."
+    
+    pause .9
+    show bella 8a at eout(2.2,1.4)
+    "But she quickly steels herself and leaves as well."
+
+    scene black with dissolve
+
+    scene bg hellway
+    #TODO: replace w/ rooftop later
+    show snowback
+    show black
+
+    "Some time later..."
+
+    pause 1.2
+
+    hide black with dissolve
+
+    play ambience wind_howling_ambience fadein .57
+
+    show amelia 7a
+    show snowfront
+
+    a "N-no! I— I can’t do it! I can’t shovel all the snow by myself! Wh-what am I going to do?!"
+
+    a 8a "If Mother finds out, she’ll be disappointed in me— she’ll kick me out!"
+
+    a 7a "Th-this is all my fault—"
+
+    a "I’m— I’m pathetic! I’m a failure! No one will love me!"
+
+    a "What am I going to do?!"
+
+    a "I—"
+
+    $ focus_on(['amelia'])
+    "In the midst of her panic, Amelia looks out at the edge of the roof, where the snow falls off towards the ground below."
+
+    a 6a "Maybe… that’s the only way…"
+
+    stop ambience fadeout 2.0
+
+    #[fade to black; end scene]
+
+    #[snowy courtyard/whatever]
+
+    show black with dissolve
+
+    scene bg hellway
+    #TODO: replace w/ rooftop later
+    show snowback
+    show black
+
+    pause 1.5
+
+    hide black with dissolve
+    
+    #TODO: replace w/ snowy bg later 
+
+    #TODO: replace sprites later 
+
+    show npc3_1 at l1_5
+    show npc3 at r1_5
+
+    show snowfront
+
+    play ambience wind_howling_ambience fadein .6
+
+    $ npc3_name = "MAID 1"
+    $ npc3_1_name = "MAID 2"
+
+    n3 "It’s s-so cold out here..."
+
+    n3_1 "Can’t do much about it. The nobles are going to leave soon and if we don’t clear out the snow in the path, the cars won’t be able to leave."
+
+    n3 "I guess."
+
+    show npc4 at offscreenleft
+    $ npc4_name = "MAID 3"
+
+    show bg hellway with vpunch 
+    #show bg hellway with hpunch
+    n4 "AHHHHHHHHH!!!"
+
+    n3_1 "W-what’s going on?"
+
+    n3 "Oh my god!"
+
+    hide snowfront
+    show mc 5a
+    show snowfront
+    show npc3_1 at ein(.5,.05)
+    show npc3 at ein(.5,.95)
+    s "Step aside."
+
+    stop ambience fadeout 2.0
+    scene black with dissolve
+
+    hide mc 5a
+    hide npc3_1
+    hide npc3
+    hide npc4
+
+    "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
+
+    "But as Anastasia traces the trail of blood with her eyes, the drops gather and multiply, transforming the snow into small, dark clumps." 
+
+    "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
+
+    "!!!"
+
+    "insert dead amelia cg here..."
+    #TODO: add cg here later
+
+    $ char_kill("amelia")
     $ node_unlock('c1_amelia_end')
+
+    #call c1_scene7 from c1_amelia_ending
+
     return
 
 label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
@@ -1044,14 +1415,26 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
     $ c1_ending = "mc " + c1_mc_type
-    "mc takes/gets blame"
+    #if c1_mc_type == "takes_blame":
+       # s "That would be me, Mother."
+
+       # m "...You were the disobedient maid. I see."
+    #else:
+
+       # m "I see…"
+
+
     $ node_unlock('c1_mc_blame')
+
     "mother leaves; amelia and bella talk to mc"
     $ node_unlock('c1_mc_end')
     return
 
 label c1_scene7:
     "Reached ending: [c1_ending]"
+
+
+
     "The end of the chapter"
     $ node_unlock('c1_scene7')
     return
