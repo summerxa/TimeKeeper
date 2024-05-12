@@ -1730,8 +1730,6 @@ label task_c1_dropdishes:
 label task_c1_laundry:
     scene hellway
 
-    "hi this is the laundry room (minigame is wip)"
-
     python:
         if not 'try' in curgame:
             curgame['times'] = [0, 0, 0]
@@ -1752,8 +1750,8 @@ label task_c1_laundry:
                     break
 
             tot = renpy.random.randint(4, 8)
-            curgame['try'] = [-1] * tot
-            curgame['goal'] = [0] * tot
+            curgame['try'] = [''] * tot
+            curgame['goal'] = [''] * tot
             curgame['drag'] = []
             tot_running = 0
             for i in range(3):
@@ -1763,29 +1761,28 @@ label task_c1_laundry:
                     num = renpy.random.randint(1, min(3, tot - tot_running))
                 for j in range(num):
                     curgame['drag'].append({
+                        'n': tot_running,
                         'xp': renpy.random.randint(350, 1300),
                         'yp': renpy.random.randint(540, 800),
                         'type': i
                     })
-                    curgame['goal'][tot_running] = curgame['type_to_ind'][i]
+                    curgame['goal'][tot_running] = f"{curgame['type_to_ind'][i]}"
                     tot_running += 1
         mgame_try = curgame['try']
         mgame_goal = curgame['goal']
 
     $ hinttext = levelHints['laundry_idle']
 
-    # TODO modify the rest of this code lmao
-
-    # $ game_ret = 'refresh'
-    # while game_ret == 'refresh':
-    #     call screen mgame_dragdrop_dishes
-    #     $ game_ret = _return
+    $ game_ret = 'refresh'
+    while game_ret == 'refresh':
+        call screen mgame_dragdrop_laundry
+        $ game_ret = _return
     
-    # $ docurtask(game_ret == 'done')
-    # $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
-    # if game_ret == 'done':
-    #     show screen mgame_dragdrop_dishes(shaded=False)
-    #     show screen mgame_overlay
-    #     hide screen mgame_dragdrop_dishes with dissolve
+    $ docurtask(game_ret == 'done')
+
+    if game_ret == 'done':
+        show screen mgame_dragdrop_laundry(shaded=False)
+        show screen mgame_overlay
+        hide screen mgame_dragdrop_laundry with dissolve
 
     jump mini_main
