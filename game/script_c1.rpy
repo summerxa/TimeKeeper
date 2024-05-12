@@ -538,7 +538,7 @@ label c1_scene3:
     "Anatasia walks to the guestrooms, lighting the candles one by one."
 
     scene cg amelia tired v1 with cfade
-    "She eventually walks into Room 7, where Amelia is leaning against the wall. She seems to be in some discomfort." 
+    "She eventually walks into Room 422, where Amelia is leaning against the wall. She seems to be in some discomfort." 
 
     # i think we're gonna transition into this cutscene from the tutorial minigame
     # so we may not need the intro section? -snail
@@ -938,7 +938,7 @@ label c1_scene5:
 
     "She walks away and goes to look for Mother, who waves her over."
 
-    m "Anastasia, please inform the rest of the maids to go to Room 7 for the inspection."
+    m "Anastasia, please inform the rest of the maids to go to Room 422 for the inspection."
 
     s "Yes, Mother."
 
@@ -965,7 +965,7 @@ label c1_scene6:
     show amelia 1a at l1_3
     pause.5
     show mc 1b at einf(1.2,.9,.9)
-    "Anastasia eventually comes across Amelia and Bella in Room 2, talking to each other in low voices."
+    "Anastasia eventually comes across Amelia and Bella in Room 405, talking to each other in low voices."
 
     $ focus_on(['bella','amelia'])
     "Amelia looks better than when Anastasia last saw her, although Bella seems upset with her."
@@ -993,7 +993,7 @@ label c1_scene6:
 
     b "Why are you here?"
 
-    s "Mother wants the maids to gather at Room 7 for inspection."
+    s "Mother wants the maids to gather at Room 422 for inspection."
 
     b 5a "Fine."
 
@@ -1012,7 +1012,7 @@ label c1_scene6:
     scene black with dissolve
     play sound clothes_rustle volume 2.0
 
-    "Anastasia searches for any other maids in the remaining rooms, then goes to Room 7, where Mother and the other maids are waiting." 
+    "Anastasia searches for any other maids in the remaining rooms, then goes to Room 422, where Mother and the other maids are waiting." 
 
     scene bg guestroom with cfade
 
