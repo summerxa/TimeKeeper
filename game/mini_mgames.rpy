@@ -231,7 +231,7 @@ screen mgame_laundry_start(i):
         vbox:
             label "Select Time:"
             for j in range(3):
-                textbutton f"{times[j]} MINUTES":
+                textbutton (f"> {times[j]} MINUTES <" if (curgame['try_map'][i] in curgame['type_to_ind'] and times[j] == curgame['type_to_ind'][curgame['try_map'][i]]) else f"{times[j]} MINUTES"):
                     action [Function(laundry_act_start, i=i, t=times[j]), Hide('mgame_laundry_start')]
 
 screen mgame_laundry(shaded=True):
@@ -246,7 +246,11 @@ screen mgame_laundry(shaded=True):
                 align (0.,0.5)
             imagebutton:
                 auto 'mini/icon_map_mc_%s.png'
-                action Show('mgame_laundry_start', i=i)
+                action If(
+                    renpy.get_screen('mgame_laundry_start'),
+                    true=Hide('mgame_laundry_start'),
+                    false=Show('mgame_laundry_start', i=i)
+                )
                 hovered SetVariable('cur_hov', f'laundrystart{i}')
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, f'laundrystart{i}')
