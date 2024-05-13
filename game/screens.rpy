@@ -594,6 +594,7 @@ screen progress():
     tag menu
 
     default p_tab = "main"
+    default show_cg = None
     
     default hov = None
     default hov_chp = -1
@@ -756,6 +757,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_amelia_end': {
             'tx': 'Amelia Dies',
+            'cg': 'bg hellway',
             'p': (5536,371),
             'desc': "Amelia fails to complete all her tasks."
         },
@@ -767,6 +769,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_bella_end': {
             'tx': 'Bella Dies',
+            'cg': 'bg joyce why',
             'p': (5536,611),
             'desc': "Bella is punished by Mother."
         },
@@ -778,6 +781,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_mc_end': {
             'tx': 'Amelia and Bella Talk',
+            'cg': 'bg seal room',
             'p': (5536,837),
             'desc': "Anastasia protects Amelia and Bella from punishment."
         },
@@ -789,7 +793,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         }
     }]
 
-    use game_menu(_(f"Progress")):
+    use game_menu(_("Progress")):
 
         style_prefix "about"
 
@@ -819,9 +823,11 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 if p_tab == "characters":
                     use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu(hov, hov_chp, endings_data, node_data)
+                    use endings_menu(hov, hov_chp, endings_data, node_data, show_cg)
                 elif p_tab == "cgs":
                     use cgs_menu
+    if show_cg:
+        use popup_cg(show_cg)
 
 screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max):
     tag menu
@@ -908,14 +914,17 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp):
+screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp, show_cg):
     button:
         if 'p' in n_:
             pos n_['p']
         else:
             pos (100,100) # TODO can remove this once all positions are done
         anchor (0.5,0.5)
-        action NullAction()
+        if is_unlock and 'cg' in n_:
+            action SetScreenVariable('show_cg', n_['cg'])
+        else:
+            action NullAction()
         activate_sound audio.button_click_sfx
         if is_unlock:
             hovered [SetScreenVariable('hov', n_id), SetScreenVariable('hov_chp', chp)]
@@ -963,7 +972,7 @@ screen node_desc(n_, n_id):
             align (0.5,0.5)
             size 30
 
-screen endings_menu(hov, hov_chp, endings_data, node_data):
+screen endings_menu(hov, hov_chp, endings_data, node_data, show_cg):
     tag menu
 
     viewport:
@@ -979,7 +988,7 @@ screen endings_menu(hov, hov_chp, endings_data, node_data):
                 align (0.5,0.5)
             for chp in range(len(endings_data)):
                 for n_id, n_ in endings_data[chp].items():
-                    use btn_node(hov, hov_chp, node_data, n_id in persistent.nodes_unlocked, n_, n_id, chp)
+                    use btn_node(hov, hov_chp, node_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, show_cg)
             if hov:
                 use node_desc(endings_data[hov_chp][hov], hov)
 
@@ -988,6 +997,12 @@ screen cgs_menu():
     
     text "pretend there's something really cool here... (cg menu edition)"
 
+screen popup_cg(show_cg):
+    modal True
+    button:
+        add show_cg:
+            align (0.5,0.5)
+        action [SetScreenVariable('show_cg', None), Hide('popup_cg')]
 
 
 style about_label is gui_label
