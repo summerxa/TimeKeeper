@@ -2011,19 +2011,17 @@ label task_c1_toggle:
 
     $ hinttext = levelHints['toggle_idle']
 
-    show screen mgame_overlay
-
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
         call screen mgame_toggle
         $ game_ret = _return
 
     if game_ret == 'done':
-        show screen mgame_toggle
+        show screen mgame_toggle(shaded=False)
+        show screen mgame_overlay
         hide screen mgame_toggle with dissolve
     
     if game_ret == 'done':
-        # kind of a cheesed method of fading out but oh well
         hide screen mgame_overlay
         scene bg joyce why
         with cfade
@@ -2039,20 +2037,27 @@ label task_c1_toggle:
     jump mini_main
 
 label task_c1_waterpour:
+    python:
+        if not 'original' in curgame:
+            curgame['original'] = []
+            for c in curgame['cups']:
+                curgame['original'].append(c['colors'].copy())
+
     scene bg mgame_waterpour
 
     $ hinttext = levelHints['waterpour_idle']
 
-    show screen mgame_overlay
-
     $ game_ret = 'refresh'
-    while game_ret == 'refresh':
+    while game_ret == 'refresh' or game_ret == 'reset':
         call screen mgame_waterpour
         $ game_ret = _return
+        if game_ret == 'reset':
+            $ waterpour_init()
 
     $ docurtask(game_ret == 'done')
     if game_ret == 'done':
-        show screen mgame_waterpour
+        show screen mgame_waterpour(shaded=False)
+        show screen mgame_overlay
         hide screen mgame_waterpour with dissolve
 
     jump mini_main

@@ -274,6 +274,46 @@ screen popup_mgame_leave():
                     action close_leave
                     activate_sound audio.button_click_sfx
 
+screen popup_mgame_reset():
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
+
+    default close_leave = [Hide('popup_mgame_reset')]
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (800, 500)
+        vbox:
+            text f"Do you want to reset the minigame?\nThis cannot be undone.":
+                xalign 0.5
+                yalign 0.2
+            textbutton "Don't show this message again.":
+                xalign 0.5 ypos 0.7 yanchor 0.5
+                text_align 0.5
+                action ToggleVariable('persistent.showresetwarning')
+                if persistent.showresetwarning:
+                    text_color gui.idle_color
+                else:
+                    text_color gui.selected_color
+                activate_sound audio.button_click_sfx
+            
+            hbox:
+                xalign 0.5
+                ypos 0.85 yanchor 0.5
+                spacing 150
+                textbutton "Yes":
+                    text_align 0.5
+                    action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('reset'), With(cfade)]
+                    activate_sound audio.button_click_sfx
+                textbutton "No":
+                    text_align 0.5
+                    action close_leave
+                    activate_sound audio.button_click_sfx
+
 screen tx_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]
     default xp = (cords[2] + cords[0]) // 2

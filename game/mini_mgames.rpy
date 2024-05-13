@@ -62,6 +62,12 @@ init python:
             all_colors.append(curcolor)
         return 'refresh' if failed else 'done'
 
+    def waterpour_init():
+        i = 0
+        for c in curgame['cups']:
+            c['colors'] = curgame['original'][i].copy()
+            i += 1
+
     def waterpour_act(sel, dest):
         color = store.curgame['cups'][sel]['colors'].pop()
         store.curgame['cups'][dest]['colors'].append(color)
@@ -157,7 +163,7 @@ screen mgame_dragdrop_dishes(shaded=True):
                 pos overlay_itm['p']
                 xanchor 0.5 yanchor 0.5
 
-screen mgame_toggle():
+screen mgame_toggle(shaded=True):
     for i in range(len(curgame['goal'])):
         imagebutton:
             pos curgame['p'][i]
@@ -165,8 +171,10 @@ screen mgame_toggle():
             yanchor 0.5
             auto (curgame['on' if mgame_try[i] else 'off'][i])
             action Function(toggle_act, i)
+            
+    use mgame_overlay(shaded=shaded)
 
-screen mgame_waterpour():
+screen mgame_waterpour(shaded=True):
     default sel = -1
     default yp = 0.513
 
@@ -205,6 +213,17 @@ screen mgame_waterpour():
             xpos c['xp']
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
+    textbutton "{b}RESET{/b}":
+        action If(persistent.showresetwarning, true=[Show('popup_mgame_reset')], false=[Return('reset'), With(cfade)])
+        pos (320, 865)
+        anchor (0.5, 0.5)
+        text_style 'fancy_font'
+        text_size 40
+        hovered SetVariable('cur_hov', 'waterpour_reset')
+        unhovered SetVariable('cur_hov', None)
+        at highlight_hov(cur_hov, 'waterpour_reset')
+    
+    use mgame_overlay(shaded=shaded)
 
 screen mgame_laundry_start(i):
     frame:
@@ -220,7 +239,7 @@ screen mgame_laundry(shaded=True):
         hbox:
             yalign 0.1
             xalign (0.25 * (i+1))
-            text (f"{curgame['type_to_ind'][curgame['try_map'][i]]} MINUTES" if curgame['try_map'][i] >= 0 else "(NO TIME)"):
+            text (f"{curgame['type_to_ind'][curgame['try_map'][i]]} MIN" if curgame['try_map'][i] >= 0 else "(NO TIME)"):
                 font gui.label_text_font
                 color '#ffffff'
                 size 60
@@ -228,6 +247,9 @@ screen mgame_laundry(shaded=True):
             imagebutton:
                 auto 'mini/icon_map_mc_%s.png'
                 action Show('mgame_laundry_start', i=i)
+                hovered SetVariable('cur_hov', f'laundrystart{i}')
+                unhovered SetVariable('cur_hov', None)
+                at highlight_hov(cur_hov, f'laundrystart{i}')
 
     draggroup:
         # drop

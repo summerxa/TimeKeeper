@@ -1264,6 +1264,7 @@ screen preferences():
                     textbutton _("Highlight recommended tasks") action ToggleVariable('persistent.showspecial')
                     textbutton _("Name save files") action ToggleVariable('persistent.namesaves')
                     textbutton _("Warn before leaving minigame") action ToggleVariable('persistent.showleavewarning')
+                    textbutton _("Warn before resetting minigame") action ToggleVariable('persistent.showresetwarning')
                     textbutton _("Warn for different versions") action ToggleVariable('persistent.showversionwarning')
 
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be

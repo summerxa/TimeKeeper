@@ -23,6 +23,7 @@ default focus_dict = {}
 default persistent.showspecial = True # highlights recommended quests if True
 default persistent.namesaves = True # prompts user to name save files if True
 default persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
+default persistent.showresetwarning = True # same as above but for resetting minigame progress
 default persistent.showversionwarning = True # if True, warns user when they load a diff version save file
 
 # --- STORY STUFF ---
