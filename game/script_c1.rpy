@@ -2133,13 +2133,19 @@ label task_c1_laundry:
                 times[i] = tim
 
             curgame['type_to_ind'] = {
-                0: times.index(min(times)),
-                2: times.index(max(times))
+                0: min(times),
+                2: max(times)
             }
-            for i in range(3):
-                if times[i] != min(times) and times[i] != max(times):
+            curgame['ind_to_type'] = {
+                min(times): 0,
+                max(times): 2
+            }
+            for i in times:
+                if i != min(times) and i != max(times):
                     curgame['type_to_ind'][1] = i
+                    curgame['ind_to_type'][i] = 1
                     break
+            curgame['try_map'] = {0:-1, 1:-2, 2:-3}
 
             tot = renpy.random.randint(4, 8)
             curgame['try'] = [''] * tot
@@ -2157,7 +2163,7 @@ label task_c1_laundry:
                         'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
                         'type': i
                     })
-                    curgame['goal'][tot_running] = f"{curgame['type_to_ind'][i]}"
+                    curgame['goal'][tot_running] = [f"{-(i+1)}", i]
                     tot_running += 1
         mgame_try = curgame['try']
         mgame_goal = curgame['goal']
@@ -2166,14 +2172,14 @@ label task_c1_laundry:
 
     $ game_ret = 'refresh'
     while game_ret == 'refresh':
-        call screen mgame_dragdrop_laundry
+        call screen mgame_laundry
         $ game_ret = _return
     
     $ docurtask(game_ret == 'done')
 
     if game_ret == 'done':
-        show screen mgame_dragdrop_laundry(shaded=False)
+        show screen mgame_laundry(shaded=False)
         show screen mgame_overlay
-        hide screen mgame_dragdrop_laundry with dissolve
+        hide screen mgame_laundry with dissolve
 
     jump mini_main

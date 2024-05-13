@@ -1,4 +1,14 @@
 init python:
+    def is_win_listeq():
+        for i in range(len(store.mgame_try)):
+            if store.mgame_try[i] != store.mgame_goal[i]:
+                return False
+        return True
+
+    def is_win_count(tocount):
+        return store.mgame_try.count(tocount) == store.mgame_goal
+
+
     def toggle_act(i):
         store.mgame_try[i] = not store.mgame_try[i]
         return 'done' if is_win_listeq() else 'refresh'
@@ -57,14 +67,27 @@ init python:
         store.curgame['cups'][dest]['colors'].append(color)
         return waterpour_ok(curgame['cups'])
 
-    def is_win_listeq():
+    def laundry_ok():
         for i in range(len(store.mgame_try)):
-            if store.mgame_try[i] != store.mgame_goal[i]:
+            if store.mgame_try[i] != store.mgame_goal[i][0]:
                 return False
         return True
 
-    def is_win_count(tocount):
-        return store.mgame_try.count(tocount) == store.mgame_goal
+    def laundry_act_drag(drags, drop):
+        dragnum = int(drags[0].drag_name)
+        store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
+        if not drop:
+            store.mgame_try[dragnum] = ''
+        else:
+            store.mgame_try[dragnum] = drop.drag_name
+        return 'done' if laundry_ok() else 'refresh'
+
+    def laundry_act_start(i, t):
+        curgame['try_map'][i] = curgame['ind_to_type'][t]
+        for j in range(len(mgame_goal)):
+            if mgame_goal[j][1] == i:
+                mgame_goal[j][0] = str(curgame['ind_to_type'][t])
+        return 'done' if laundry_ok() else 'refresh'
 
 screen mgame_overlay(shaded=True):
     use mini_overlay('mgame', curgame['type'], shaded)
@@ -183,14 +206,28 @@ screen mgame_waterpour():
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
 
-screen mgame_dragdrop_laundry(shaded=True):
+screen mgame_laundry_start(i):
+    frame:
+        align (0.25 * (i+1), 0.5)
+        vbox:
+            label "Select Time:"
+            for j in range(3):
+                textbutton f"{times[j]} MINUTES":
+                    action [Function(laundry_act_start, i=i, t=times[j]), Hide('mgame_laundry_start')]
+
+screen mgame_laundry(shaded=True):
     for i in range(3):
-        text f"{times[i]} MINUTES":
-            font gui.label_text_font
-            color '#ffffff'
-            size 60
+        hbox:
             yalign 0.1
             xalign (0.25 * (i+1))
+            text (f"{curgame['type_to_ind'][curgame['try_map'][i]]} MINUTES" if curgame['try_map'][i] >= 0 else "(NO TIME)"):
+                font gui.label_text_font
+                color '#ffffff'
+                size 60
+                align (0.,0.5)
+            imagebutton:
+                auto 'mini/icon_map_mc_%s.png'
+                action Show('mgame_laundry_start', i=i)
 
     draggroup:
         # drop
@@ -213,7 +250,7 @@ screen mgame_dragdrop_laundry(shaded=True):
                 anchor (0.,0.)
                 draggable True
                 droppable False
-                dragged items_dragged
+                dragged laundry_act_drag
                 drag_raise True
                 add f"mini/tgame/laundry/clothes_{d['type']}.png"
 
