@@ -676,7 +676,8 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         }
     }
 
-    default endings_data = [{
+    default endings_data = [
+        {
         'c1_scene1': {
             'tx': 'Memory',
             'c': 'mc',
@@ -791,7 +792,8 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'p': (6049,611),
             'desc': "Anastasia receives her next assignment. To be continued..."
         }
-    }]
+    }
+    ]
 
     use game_menu(_("Progress")):
 
@@ -826,8 +828,6 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                     use endings_menu(hov, hov_chp, endings_data, node_data, show_cg)
                 elif p_tab == "cgs":
                     use cgs_menu
-    if show_cg:
-        use popup_cg(show_cg)
 
 screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max):
     tag menu
@@ -922,7 +922,7 @@ screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp, show_cg):
             pos (100,100) # TODO can remove this once all positions are done
         anchor (0.5,0.5)
         if is_unlock and 'cg' in n_:
-            action SetScreenVariable('show_cg', n_['cg'])
+            action [Show('popup_cg', show_cg=n_['cg']), With(cfade)]
         else:
             action NullAction()
         activate_sound audio.button_click_sfx
@@ -1002,7 +1002,7 @@ screen popup_cg(show_cg):
     button:
         add show_cg:
             align (0.5,0.5)
-        action [SetScreenVariable('show_cg', None), Hide('popup_cg')]
+        action [SetScreenVariable('show_cg', None), Hide('popup_cg'), With(cfade)]
 
 
 style about_label is gui_label
