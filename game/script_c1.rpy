@@ -217,6 +217,7 @@ label c1_scene2:
     
     play ambience ballroom_ambience_1
     #idk anymore... -jade
+    # sound design is pain -snail
 
     "Scene 2 (Intro + tasks)"
 
@@ -543,6 +544,7 @@ label c1_scene3:
     # i think we're gonna transition into this cutscene from the tutorial minigame
     # so we may not need the intro section? -snail
     #ahh, true true -jade
+    # (insert gremlin emoji here) -snail
 
     "Anatasia lights up the candles and the fireplace in the room before approaching the bed."
 
@@ -601,6 +603,7 @@ label c1_fetch1:
     play ambience ballroom_ambience_1
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
+    # :i_cri_evry_tiem: -snail
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -713,6 +716,7 @@ label c1_fetch2_end:
 
     b 5a "...Yes, Mother."
     #is this the right expression? -jade
+    # it looks good :D -snail
 
     $ completion_f += 1
 
@@ -1180,6 +1184,9 @@ label c1_amelia_ending(c1_justify_blame=True):
     $ node_unlock('c1_amelia_blame')
 
     #might change sequence of shocked faces later... -jade
+    # just kinda my opinion but i feel like we shud save amelia 8a for later in the inspection
+    # (and use a less extreme shooketh expression here)
+    # so 8a has more dramatic effect once its finally used -snail
 
     show amelia 8a zorder .001
     a "!!!"
@@ -1220,9 +1227,11 @@ label c1_amelia_ending(c1_justify_blame=True):
     m 1a "In exchange for everything I’ve given you, I’m not asking for much in return. In fact, you just need to contribute to this family."
 
     #not sure abt this expression -jade
+    # maybe eyes closed expression for sympathetic? like 5a or smth -snail
     m "I love this family. I {i}really{/i} do. But if this keeps happening, this family won’t be able to stay together anymore, and some people will have to {i}leave{/i}."
 
     #nor this one -jade
+    # looks fine to me lol -snail
     m 7a "You wouldn't want that to happen, {i}would you{/i}?"
 
     a 7a "N-no, w-wait! Please, Mother— Just give me another chance! I— I’ll do better!"
