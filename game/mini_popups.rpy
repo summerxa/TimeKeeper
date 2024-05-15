@@ -66,46 +66,40 @@ screen popup_notes():
         xalign 0.5
         yalign 0.5
         maximum (1000, 800)
-        # side 't b':
-        #     hbox:
-        #         xminimum 1000
-        #         hbox:
-        #             xalign 0.
-        #             yalign 0.
-        #             for tab in [[0., 'tasks', 'mini/icon_map_mc_%s.png'], [0.1, 'info', 'mini/icon_map_mc_%s.png']]:
-        #                 imagebutton:
-        #                     xpos tab[0]
-        #                     xanchor 0.
-        #                     yalign 0.
-        #                     action [
-        #                         SetScreenVariable('notes_tab', tab[1]),
-        #                         If(
-        #                             (tab[1] == 'tasks'),
-        #                             true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
-        #                             false=SetScreenVariable('tx', levelInfo[curlevel][tab[1]] if tab[1] in levelInfo[curlevel] else "This is an error message :(")
-        #                         )
-        #                     ]
-        #                     auto tab[2]
-        #                     hovered SetVariable('cur_hov', f'{tab[1]}_tab')
-        #                     unhovered SetVariable('cur_hov', None)
-        #                     at highlight_hov(cur_hov, f'{tab[1]}_tab')
-        #                     activate_sound audio.button_click_sfx
-        #         hbox:
-        #             xalign 1.
-        #             yalign 0.
-        #             use popup_button_close('popup_notes')
 
-        label "◆ Notes ◆":
-            xalign 0.5
+        vbox:
+            label "◆ Notes ◆":
+                xalign 0.5
+                
+            hbox:
+                xalign 0.
+                yalign 0.
+                for tab in [[0., 'tasks', 'Tasks'], [0.1, 'score', 'Completion']]:
+                    textbutton tab[2]:
+                        xpos tab[0]
+                        xanchor 0.
+                        yalign 0.
+                        action [
+                            SetScreenVariable('notes_tab', tab[1]),
+                            If(
+                                (tab[1] == 'tasks'),
+                                true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
+                                false=SetScreenVariable('tx', generateScore())
+                            )
+                        ]
+                        hovered SetVariable('cur_hov', f'{tab[1]}_tab')
+                        unhovered SetVariable('cur_hov', None)
+                        at highlight_hov(cur_hov, f'{tab[1]}_tab')
+                        activate_sound audio.button_click_sfx
 
-        viewport:
-            area (25, 75, 900, 500)
-            
-            mousewheel True
-            draggable True
-            scrollbars "vertical"
-            vscrollbar_unscrollable "hide"
-            text tx
+            viewport:
+                area (25, 25, 900, 500)
+                
+                mousewheel True
+                draggable True
+                scrollbars "vertical"
+                vscrollbar_unscrollable "hide"
+                text tx
         
         use popup_button_close('popup_notes')
         use popup_button_info('notes', 'About the Notebook')

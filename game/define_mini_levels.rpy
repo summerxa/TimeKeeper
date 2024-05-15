@@ -24,10 +24,11 @@ default levelInfo = {
     1: {
         't0': 1020,
         'tf': 1200,
-        'info': '''Info about the time needed for each task.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlso did you know this textbox has a scroll bar? :D''',
         'tstairs': 2,
         'nfloors': 2,
-        'ndishes': 8
+        'ndishes': 8,
+        'threshold': [-1, 1],
+        'nquests': 4
     }
 }
 
@@ -74,10 +75,10 @@ Leave: exits the current game state.
 
 {b}COMPLETION{/b}
 The notebook will show your completion progress using two separate displays.
-The first one shows how many major quests you have completed.
-    These quests are related to the story, and you are recommended to complete them for the best story experience.
-The second one is an approval rating, indicating a low/medium/high completion of all tasks.
+The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
     Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
+The second one shows how many major quests you have completed.
+    These quests are related to the story, and you are recommended to complete them for the best story experience.
 ''',
     'grabdishes': '''
 Drag a dirty dish from the table to pick it up and place it in your inventory.
@@ -104,10 +105,10 @@ default infoText = {
     You can remove this feature by unchecking "highlight recommended tasks" in settings.
 
 The notebook will show your completion progress using two separate displays.
-The first one shows how many major quests you have completed.
-    These quests are related to the story, and you are recommended to complete them for the best story experience.
-The second one is an approval rating, indicating a low/medium/high completion of all tasks.
-    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.''',
+The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
+    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
+The second one shows how many major quests you have completed.
+    These quests are related to the story, and you are recommended to complete them for the best story experience.''',
     'onhand': '''You can pick up items by finding them around the map or by completing certain tasks.
 You can only hold two items at a time, so make use of empty spaces around the map to keep track of all your items!
 Finally, some items, like empty plates, can be stacked on top of each other and will only count as one item once stacked.
@@ -588,7 +589,7 @@ default tasks = {
             't0': 1020,
             'tf': 1030,
             'scorebonus': 10,
-            'scorepenalty': 1,
+            'scorepenalty': 2,
             'tags': [],
             'game': {
                 'type': 'grabdishes',

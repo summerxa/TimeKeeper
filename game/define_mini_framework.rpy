@@ -99,6 +99,17 @@ init python:
             tq_s.append(tx)
         store.notes_text = '\n'.join(tq)
         store.notes_text_s = '\n'.join(tq_s)
+    
+    def generateScore():
+        tx = "Approval rating: "
+        if store.completion < store.levelInfo[store.curlevel]['threshold'][0]:
+            tx += "Bad"
+        elif store.completion > store.levelInfo[store.curlevel]['threshold'][1]:
+            tx += "Good"
+        else:
+            tx += "Mid"
+        tx += f"\nQuests completed: {completion_f}/{store.levelInfo[store.curlevel]['nquests']}"
+        return tx
 
     # --- ROOM/MAP STUFF ---
 

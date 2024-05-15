@@ -233,7 +233,6 @@ style plaque1_font:
     textalign 0.5
 
 transform highlight_hov(hov, myname, col='#aaaaaa'):
-    # matrixcolor BrightnessMatrix(0.2 if (hov == myname) else 0.0) * ContrastMatrix(1.0 if (hov == myname) else 1.0)
     matrixcolor InvertMatrix(1.0 if (hov == myname) else 0.0) * TintMatrix(col if (hov == myname) else '#ffffff') * InvertMatrix(1.0 if (hov == myname) else 0.0)
 
 transform tint(c):
@@ -243,7 +242,7 @@ transform tint(c):
 
 # used to shade sprites that aren't talking
 transform darken_sprite:
-    matrixcolor TintMatrix('#aaaaaa')
+    tint('#aaa')
 
 init python:
     import functools

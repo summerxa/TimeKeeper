@@ -46,6 +46,7 @@ default curtime = 0
 default tstart = 0
 default tlimit = 9999
 default completion = 0
+default completion_f = 0
 
 default curroom = 'main'
 default prevroom = None

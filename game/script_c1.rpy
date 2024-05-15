@@ -634,6 +634,8 @@ label c1_fetch1_end:
     
     $ node_unlock('c1_fetch1')
 
+    $ completion_f += 1
+
     return # TODO jump mini_main
 
 label c1_fetch2:
@@ -710,6 +712,8 @@ label c1_fetch2_end:
 
     b 5a "...Yes, Mother."
     #is this the right expression? -jade
+
+    $ completion_f += 1
 
     return # TODO jump mini_main
 
@@ -788,6 +792,8 @@ label c1_fetch3_end:
     n2 "Wait, did the maid always look like that?"
 
     # TODO mark last part complete, set current room to ballroom
+
+    $ completion_f += 1
 
     return # TODO jump mini_main
 
@@ -921,6 +927,9 @@ label c1_fetch4:
                     $ node_unlock('c1_fetch4_c_pickup')
 
                     $ c1_has_bella_watch = True
+                    
+    $ completion_f += 1
+
     return # TODO jump mini_main
 
 label c1_scene5:
@@ -1029,26 +1038,29 @@ label c1_scene6:
 
     m "Anastasia."
     # TODO calculate player’s completion here
-        
-        #{[player completion/progress good]
+    # made a placeholder menu to test the dialogue lol -snail
+    menu:
+        "this is a placeholder lmao, anyway choose a completion score"
 
-            #m 2a "Your work today was excellent."
+        "player completion/progress good":
 
-            #m "Everyone should follow Anastasia’s example."
+            m 2a "Your work today was excellent."
 
-            #m "This is what a good maid should be."}
+            m "Everyone should follow Anastasia’s example."
 
-        #{[player completion/progress mid]
+            m "This is what a good maid should be."
 
-            #m "Your work today was… a little inadequate, but I hope that you will do better next time."}
+        "player completion/progress mid":
 
-        #{[player completion/progress bad]
+            m "Your work today was… a little inadequate, but I hope that you will do better next time."
 
-            #m 6a "Your work today was… quite frankly, dreadful." 
+        "player completion/progress bad":
 
-            #m 1a "I am rather stunned that you managed to stoop this low, considering the fact that you were always the highest performing maid."
+            m 6a "Your work today was… quite frankly, dreadful." 
 
-            #m "Please improve next time, dear. You’re not making the best example for the other maids."}
+            m 1a "I am rather stunned that you managed to stoop this low, considering the fact that you were always the highest performing maid."
+
+            m "Please improve next time, dear. You’re not making the best example for the other maids."
 
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
@@ -1364,7 +1376,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3 "I guess."
 
-    # btw u dont have to show a character's sprite in order to make them talk :D -snail
+    # a character can talk without showing their sprite :D -snail
     # show npc4 at offscreenleft
     $ npc4_name = "MAID 3"
 
@@ -1383,10 +1395,12 @@ label c1_amelia_ending(c1_justify_blame=True):
     show npc3 at ein(.5,.95)
     s "Step aside."
 
+    $ npc4_name = "NOBLE" # resetting npc's name here before we forget lol -snail
+
     stop ambience fadeout 2.0
     scene black with dissolve
 
-    # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
+    # using the "scene" statement automatically hides all the sprites hehe -snail
     # hide mc
     # hide npc3_1
     # hide npc3

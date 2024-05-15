@@ -348,6 +348,7 @@ label mini_main():
 label mini_launch(startroom='main', startfloor=0):
     python:
         completion = 0
+        completion_f = 0
         hinttext = levelHints['default_start']
         taskq.clear()
         taskrq = taskRoots[curlevel].copy()

@@ -1752,9 +1752,9 @@ Attempting to use this save may cause unexpected crashes and plot holes.'''
                 text_align 0.5
                 action ToggleVariable('persistent.showversionwarning')
                 if persistent.showversionwarning:
-                    text_color '#aaa'
+                    text_color gui.idle_color
                 else:
-                    text_color '#fff'
+                    text_color gui.selected_color
             hbox:
                 xalign 0.5
                 textbutton "Load anyway":
