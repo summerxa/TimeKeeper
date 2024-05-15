@@ -600,6 +600,7 @@ label c1_fetch1:
 
     play ambience ballroom_ambience_1
     # TODO are we using ambience 1 or 2? -snail
+    #idk... both are not great ;-; -jade
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -816,13 +817,13 @@ label c1_fetch4:
     scene bg kitchen with cfade
     #placeholder: not in actual game
 
-    show npc3 at r1_5
+    show npc3_1 at r1_5
     show mc 1b at l1_5
     #TODO: replace maid w/ chef, and insert luna part in actual game
 
-    n3 "I’ll make the food for you."
+    n3_1 "I’ll make the food for you."
 
-    n3 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
+    n3_1 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
 
     s "Yes, I can wash them."
 
@@ -830,11 +831,11 @@ label c1_fetch4:
 
     s "Is the food finished?"
 
-    n3 "Oh, I gave it to Bella."
+    n3_1 "Oh, I gave it to Bella."
 
     s 4b "...Bella?"
 
-    n3 "Yeah, she said that she would take the food for you."
+    n3_1 "Yeah, she said that she would take the food for you."
 
     s "I see. Thank you for telling me."
     
@@ -1363,6 +1364,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show npc3 at r1_5
 
     # 'zorder [insert big number here]' makes sure the snow is always on top -snail
+    # ah true true -jade
     show snowfront zorder 10
 
     play ambience wind_howling_ambience fadein .6
@@ -1376,8 +1378,8 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3 "I guess."
 
-    # a character can talk without showing their sprite :D -snail
-    # show npc4 at offscreenleft
+    # btw u dont have to show a character's sprite in order to make them talk :D -snail
+    #ohh, i didnt know that :0 -jade 
     $ npc4_name = "MAID 3"
 
     show bg hellway at vshake
@@ -1400,11 +1402,8 @@ label c1_amelia_ending(c1_justify_blame=True):
     stop ambience fadeout 2.0
     scene black with dissolve
 
-    # using the "scene" statement automatically hides all the sprites hehe -snail
-    # hide mc
-    # hide npc3_1
-    # hide npc3
-    # hide npc4
+    # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
+    #ahh, gotcha -jade
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
 
