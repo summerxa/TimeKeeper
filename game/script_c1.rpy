@@ -638,8 +638,6 @@ label c1_fetch1_end:
     
     $ node_unlock('c1_fetch1')
 
-    $ completion_f += 1
-
     return # TODO jump mini_main
 
 label c1_fetch2:
@@ -718,8 +716,6 @@ label c1_fetch2_end:
     #is this the right expression? -jade
     # it looks good :D -snail
 
-    $ completion_f += 1
-
     return # TODO jump mini_main
 
 label c1_fetch3:
@@ -797,8 +793,6 @@ label c1_fetch3_end:
     n2 "Wait, did the maid always look like that?"
 
     # TODO mark last part complete, set current room to ballroom
-
-    $ completion_f += 1
 
     return # TODO jump mini_main
 
@@ -932,8 +926,6 @@ label c1_fetch4:
                     $ node_unlock('c1_fetch4_c_pickup')
 
                     $ c1_has_bella_watch = True
-                    
-    $ completion_f += 1
 
     return # TODO jump mini_main
 

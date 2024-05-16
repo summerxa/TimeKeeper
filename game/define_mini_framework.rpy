@@ -144,6 +144,8 @@ init python:
             store.curtime += tsk['tcost']
             tsk['done'] = True
             store.completion += tsk['scorebonus']
+            if Task.SPECIAL in tsk['tags']:
+                store.completion_f += 1
         else:
             store.curtime += tsk['tcost'] // 2
             if Task.NO_REDO in tsk['tags']:
