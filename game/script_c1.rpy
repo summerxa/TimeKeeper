@@ -2074,6 +2074,7 @@ label task_c1_waterpour:
         $ game_ret = _return
         if game_ret == 'reset':
             $ waterpour_init()
+            $ hinttext = levelHints['waterpour_idle']
 
     $ docurtask(game_ret == 'done')
     if game_ret == 'done':
