@@ -933,6 +933,10 @@ label c1_scene5:
     
     scene bg guestroom with cfade
     #TODO: replace w/ ballroom bg
+
+    # TODO after adding minigame, include these 2 lines:
+    # hide screen mgame_overlay
+    # with cfade
     
     "Scene 5"
 
@@ -1793,13 +1797,16 @@ label chap1_test_animation:
     return
 
 label chap1_test_part2:
-    scene bg hallway with cfade
+    scene bg hallway
+    hide screen mgame_overlay
+    with cfade
+    # need to hide screen for the cutscene that plays after minigame
 
     show mc 1b
 
     $ focus_on(['mc'])
 
-    s "minigame over, your score was [completion]"
+    s "minigame over, your score was [completion] and you did [completion_f] fetch quest(s)"
 
     return
 

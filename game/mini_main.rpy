@@ -314,21 +314,23 @@ screen mini_screen():
     use floor_sidebar('game')
 
 label mini_main():
-    # TODO maybe hide quickmenu if its too obtrusive
-
-    # TODO play soundtrack (if not playing already) - alt version based on how much time left
-    # if we feeling fancy, make transition from normal to fast version smoother by calculating
-    # where to start in the fast track based on position in the normal track
-
-    stop ambience
-
-    scene bg mgame_main
 
     $ update_taskq()
 
     # time is not up, still remaining tasks
     if curtime < tlimit and (taskq or taskrq):
+        # TODO maybe hide quickmenu if its too obtrusive
+
+        # TODO play soundtrack (if not playing already) - alt version based on how much time left
+        # if we feeling fancy, make transition from normal to fast version smoother by calculating
+        # where to start in the fast track based on position in the normal track
+
+        stop ambience
+
+        scene bg mgame_main
+
         hide screen mgame_overlay
+        
         if was_from_roomchange():
             call screen mini_screen
         else:
