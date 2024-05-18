@@ -330,7 +330,7 @@ label mini_main():
         scene bg mgame_main
 
         hide screen mgame_overlay
-        
+
         if was_from_roomchange():
             call screen mini_screen
         else:
@@ -353,7 +353,7 @@ label mini_launch(startroom='main', startfloor=0):
         completion_f = 0
         hinttext = levelHints['default_start']
         taskq.clear()
-        taskrq = taskRoots[curlevel].copy()
+        taskrq = levelInfo[curlevel]['taskRoots'].copy()
         curroom = startroom
         prevroom = None
         curfloor = startfloor
