@@ -2330,12 +2330,24 @@ label chap1_test_t1:
 
     n2 'welcome to the seal room, please deposit a test item 3'
 
+    $ docurtask()
+
+    jump mini_main
+
+label chap1_test_t1_end:
+    scene bg seal room with cfade
+
+    show npc2 at l1_4
+    show mc 1b at r1_4
+
+    n2 'welcome back to the seal room, do you have a test item 3?'
+
     call c1_give_item_prompt(n2, 'test_3') from _call_c1_give_item_prompt
 
     if ichoice == 'test_3':
         n2 'good job, you chose the right item'
         $ update_inv(myitem='test_3')
-        $ docurtask()
+        $ docurtask(tname='Fetch quest 1')
 
     jump mini_main
 

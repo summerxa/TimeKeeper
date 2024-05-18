@@ -28,7 +28,11 @@ default levelInfo = {
         'nfloors': 2,
         'ndishes': 8,
         'threshold': [-1, 1],
-        'nquests': 4
+        'taskRoots': ['t1', 't2', 't3'],
+        'quests': {
+            'Fetch quest 1': False,
+            'Click some buttons whee': False,
+        }
     }
 }
 
@@ -572,14 +576,9 @@ default taskButtons = {
     }
 }
 
-default taskRoots = {
-    1: ['t1', 't2', 't3']
-}
-
 default tasks = {
     1: {
         't1': {
-            'name': 't1',
             'desc': 'Clear the table',
             'btn': '6_2',
             'tlabel': 'task_c1_grabdishes',
@@ -611,7 +610,6 @@ default tasks = {
             }
         },
         't2': {
-            'name': 't2',
             'desc': 'Drop off dirty dishes',
             'btn': 'sink',
             'tlabel': 'task_c1_dropdishes',
@@ -644,19 +642,29 @@ default tasks = {
             }
         },
         't3': {
-            'name': 't3',
-            'desc': 'Drop off test item 3',
+            'desc': 'Talk to noble',
             'btn': '4_5',
             'tlabel': 'chap1_test_t1',
-            'tcost': 5,
+            'tcost': 0,
             't0': -1,
+            'tf': 9999,
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.SPECIAL],
+            'nxt': ['t3_end']
+        },
+        't3_end': {
+            'desc': 'Drop off test item 3',
+            'btn': '4_5',
+            'tlabel': 'chap1_test_t1_end',
+            'tcost': 5,
+            't0': -2,
             'tf': 9999,
             'scorebonus': 1,
             'scorepenalty': 1,
             'tags': [Task.SPECIAL]
         },
         't4': {
-            'name': 't4',
             'desc': 'Click on all the Cat MC pictures :D',
             'btn': 'pickuptable',
             'tlabel': 'task_c1_toggle',
@@ -676,7 +684,6 @@ default tasks = {
             }
         },
         't5': {
-            'name': 't5',
             'desc': 'MC we need to cook',
             'btn': 'bar',
             'tlabel': 'task_c1_waterpour',
@@ -709,7 +716,6 @@ default tasks = {
             }
         },
         't6': {
-            'name': 't6',
             'desc': 'Testing task lol',
             'btn': 'gr_5',
             'tlabel': 'chap1_test_t6',
@@ -721,7 +727,6 @@ default tasks = {
             'tags': []
         },
         'laundry1': {
-            'name': 'laundry1',
             'desc': 'Do the laundry :D',
             'btn': 'laundry_1',
             'tlabel': 'task_c1_laundry',

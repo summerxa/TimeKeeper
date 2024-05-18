@@ -108,7 +108,13 @@ init python:
             tx += "Good"
         else:
             tx += "Mid"
-        tx += f"\nQuests completed: {completion_f}/{store.levelInfo[store.curlevel]['nquests']}"
+        tx += f"\nQuests completed: {completion_f}/{len(store.levelInfo[store.curlevel]['quests'])}"
+        for qn, q_ in store.levelInfo[store.curlevel]['quests'].items():
+            tx += f"\n- {qn} "
+            if q_:
+                tx += "(done)"
+            else:
+                tx += "(to-do)"
         return tx
 
     # --- ROOM/MAP STUFF ---
@@ -137,15 +143,16 @@ init python:
 
     # goodjob = task was done correctly
     # punish = subtract from completion score if not goodjob
-    def docurtask(goodjob=True, punish=True, tsk=None):
+    def docurtask(goodjob=True, punish=True, tsk=None, tname=None):
         if not tsk:
             tsk = store.curtask
         if goodjob:
             store.curtime += tsk['tcost']
             tsk['done'] = True
             store.completion += tsk['scorebonus']
-            if Task.SPECIAL in tsk['tags']:
+            if Task.SPECIAL in tsk['tags'] and tname:
                 store.completion_f += 1
+                store.levelInfo[store.curlevel]['quests'][tname] = True
         else:
             store.curtime += tsk['tcost'] // 2
             if Task.NO_REDO in tsk['tags']:
@@ -162,6 +169,9 @@ init python:
                     if t['t0'] == -2:
                         setTlimit(t)
 
+    # t0 = -1 -> starts when minigame starts
+    # t0 = -2 -> has one prerequisite task (that contains *this* task in its 'nxt')
+    # t0 = -3 -> has multiple prereqs (contained in *this* task's 'prq')
     def update_taskq():
         for tn, t in store.tasks[curlevel].items():
             if t['t0'] == -3:
