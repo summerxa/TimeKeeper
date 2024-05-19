@@ -337,7 +337,7 @@ screen btn_startmenu(xp, yp, b_id, act, hov):
         action act
         hovered SetScreenVariable('hov', b_id)
         unhovered SetScreenVariable('hov', None)
-        at zm(1.05 if hov == b_id else 1.0)
+        at zoom_hov(hov, b_id)
         activate_sound audio.button_click_sfx
 
 screen start_navigation(hov):
@@ -599,22 +599,21 @@ screen progress():
     default hov = None
     default hov_chp = -1
     
+    # character menu
     default charmenu_data = [
         {
             'id_name': 'mc',
             'disp_name': 'Anastasia',
             'desc_default':
                 '''Anastasia is Mother's finest maid: she listens to Mother's every command, completes every task, and makes no mistakes. Will she stay a perfect maid or will she choose another path? How her journey unfolds will be up to you.''',
-            'small_default': 'mainmenu/charmenu/small/mc_default_%s.png',
-            'big_default': 'mainmenu/charmenu/small/mc_default_idle.png'
+            'crop': (80,0,511,586)
         },
         {
             'id_name': 'mother',
             'disp_name': 'Mother',
             'desc_default':
                 '''As the head of the Maid Academy, her philosophy is to be the “perfect” woman. In order to achieve her ideals, Mother does not go easy on her “lessons” to the maids, so it's best not to disappoint her. After all, Mother only wants the best for all… right?''',
-            'small_default': 'mainmenu/charmenu/small/mother_default_%s.png',
-            'big_default': 'mainmenu/charmenu/small/mother_default_idle.png'
+            'crop': (0,-50,467,536)
         },
         {
             'id_name': 'amelia',
@@ -623,11 +622,7 @@ screen progress():
                 '''Abandoned by her family as a child, Amelia was left at the side of the street, cold and starving, until Mother took her into the Maid Academy. Amelia is incredibly thankful to Mother for giving her a place in the “family”, but it will only last as long as she is useful. 
 
 As a kind and compassionate individual, Amelia is willing to believe in the best of others, but her greatest strength is hindered by her waning courage and fear of abandonment. Are you willing to trust in her kindness more, or are you more doubtful of her wavering resolve?''',
-            'desc_rip': '''AMELIA NO!!!''',
-            'small_default': 'mainmenu/charmenu/small/amelia_default_%s.png',
-            'small_rip': 'mainmenu/charmenu/small/amelia_rip_%s.png',
-            'big_default': 'mainmenu/charmenu/small/amelia_default_idle.png',
-            'big_rip': 'mainmenu/charmenu/small/amelia_rip_idle.png'
+            'crop': (0,80,450,516)
         },
         {
             'id_name': 'bella',
@@ -636,24 +631,19 @@ As a kind and compassionate individual, Amelia is willing to believe in the best
                 '''As an orphan growing up on the streets, Bella was used to having to fend for herself. Survival was her priority: if she had to steal or sacrifice for it, so be it. Her policies hadn't changed when taken into the Maid Academy; she was ready to take the top spot. But there ended up being an exception to her cutthroat nature when Amelia reached out and helped her integrate into the Academy. She was the first person to treat Bella with kindness. Bella's prickly heart softened, and they became fast friends. 
 
 Bella's softer side comes out when it comes to Amelia, but her failing track record with Mother is leaving her desperate. If you aren't Amelia, then you are merely an obstacle to her. Will you choose to befriend her, or will you prefer an adversary to triumph over?''',
-            'desc_rip': '''BELLA NO!!!''',
-            'small_default': 'mainmenu/charmenu/small/bella_default_%s.png',
-            'small_rip': 'mainmenu/charmenu/small/bella_rip_%s.png',
-            'big_default': 'mainmenu/charmenu/small/bella_default_idle.png',
-            'big_rip': 'mainmenu/charmenu/small/bella_rip_idle.png'
+            'crop': (10,0,526,603)
         }
     ]
 
-    # character menu
     default curstate = 'multi'
-    default pg_m = 6
+    default pg_m = 8
     default single_page = 0
     default single_max = len(charmenu_data)
     default multi_page = 0
     default multi_max = (single_max // pg_m) + min(1, single_max % pg_m)
 
     # endings menu
-    default node_data = {
+    default node_ch_data = {
         'mc': {
             'im': 'sprites/mc/01.png',
             'crop': (170, 60, 471, 326),
@@ -676,7 +666,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         }
     }
 
-    default endings_data = [
+    default node_data = [
         {
         'c1_scene1': {
             'tx': 'Memory',
@@ -795,6 +785,14 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     }
     ]
 
+    # cgs menu
+    default cgs_all = [[0,'c1_scene3'], [0,'c1_amelia_end'], [0,'c1_bella_end'], [0,'c1_mc_end']]
+
+    default pg_m_cg = 6
+    default single_max_cg = len(cgs_all)
+    default multi_max_cg = (single_max_cg // pg_m_cg) + min(1, single_max_cg % pg_m_cg)
+    default multi_page_cg = 0
+
     use game_menu(_("Progress")):
 
         style_prefix "about"
@@ -823,34 +821,43 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 textbutton _("Back to Progress") action SetScreenVariable("p_tab", "main")
 
                 if p_tab == "characters":
-                    use character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
+                    use character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu(hov, hov_chp, endings_data, node_data, show_cg)
+                    use endings_menu(hov, hov_chp, node_data, node_ch_data, show_cg)
                 elif p_tab == "cgs":
-                    use cgs_menu
+                    use cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page_cg, pg_m_cg)
 
-screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max):
+screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max):
     tag menu
 
     style_prefix "about"
 
     if curstate == 'multi':
-        grid 3 2:
+        grid 4 2:
             area(10, 10, 1300, 690)
 
             for i in range(multi_page * pg_m, min(single_max, multi_page * pg_m + (pg_m - 1))):
                 $ d = charmenu_data[i]
                 if not main_menu:
                     $ c = chars_current[d['id_name']]
-                imagebutton:
-                    xalign 0.5 yalign 0.5
-                    if main_menu:
-                        auto d['small_default']
-                    else:
-                        auto d[c['small']]
-                    action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i)]
+                button:
+                    anchor (0.5,0.5)
+                    pos (0.5,0.5)
+                    fixed:
+                        maximum (243,307)
+                        add f"{d['id_name']} default":
+                            align (0.5,1.)
+                            crop d['crop']
+                            xysize (243,279)
+                        add 'mainmenu/charmenu/character sheet frame.png':
+                            align (0.5,0.5)
+                    action [SetScreenVariable('curstate', 'single'), SetScreenVariable('single_page', i), SetScreenVariable('hov', None)]
                     if not d['id_name'] in persistent.chars_unlocked:
                         at darken_sprite
+                    else:
+                        hovered [SetScreenVariable('hov', d['id_name'])]
+                        unhovered [SetScreenVariable('hov', None)]
+                        at zoom_hov(hov, d['id_name'])
                     activate_sound audio.button_click_sfx
             
         hbox:
@@ -872,33 +879,43 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
         hbox:
             area(10, 10, 1300, 690)
 
-            viewport:
-                area(10, 10, 610, 690)
-                
-                mousewheel True
-                draggable True
-                scrollbars "vertical"
-                vscrollbar_unscrollable "hide"
-                
-                vbox:
-                    if d['id_name'] in persistent.chars_unlocked:
-                        text _(d['disp_name']):
-                            xalign 0. yalign 0.
-                            size 50
-                        if main_menu:
+            vbox:
+                if d['id_name'] in persistent.chars_unlocked:
+                    label _(d['disp_name']):
+                        xalign 0. yalign 0.
+                        text_size 50
+                else:
+                    label _("???"):
+                        xalign 0. yalign 0.
+                        text_size 50
+                if not main_menu:
+                    text _("Status: " + ("ALIVE" if chars_current[d['id_name']]['alive'] else "DEAD"))
+                viewport:
+                    area(10, 10, 610, 690)
+                    
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+                    
+                    vbox:
+                        if d['id_name'] in persistent.chars_unlocked:
                             text _(d['desc_default'])
                         else:
-                            text _(d[c['desc']])
-                    else:
-                        text _("???"):
-                            xalign 0. yalign 0.
-                            size 50
-                        text _("You haven't met this character yet.")
+                            text _("You haven't met this character yet.")
             
-            add (d['big_default'] if main_menu else d[c['big']]):
+            fixed:
                 xpos 0.6
                 xanchor 0.5
-                yalign 0.5
+                yalign 0.
+                maximum(486, 614)
+                add f"{d['id_name']} default":
+                    align (0.5,1.)
+                    crop d['crop']
+                    xysize (486,558)
+                add 'mainmenu/charmenu/character sheet frame.png':
+                    align (0.5,0.5)
+                    zoom 2.
                 if not d['id_name'] in persistent.chars_unlocked:
                     at darken_sprite
         hbox:
@@ -914,7 +931,7 @@ screen character_menu(charmenu_data, curstate, pg_m, single_page, single_max, mu
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp, show_cg):
+screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, show_cg):
     button:
         if 'p' in n_:
             pos n_['p']
@@ -936,10 +953,10 @@ screen btn_node(hov, hov_chp, node_data, is_unlock, n_, n_id, chp, show_cg):
                 align(0.5,0.5)
                 at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
             if is_unlock:
-                if 'c' in n_ and n_['c'] in node_data:
-                    add node_data[n_['c']]['im']:
-                        crop node_data[n_['c']]['crop']
-                        xysize node_data[n_['c']]['size']
+                if 'c' in n_ and n_['c'] in node_ch_data:
+                    add node_ch_data[n_['c']]['im']:
+                        crop node_ch_data[n_['c']]['crop']
+                        xysize node_ch_data[n_['c']]['size']
                         at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
                         align(0.,1.)
                 if 'cg' in n_:
@@ -972,7 +989,7 @@ screen node_desc(n_, n_id):
             align (0.5,0.5)
             size 30
 
-screen endings_menu(hov, hov_chp, endings_data, node_data, show_cg):
+screen endings_menu(hov, hov_chp, node_data, node_ch_data, show_cg):
     tag menu
 
     viewport:
@@ -986,16 +1003,45 @@ screen endings_menu(hov, hov_chp, endings_data, node_data, show_cg):
             maximum (6255, 1444)
             add 'mainmenu/timeline/c1_timeline.jpg':
                 align (0.5,0.5)
-            for chp in range(len(endings_data)):
-                for n_id, n_ in endings_data[chp].items():
-                    use btn_node(hov, hov_chp, node_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, show_cg)
+            for chp in range(len(node_data)):
+                for n_id, n_ in node_data[chp].items():
+                    use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, show_cg)
             if hov:
-                use node_desc(endings_data[hov_chp][hov], hov)
+                use node_desc(node_data[hov_chp][hov], hov)
 
-screen cgs_menu():
+screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page_cg, pg_m_cg):
     tag menu
-    
-    text "pretend there's something really cool here... (cg menu edition)"
+
+    grid 3 2:
+        area(10, 10, 1300, 690)
+
+        for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + (pg_m_cg - 1))):
+            button:
+                anchor (0.5,0.5)
+                pos (0.5,0.5)
+                add node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']:
+                    align(0.5,0.5)
+                    xysize(400,225)
+                action [Show('popup_cg', show_cg=node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']), With(cfade)]
+                hovered [SetScreenVariable('hov', cgs_all[i][1])]
+                unhovered [SetScreenVariable('hov', None)]
+                at zoom_hov(hov, cgs_all[i][1])
+                activate_sound audio.button_click_sfx
+
+    hbox:
+        xminimum 1300
+
+        textbutton '<':
+            xalign 0. yalign 0.5 action SetScreenVariable('multi_page', (multi_page_cg+multi_max_cg-1) % multi_max_cg)
+
+        text _(f'Page {multi_page_cg+1}/{multi_max_cg}'):
+            xalign 0.5 yalign 0.5
+
+        textbutton '>':
+            xalign 1. yalign 0.5 action SetScreenVariable('multi_page', (multi_page_cg+1) % multi_max_cg)
+
+    # BUTTON:
+    # action [Show('popup_cg', show_cg=n_['cg']), With(cfade)]
 
 screen popup_cg(show_cg):
     modal True

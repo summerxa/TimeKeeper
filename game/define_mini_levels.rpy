@@ -7,9 +7,6 @@ init python:
         for c in charmenu_data:
             if not c in store.chars_current:
                 store.chars_current[c] = {
-                    'desc': 'desc_default',
-                    'small': 'small_default',
-                    'big': 'big_default',
                     'alive': True,
                     'friend': False,
                     'friendlvl': 0

@@ -592,6 +592,7 @@ label c1_scene3:
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     $ node_unlock('c1_scene3')
+    $ cg_unlock('c1_scene3')
 
     return
 
@@ -1428,6 +1429,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     $ char_kill("amelia")
     $ node_unlock('c1_amelia_end')
+    $ cg_unlock('c1_amelia_end')
 
     #call c1_scene7 from c1_amelia_ending
 
@@ -1499,8 +1501,6 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     n3_1 "Shh! I heard that after Mother left, someone looked into the room and saw Bella’s body!"
 
-    $ char_kill("bella")
-
     n3 "Oh my gosh! Does that mean…?"
 
     n3_1 "Poor Amelia…"
@@ -1517,7 +1517,9 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     scene black with dissolve
 
+    $ char_kill("bella")
     $ node_unlock('c1_bella_end')
+    $ cg_unlock('c1_bella_end')
     return
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
@@ -1691,7 +1693,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     b "Jesus christ, are you a robot?"
 
-    SOPHORNIA "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
+    s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
 
     b "...I don’t even know whether to laugh or cry."
 
@@ -1833,6 +1835,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     #[fade to black]
 
     $ node_unlock('c1_mc_end')
+    $ cg_unlock('c1_mc_end')
     return
 
 label c1_scene7:

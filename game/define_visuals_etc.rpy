@@ -216,6 +216,8 @@ define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
 define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>bustling-cafe-ambience.mp3"
 define audio.ballroom_ambience_2 = "<from 3.5 to 7.0>busy-restaurant-dining-room-ambience-128466.mp3"
 define audio.wind_howling_ambience = "<from .551 to 27.2>wind-blowing-sfx-12809.mp3"
+
+
 # --- UI STUFF ---
 
 # keep an image rotated to angle "a"
@@ -234,6 +236,9 @@ style plaque1_font:
 
 transform highlight_hov(hov, myname, col='#aaaaaa'):
     matrixcolor InvertMatrix(1.0 if (hov == myname) else 0.0) * TintMatrix(col if (hov == myname) else '#ffffff') * InvertMatrix(1.0 if (hov == myname) else 0.0)
+
+transform zoom_hov(hov, myname, sz=1.05):
+    zoom (sz if hov == myname else 1.0)
 
 transform tint(c):
     matrixcolor TintMatrix(c)
@@ -301,6 +306,7 @@ image cg amelia tired v2 = 'cgs/Amelia_Cutscene look at you.jpg'
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0b')
 
+image mc default = Comp_('mc', 641, 386, '01', '0a')
 image mc 1a = CCS_('mc', 641, 386, '01', '0a')
 image mc 2a = CCS_('mc', 641, 386, '02', '0a')
 image mc 3a = CCS_('mc', 641, 386, '03', '0a')
@@ -315,7 +321,7 @@ image mc 4b = CCS_('mc', 641, 386, '04', '0b')
 image mc 5b = CCS_('mc', 641, 386, '05', '0b')
 image mc 6b = CCS_('mc', 641, 386, '06', '0b')
 
-
+image mother default = Comp_('mother', 467, 281, '1_1', '1_a')
 image mother 1a = CCS_('mother', 467, 281, '1_1', '1_a')
 image mother 2a = CCS_('mother', 467, 281, '1_2', '1_a')
 image mother 3a = CCS_('mother', 467, 281, '1_3', '1_a')
@@ -326,6 +332,7 @@ image mother 7a = CCS_('mother', 467, 281, '1_7', '1_a')
 image mother 8a = CCS_('mother', 467, 281, '1_8', '1_a')
 
 
+image amelia default = Comp_('amelia', 450, 412, '2_1', '2_a')
 image amelia 1a = CCS_('amelia', 450, 412, '2_1', '2_a')
 image amelia 2a = CCS_('amelia', 450, 412, '2_2', '2_a')
 image amelia 3a = CCS_('amelia', 450, 412, '2_3', '2_a')
@@ -336,6 +343,7 @@ image amelia 7a = CCS_('amelia', 450, 412, '2_7', '2_a')
 image amelia 8a = CCS_('amelia', 450, 412, '2_8', '2_a')
 
 
+image bella default = Comp_('bella', 536, 318, '3_1', '3_a')
 image bella 1a = CCS_('bella', 536, 318, '3_1', '3_a')
 image bella 2a = CCS_('bella', 536, 318, '3_2', '3_a')
 image bella 3a = CCS_('bella', 536, 318, '3_3', '3_a')

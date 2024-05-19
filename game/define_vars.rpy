@@ -6,12 +6,12 @@ init python:
     def node_unlock(n_):
         persistent.nodes_unlocked.add(n_)
         nodes_current.add(n_)
+    
+    def cg_unlock(c_):
+        persistent.cgs_unlocked.add(c_)
 
     def char_kill(c):
         store.chars_current[c]['alive'] = False
-        store.chars_current[c]['small'] = 'small_rip'
-        store.chars_current[c]['big'] = 'big_rip'
-        store.chars_current[c]['desc'] = 'desc_rip'
 
 default save_version = None
 
@@ -83,3 +83,4 @@ default nodes_current = set()
 
 default persistent.chars_unlocked = set()
 default persistent.nodes_unlocked = set()
+default persistent.cgs_unlocked = set()
