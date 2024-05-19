@@ -2065,7 +2065,7 @@ label task_c1_toggle:
         with cfade
         "task 4 not complete (not hooray!!!)"
     
-    $ docurtask(is_win_listeq())
+    $ docurtask(goodjob=is_win_listeq(), tname='Click some buttons whee')
 
     jump mini_main
 

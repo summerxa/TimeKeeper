@@ -108,7 +108,7 @@ init python:
             tx += "Good"
         else:
             tx += "Mid"
-        tx += f"\nQuests completed: {completion_f}/{len(store.levelInfo[store.curlevel]['quests'])}"
+        tx += f"\n\nQuests completed: {completion_f}/{len(store.levelInfo[store.curlevel]['quests'])}"
         for qn, q_ in store.levelInfo[store.curlevel]['quests'].items():
             tx += f"\n- {qn} "
             if q_:
