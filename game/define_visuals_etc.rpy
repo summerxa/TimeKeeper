@@ -243,6 +243,18 @@ transform zoom_hov(hov, myname, sz=1.05):
 transform tint(c):
     matrixcolor TintMatrix(c)
 
+# used for endings menu zoom in/out
+init python:
+    def zoomfact_torange(zf_):
+        lbound = 0.52
+        return lbound + (1.0 - lbound) * zf_
+
+    def zf(n_, zf_):
+        return int(n_*zf_)
+
+    def get_nodech_anchor(nsize):
+        return ((310/2)/nsize[0], (1.0 - ((165/2)/nsize[1])))
+
 # --- SPRITE STUFF ---
 
 # used to shade sprites that aren't talking
@@ -320,6 +332,7 @@ image mc 3b = CCS_('mc', 641, 386, '03', '0b')
 image mc 4b = CCS_('mc', 641, 386, '04', '0b')
 image mc 5b = CCS_('mc', 641, 386, '05', '0b')
 image mc 6b = CCS_('mc', 641, 386, '06', '0b')
+
 
 image mother default = Comp_('mother', 467, 281, '1_1', '1_a')
 image mother 1a = CCS_('mother', 467, 281, '1_1', '1_a')

@@ -594,7 +594,6 @@ screen progress():
     tag menu
 
     default p_tab = "main"
-    default show_cg = None
     
     default hov = None
     default hov_chp = -1
@@ -675,7 +674,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'desc': "Anastasia's memory."
         },
         'c1_scene2_tasks': {
-            'tx': 'Task Introduction',
+            'tx': 'intro and tasks',
             'c': 'mother',
             'p': (1073,621),
             'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
@@ -785,6 +784,9 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     }
     ]
 
+    default zfact = 1.0
+    default zfact_bar = 1.0
+
     # cgs menu
     default cgs_all = [[0,'c1_scene3'], [0,'c1_amelia_end'], [0,'c1_bella_end'], [0,'c1_mc_end']]
 
@@ -823,7 +825,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 if p_tab == "characters":
                     use character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_max, multi_page, multi_max)
                 elif p_tab == "endings":
-                    use endings_menu(hov, hov_chp, node_data, node_ch_data, show_cg)
+                    use endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact)
                 elif p_tab == "cgs":
                     use cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page_cg, pg_m_cg)
 
@@ -884,14 +886,14 @@ screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_ma
                     label _(d['disp_name']):
                         xalign 0. yalign 0.
                         text_size 50
+                    if not main_menu:
+                        text _("Status: " + ("ALIVE" if chars_current[d['id_name']]['alive'] else "DEAD"))
                 else:
                     label _("???"):
                         xalign 0. yalign 0.
                         text_size 50
-                if not main_menu:
-                    text _("Status: " + ("ALIVE" if chars_current[d['id_name']]['alive'] else "DEAD"))
                 viewport:
-                    area(10, 10, 610, 690)
+                    area(0, 10, 610, 690)
                     
                     mousewheel True
                     draggable True
@@ -931,12 +933,9 @@ screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_ma
             textbutton '>':
                 xalign 1. yalign 0.5 action SetScreenVariable('single_page', (single_page+1) % single_max)
 
-screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, show_cg):
+screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, zfact):
     button:
-        if 'p' in n_:
-            pos n_['p']
-        else:
-            pos (100,100) # TODO can remove this once all positions are done
+        pos (zf(n_['p'][0], zfact), zf(n_['p'][1], zfact))
         anchor (0.5,0.5)
         if is_unlock and 'cg' in n_:
             action [Show('popup_cg', show_cg=n_['cg']), With(cfade)]
@@ -948,66 +947,81 @@ screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, show_cg):
             unhovered [SetScreenVariable('hov', None), SetScreenVariable('hov_chp', -1)]
         fixed:
             align (0.5,0.5)
-            maximum(310,165)
+            maximum(zf(310,zfact),zf(165,zfact))
             add 'mainmenu/timeline/node_lower.png':
                 align(0.5,0.5)
                 at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
+                zoom zfact
             if is_unlock:
                 if 'c' in n_ and n_['c'] in node_ch_data:
                     add node_ch_data[n_['c']]['im']:
                         crop node_ch_data[n_['c']]['crop']
                         xysize node_ch_data[n_['c']]['size']
                         at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
-                        align(0.,1.)
+                        anchor get_nodech_anchor(node_ch_data[n_['c']]['size'])
+                        pos(0.5,0.5)
+                        zoom zfact
                 if 'cg' in n_:
                     add n_['cg']:
                         crop(0,29,1920,1022)
                         xysize(310, 165)
                         at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
-                        align(0.5,0.)
+                        align(0.5,0.5)
+                        zoom zfact
             add 'mainmenu/timeline/node_upper.png':
-                align(1.,0.5)
+                pos(0.5,0.5)
+                anchor(1.0 - ((310/2)/327), 0.5)
                 at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
+                zoom zfact
             fixed:
                 align (0.9, 0.25)
-                maximum(200,165)
+                maximum(zf(200,zfact),zf(165,zfact))
                 text (f"{n_['tx'].upper()}*" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
                     font gui.label_text_font
                     color gui.idle_color
-                    size 30
+                    size zf(30, zfact)
                     text_align 1.
                     align (1., 0.5)
                     at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
 
-screen node_desc(n_, n_id):
+screen node_desc(n_, n_id, zfact):
     frame:
-        xmaximum 400
+        xmaximum zf(400, zfact)
         anchor (0.5,1.)
-        pos (n_['p'][0], n_['p'][1] - 100)
+        pos (zf(n_['p'][0], zfact), zf(n_['p'][1] - 100, zfact))
         padding (10,10,10,10)
         text (f"* Encountered in current playthrough\n\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
             align (0.5,0.5)
-            size 30
+            size zf(30, zfact)
 
-screen endings_menu(hov, hov_chp, node_data, node_ch_data, show_cg):
+screen endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact):
     tag menu
 
-    viewport:
-        mousewheel "horizontal"
-        draggable True
-        scrollbars "both"
-        scrollbar_unscrollable "hide"
+    hbox:
+        spacing 23
+        maximum (1350, 800)
+        viewport:
+            mousewheel "horizontal"
+            draggable True
+            scrollbars "both"
+            scrollbar_unscrollable "hide"
 
-        fixed:
-            align (0.5,0.5)
-            maximum (6255, 1444)
-            add 'mainmenu/timeline/c1_timeline.jpg':
+            fixed:
                 align (0.5,0.5)
-            for chp in range(len(node_data)):
-                for n_id, n_ in node_data[chp].items():
-                    use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, show_cg)
-            if hov:
-                use node_desc(node_data[hov_chp][hov], hov)
+                maximum (zf(6255,zfact), zf(1444,zfact))
+                add 'mainmenu/timeline/c1_timeline.jpg':
+                    align (0.,0.)
+                    zoom zfact
+                for chp in range(len(node_data)):
+                    for n_id, n_ in node_data[chp].items():
+                        use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, zfact)
+                if hov:
+                    use node_desc(node_data[hov_chp][hov], hov, zfact)
+        
+        style_prefix 'slider'
+        vbar value ScreenVariableValue('zfact_bar', 1.0):
+            align (1.,0.5)
+            released SetScreenVariable('zfact', zoomfact_torange(zfact_bar))
 
 screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page_cg, pg_m_cg):
     tag menu
@@ -1040,15 +1054,12 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
         textbutton '>':
             xalign 1. yalign 0.5 action SetScreenVariable('multi_page', (multi_page_cg+1) % multi_max_cg)
 
-    # BUTTON:
-    # action [Show('popup_cg', show_cg=n_['cg']), With(cfade)]
-
 screen popup_cg(show_cg):
     modal True
     button:
         add show_cg:
             align (0.5,0.5)
-        action [SetScreenVariable('show_cg', None), Hide('popup_cg'), With(cfade)]
+        action [Hide('popup_cg'), With(cfade)]
 
 
 style about_label is gui_label
