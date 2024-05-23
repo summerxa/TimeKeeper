@@ -1018,10 +1018,10 @@ screen endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact):
                 if hov:
                     use node_desc(node_data[hov_chp][hov], hov, zfact)
         
-        style_prefix 'slider'
         vbar value ScreenVariableValue('zfact_bar', 1.0):
             align (1.,0.5)
             released SetScreenVariable('zfact', zoomfact_torange(zfact_bar))
+            style "vslider"
 
 screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page_cg, pg_m_cg):
     tag menu

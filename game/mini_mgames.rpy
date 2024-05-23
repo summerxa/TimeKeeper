@@ -226,6 +226,8 @@ screen mgame_waterpour(shaded=True):
     use mgame_overlay(shaded=shaded)
 
 screen mgame_laundry_start(i):
+    dismiss action Hide('mgame_laundry_start')
+
     frame:
         align (0.25 * (i+1), 0.5)
         vbox:
