@@ -1499,14 +1499,15 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
             show amelia 8a
 
             show bg guestroom at vshake
-            show bella at vshake
+            show bella 9a at vshake
+            # ^ seemed to be some lag between her saying "what" and her changing expressions -snail
             show mother at vshake
             show amelia at vshake
             show mc at vshake
 
             play sound "vineboom.mp3" volume .3
 
-            b 9a "WHAT!?"
+            b "WHAT!?"
 
             s "Bella was taking my tasks earlier."
 
@@ -1548,8 +1549,10 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     s "Yes, Mother."
 
     $ focus_on(["mc"])
+    show mc at eout(0.8, 1.5)
     "Anastasia leaves the room."
     #is this line really needed? -jade
+    # added an animation, idk if it helps -snail
 
     scene black with cfade
 
@@ -1728,10 +1731,9 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
 
-    hide mc 
-    hide amelia 
-    show bg guestroom with cfade
+    scene bg guestroom with cfade
     #TODO: add cg here, figure out transition
+    # shrug -snail
     "insert cg"
 
     s "What are you doing?"
@@ -1818,7 +1820,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia’s arm."
 
-    show bg guestroom with cfade
+    scene bg guestroom with cfade
 
     show mc 1b at left
     show amelia 1a at center
@@ -1973,6 +1975,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     a 1a "Hmm...?"
     #is this the right expression? -jade
+    # looks fine to me :3 -snail
 
     a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
 

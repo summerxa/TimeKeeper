@@ -713,19 +713,19 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'tx': 'Confront Bella',
             'c': 'bella',
             'p': (3357,1010),
-            'desc': "Anastasia confronts Bella for taking her task."
+            'desc': "Anastasia confronts Bella for taking her tasks. Bella accientally leaves her pocketwatch behind."
         },
         'c1_fetch4_c_pickup': {
             'tx': 'Pick up',
             'c': 'mc',
             'p': (3728,886),
-            'desc': "Anastasia picks up Bella's lost pocketwatch."
+            'desc': "Anastasia picks up Bella's pocketwatch. It might be useful later."
         },
         'c1_fetch4_c_leave': {
             'tx': 'Leave',
             'c': 'mc',
             'p': (3728,1154),
-            'desc': "Anastasia leaves Bella's lost pocketwatch where it is."
+            'desc': "Anastasia leaves Bella's pocketwatch where it is. Better to let Bella find it herself."
         },
         'c1_scene5': {
             'tx': 'End of minigame',
@@ -784,8 +784,8 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     }
     ]
 
-    default zfact = 1.0
-    default zfact_bar = 1.0
+    default zfact_bar = 0.6
+    default zfact = zoomfact_torange(0.6)
 
     # cgs menu
     default cgs_all = [[0,'c1_scene3'], [0,'c1_amelia_end'], [0,'c1_bella_end'], [0,'c1_mc_end']]
