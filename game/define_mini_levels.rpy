@@ -25,7 +25,7 @@ default levelInfo = {
         'nfloors': 2,
         'ndishes': 8,
         'threshold': [-1, 1],
-        'taskRoots': ['t1', 't2', 't3'],
+        'nonRoots': ['t3_end'],
         'quests': {
             'Fetch quest 1': False,
             'Click some buttons whee': False,
@@ -37,7 +37,7 @@ default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
     'default_taskless': "No task available right now.",
-    'custom_taskless': "A custom idle message.",
+    'custom_taskless': "A custom idle message.", # TODO remove this placeholder text
     'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
     'grabdishes_idle': "That's a lot of dirty dishes...",
     'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
@@ -78,6 +78,7 @@ Leave: exits the current game state.
 The notebook will show your completion progress using two separate displays.
 The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
     Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
+    Certain tasks will be labeled as "bonus tasks". These tasks will award approval points upon completion, but will not subtract points if left undone.
 The second one shows how many major quests you have completed.
     These quests are related to the story, and you are recommended to complete them for the best story experience.
 ''',
@@ -108,6 +109,7 @@ default infoText = {
 The notebook will show your completion progress using two separate displays.
 The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
     Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
+    Certain tasks will be labeled as "bonus tasks". These tasks will award approval points upon completion, but will not subtract points if left undone.
 The second one shows how many major quests you have completed.
     These quests are related to the story, and you are recommended to complete them for the best story experience.''',
     'onhand': '''You can pick up items by finding them around the map or by completing certain tasks.
@@ -573,20 +575,52 @@ default taskButtons = {
     }
 }
 
+default taskTemplates = {
+    'grabdishes': {
+        'tcost': 5,
+        'tdur': 20,
+        'scorebonus': 2,
+        'scorepenalty': 1,
+        'desc': 'Clear the table',
+        'tlabel': 'task_c1_grabdishes',
+        'fail_id': 'grabdishes_fail',
+        'item_req': ['air', 'dish_dirty'],
+    },
+    'dropdishes': {
+        'tcost': 5,
+        'scorebonus': 5,
+        'scorepenalty': 1,
+        'desc': 'Drop off dirty dishes',
+        'tlabel': 'task_c1_dropdishes',
+        'fail_id': 'dropdishes_fail',
+        'item_req': ['dish_dirty'],
+        'scorebonus': 1,
+        'scorepenalty': 1
+    },
+    'waterpour': {
+        'tcost': 10,
+        'tdur': 30,
+        'scorebonus': 4,
+        'scorepenalty': 0,
+        'desc': 'Bonus task: MC we need to cook',
+        'tlabel': 'task_c1_waterpour'
+    },
+    'laundry': {
+        'tlabel': 'task_c1_laundry',
+        'desc': 'Bonus task: Sort the laundry',
+        'tcost': 15,
+        'tdur': 30,
+        'scorebonus': 3,
+        'scorepenalty': 0
+    }
+}
+
 default tasks = {
     1: {
         't1': {
-            'desc': 'Clear the table',
             'btn': '6_2',
-            'tlabel': 'task_c1_grabdishes',
-            'fail_id': 'grabdishes_fail',
-            'item_req': ['air', 'dish_dirty'],
             'tcost': 10,
             't0': 1020,
-            'tf': 1030,
-            'scorebonus': 10,
-            'scorepenalty': 2,
-            'tags': [],
             'game': {
                 'type': 'grabdishes',
                 'goal': 5,
@@ -602,22 +636,13 @@ default tasks = {
                     {
                         'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
                     }
-                ],
-                'hint': [2, 'this is a very helpful hint']
+                ]
             }
         },
         't2': {
-            'desc': 'Drop off dirty dishes',
             'btn': 'sink',
-            'tlabel': 'task_c1_dropdishes',
-            'fail_id': 'dropdishes_fail',
-            'item_req': ['dish_dirty'],
-            'tcost': 10,
             't0': -1,
             'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 1,
-            'tags': [],
             'game': {
                 'type': 'dropdishes',
                 'xp': 0.5,
@@ -634,8 +659,7 @@ default tasks = {
                     {
                         'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
                     }
-                ],
-                'hint': [2, 'this is another hint']
+                ]
             }
         },
         't3': {
@@ -676,20 +700,12 @@ default tasks = {
                 'goal': [True, True],
                 'p': [(0.3, 0.5), (0.7, 0.5)],
                 'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
-                'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png'],
-                'hint': [1, 'Click on the items to pick them up/put them down']
+                'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png']
             }
         },
         't5': {
-            'desc': 'MC we need to cook',
             'btn': 'bar',
-            'tlabel': 'task_c1_waterpour',
-            'tcost': 5,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 0,
-            'tags': [],
+            't0': 1040,
             'game': {
                 'type': 'waterpour',
                 'cups': [
@@ -721,21 +737,13 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 1,
             'scorepenalty': 1,
-            'tags': []
+            'tags': [Task.SPECIAL]
         },
         'laundry1': {
-            'desc': 'Do the laundry :D',
             'btn': 'laundry_1',
-            'tlabel': 'task_c1_laundry',
-            'tcost': 20,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 1,
-            'tags': [],
+            't0': 1100,
             'game': {
-                'type': 'laundry'
-            }
+                'type': 'laundry'}
         }
     }
 }
@@ -800,7 +808,7 @@ default itemHolders = {
             'item': {
                 'id': 'wine_bottle'       
             },
-            'p': (0.7, -0.1),
+            'p': (0.7, 0.1),
             'room': 'kitchen'
         }
     }

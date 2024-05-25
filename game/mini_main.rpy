@@ -353,7 +353,6 @@ label mini_launch(startroom='main', startfloor=0):
         completion_f = 0
         hinttext = levelHints['default_start']
         taskq.clear()
-        taskrq = levelInfo[curlevel]['taskRoots'].copy()
         curroom = startroom
         prevroom = None
         curfloor = startfloor
@@ -376,10 +375,21 @@ label mini_launch(startroom='main', startfloor=0):
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
+        taskrq = []
         for tn, t in tasks[curlevel].items():
             t['activated'] = False
             t['done'] = False
             t['room'] = taskButtons[curlevel][t['btn']]['room']
+            if not 'tags' in t:
+                t['tags'] = []
+            if 'game' in t and t['game']['type'] in taskTemplates:
+                for tn_, t_ in taskTemplates[t['game']['type']].items():
+                    if tn_ == 'tdur':
+                        t['tf'] = t['t0'] + t_
+                    else:
+                        t[tn_] = t_
+            if not tn in levelInfo[curlevel]['nonRoots']:
+                taskrq.append(tn)
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:

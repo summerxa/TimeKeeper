@@ -6,9 +6,12 @@ label start:
     # Disable the "back" button (commented out for testing purposes)
     # $ config.rollback_enabled = False
 
-    call chapter1 from _call_chapter1
+    # call chapter1 from _call_chapter1
 
     call mgame_testing from _call_mgame_testing
+
+    # TODO could del chapter 1 minigame data to free up space...?
+    # code: del myDict[key]
 
     return
 

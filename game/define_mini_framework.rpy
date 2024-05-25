@@ -125,8 +125,9 @@ init python:
 
         tx = toRoom.upper()
 
-        froRoom = roomButtons[curlevel][prevroom if curroom == 'main' else curroom]['num']
-        toRoom = roomButtons[curlevel][toRoom]['num']
+        froRoom = (prevroom if curroom == 'main' else curroom)
+        froRoom_id = roomButtons[curlevel][froRoom]['num']
+        toRoom_id = roomButtons[curlevel][toRoom]['num']
         
         add_line = (toRoom == froRoom or not is_map)
 
@@ -135,7 +136,7 @@ init python:
             if toRoom == froRoom:
                 tx += "* YOU ARE HERE"
             elif not is_map:
-                tx += f"{roomProxim[curlevel][curfloor][froRoom][toRoom]} MIN"
+                tx += f"{roomProxim[curlevel][curfloor][froRoom_id][toRoom_id]} MIN"
 
         return tx + ("{/size}" if add_line else "")
 
