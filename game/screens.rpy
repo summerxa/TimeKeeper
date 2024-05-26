@@ -757,11 +757,15 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'p': (5019,611),
             'desc': "Bella's fault."
         },
-        'c1_bella_end': {
+        'c1_bella_end_vis': {
             'tx': 'Bella Dies',
-            'cg': 'bg joyce why',
+            'cg': 'bg kitchen',
             'p': (5536,611),
             'desc': "Bella is punished by Mother."
+        },
+        'c1_bella_end_hidden': {
+            'cg': 'bg joyce why',
+            'hidden': True
         },
         'c1_mc_blame': {
             'tx': 'Blame Anastasia',
@@ -788,7 +792,13 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     default zfact = zoomfact_torange(0.6)
 
     # cgs menu
-    default cgs_all = [[0,'c1_scene3'], [0,'c1_amelia_end'], [0,'c1_bella_end'], [0,'c1_mc_end']]
+    default cgs_all = [
+        [0,'c1_scene3'],
+        [0,'c1_amelia_end'],
+        [0,'c1_bella_end_vis'],
+        [0,'c1_bella_end_hidden'],
+        [0,'c1_mc_end']
+    ]
 
     default pg_m_cg = 6
     default single_max_cg = len(cgs_all)
@@ -1014,6 +1024,8 @@ screen endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact):
                     zoom zfact
                 for chp in range(len(node_data)):
                     for n_id, n_ in node_data[chp].items():
+                        if 'hidden' in n_:
+                            continue
                         use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, zfact)
                 if hov:
                     use node_desc(node_data[hov_chp][hov], hov, zfact)
@@ -1030,6 +1042,8 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
         area(10, 10, 1300, 690)
 
         for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + (pg_m_cg - 1))):
+            if not cgs_all[i][1] in persistent.cgs_unlocked:
+                continue
             button:
                 anchor (0.5,0.5)
                 pos (0.5,0.5)

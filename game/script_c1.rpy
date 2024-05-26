@@ -1112,22 +1112,26 @@ label c1_scene6:
 
                 #$ focus_on(['mother'])
 
-                m "Who was it?"
+                m "Who was it?{fast}"
+                # {fast} makes the dialogue show up without a scrolling animation
+                # only noticeable if player has text scroll speed set to a low value in settings -snail
 
+                # its a bit too wonky to explain but idt we need extra code here to
+                # set the variables to true- the labels take care of that :3 -snail
                 "Amelia":
 
-                    $ c1_justify_blame = True
+                    # $ c1_justify_blame = True
 
                     call c1_amelia_ending from _call_c1_amelia_ending
 
                 "Bella" if c1_has_bella_watch:
 
-                    $ c1_blame_bella_dialogue = True
+                    # $ c1_blame_bella_dialogue = True
 
                     call c1_bella_ending from _call_c1_bella_ending
                 "Anastasia":
 
-                    $ mc_takes_blame = True
+                    # $ mc_takes_blame = True
 
                     call c1_mc_ending from _call_c1_mc_ending
         "No":
@@ -1617,8 +1621,9 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     scene black with dissolve
 
-    $ node_unlock('c1_bella_end')
-    $ cg_unlock('c1_bella_end')
+    $ node_unlock('c1_bella_end_vis')
+    $ cg_unlock('c1_bella_end_vis')
+    $ cg_unlock('c1_bella_end_hidden')
     return
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
