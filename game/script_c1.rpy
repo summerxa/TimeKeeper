@@ -33,14 +33,14 @@ label c1_scene1:
         #easeout starts slow, ends fast
         #linear 1.0 xalign 1.0
     #use lin(), ein(), eout() instead!
-    #and linf(), einf(), eoutf() to set position first in not already on screen
+    #and linf(), einf(), eoutf() to set position first if not already on screen
     #pause (for x time), rotate (for x degrees), and repeat are self-explanatory
     #zoom, xzoom, yzoom all zoom in; xzoom and yzoom only affect horizontal/vertical
         #negative values will flip the sprite horizontally/vertically
         #set zoom to 1.0 to reset
     #linear + circles
     #zorder (number) makes image above others with smaller number
-    #use behind to... make iamges behind each other
+    #use behind to... make images behind each other
     #idk if it's better to increase/decrease zorder for diff images, or set zorder to value, set back to 0, then use behind #shrug
         #prolly easiest is to just keep increasing zorder
     # use $ focus_on(['xyz']) to focus on someone
@@ -1118,6 +1118,7 @@ label c1_scene6:
 
                 # its a bit too wonky to explain but idt we need extra code here to
                 # set the variables to true- the labels take care of that :3 -snail
+                #oki -jade
                 "Amelia":
 
                     # $ c1_justify_blame = True
@@ -1410,10 +1411,6 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     stop ambience fadeout 2.0
 
-    #[fade to black; end scene]
-
-    #[snowy courtyard/whatever]
-
     show black zorder 11 with dissolve
 
     scene bg hellway
@@ -1426,8 +1423,6 @@ label c1_amelia_ending(c1_justify_blame=True):
     hide black with dissolve
     
     #TODO: replace w/ snowy bg later 
-
-    #TODO: replace sprites later 
 
     show npc3_1 at l1_5
     show npc3 at r1_5
@@ -1655,11 +1650,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     m "Clean the entire room." 
 
-    #[might add moreee]
-
     m 1a "The rest of you are dismissed."
-
-    #[All the maids shuffle out of the room.]
 
     $ focus_on(["amelia","bella"])
     show bella 1a at eout(1.7,1.4)
@@ -1991,7 +1982,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     "Amelia waves goodbye to Anastasia and leaves the room."
 
     scene black with dissolve
-    #[fade to black]
 
     $ node_unlock('c1_mc_end')
     $ cg_unlock('c1_mc_end')
@@ -2000,7 +1990,153 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 label c1_scene7:
     "Reached ending: [c1_ending]"
 
+    show bg hallway with cfade
 
+    play ambience ballroom_ambience_1
+
+    $ focus_on(["mc","npc3"])
+
+    show mc 3b at r1_5
+    show npc3 at einf(-.8,1.2,.2)
+    pause 1.2
+
+    n3 "Mother wants to see you in Room 401."
+
+    s 1b "Understood."
+
+    if c1_ending == "amelia":
+
+        $ focus_on(["mc"])
+        hide npc3 with Dissolve(.8,alpha=True)
+
+        $ focus_on(["mc","bella"],{"mc":2})
+        show mc 3b
+        pause 2.0
+
+        show bella 1a at einf(-.8,1.0,.2)
+
+        pause 1.5
+
+        b "Ah... It’s you."
+
+        s 1b "...?"
+
+        b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you. "
+        # shrug- jade
+
+        menu:
+
+            "Respond Factually":
+
+                s "I was simply informing Mother of the truth. Amelia did not finish her tasks in a timely fashion, so she suffered the consequences of her actions."
+
+                b 10a "You— do you think we’re just a bunch of {i}tools{/i} that can be thrown away and replaced?!"
+
+                b 6a "Amelia—" 
+
+                $ focus_on(["bella"])
+
+                pause .5
+                show bella 8a 
+                pause 1.2
+                
+                b "Amelia didn’t deserve this…"
+
+                play sound "vineboom.mp3" volume .3
+                b 10a "You’re a {i}sick{/i} human being. No, you’re below human."
+
+                play sound "vineboom.mp3" volume .3
+                b "Well, I hope you rot in hell, bitch."
+
+            "Be considerate":
+
+                s "I am… sorry that Amelia is dead."
+
+                play sound "vineboom.mp3" volume .3
+                b 10a "Do you think ‘sorry’ is going to cut it? Do you think {i}‘sorry’{/i} is going to fix anything?!"
+
+                play sound "vineboom.mp3" volume .3
+                b "She’s never coming back because of YOU!"
+
+                play sound "vineboom.mp3" volume .3
+                b "GO TO HELL!"  
+
+            "Remain silent":
+
+                s "..."
+
+                b 10a "What, you can’t even be bothered to say anything?!"
+
+                b "Not even a robotic comment or reply?"
+
+                play sound "vineboom.mp3" volume .3
+                b "Is that how little she matters to you?!"
+
+                play sound "vineboom.mp3" volume .3
+                b "Fuck. You."
+
+        show bella at ein(.8,-.8)
+
+
+    stop ambience fadeout 2.0
+    scene black with dissolve
+
+    play sound clothes_rustle volume 2.0
+
+    "Anastasia walks to Room 401."
+
+    show bg guestroom with cfade
+
+    show mother 5a at l1_5
+    $ focus_on(["mc"])
+    show mc 1b at einf(1.4,.8,.8)
+
+    pause 1.0
+
+    m 1a "Ah, Sophronia."
+
+    if c1_ending == "amelia" or c1_ending == "bella":
+
+        m 3a "Wonderful job today, dear."
+
+        if c1_ending == "bella":
+
+            m 2a "It is fortunate that we were able to rid ourselves of {i}certain{/i} useless maids, so I expect that you will be able to continue your work without any issues."
+
+        m 2a "Make sure to keep up the good work, yes?"
+
+        s "Of course, Mother."
+
+    else:
+
+        m 5a "I am rather..."
+
+        $ focus_on(["mother"])
+        pause .5 
+        
+        m 6a "Disappointed in you."
+
+        m 1a "You always did so well before, yet you seemed to have declined in {i}many{/i} ways. So I had to teach you to be better."
+
+        m "Sometimes we need harsh punishment in order to improve ourselves. You understand, right dear?"
+
+        s 3b "Yes, Mother."
+
+    show mc 1b
+    m 2a "Excellent."
+
+    m 1a "Now, I didn’t just call you over on this matter. I also want to inform you of your next assignment."
+
+    m "Lord Eberhardt requires a private maid, so you will be sent to the Eberhardt household and assist them in anything they require you of."
+
+    s "I will, Mother."
+
+    # TODO unlock c1_ending in persistent endings
+
+    scene black with dissolve
+
+    play sound "boowomp.mp3" volume .3
+    "da end"
 
     "The end of the chapter"
     $ node_unlock('c1_scene7')
