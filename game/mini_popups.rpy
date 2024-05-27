@@ -30,11 +30,13 @@ screen popup_info(info_name, info_title):
         yalign 0.5
         maximum (800, 600)
 
-        label f"◆ {info_title} ◆":
+        text f"◆ {info_title} ◆":
+            style 'fancy_font'
+            size 50
             xalign 0.5
 
         viewport:
-            area (25, 75, 900, 400)
+            area (10, 75, 900, 400)
             
             mousewheel True
             draggable True
@@ -65,43 +67,40 @@ screen popup_notes():
     frame:
         xalign 0.5
         yalign 0.5
-        maximum (1000, 800)
+        maximum (1517, 1001)
+        background 'mini/ui/notebook.png'
+        padding(75,20,20,60)
 
-        vbox:
-            label "◆ Notes ◆":
-                xalign 0.5
-                
-            hbox:
-                xalign 0.
-                yalign 0.
-                for tab in [[0., 'tasks', 'Tasks'], [0.1, 'score', 'Completion']]:
-                    textbutton tab[2]:
-                        xpos tab[0]
-                        xanchor 0.
-                        yalign 0.
-                        action [
-                            SetScreenVariable('notes_tab', tab[1]),
-                            If(
-                                (tab[1] == 'tasks'),
-                                true=SetScreenVariable('tx', notes_text_s if persistent.showspecial else notes_text),
-                                false=SetScreenVariable('tx', generateScore())
-                            )
-                        ]
-                        hovered SetVariable('cur_hov', f'{tab[1]}_tab')
-                        unhovered SetVariable('cur_hov', None)
-                        at highlight_hov(cur_hov, f'{tab[1]}_tab')
-                        activate_sound audio.button_click_sfx
+        hbox:
+            spacing 23
+            align (0.5,0.)
+            xminimum 1367
+            for tab in [['Tasks', notes_text_s if persistent.showspecial else notes_text], ['Completion', generateScore()]]:
+                vbox:
+                    text f"◆ {tab[0]} ◆":
+                        style 'fancy_font'
+                        size 50
+                        xalign 0.5
 
-            viewport:
-                area (25, 25, 900, 500)
-                
-                mousewheel True
-                draggable True
-                scrollbars "vertical"
-                vscrollbar_unscrollable "hide"
-                text tx
+                    viewport:
+                        area (0, 20, 600, 800)
+                        
+                        mousewheel True
+                        draggable True
+                        scrollbars "vertical"
+                        vscrollbar_unscrollable "hide"
+                        # text 'whee\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwhee':
+                        text tab[1]:
+                            color '#906548'
         
-        use popup_button_close('popup_notes')
+        button:
+            anchor (0.,0.)
+            pos (1360,7)
+            add 'mini/mini_rect.png':
+                xysize(55,60)
+            action Hide('popup_notes')
+            at opac(0.)
+            activate_sound audio.button_click_sfx
         use popup_button_info('notes', 'About the Notebook')
 
 screen popup_onhand():

@@ -13,6 +13,7 @@ game/cache/
 *.rpyc
 *.rpymc
 
+dialogue.txt
 errors.txt
 log.txt
 traceback.txt
