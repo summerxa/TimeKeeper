@@ -612,7 +612,7 @@ screen progress():
             'disp_name': 'Mother',
             'desc_default':
                 '''As the head of the Maid Academy, her philosophy is to be the “perfect” woman. In order to achieve her ideals, Mother does not go easy on her “lessons” to the maids, so it's best not to disappoint her. After all, Mother only wants the best for all… right?''',
-            'crop': (0,-50,467,536)
+            'crop': (5,-50,467,536)
         },
         {
             'id_name': 'amelia',
@@ -621,7 +621,7 @@ screen progress():
                 '''Abandoned by her family as a child, Amelia was left at the side of the street, cold and starving, until Mother took her into the Maid Academy. Amelia is incredibly thankful to Mother for giving her a place in the “family”, but it will only last as long as she is useful. 
 
 As a kind and compassionate individual, Amelia is willing to believe in the best of others, but her greatest strength is hindered by her waning courage and fear of abandonment. Are you willing to trust in her kindness more, or are you more doubtful of her wavering resolve?''',
-            'crop': (0,80,450,516)
+            'crop': (-25,80,480,550)
         },
         {
             'id_name': 'bella',
@@ -630,7 +630,7 @@ As a kind and compassionate individual, Amelia is willing to believe in the best
                 '''As an orphan growing up on the streets, Bella was used to having to fend for herself. Survival was her priority: if she had to steal or sacrifice for it, so be it. Her policies hadn't changed when taken into the Maid Academy; she was ready to take the top spot. But there ended up being an exception to her cutthroat nature when Amelia reached out and helped her integrate into the Academy. She was the first person to treat Bella with kindness. Bella's prickly heart softened, and they became fast friends. 
 
 Bella's softer side comes out when it comes to Amelia, but her failing track record with Mother is leaving her desperate. If you aren't Amelia, then you are merely an obstacle to her. Will you choose to befriend her, or will you prefer an adversary to triumph over?''',
-            'crop': (10,0,526,603)
+            'crop': (30,0,500,573)
         }
     ]
 
@@ -903,7 +903,7 @@ screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_ma
                         xalign 0. yalign 0.
                         text_size 50
                 viewport:
-                    area(0, 10, 610, 690)
+                    area(0, 0, 700, 600)
                     
                     mousewheel True
                     draggable True
@@ -917,9 +917,7 @@ screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_ma
                             text _("You haven't met this character yet.")
             
             fixed:
-                xpos 0.6
-                xanchor 0.5
-                yalign 0.
+                align (1., 0.)
                 maximum(486, 614)
                 add f"{d['id_name']} default":
                     align (0.5,1.)
