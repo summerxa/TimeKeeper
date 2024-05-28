@@ -1450,7 +1450,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show npc3 at vshake
     show npc3_1 at vshake
     #show bg hellway with hpunch
-    n4 "AHHHHHHHHH!!!"
+    n4 "{size=50}AHHHHHHHHH!!!{/size}"
 
     n3_1 "W-what’s going on?"
 
@@ -1506,7 +1506,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
             play sound "vineboom.mp3" volume .3
 
-            b "WHAT!?"
+            b "{size=50}WHAT!?{/size}"
 
             s "Bella was taking my tasks earlier."
 
@@ -1518,7 +1518,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
             show amelia 8a
 
-            b 9a "WHAT!?"
+            b 9a "{size=50}WHAT!?{/size}"
 
     $ node_unlock('c1_bella_blame')
 
@@ -1808,7 +1808,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         "Question":
 
-            s "Why would you says that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
+            s "Why would you say that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
 
             b "Oh my god, I was being sarcastic."
 
@@ -2059,21 +2059,26 @@ label c1_scene7:
                 b "She’s never coming back because of YOU!"
 
                 play sound "vineboom.mp3" volume .3
-                b "GO TO HELL!"  
+                b "{size=50}GO TO HELL!{/size}"  
 
             "Remain silent":
 
                 s "..."
 
-                b 10a "What, you can’t even be bothered to say anything?!"
+                b 5a "What, you can’t even be bothered to say anything?!"
 
-                b "Not even a robotic comment or reply?"
-
-                play sound "vineboom.mp3" volume .3
-                b "Is that how little she matters to you?!"
+                b 5a "{size=40}Not even a robotic comment or reply?{/size}"
 
                 play sound "vineboom.mp3" volume .3
-                b "Fuck. You."
+                b 6a "{size=50}Is that how little she matters to you?!{/size}"
+
+                play sound "vineboom.mp3" volume .3
+                b 10a "Fuck. {w=0.5}You."
+
+                # forces text not to scroll, but looks meh -snail
+                # b "Fuck. {fast}{w=0.5}{nw}{done}You."
+
+                # b "Fuck. You.{fast}"
 
         show bella at ein(.8,-.8)
 
