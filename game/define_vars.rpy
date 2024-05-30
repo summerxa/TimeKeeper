@@ -38,6 +38,7 @@ init python:
     class Task(Enum):
         SPECIAL = 0     # task is recommended
         NO_REDO = 1     # can't retry task if failed
+        DONOTHING = 2   # special optional task used to skip the minigame (speedrunnn)
 
 default tolabel = ''
 

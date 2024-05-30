@@ -25,10 +25,12 @@ default levelInfo = {
         'nfloors': 2,
         'ndishes': 8,
         'threshold': [-1, 1],
-        'nonRoots': ['t3_end'],
+        'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end', 'fetch4_end'],
         'quests': {
             'Fetch quest 1': False,
-            'Click some buttons whee': False,
+            'Fetch quest 2': False,
+            'Fetch quest 3': False,
+            'Fetch quest 4': False
         }
     }
 }
@@ -617,6 +619,100 @@ default taskTemplates = {
 
 default tasks = {
     1: {
+        'donothing': {
+            'btn': '4_1',
+            'tcost': 180,
+            't0': -1,
+            'tf': 9999,
+            'desc': 'Bonus task: Sit in the corner and do nothing',
+            'tlabel': 'task_c1_donothing',
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.DONOTHING]
+        },
+        'fetch1': {
+            'desc': 'Talk to noble',
+            'btn': '4_5',
+            'tlabel': 'c1_fetch1',
+            'tcost': 0,
+            't0': -1,
+            'tf': 9999,
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch1_end']
+        },
+        'fetch1_end': {
+            'desc': 'Bring wine to noble',
+            'btn': '4_5',
+            'tlabel': 'c1_fetch1_end',
+            'tcost': 5,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 10,
+            'scorepenalty': 1,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch2']
+        },
+        'fetch2': {
+            'desc': 'Talk to noble',
+            'btn': '6_5',
+            'tlabel': 'c1_fetch2',
+            'tcost': 0,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch2_end']
+        },
+        'fetch2_end': {
+            'desc': 'Bring jacket to noble',
+            'btn': '6_5',
+            'tlabel': 'c1_fetch2_end',
+            'tcost': 5,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 10,
+            'scorepenalty': 1,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch3']
+        },
+        'fetch3': {
+            'desc': 'Talk to noble',
+            'btn': '6_5',
+            'tlabel': 'c1_fetch3',
+            'tcost': 0,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 0,
+            'scorepenalty': 0,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch3_end']
+        },
+        'fetch3_end': {
+            'desc': 'Ask the chefs for desserts',
+            'btn': 'kitchen_idk',
+            'tlabel': 'c1_fetch3_end',
+            'tcost': 5,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 10,
+            'scorepenalty': 1,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch4']
+        },
+        'fetch4': {
+            'desc': 'Talk to noble',
+            'btn': 'long1',
+            'tlabel': 'c1_fetch4',
+            'tcost': 10,
+            't0': -2,
+            'tf': 9999,
+            'scorebonus': 10,
+            'scorepenalty': 1,
+            'tags': [Task.SPECIAL]
+        },
         't1': {
             'btn': '6_2',
             'tcost': 10,
@@ -662,29 +758,6 @@ default tasks = {
                 ]
             }
         },
-        't3': {
-            'desc': 'Talk to noble',
-            'btn': '4_5',
-            'tlabel': 'chap1_test_t1',
-            'tcost': 0,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL],
-            'nxt': ['t3_end']
-        },
-        't3_end': {
-            'desc': 'Drop off test item 3',
-            'btn': '4_5',
-            'tlabel': 'chap1_test_t1_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 1,
-            'tags': [Task.SPECIAL]
-        },
         't4': {
             'desc': 'Click on all the Cat MC pictures :D',
             'btn': 'pickuptable',
@@ -694,7 +767,6 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 1,
             'scorepenalty': 1,
-            'tags': [Task.SPECIAL],
             'game': {
                 'type': 'toggle',
                 'goal': [True, True],
@@ -727,17 +799,6 @@ default tasks = {
                     }
                 ]
             }
-        },
-        't6': {
-            'desc': 'Testing task lol',
-            'btn': 'gr_5',
-            'tlabel': 'chap1_test_t6',
-            'tcost': 5,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 1,
-            'tags': [Task.SPECIAL]
         },
         'laundry1': {
             'btn': 'laundry_1',
@@ -806,7 +867,7 @@ default itemHolders = {
         },
         'hkitchen': {
             'item': {
-                'id': 'wine_bottle'       
+                'id': 'wine_bottle'
             },
             'p': (0.7, 0.1),
             'room': 'kitchen'

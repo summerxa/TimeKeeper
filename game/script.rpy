@@ -8,12 +8,6 @@ label start:
 
     call chapter1 from _call_chapter1
 
-    call mgame_testing from _call_mgame_testing
-
-    # TODO could del chapter 1 minigame data to free up space...?
-    # code: del myDict[key]
-    # just remember to save player score/fetch quests completed bc may be useful later
-
     return
 
 label chapter1:
@@ -27,17 +21,23 @@ label chapter1:
 
     # actual minigame
     $ node_unlock('c1_mgame')
+    $ curlevel = 1
+    call mini_launch
 
-    call mini_placeholder([
-        ("Fetch quest 1 (wine)", "c1_fetch1"),
-        ("Fetch quest 2 (jacket)", "c1_fetch2"),
-        ("Fetch quest 3 (first Bella interference)", "c1_fetch3"),
-        ("Fetch quest 4 (Bella confrontation)", "c1_fetch4")
-    ]) from _call_mini_placeholder_1
+    # call mini_placeholder([
+    #     ("Fetch quest 1 (wine)", "c1_fetch1"),
+    #     ("Fetch quest 2 (jacket)", "c1_fetch2"),
+    #     ("Fetch quest 3 (first Bella interference)", "c1_fetch3"),
+    #     ("Fetch quest 4 (Bella confrontation)", "c1_fetch4")
+    # ]) from _call_mini_placeholder_1
 
     call c1_scene5 from _call_c1_scene5
     call c1_scene6 from _call_c1_scene6
     call c1_scene7 from _call_c1_scene7
+
+    # TODO could del chapter 1 minigame data to free up space...?
+    # code: del myDict[key]
+    # just remember to save player score/fetch quests completed bc may be useful later
 
     return
 

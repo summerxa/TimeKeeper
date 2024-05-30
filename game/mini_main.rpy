@@ -317,8 +317,10 @@ label mini_main():
 
     $ update_taskq()
 
+    # TODO stop skipping (if player is skipping fetch quests, it gets stuck when it returns to minigame)
+
     # time is not up, still remaining tasks
-    if curtime < tlimit and (taskq or taskrq):
+    if curtime < tlimit and (taskq or taskrq) and not (len(taskq) == 1 and not taskrq and Task.DONOTHING in taskq[0]['tags']):
         # TODO maybe hide quickmenu if its too obtrusive
 
         # TODO play soundtrack (if not playing already) - alt version based on how much time left

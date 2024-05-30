@@ -615,35 +615,34 @@ label c1_fetch1:
 
     n2 "Hey! You there. Bring me a bottle of red wine. The finest quality only!"
 
-    # TODO mark 1st part as done
-    
-    "placeholder: fetch quest gameplay, in kitchen"
+    $ docurtask()
 
-    jump c1_fetch1_end # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch1_end:
     scene bg hallway with cfade
     #TODO: change this later maybe LMAO
 
-    # TODO uncomment following line in actual minigame
-    # play ambience ballroom_ambience
+    play ambience ballroom_ambience_1
 
     show npc2 at l1_5
     show mc 1b at r1_5
     
     #after item is obtained, interacting with nobleman again triggers this
 
-    # TODO call c1_give_item_prompt(n2, "wine_bottle")
+    call c1_give_item_prompt(n2, "wine_bottle")
 
-    s 1b "Your wine, sir."
+    if ichoice == 'wine_bottle':
+        s 1b "Your wine, sir."
 
-    n2 "Ah, perfect. Just the type I was looking for."
+        n2 "Ah, perfect. Just the type I was looking for."
 
-    # TODO mark 2nd part as done, remove wine from inventory
-    
-    $ node_unlock('c1_fetch1')
+        $ update_inv(myitem='wine_bottle')
+        $ docurtask(tname='Fetch quest 1')
+        
+        $ node_unlock('c1_fetch1')
 
-    return # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch2:
     
@@ -665,15 +664,15 @@ label c1_fetch2:
 
     s "Affirmative, sir."
 
-    # TODO mark 1st part complete
+    $ docurtask()
 
     #[mc goes to the laundry room.] 
 
     #[mc sees a dark blue jacket, a black jacket, a red jacket, and a dark green jacket.]
 
-    "fetch quest stuff"
+    "uhhh im too lazy to add a jacket rn.. so just grab a test item 3 in the ballroom"
 
-    jump c1_fetch2_end # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch2_end:
     scene bg guestroom with cfade
@@ -683,45 +682,50 @@ label c1_fetch2_end:
     show mc 1b at r1_5
 
     # TODO call c1_give_item_prompt(n1, "jacket_red")
+    call c1_give_item_prompt(n1, "test_3")
+
+    if ichoice == 'test_3':
     
-    $ focus_on(["mc"])
-    "Anastasia returns to the ballroom with the jacket and hands it to the noble."
+        $ focus_on(["mc"])
+        "Anastasia returns to the ballroom with the jacket and hands it to the noble."
 
-    n1 "Hmph. It appears that these maids are somewhat competent." 
+        n1 "Hmph. It appears that these maids are somewhat competent." 
 
-    # TODO mark 2nd part complete, remove jacket from inventory
+        $ docurtask(tname = "Fetch quest 2")
+        $ update_inv(myitem='test_3')
+        # TODO remove jacket from inventory
 
-    scene bg hallway with cfade
-    #TODO: replace bg w/ something else
+        scene bg hallway with cfade
+        #TODO: replace bg w/ something else
 
-    show bella 8a at center
-    b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
+        show bella 8a at center
+        b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
 
-    show bella 8a at ein(.6,.2)
-    show mother 1a at offscreenright
-    show mother at ein(.8,.8)
-    m "Bella?"
+        show bella 8a at ein(.6,.2)
+        show mother 1a at offscreenright
+        show mother at ein(.8,.8)
+        m "Bella?"
 
-    show bella 9a
-    b "Y-yes, Mother?"
+        show bella 9a
+        b "Y-yes, Mother?"
 
-    $ focus_on(['mother'])
-    show mother 5a
-    pause .8
-    show mother 6a
-    m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
+        $ focus_on(['mother'])
+        show mother 5a
+        pause .8
+        show mother 6a
+        m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
 
-    m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
+        m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
 
-    b 8a "..."
+        b 8a "..."
 
-    m 6a "Make sure you finish the rest of your tasks." 
+        m 6a "Make sure you finish the rest of your tasks." 
 
-    b 5a "...Yes, Mother."
-    #is this the right expression? -jade
-    # it looks good :D -snail
+        b 5a "...Yes, Mother."
+        #is this the right expression? -jade
+        # it looks good :D -snail
 
-    return # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch3:
     
@@ -749,9 +753,9 @@ label c1_fetch3:
 
     n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
 
-    #TODO mark 1st part complete
+    $ docurtask()
 
-    jump c1_fetch3_end # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch3_end:
 
@@ -770,8 +774,6 @@ label c1_fetch3_end:
     show bella 4a at eout(.8,1.4)
     s 4a "???"
     hide bella
-
-    # TODO remove finished tray from inventory
 
     #when mc returns to ballroom, next scene triggers"
 
@@ -797,9 +799,11 @@ label c1_fetch3_end:
 
     n2 "Wait, did the maid always look like that?"
 
-    # TODO mark last part complete, set current room to ballroom
+    $ docurtask()
+    # TODO set current room to kitchen?
+    # would that be inconvenient for the players? -snail
 
-    return # TODO jump mini_main
+    jump mini_main
 
 label c1_fetch4:
     
@@ -860,12 +864,12 @@ label c1_fetch4:
     pause 1.2
 
     $ node_unlock('c1_fetch4')
+    
+    $ docurtask()
 
     menu:
 
         b 5a "...Hmmm?"
-
-        # TODO mark part as complete/set room to ballroom
 
         "Do nothing":
 
@@ -933,7 +937,7 @@ label c1_fetch4:
 
                     $ c1_has_bella_watch = True
 
-    return # TODO jump mini_main
+    jump mini_main
 
 label c1_scene5:
     
@@ -2548,77 +2552,31 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
 
             npc "...The best maid of the lot, huh?"
 
-# TODO give item prompt but you can choose ANY item u want
-label c1_give_item_prompt_HACKED(npc=None, goal_choice=''):
-    $ ichoice = 'air'
+label task_c1_donothing:
+    # is this in character? -snail
 
-    while True:
-        menu:
-            "Choose any item to try"
-            "dirty dishes":
-                $ ichoice = 'dish_dirty'
-            "plates/trays of food":
-                $ ichoice = 'food_blahblahblah'
-            "candle/match":
-                $ ichoice = 'candle'
-            "jacket":
-                $ ichoice = 'jacket_amogus'
-            "bottle of wine":
-                $ ichoice = 'wine_bottle'
-            "other":
-                $ ichoice = 'beesechurger'
-            "(leave)":
-                return
-        if ichoice == 'dish_dirty':
-            npc "What— What is this?! Why are you giving me your dirty dishes?!"
+    scene bg seal room with cfade
+    # TODO replace w/ ballroom bg
 
-            s "I am extremely sorry; I’ll go get what you wanted."
+    $ focus_on(['mc'], {'mc': 2})
+    show mc 1b #with dissolve
 
-            npc "These maids, honestly."
-        elif item_is_of_type(ichoice, 'food'):
-            npc "This… this is {i}not{/i} what I wanted."
+    "Anastasia comes across an empty table in a quiet corner of the ballroom."
 
-            s "My apologies, I’ll go retrieve what you wanted."
-        elif ichoice == 'candle' or ichoice == 'match':
-            npc "What am I supposed to do with this?!"
+    "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day."
 
-            s "Perhaps it would help keep you warm at night?"
+    menu:
+        "Sit down":
+            $ focus_on(['mc'], {'mc': 2})
+            "Anastasia decides to sit and do nothing for the remainder of the day."
 
-            npc "Keep— Keep me warm at night?! What are you insinuating?!"
+            "This will be difficult to explain to Mother..."
+            $ docurtask()
+        "Leave for now":
+            $ focus_on(['mc'])
+            "Anastasia returns to her tasks."
 
-            s "...?"
-
-            npc "Oh lord."
-
-            npc "I. Don’t. Need. It!"
-
-            s "Understood."
-        elif item_is_of_type(ichoice, 'jacket'):
-            npc "This isn’t what I asked for, and it’s not even my jacket!"
-
-            s "Are you quite sure you don’t want it?"
-
-            npc "NO, I don’t want another person’s jacket! Just give me what I asked for!"
-
-            s "Of course. My apologies."
-        elif ichoice == 'wine_bottle':
-            npc "I didn’t ask for any wine."
-
-            s "Would you want a different drink?"
-
-            npc "I would like to drink to forget this entire conversation…"
-
-            s "I will immediately go and get another for you."
-
-            npc "NO! I don’t need a drink! Just give me what I asked for."
-
-            s "Understood."
-        else:
-            npc "This is NOT what I wanted!"
-
-            s "Apologies, I’ll immediately go retrieve what you wanted."
-
-            npc "...The best maid of the lot, huh?"
+    jump mini_main
 
 label chap1_test_t1:
     scene bg seal room with cfade
@@ -2867,8 +2825,8 @@ label task_c1_laundry:
             curgame['try_map'] = {0:-1, 1:-2, 2:-3}
 
             tot = renpy.random.randint(4, 8)
-            curgame['try'] = [''] * tot
-            curgame['goal'] = [''] * tot
+            curgame['try'] = [''] * (tot+1)
+            curgame['goal'] = [''] * (tot+1)
             curgame['drag'] = []
             tot_running = 0
             for i in range(3):
@@ -2884,6 +2842,12 @@ label task_c1_laundry:
                     })
                     curgame['goal'][tot_running] = [f"{-(i+1)}", i]
                     tot_running += 1
+            curgame['goal'][tot] = ["-3", 2]
+            curgame['drag'].append({
+                'n': tot,
+                'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
+                'type': 2
+            })
         mgame_try = curgame['try']
         mgame_goal = curgame['goal']
 

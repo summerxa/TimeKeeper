@@ -87,14 +87,14 @@ init python:
             return
         tqs = []
         for t in store.taskq:
-            tqs.append([t['tf'], t['t0'], t['room'], fmtBaseTask(t), Task.SPECIAL in t['tags']])
+            tqs.append([t['tf'], t['t0'], not Task.SPECIAL in t['tags'], -t['scorebonus'], fmtBaseTask(t)])
         tqs.sort()
         tq = []
         tq_s = []
         for t in tqs:
-            tx = t[3]
+            tx = t[4]
             tq.append(tx)
-            if t[4]:
+            if not t[2]:
                 tx = fmtSpecialTask(tx, True)
             tq_s.append(tx)
         store.notes_text = '\n'.join(tq)
@@ -357,20 +357,20 @@ label give_item_prompt(vb='Give', both_hands=False):
 
     if both_hands:
         menu:
-            "([vb] [ltext] and [rtext])" if showlh and showrh:
+            "[vb] [ltext] and [rtext]" if showlh and showrh:
                 $ ichoice = invitems
-            "([vb] [ltext])" if showlh and not showrh:
+            "[vb] [ltext]" if showlh and not showrh:
                 $ ichoice = invitems[0]
-            "([vb] [rtext])" if showrh and not showlh:
+            "[vb] [rtext]" if showrh and not showlh:
                 $ ichoice = invitems[1]
-            "(Leave for now)":
+            "Leave for now":
                 $ ichoice = None
     else:
         menu:
-            "([vb] [ltext])" if showlh:
+            "[vb] [ltext]" if showlh:
                 $ ichoice = invitems[0]
-            "([vb] [rtext])" if showrh:
+            "[vb] [rtext]" if showrh:
                 $ ichoice = invitems[1]
-            "(Leave for now)":
+            "Leave for now":
                 $ ichoice = None
     return
