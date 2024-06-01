@@ -24,7 +24,7 @@ default levelInfo = {
         'tstairs': 2,
         'nfloors': 2,
         'ndishes': 8,
-        'threshold': [-1, 1],
+        'threshold': [-20, 30],
         'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end', 'fetch4_end'],
         'quests': {
             'Fetch quest 1': False,
