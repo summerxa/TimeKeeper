@@ -1666,6 +1666,8 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     n3_1 "We, we’ll get going now!"
 
+    scene black with dissolve 
+
     "A familiar streak of blonde hair passes by Anastasia."
 
     "However, her countenance couldn’t be more foreign."
