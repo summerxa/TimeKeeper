@@ -864,7 +864,7 @@ label c1_fetch4:
     pause 1.2
 
     $ node_unlock('c1_fetch4')
-    
+
     $ docurtask()
 
     menu:
@@ -2823,6 +2823,7 @@ label task_c1_laundry:
                     curgame['ind_to_type'][i] = 1
                     break
             curgame['try_map'] = {0:-1, 1:-2, 2:-3}
+            curgame['try_map_rev'] = {-1:0, -2:1, -3:2}
 
             tot = renpy.random.randint(4, 8)
             curgame['try'] = [''] * (tot+1)

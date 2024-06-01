@@ -90,9 +90,13 @@ init python:
 
     def laundry_act_start(i, t):
         curgame['try_map'][i] = curgame['ind_to_type'][t]
-        for j in range(len(mgame_goal)):
-            if mgame_goal[j][1] == i:
-                mgame_goal[j][0] = str(curgame['ind_to_type'][t])
+        curgame['try_map_rev'][curgame['ind_to_type'][t]] = i
+        vals = list(curgame['try_map'].values())
+        for i_ in range(3):
+            goal_idx = curgame['try_map_rev'][i_] if (0 in vals and 1 in vals and 2 in vals) else -1
+            for j in range(len(mgame_goal)):
+                if mgame_goal[j][1] == i_:
+                    mgame_goal[j][0] = str(goal_idx)
         return 'done' if laundry_ok() else 'refresh'
 
 screen mgame_overlay(shaded=True):

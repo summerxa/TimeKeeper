@@ -319,6 +319,8 @@ label mini_main():
 
     # TODO stop skipping (if player is skipping fetch quests, it gets stuck when it returns to minigame)
 
+    hide screen mgame_overlay
+
     # time is not up, still remaining tasks
     if curtime < tlimit and (taskq or taskrq) and not (len(taskq) == 1 and not taskrq and Task.DONOTHING in taskq[0]['tags']):
         # TODO maybe hide quickmenu if its too obtrusive
@@ -330,8 +332,6 @@ label mini_main():
         stop ambience
 
         scene bg mgame_main
-
-        hide screen mgame_overlay
 
         if was_from_roomchange():
             call screen mini_screen
