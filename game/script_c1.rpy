@@ -1530,7 +1530,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show image "cgs/testing amelia dead cg.jpg":
         subpixel True
         yalign 1.0
-        easeout 10.0 yalign 0.7
+        easeout 28.0 yalign 0.7
     
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
