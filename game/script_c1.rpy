@@ -1131,18 +1131,12 @@ label c1_scene6:
                 #oki -jade
                 "Amelia":
 
-                    # $ c1_justify_blame = True
-
                     call c1_amelia_ending from _call_c1_amelia_ending
 
                 "Bella" if c1_has_bella_watch:
 
-                    # $ c1_blame_bella_dialogue = True
-
                     call c1_bella_ending from _call_c1_bella_ending
                 "Anastasia":
-
-                    # $ mc_takes_blame = True
 
                     call c1_mc_ending from _call_c1_mc_ending
         "No":
@@ -1270,6 +1264,8 @@ label c1_scene6:
                     b "Anastasia couldn’t finish her tasks, so I had to personally step in and help her with some of the guests."
 
                     b "Since she couldn’t get to all her tasks, she probably didn’t clean this room either."
+
+                    m "Anastasia, is this true?"
 
                     menu:
 
