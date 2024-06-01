@@ -202,20 +202,20 @@ init:
     $ renpy.music.register_channel("ambience", "ambience", loop=True)
 
 # story sfx
-define audio.glass_break_sfx = "<from 31.4 to 32.8>a lot of glass breaking.mp3"
-define audio.metal_pipe = "jixaw-metal-pipe-falling-sound.mp3"
-define audio.clothes_rustle = "<from 0.5 to 3>fabric-rustling-and-sliding-25971.mp3"
-define audio.chain_clink = "<from 0 to 1>Small Size Chain Sound Effect.mp3"
-define audio.door_creak = "door-creak-02-79920.mp3"
+define audio.glass_break_sfx = "<from 31.4 to 32.8>audio/story/a lot of glass breaking.mp3"
+define audio.metal_pipe = "audio/story/jixaw-metal-pipe-falling-sound.mp3"
+define audio.clothes_rustle = "<from 0.5 to 3>audio/story/fabric-rustling-and-sliding-25971.mp3"
+define audio.chain_clink = "<from 0 to 1>audio/story/Small Size Chain Sound Effect.mp3"
+define audio.door_creak = "audio/story/door-creak-02-79920.mp3"
 
 # minigame sfx
 define audio.button_click_sfx = "btn_click_light_2.mp3"
 define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
 
 # AMBIENCE
-define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>bustling-cafe-ambience.mp3"
-define audio.ballroom_ambience_2 = "<from 3.5 to 7.0>busy-restaurant-dining-room-ambience-128466.mp3"
-define audio.wind_howling_ambience = "<from .551 to 27.2>wind-blowing-sfx-12809.mp3"
+define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>audio/ambience/bustling-cafe-ambience.mp3"
+define audio.ballroom_ambience_2 = "<from 3.5 to 7.0>audio/ambience/busy-restaurant-dining-room-ambience-128466.mp3"
+define audio.wind_howling_ambience = "<from .551 to 27.2>audio/ambience/wind-blowing-sfx-12809.mp3"
 
 
 # --- UI STUFF ---
