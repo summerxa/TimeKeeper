@@ -50,6 +50,7 @@ label c1_scene1:
     #to display snow: show black with dissolve, scene bg xyz, show snowback, show black, pause x time, hide black with dissolve, show sprite, show snowfront
     #highlight: $ focus_on(['bella'], {'bella': 2})
     #$ mother_name = "xyz"
+    #"window hide dissolve" to hide text box w/ dissolve
 
 label c1_scene1_5: 
    
@@ -1533,11 +1534,16 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
 
+    window hide dissolve
+
     show image "cgs/testing amelia dead cg.jpg" at yal(0.0)
     with cfade
-    "!!!"
+   
+    pause 5.0
 
-    #TODO: add cg here later
+    scene black with dissolve
+
+    window show dissolve
 
     $ char_kill("amelia")
     $ node_unlock('c1_amelia_end')
@@ -1616,10 +1622,8 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     "The next day..."
 
-    scene bg hallway with cfade
-    #TODO: insert cg here
-
-    "insert cgggg"
+    show image "cgs/test image bella ending cg 1.jpg" with cfade
+    #TODO: swap w/ official one if discord destroyed quality
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
@@ -1628,7 +1632,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     n3_1 "Ah... uh, you don’t know, do you?"
 
-    n3_1 "Bella… won’t be able to do the shift."
+    n3_1 "Bella... won’t be able to do the shift."
 
     $ char_kill("bella")
 
@@ -1661,8 +1665,8 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     "However, her countenance couldn’t be more foreign."
 
-    "switch cg to amelia"
-    #TODO: switch cg
+    show image "cgs/test image amelia angy.jpg" with cfade
+    #TODO: swap w/ official if discord bad
 
     a "..."
 
@@ -1671,7 +1675,6 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     "Disappointment, and... hatred."
 
     "After all, everything comes with a price."
-
 
     scene black with dissolve
 
