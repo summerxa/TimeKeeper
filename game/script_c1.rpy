@@ -2737,11 +2737,18 @@ label task_c1_waterpour:
 label task_c1_grabdishes:
     python:
         if not 'try' in curgame:
-            mgame_goal = len(curgame['drag'])
+            mgame_goal = curgame['goal']
             curgame['try'] = [0] * mgame_goal
+            curgame['drag'] = []
             for i in range(mgame_goal):
+                curgame['drag'].append({'p': (renpy.random.randint(340, 740), renpy.random.randint(130, 840))})
                 curgame['drag'][i]['n'] = str(i)
                 curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
+            curgame['drop'] = [
+                {
+                    'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+                }
+            ]
         mgame_try = curgame['try']
     
     scene bg hallway

@@ -720,19 +720,7 @@ default tasks = {
             'game': {
                 'type': 'grabdishes',
                 'goal': 5,
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
-                'drag': [
-                    {'p': (0.2, 0.3)},
-                    {'p': (0.5, 0.3)},
-                    {'p': (0.3, 0.3)},
-                    {'p': (0.5, 0.5)},
-                    {'p': (0.5, 0.2)}
-                ],
-                'drop': [
-                    {
-                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
-                    }
-                ]
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             }
         },
         't2': {
