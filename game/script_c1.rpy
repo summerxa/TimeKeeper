@@ -1526,20 +1526,41 @@ label c1_amelia_ending(c1_justify_blame=True):
     # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
     #ahh, gotcha -jade
 
+    # show image "cgs/testing amelia dead cg.jpg":
+    #     subpixel True
+    #     yalign 1.0
+    #     easeout 10.0 yalign 0.0
+    
+    
+    # show image "cgs/testing amelia dead cg.jpg" at yal(1.0) with cfade
     show image "cgs/testing amelia dead cg.jpg":
         subpixel True
         yalign 1.0
-        easeout 10.0 yalign 0.0
-    
+        easein 3.0 yalign 0.9
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
 
+    # show image "cgs/testing amelia dead cg.jpg" at yal(0.9) with cfade
+    show image "cgs/testing amelia dead cg.jpg":
+        subpixel True
+        yalign 0.9
+        easein 3.0 yalign 0.8
+
     "But as Anastasia traces the trail of blood with her eyes, the drops gather and multiply, transforming the snow into small, dark clumps." 
+
+    # show image "cgs/testing amelia dead cg.jpg" at yal(0.8) with cfade
+    show image "cgs/testing amelia dead cg.jpg":
+        subpixel True
+        yalign 0.8
+        easein 3.0 yalign 0.7
 
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
 
-    show image "cgs/testing amelia dead cg.jpg" at yal(0.0)
-    with cfade
+    # show image "cgs/testing amelia dead cg.jpg" at yal(0.0) with cfade
+    show image "cgs/testing amelia dead cg.jpg" with cfade:
+        subpixel True
+        yalign 0.1
+        easein 3.0 yalign 0.0
     "!!!"
 
     #TODO: add cg here later

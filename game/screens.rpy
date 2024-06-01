@@ -1002,13 +1002,19 @@ screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, zfact):
             fixed:
                 align (0.9, 0.25)
                 maximum(zf(200,zfact),zf(165,zfact))
-                text (f"{n_['tx'].upper()}*" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
-                    font gui.label_text_font
-                    color gui.idle_color
-                    size zf(30, zfact)
-                    text_align 1.
-                    align (1., 0.5)
-                    at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), tint('#fff' if is_unlock else '#888')
+                # text (f"{n_['tx'].upper()}*" if not main_menu and n_id in nodes_current else n_['tx'].upper() if is_unlock else "???"):
+                if is_unlock:
+                    text (f"{n_['tx'].upper()}*" if not main_menu and n_id in nodes_current else n_['tx'].upper()):
+                        font gui.label_text_font
+                        color gui.idle_color
+                        size zf(30, zfact)
+                        text_align 1.
+                        align (1., 0.5)
+                        at highlight_hov(hov, n_id, '#ddd')
+            if not is_unlock:
+                add 'mainmenu/timeline/icon_locked.png':
+                    align (0.5,0.5)
+                    zoom zfact
 
 screen node_desc(n_, n_id, zfact):
     frame:
@@ -1059,15 +1065,14 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
 
         for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + (pg_m_cg - 1))):
             if not cgs_all[i][1] in persistent.cgs_unlocked:
-                vbox:
+                fixed:
                     maximum(400,225)
-                    spacing -50
                     align(0.5,0.5)
                     add 'mini/mini_rect.png':
                         align(0.5,0.5)
                         xysize(400, 225)
-                        at tint('#906548')
-                    text "CG NOT UNLOCKED":
+                        at tint(gui.muted_color)
+                    add 'mainmenu/timeline/icon_locked.png':
                         align(0.5,0.5)
             else:
                 button:
