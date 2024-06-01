@@ -810,6 +810,8 @@ label c1_fetch4:
     scene bg guestroom with cfade
     #TODO: replace with ballroom bg
 
+    play ambience ballroom_ambience_2 fadein 1.0
+    #we really need better ambience, don't we...
     "Fetch quest 4"
 
     show npc4 at l1_5
@@ -821,6 +823,10 @@ label c1_fetch4:
 
     # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
     
+    stop ambience fadeout 2.0
+
+    #TODO: add kitchen ambience
+
     scene bg kitchen with cfade
     #placeholder: not in actual game
 
@@ -847,6 +853,7 @@ label c1_fetch4:
     s "I see. Thank you for telling me."
     
     scene bg guestroom with cfade
+    #TODO: replace w/ ballroom, again
 
     show npc4 at l1_5
     show bella 1a at r1_5
@@ -931,6 +938,7 @@ label c1_fetch4:
 
                 "Pick it up":
 
+                    play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
                     "you got Bella's pocket watch! yippee!"
                     
                     $ node_unlock('c1_fetch4_c_pickup')
@@ -1114,8 +1122,6 @@ label c1_scene6:
 
             menu:
 
-                #$ focus_on(['mother'])
-
                 m "Who was it?{fast}"
                 # {fast} makes the dialogue show up without a scrolling animation
                 # only noticeable if player has text scroll speed set to a low value in settings -snail
@@ -1148,19 +1154,41 @@ label c1_scene6:
             m "Are you sure you did not?"
 
             menu:
-                "Are you sure you did not?"
+
+                m "Are you sure you did not?{fast}"
 
                 "Not sure":
+
+                    s "No, I think I did see one maid disobeying your orders."
+
+                    m 6a "Who was that maid?"
+
                     menu:
-                        "Who was it?"
+                        "Who was it?{fast}"
                         "Amelia":
                             call c1_amelia_ending from _call_c1_amelia_ending_1
                         "Bella" if c1_has_bella_watch:
                             call c1_bella_ending from _call_c1_bella_ending_1
                 "Yes":
+
+                    s "Yes, I’m sure Mother."
+
+                    m "Were there any idle maids?"
+
+                    $ focus_on(["mc","amelia"],{"amelia":2})
+                    "Anatasia looks at Amelia, who’s terrified."
+                    #TODO: uh, having them highlighted with the choices up might not look right...
+
                     menu:
+                        
                         "Were there any idle maids?"
+
                         "Yes":
+
+                            s "There was one maid."
+
+                            m "Who was that maid?"
+
                             menu:
                                 "Amelia":
                                     call c1_amelia_ending from _call_c1_amelia_ending_2
@@ -1169,16 +1197,41 @@ label c1_scene6:
                                 "Anastasia":
                                     call c1_mc_ending from _call_c1_mc_ending_1
                         "No":
+
+                            s "No, there was not."
+
+                            m 5a "Hmm..."
+                            
+                            m 1a "Did you see anything unusual or out of the ordinary when you were doing your tasks?"
+
                             menu:
                                 "Did you see anything unusual?"
+
                                 "Yes":
+
+                                    s "I did."
+
+                                    m "What was that?"
+
                                     menu:
-                                        "What was that?"
+
+                                        m "What was that?{fast}"
+
                                         "Amelia":
                                             call c1_amelia_ending from _call_c1_amelia_ending_3
                                         "Bella" if c1_has_bella_watch:
                                             call c1_bella_ending from _call_c1_bella_ending_3
                                 "No":
+                                    
+                                    s "No, I did not."
+
+                                    m 5a "If you had any suspicions as to who was responsible for this—"
+
+                                    m 6a "Who would that be?"
+
+                                    $ focus_on(["mc"])
+                                    "Anastasia glances at Amelia, then at Bella, then finally at Mother."
+
                                     menu:
                                         "Who would you suspect?"
                                         "Amelia":
@@ -1508,7 +1561,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
             show amelia at vshake
             show mc at vshake
 
-            play sound "vineboom.mp3" volume .3
+            play sound "audio/random/vineboom.mp3" volume .3
 
             b "{size=50}WHAT!?{/size}"
 
@@ -1976,6 +2029,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     a 1a "Hmm...?"
     #is this the right expression? -jade
     # looks fine to me :3 -snail
+    # <3 -jade
 
     a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
 
@@ -2046,23 +2100,23 @@ label c1_scene7:
                 
                 b "Amelia didn’t deserve this…"
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "You’re a {i}sick{/i} human being. No, you’re below human."
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b "Well, I hope you rot in hell, bitch."
 
             "Be considerate":
 
                 s "I am… sorry that Amelia is dead."
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "Do you think ‘sorry’ is going to cut it? Do you think {i}‘sorry’{/i} is going to fix anything?!"
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b "She’s never coming back because of YOU!"
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b "{size=50}GO TO HELL!{/size}"  
 
             "Remain silent":
@@ -2073,10 +2127,10 @@ label c1_scene7:
 
                 b 5a "{size=40}Not even a robotic comment or reply?{/size}"
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b 6a "{size=50}Is that how little she matters to you?!{/size}"
 
-                play sound "vineboom.mp3" volume .3
+                play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "Fuck. {w=0.5}You."
 
                 # forces text not to scroll, but looks meh -snail
@@ -2144,7 +2198,7 @@ label c1_scene7:
 
     scene black with dissolve
 
-    play sound "boowomp.mp3" volume .3
+    play sound "audio/random/boowomp.mp3" volume .3
     "da end"
 
     "The end of the chapter"
