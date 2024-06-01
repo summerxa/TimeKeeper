@@ -1158,7 +1158,7 @@ label c1_scene6:
                     m 6a "Who was that maid?"
 
                     menu:
-                        "Who was it?{fast}"
+                        m 6a "Who was that maid?{fast}"
                         "Amelia":
                             call c1_amelia_ending from _call_c1_amelia_ending_1
                         "Bella" if c1_has_bella_watch:
@@ -1173,9 +1173,11 @@ label c1_scene6:
                     "Anatasia looks at Amelia, who’s terrified."
                     #TODO: uh, having them highlighted with the choices up might not look right...
 
+                    $ clear_focus() # added a function to remove highlights manually :3
+                    # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
-                        
-                        "Were there any idle maids?"
+                        "Anatasia looks at Amelia, who’s terrified.{fast}"
+                        # not sure if this line fits here but ehhhh -snail
 
                         "Yes":
 
@@ -1184,6 +1186,7 @@ label c1_scene6:
                             m "Who was that maid?"
 
                             menu:
+                                m "Who was that maid?{fast}"
                                 "Amelia":
                                     call c1_amelia_ending from _call_c1_amelia_ending_2
                                 "Bella" if c1_has_bella_watch:
@@ -1199,7 +1202,7 @@ label c1_scene6:
                             m 1a "Did you see anything unusual or out of the ordinary when you were doing your tasks?"
 
                             menu:
-                                "Did you see anything unusual?"
+                                m "Did you see anything unusual or out of the ordinary when you were doing your tasks?{fast}"
 
                                 "Yes":
 
@@ -1226,8 +1229,10 @@ label c1_scene6:
                                     $ focus_on(["mc"])
                                     "Anastasia glances at Amelia, then at Bella, then finally at Mother."
 
+                                    $ clear_focus()
+
                                     menu:
-                                        "Who would you suspect?"
+                                        "Anastasia glances at Amelia, then at Bella, then finally at Mother.{fast}"
                                         "Amelia":
                                             call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
                                         "Bella" if c1_has_bella_watch:
@@ -1269,7 +1274,7 @@ label c1_scene6:
 
                     menu:
 
-                        m "Anastasia, is this true?"
+                        m "Anastasia, is this true?{fast}"
 
                         "Bella" if c1_has_bella_watch:
                             

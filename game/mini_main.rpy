@@ -96,7 +96,7 @@ screen btn_tsk(bt, hov_id=None):
 screen btn_item(bt, hov_id):
     imagebutton:
         pos bt['p']
-        auto f"mini/btn_item/item_{bt['item']['id']}_%s.png"
+        auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered SetVariable('cur_hov', None)
