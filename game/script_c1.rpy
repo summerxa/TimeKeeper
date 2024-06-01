@@ -1081,28 +1081,27 @@ label c1_scene6:
     m "Anastasia."
     # TODO calculate player’s completion here
     # made a placeholder menu to test the dialogue lol -snail
-    menu:
-        "this is a placeholder lmao, anyway choose a completion score"
+    
+    "your completion score is [completion], you did [completion_f] fetch quest(s)"
 
-        "player completion/progress good":
+    if completion >= levelInfo[curlevel]['threshold'][1]:
 
-            m 2a "Your work today was excellent."
+        m 2a "Your work today was excellent."
 
-            m "Everyone should follow Anastasia’s example."
+        m "Everyone should follow Anastasia’s example."
 
-            m "This is what a good maid should be."
+        m "This is what a good maid should be."
 
-        "player completion/progress mid":
+    elif completion <= levelInfo[curlevel]['threshold'][0]:
 
-            m "Your work today was… a little {i}inadequate{/i}, but I hope that you will do better next time."
+        m 6a "Your work today was… quite frankly, {i}dreadful{/i}." 
 
-        "player completion/progress bad":
+        m 1a "I am rather stunned that you managed to stoop this {i}low{/i}, considering the fact that you were always the highest performing maid."
 
-            m 6a "Your work today was… quite frankly, {i}dreadful{/i}." 
+        m "Please improve next time, dear. You’re not making the best example for the other maids."
+    else:
+        m "Your work today was… a little {i}inadequate{/i}, but I hope that you will do better next time."
 
-            m 1a "I am rather stunned that you managed to stoop this {i}low{/i}, considering the fact that you were always the highest performing maid."
-
-            m "Please improve next time, dear. You’re not making the best example for the other maids."
 
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
@@ -1673,9 +1672,12 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     scene black with dissolve
 
-    $ node_unlock('c1_bella_end_vis')
-    $ cg_unlock('c1_bella_end_vis')
-    $ cg_unlock('c1_bella_end_hidden')
+    # $ node_unlock('c1_bella_end_vis')
+    # $ cg_unlock('c1_bella_end_vis')
+    # $ cg_unlock('c1_bella_end_hidden')
+    $ node_unlock('c1_bella_end')
+    $ cg_unlock('c1_bella_end 1')
+    $ cg_unlock('c1_bella_end 2')
     return
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
@@ -2156,7 +2158,7 @@ label c1_scene7:
 
     pause 1.0
 
-    m 1a "Ah, Sophronia."
+    m 1a "Ah, Anastasia."
 
     if c1_ending == "amelia" or c1_ending == "bella":
 

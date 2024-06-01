@@ -757,16 +757,23 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'p': (5019,611),
             'desc': "Bella's fault."
         },
-        'c1_bella_end_vis': {
+        'c1_bella_end': {
             'tx': 'Bella Dies',
-            'cg': 'bg kitchen',
+            'cg_list': ['c1_bella_end 1', 'c1_bella_end 2'],
+            'cg_dict': {'c1_bella_end 1': 'bg kitchen', 'c1_bella_end 2': 'bg joyce why'},
             'p': (5536,611),
             'desc': "Bella is punished by Mother."
         },
-        'c1_bella_end_hidden': {
-            'cg': 'bg joyce why',
-            'hidden': True
-        },
+        # 'c1_bella_end_vis': {
+        #     'tx': 'Bella Dies',
+        #     'cg': 'bg kitchen',
+        #     'p': (5536,611),
+        #     'desc': "Bella is punished by Mother."
+        # },
+        # 'c1_bella_end_hidden': {
+        #     'cg': 'bg joyce why',
+        #     'hidden': True
+        # },
         'c1_mc_blame': {
             'tx': 'Blame Anastasia',
             'c': 'mc',
@@ -795,8 +802,10 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
     default cgs_all = [
         [0,'c1_scene3'],
         [0,'c1_amelia_end'],
-        [0,'c1_bella_end_vis'],
-        [0,'c1_bella_end_hidden'],
+        [0,'c1_bella_end 1'],
+        [0,'c1_bella_end 2'],
+        # [0,'c1_bella_end_vis'],
+        # [0,'c1_bella_end_hidden'],
         [0,'c1_mc_end']
     ]
 
@@ -947,6 +956,8 @@ screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, zfact):
         anchor (0.5,0.5)
         if is_unlock and 'cg' in n_:
             action [Show('popup_cg', show_cg=n_['cg']), With(cfade)]
+        elif is_unlock and 'cg_list' in n_:
+            action [Show('popup_cg', show_cg_list=n_['cg_list'], show_cg_dict=n_['cg_dict']), With(cfade)]
         else:
             action NullAction()
         activate_sound audio.button_click_sfx
@@ -971,6 +982,13 @@ screen btn_node(hov, hov_chp, node_ch_data, is_unlock, n_, n_id, chp, zfact):
                         zoom zfact
                 if 'cg' in n_:
                     add n_['cg']:
+                        crop(0,29,1920,1022)
+                        xysize(310, 165)
+                        at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
+                        align(0.5,0.5)
+                        zoom zfact
+                if 'cg_list' in n_:
+                    add n_['cg_dict'][n_['cg_list'][0]]:
                         crop(0,29,1920,1022)
                         xysize(310, 165)
                         at highlight_hov(hov if is_unlock else "-", n_id, '#ddd'), opac(0.5), tint('#fff' if is_unlock else '#888')
@@ -1041,18 +1059,34 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
 
         for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + (pg_m_cg - 1))):
             if not cgs_all[i][1] in persistent.cgs_unlocked:
-                continue
-            button:
-                anchor (0.5,0.5)
-                pos (0.5,0.5)
-                add node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']:
+                vbox:
+                    maximum(400,225)
+                    spacing -50
                     align(0.5,0.5)
-                    xysize(400,225)
-                action [Show('popup_cg', show_cg=node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']), With(cfade)]
-                hovered [SetScreenVariable('hov', cgs_all[i][1])]
-                unhovered [SetScreenVariable('hov', None)]
-                at zoom_hov(hov, cgs_all[i][1])
-                activate_sound audio.button_click_sfx
+                    add 'mini/mini_rect.png':
+                        align(0.5,0.5)
+                        xysize(400, 225)
+                        at tint('#906548')
+                    text "CG NOT UNLOCKED":
+                        align(0.5,0.5)
+            else:
+                button:
+                    anchor (0.5,0.5)
+                    pos (0.5,0.5)
+                    if cgs_all[i][1] in node_data[cgs_all[i][0]]:
+                        add node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']:
+                            align(0.5,0.5)
+                            xysize(400,225)
+                        action [Show('popup_cg', show_cg=node_data[cgs_all[i][0]][cgs_all[i][1]]['cg']), With(cfade)]
+                    else:
+                        add node_data[cgs_all[i][0]][cgs_all[i][1].split(' ')[0]]['cg_dict'][cgs_all[i][1]]:
+                            align(0.5,0.5)
+                            xysize(400,225)
+                        action [Show('popup_cg', show_cg=node_data[cgs_all[i][0]][cgs_all[i][1].split(' ')[0]]['cg_dict'][cgs_all[i][1]]), With(cfade)]
+                    hovered [SetScreenVariable('hov', cgs_all[i][1])]
+                    unhovered [SetScreenVariable('hov', None)]
+                    at zoom_hov(hov, cgs_all[i][1])
+                    activate_sound audio.button_click_sfx
 
     hbox:
         xminimum 1300
@@ -1066,12 +1100,26 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
         textbutton '>':
             xalign 1. yalign 0.5 action SetScreenVariable('multi_page', (multi_page_cg+1) % multi_max_cg)
 
-screen popup_cg(show_cg):
+screen popup_cg(show_cg=None, show_cg_list=[], show_cg_dict={}):
+    default cg_idx = 0
     modal True
     button:
-        add show_cg:
-            align (0.5,0.5)
+        if show_cg:
+            add show_cg:
+                align (0.5,0.5)
+        elif show_cg_list:
+            add show_cg_dict[show_cg_list[cg_idx]]:
+                align (0.5,0.5)
         action [Hide('popup_cg'), With(cfade)]
+    if show_cg_list:
+        textbutton "<":
+            align(0.01, 0.5)
+            text_size 50
+            action [SetScreenVariable('cg_idx', (cg_idx + len(show_cg_list) - 1) % len(show_cg_list)), With(cfade)]
+        textbutton ">":
+            align(0.99, 0.5)
+            text_size 50
+            action [SetScreenVariable('cg_idx', (cg_idx + 1) % len(show_cg_list)), With(cfade)]
 
 
 style about_label is gui_label
