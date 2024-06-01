@@ -1527,7 +1527,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
     #ahh, gotcha -jade
 
-    show image "cgs/testing amelia dead cg.jpg":
+    show cg amelia ending:
         subpixel True
         yalign 1.0
         easeout 10.0 yalign 0.7
@@ -1541,7 +1541,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     window hide dissolve
 
-    show image "cgs/testing amelia dead cg.jpg" at yal(0.0)
+    show cg amelia ending at yal(0.0)
     with cfade
    
     pause 5.0
@@ -1627,7 +1627,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     "The next day..."
 
-    show image "cgs/test image bella ending cg 1.jpg" with cfade
+    show cg bella ending 1 with cfade
     #TODO: swap w/ official one if discord destroyed quality
 
     $ npc3_name = "MAID 1"
@@ -1672,7 +1672,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     "However, her countenance couldn’t be more foreign."
 
-    show image "cgs/test image amelia angy.jpg" with cfade
+    show cg bella ending 2 with cfade
     #TODO: swap w/ official if discord bad
 
     a "..."

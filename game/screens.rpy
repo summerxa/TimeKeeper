@@ -747,7 +747,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_amelia_end': {
             'tx': 'Amelia Dies',
-            'cg': 'cg amelia dies cropped',
+            'cg': 'cg amelia ending_cropped',
             'p': (5536,371),
             'desc': "Amelia fails to complete all her tasks."
         },
@@ -760,7 +760,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         'c1_bella_end': {
             'tx': 'Bella Dies',
             'cg_list': ['c1_bella_end 1', 'c1_bella_end 2'],
-            'cg_dict': {'c1_bella_end 1': 'bg kitchen', 'c1_bella_end 2': 'bg joyce why'},
+            'cg_dict': {'c1_bella_end 1': 'cg bella ending 1', 'c1_bella_end 2': 'cg bella ending 2'},
             'p': (5536,611),
             'desc': "Bella is punished by Mother."
         },
@@ -820,21 +820,44 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
 
         if p_tab == "main":
             hbox:
-                xalign 0.5 yalign 0.5
-                minimum(1000, 690)
+                # xalign 0.5 yalign 0.5
+                # minimum(1000, 800)
+                area(10,10,1360,800)
+                # spacing 50
 
-                textbutton _("Characters"):
-                    xalign 0. yalign 0.5 text_align 0.5
+                button:
+                    maximum(381,809)
+                    align(0.25, 0.5)
+                    add 'mainmenu/progress/progress_characters_idle.jpg':
+                        align(0.5,0.5)
+                        at highlight_hov(hov, 'progress_chars', col='#ddd')
+                        zoom 0.9
                     action SetScreenVariable("p_tab", "characters")
                     activate_sound audio.button_click_sfx
-                textbutton _("Timeline"):
-                    xalign 0.5 yalign 0.5 text_align 0.5
+                    hovered SetScreenVariable('hov', 'progress_chars')
+                    unhovered SetScreenVariable('hov', None)
+                button:
+                    maximum(381,809)
+                    align(0.5,0.5)
+                    add 'mainmenu/progress/progress_timeline_idle.png':
+                        align(0.5,0.5)
+                        at highlight_hov(hov, 'progress_timeline', col='#ddd')
+                        zoom 0.9
                     action SetScreenVariable("p_tab", "endings")
                     activate_sound audio.button_click_sfx
-                textbutton _("CGs"):
-                    xalign 1. yalign 0.5 text_align 0.5
+                    hovered SetScreenVariable('hov', 'progress_timeline')
+                    unhovered SetScreenVariable('hov', None)
+                button:
+                    maximum(381,809)
+                    align(0.75,0.5)
+                    add 'mainmenu/progress/progress_cgs_idle.png':
+                        align(0.5,0.5)
+                        at highlight_hov(hov, 'progress_cgs', col='#ddd')
+                        zoom 0.9
                     action SetScreenVariable("p_tab", "cgs")
                     activate_sound audio.button_click_sfx
+                    hovered SetScreenVariable('hov', 'progress_cgs')
+                    unhovered SetScreenVariable('hov', None)
         else:
             vbox:
                 spacing 23
@@ -1049,7 +1072,7 @@ screen endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact):
                         if 'hidden' in n_:
                             continue
                         use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, zfact)
-                if hov:
+                if hov and hov_chp >= 0:
                     use node_desc(node_data[hov_chp][hov], hov, zfact)
         
         vbar value ScreenVariableValue('zfact_bar', 1.0):

@@ -319,7 +319,11 @@ image bg hellway = 'bgs/hellway.png'
 image cg amelia tired v1 = 'cgs/Amelia_Cutscene look away.jpg'
 image cg amelia tired v2 = 'cgs/Amelia_Cutscene look at you.jpg'
 
-image cg amelia dies cropped = 'cgs/Amelia_Dies cropped.jpg'
+image cg amelia ending = "cgs/testing amelia dead cg.jpg"
+image cg amelia ending_cropped = 'cgs/Amelia_Dies cropped.jpg'
+
+image cg bella ending 1 = "cgs/test image bella ending cg 1.jpg"
+image cg bella ending 2 = "cgs/test image amelia angy.jpg"
 
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0b')
