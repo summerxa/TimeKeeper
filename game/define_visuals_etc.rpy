@@ -285,6 +285,10 @@ init python:
         for ch in chs:
             focus_dict[ch] = cht[ch] if ch in cht else 1
     
+    def clear_focus():
+        store.current_speaker = None
+        focus_dict.clear()
+    
     def Comp_(charname, imwidth, headheight, face, pose):
         im_face = f"sprites/{charname}/{face}.png"
         im_pose = f"sprites/{charname}/{pose}.png"
@@ -313,7 +317,9 @@ image bg joyce why = 'bgs/joyce why.png'
 image bg hellway = 'bgs/hellway.png'
 
 image cg amelia tired v1 = 'cgs/Amelia_Cutscene look away.jpg'
-image cg amelia tired v2 = 'cgs/Amelia_Cutscene look at you.jpg' 
+image cg amelia tired v2 = 'cgs/Amelia_Cutscene look at you.jpg'
+
+image cg amelia dies cropped = 'cgs/Amelia_Dies cropped.jpg'
 
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0b')

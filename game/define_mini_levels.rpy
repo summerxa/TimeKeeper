@@ -25,7 +25,7 @@ default levelInfo = {
         'nfloors': 2,
         'ndishes': 8,
         'threshold': [-20, 30],
-        'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end', 'fetch4_end'],
+        'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end'],
         'quests': {
             'Fetch quest 1': False,
             'Fetch quest 2': False,
@@ -650,7 +650,7 @@ default tasks = {
             't0': -2,
             'tf': 9999,
             'scorebonus': 10,
-            'scorepenalty': 1,
+            'scorepenalty': 5,
             'tags': [Task.SPECIAL],
             'nxt': ['fetch2']
         },
@@ -674,7 +674,7 @@ default tasks = {
             't0': -2,
             'tf': 9999,
             'scorebonus': 10,
-            'scorepenalty': 1,
+            'scorepenalty': 5,
             'tags': [Task.SPECIAL],
             'nxt': ['fetch3']
         },
@@ -698,7 +698,7 @@ default tasks = {
             't0': -2,
             'tf': 9999,
             'scorebonus': 10,
-            'scorepenalty': 1,
+            'scorepenalty': 5,
             'tags': [Task.SPECIAL],
             'nxt': ['fetch4']
         },
@@ -710,7 +710,7 @@ default tasks = {
             't0': -2,
             'tf': 9999,
             'scorebonus': 10,
-            'scorepenalty': 1,
+            'scorepenalty': 5,
             'tags': [Task.SPECIAL]
         },
         't1': {
@@ -802,21 +802,55 @@ default itemsAll = {
     'air': {
         'name': 'empty',
         'desc': 'An empty spot. An item can be placed here.',
+        'im': 'air',
         'stackable': False
     },
     'test_3': {
         'name': 'test item 3',
         'desc': 'I guess this is an item too?? It\'s called test item 3.',
+        'im': 'test_3',
         'stackable': False
     },
     'dish_dirty': {
         'name': 'dirty dishes',
         'desc': 'A stack of dirty dishes.',
+        'im': 'dish_dirty',
         'stackable': True
     },
     'wine_bottle': {
         'name': 'bottle of wine',
         'desc': 'A bottle of wine.',
+        'im': 'wine_bottle',
+        'stackable': False
+    },
+    'candle': {
+        'name': 'candle',
+        'desc': 'A lit candle.',
+        'im': 'candle',
+        'stackable': False
+    },
+    'jacket_red': {
+        'name': 'red jacket',
+        'desc': 'A red jacket with golden trim.',
+        'im': 'shirt',
+        'stackable': False
+    },
+    'jacket_darkblue': {
+        'name': 'dark blue jacket',
+        'desc': 'A dark blue jacket.',
+        'im': 'shirt',
+        'stackable': False
+    },
+    'jacket_black': {
+        'name': 'black jacket',
+        'desc': 'A black jacket.',
+        'im': 'shirt',
+        'stackable': False
+    },
+    'jacket_darkgreen': {
+        'name': 'darkgreen jacket',
+        'desc': 'A dark green jacket.',
+        'im': 'shirt',
         'stackable': False
     }
 }

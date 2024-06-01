@@ -747,7 +747,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_amelia_end': {
             'tx': 'Amelia Dies',
-            'cg': 'bg hellway',
+            'cg': 'cg amelia dies cropped',
             'p': (5536,371),
             'desc': "Amelia fails to complete all her tasks."
         },
