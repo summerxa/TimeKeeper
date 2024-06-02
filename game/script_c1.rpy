@@ -535,7 +535,7 @@ label c1_scene2:
 label c1_scene3:
     scene black with dissolve
 
-    stop ambience
+    stop ambience fadeout 2.0
 
     "Scene 3 (amelia sick scene)"
 
@@ -590,7 +590,7 @@ label c1_scene3:
     #shrug -jade
     # i think this transition should be fine- check with luna tho lol -snail
     #ok -jade
-    play sound clothes_rustle volume 2.0
+    play sound clothes_rustle volume 3.0
     "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     $ node_unlock('c1_scene3')
@@ -603,13 +603,13 @@ label c1_fetch1:
     scene bg hallway with cfade
     #TODO: change this later maybe LMAO
 
-    "Fetch quest 1"
-
-    play ambience ballroom_ambience_1
+    play ambience ballroom_ambience_1 fadein 1.0
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
     # :i_cri_evry_tiem: -snail
     #sadge -jade
+
+    "Fetch quest 1"
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -624,7 +624,7 @@ label c1_fetch1_end:
     scene bg hallway with cfade
     #TODO: change this later maybe LMAO
 
-    play ambience ballroom_ambience_1
+    play ambience ballroom_ambience_1 fadein .8
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -955,6 +955,9 @@ label c1_scene5:
     # hide screen mgame_overlay
     # with cfade
     
+    play ambience ballroom_ambience_2 fadein .8
+    #TODO: replace ambience w/ better ambience later
+
     "Scene 5"
 
     show mc 1a at center
@@ -982,11 +985,11 @@ label c1_scene5:
 
 label c1_scene6:
     
+    stop ambience fadeout 2.0
+
     scene bg guestroom with cfade
 
     $ node_unlock('c1_scene6')
-
-    stop ambience
 
     "Anastasia walks through the hallways and tells any maids that she finds to go to the room that Mother is in."
         
@@ -1066,7 +1069,7 @@ label c1_scene6:
 
 
     scene black with dissolve
-    play sound clothes_rustle volume 2.0
+    play sound clothes_rustle volume 3.0
 
     "Anastasia searches for any other maids in the remaining rooms, then goes to Room 422, where Mother and the other maids are waiting." 
 
@@ -2062,7 +2065,7 @@ label c1_scene7:
 
     show bg hallway with cfade
 
-    play ambience ballroom_ambience_1
+    play ambience ballroom_ambience_2 fadein .8
 
     $ focus_on(["mc","npc3"])
 
@@ -2156,7 +2159,7 @@ label c1_scene7:
     stop ambience fadeout 2.0
     scene black with dissolve
 
-    play sound clothes_rustle volume 2.0
+    play sound clothes_rustle volume 3.0
 
     "Anastasia walks to Room 401."
 
