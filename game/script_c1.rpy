@@ -887,7 +887,6 @@ label c1_fetch4:
             pause 0.6
             show mc at mc_gets_bonked
             play sound chain_clink_2 volume 1.0
-            # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
 
@@ -915,7 +914,6 @@ label c1_fetch4:
             pause 0.4
             show mc at mc_gets_bonked
             play sound chain_clink_2 volume 1.0
-            # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
 
@@ -1820,7 +1818,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         a "So, thank you. There’s no way I could leave you like this."
 
-    #TODO: [door opens noise]
     play sound door_creak volume 1.5 
     pause 2.3
 
