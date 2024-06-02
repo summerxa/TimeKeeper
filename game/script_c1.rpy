@@ -671,8 +671,6 @@ label c1_fetch2:
 
     #[mc sees a dark blue jacket, a black jacket, a red jacket, and a dark green jacket.]
 
-    "uhhh im too lazy to add a jacket rn.. so just grab a test item 3 in the ballroom"
-
     jump mini_main
 
 label c1_fetch2_end:
@@ -682,10 +680,9 @@ label c1_fetch2_end:
     show npc1 at l1_5
     show mc 1b at r1_5
 
-    # TODO call c1_give_item_prompt(n1, "jacket_red")
-    call c1_give_item_prompt(n1, "test_3")
+    call c1_give_item_prompt(n1, "jacket_red")
 
-    if ichoice == 'test_3':
+    if ichoice == 'jacket_red':
     
         $ focus_on(["mc"])
         "Anastasia returns to the ballroom with the jacket and hands it to the noble."
@@ -693,8 +690,7 @@ label c1_fetch2_end:
         n1 "Hmph. It appears that these maids are somewhat competent." 
 
         $ docurtask(tname = "Fetch quest 2")
-        $ update_inv(myitem='test_3')
-        # TODO remove jacket from inventory
+        $ update_inv(myitem='jacket_red')
 
         scene bg hallway with cfade
         #TODO: replace bg w/ something else

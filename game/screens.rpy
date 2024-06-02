@@ -713,7 +713,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'tx': 'Confront Bella',
             'c': 'bella',
             'p': (3357,1010),
-            'desc': "Anastasia confronts Bella for taking her tasks. Bella accientally leaves her pocketwatch behind."
+            'desc': "Anastasia confronts Bella for taking her tasks. Bella accidentally leaves her pocketwatch behind."
         },
         'c1_fetch4_c_pickup': {
             'tx': 'Pick up',
@@ -1132,6 +1132,7 @@ screen popup_cg(show_cg=None, show_cg_list=[], show_cg_dict={}):
     default cg_idx = 0
     modal True
     button:
+        align(0.5,0.5)
         if show_cg:
             add show_cg:
                 align (0.5,0.5)

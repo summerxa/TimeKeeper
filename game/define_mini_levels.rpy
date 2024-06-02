@@ -23,7 +23,7 @@ default levelInfo = {
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
-        'ndishes': 8,
+        'ndishes': 12,
         'threshold': [-20, 30],
         'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end'],
         'quests': {
@@ -713,9 +713,8 @@ default tasks = {
             'scorepenalty': 5,
             'tags': [Task.SPECIAL]
         },
-        't1': {
+        'grabdish_1': {
             'btn': '6_2',
-            'tcost': 10,
             't0': 1020,
             'game': {
                 'type': 'grabdishes',
@@ -723,10 +722,28 @@ default tasks = {
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             }
         },
-        't2': {
+        'grabdish_2': {
+            'btn': 'long2',
+            't0': 1040,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 3,
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+            }
+        },
+        'grabdish_last': {
+            'btn': '6_2',
+            't0': 1160,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 4,
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+            }
+        },
+        'dropdish': {
             'btn': 'sink',
             't0': -1,
-            'tf': 9999,
+            'tf': 1180,
             'game': {
                 'type': 'dropdishes',
                 'xp': 0.5,
@@ -746,7 +763,7 @@ default tasks = {
                 ]
             }
         },
-        't4': {
+        'getfood_1': {
             'desc': 'Click on all the Cat MC pictures :D',
             'btn': 'pickuptable',
             'tlabel': 'task_c1_toggle',
@@ -763,7 +780,7 @@ default tasks = {
                 'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png']
             }
         },
-        't5': {
+        'waterpour_1': {
             'btn': 'bar',
             't0': 1040,
             'game': {
@@ -788,7 +805,7 @@ default tasks = {
                 ]
             }
         },
-        'laundry1': {
+        'laundry_1': {
             'btn': 'laundry_1',
             't0': 1100,
             'game': {
@@ -857,42 +874,54 @@ default itemsAll = {
 
 default itemHolders = {
     1: {
-        'h11': {
-            'item': {
-                'id': 'dish_dirty',
-                'stack': 1
-            },
-            'p': (0.1, -0.1),
-            'room': 'ballroom'
-        },
-        'h12': {
-            'item': {
-                'id': 'dish_dirty',
-                'stack': 2
-            },
-            'p': (0.3, -0.1),
-            'room': 'ballroom'
-        },
         'h21': {
             'item': {
                 'id': 'test_3'
             },
-            'p': (0.5, -0.1),
+            'p': (0.5, 0),
             'room': 'ballroom'
         },
         'h31': {
             'item': {
                 'id': 'test_3'       
             },
-            'p': (0.7, -0.1),
+            'p': (0.7, 0),
             'room': 'ballroom'
         },
         'hkitchen': {
             'item': {
                 'id': 'wine_bottle'
             },
-            'p': (0.7, 0.1),
+            'p': (1355, 269),
             'room': 'kitchen'
+        },
+        'laundry1': {
+            'item': {
+                'id': 'jacket_red'
+            },
+            'p': (803,889),
+            'room': 'laundry'
+        },
+        'laundry2': {
+            'item': {
+                'id': 'jacket_darkblue'
+            },
+            'p': (902,731),
+            'room': 'laundry'
+        },
+        'laundry3': {
+            'item': {
+                'id': 'jacket_black'
+            },
+            'p': (558,420),
+            'room': 'laundry'
+        },
+        'laundry4': {
+            'item': {
+                'id': 'jacket_darkgreen'
+            },
+            'p': (562,182),
+            'room': 'laundry'
         }
     }
 }
