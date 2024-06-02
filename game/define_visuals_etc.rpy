@@ -209,8 +209,8 @@ define audio.chain_clink = "<from 0 to 1>audio/story/Small Size Chain Sound Effe
 define audio.door_creak = "audio/story/door-creak-02-79920.mp3"
 
 # minigame sfx
-define audio.button_click_sfx = "btn_click_light_2.mp3"
-define audio.waterpour_click_sfx = "btn_click_waterpour.mp3"
+define audio.button_click_sfx = "audio/UI/btn_click_light_2.mp3"
+define audio.waterpour_click_sfx = "audio/UI/btn_click_waterpour.mp3"
 
 # AMBIENCE
 define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>audio/ambience/bustling-cafe-ambience.mp3"
