@@ -886,7 +886,7 @@ label c1_fetch4:
             show bella 10a at eout(1.2,1.4)
             pause 0.6
             show mc at mc_gets_bonked
-            play sound chain_clink
+            play sound chain_clink_2 volume 1.0
             # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
@@ -914,7 +914,7 @@ label c1_fetch4:
             show bella 5a at eout(.8,1.4)
             pause 0.4
             show mc at mc_gets_bonked
-            play sound chain_clink
+            play sound chain_clink_2 volume 1.0
             # TODO fix the sound effects -snail
 
             $ focus_on(['bella'])
