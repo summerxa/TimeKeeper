@@ -639,7 +639,7 @@ label c1_fetch1_end:
         n2 "Ah, perfect. Just the type I was looking for."
 
         $ update_inv(myitem='wine_bottle')
-        $ docurtask(tname='Fetch quest 1')
+        $ docurtask(tname = "Fetch quest 1")
         
         $ node_unlock('c1_fetch1')
 
@@ -796,7 +796,7 @@ label c1_fetch3_end:
 
     n2 "Wait, did the maid always look like that?"
 
-    $ docurtask()
+    $ docurtask(tname = "Fetch quest 3")
     # TODO set current room to kitchen?
     # would that be inconvenient for the players? -snail
 
@@ -869,7 +869,7 @@ label c1_fetch4:
 
     $ node_unlock('c1_fetch4')
 
-    $ docurtask()
+    $ docurtask(tname = "Fetch quest 4")
 
     menu:
 
