@@ -1445,7 +1445,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .57
+    play ambience wind_howling_ambience fadein .57 volume .6
 
     show amelia 7a
     show snowfront zorder 10
@@ -1489,7 +1489,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6
+    play ambience wind_howling_ambience fadein .6 volume .6
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
