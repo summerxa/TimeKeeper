@@ -48,9 +48,8 @@ init python:
         t['t0'] = store.curtime
         if ('tf' in t and t['tf'] == 9999) or ('dur' in t and t['dur'] == 9999):
             t['tf'] = store.tlimit
-        else:
-            if 'dur' in t:
-                t['tf'] = min(t['t0'] + t['dur'], store.tlimit)
+        elif 'dur' in t:
+            t['tf'] = min(t['t0'] + t['dur'], store.tlimit)
 
     def fmtTsk(t):
         tx = "("

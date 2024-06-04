@@ -40,6 +40,7 @@ init python:
         NO_REDO = 1     # can't retry task if failed
         DONOTHING = 2   # special optional task used to skip the minigame (speedrunnn)
         NO_FADE = 3     # no fadein/fadeout animation
+        NON_ROOT = 4    # cannot be completed w/o doing prereq quests
 
 default tolabel = ''
 

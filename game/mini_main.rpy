@@ -402,11 +402,10 @@ label mini_launch(startroom='main', startfloor=0):
                 t['tags'] = []
             if 'game' in t and t['game']['type'] in taskTemplates:
                 for tn_, t_ in taskTemplates[t['game']['type']].items():
-                    if tn_ == 'tdur':
+                    if tn_ == 'dur':
                         t['tf'] = t['t0'] + t_
-                    else:
-                        t[tn_] = t_
-            if not tn in levelInfo[curlevel]['nonRoots']:
+                    t[tn_] = t_
+            if not Task.NON_ROOT in t['tags']:
                 taskrq.append(tn)
         for r, ra in roomArrows[curlevel].items():
             fromroom = r

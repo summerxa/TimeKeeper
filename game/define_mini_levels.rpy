@@ -24,8 +24,7 @@ default levelInfo = {
         'tstairs': 2,
         'nfloors': 2,
         'ndishes': 12,
-        'threshold': [-20, 30],
-        'nonRoots': ['donothing', 'fetch1_end', 'fetch2_end', 'fetch3_end'],
+        'threshold': [-20, 40],
         'quests': {
             'Fetch quest 1': False,
             'Fetch quest 2': False,
@@ -42,14 +41,15 @@ default levelHints = {
     'default_idle': "...",
     'default_taskless': "No task available right now.",
     'custom_taskless': "A custom idle message.", # TODO remove this placeholder text
-    'grabdishes_fail': "imagine having your hands full and not being able to pick up dishes smh",
+    'handsfull_fail': "My hands are full; I can't pick up any more items.",
     'grabdishes_idle': "That's a lot of dirty dishes...",
     'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
     'dropdishes_idle': "Dirty dish tower!!!!",
     'toggle_idle': "Meow",
     'waterpour_idle': "Time to cook :3",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
-    'laundry_idle': "Woahhh it's laundry :o"
+    'laundry_idle': "Woahhh it's laundry :o",
+    'dropfood_fail': "im not even holding food smh",
 }
 
 default helpText = {
@@ -582,12 +582,12 @@ default taskButtons = {
 default taskTemplates = {
     'grabdishes': {
         'tcost': 5,
-        'tdur': 20,
+        'dur': 20,
         'scorebonus': 2,
         'scorepenalty': 1,
         'desc': 'Clear the table',
         'tlabel': 'task_c1_grabdishes',
-        'fail_id': 'grabdishes_fail',
+        'fail_id': 'handsfull_fail',
         'item_req': ['air', 'dish_dirty'],
     },
     'dropdishes': {
@@ -603,7 +603,7 @@ default taskTemplates = {
     },
     'waterpour': {
         'tcost': 10,
-        'tdur': 30,
+        'dur': 30,
         'scorebonus': 4,
         'scorepenalty': 0,
         'desc': 'Bonus task: MC we need to cook',
@@ -613,9 +613,31 @@ default taskTemplates = {
         'tlabel': 'task_c1_laundry',
         'desc': 'Bonus task: Sort the laundry',
         'tcost': 15,
-        'tdur': 30,
+        'dur': 30,
         'scorebonus': 3,
         'scorepenalty': 0
+    },
+    'grabfood': {
+        'tlabel': 'task_c1_grabfood',
+        'desc': 'Pick up finished dishes',
+        'tcost': 0,
+        'dur': 10,
+        'scorebonus': 0,
+        'scorepenalty': 0,
+        'tags': [Task.NO_FADE],
+        'fail_id': 'handsfull_fail',
+        'item_req': ['air']
+    },
+    'dropfood': {
+        'tlabel': 'task_c1_dropfood',
+        'desc': 'Drop off finished dishes',
+        'tcost': 0,
+        'dur': 10,
+        'scorebonus': 2,
+        'scorepenalty': 2,
+        'tags': [Task.NO_FADE, Task.NON_ROOT],
+        'fail_id': 'dropfood_fail',
+        'item_req': ['food']
     }
 }
 
@@ -630,7 +652,7 @@ default tasks = {
             'tlabel': 'task_c1_donothing',
             'scorebonus': 0,
             'scorepenalty': 0,
-            'tags': [Task.DONOTHING]
+            'tags': [Task.DONOTHING, Task.NON_ROOT]
         },
         'fetch1': {
             'desc': 'Talk to noble',
@@ -653,7 +675,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 10,
             'scorepenalty': 5,
-            'tags': [Task.SPECIAL],
+            'tags': [Task.SPECIAL, Task.NON_ROOT],
             'nxt': ['fetch2']
         },
         'fetch2': {
@@ -665,7 +687,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 0,
             'scorepenalty': 0,
-            'tags': [Task.SPECIAL],
+            'tags': [Task.SPECIAL, Task.NON_ROOT],
             'nxt': ['fetch2_end']
         },
         'fetch2_end': {
@@ -677,7 +699,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 10,
             'scorepenalty': 5,
-            'tags': [Task.SPECIAL],
+            'tags': [Task.SPECIAL, Task.NON_ROOT],
             'nxt': ['fetch3']
         },
         'fetch3': {
@@ -689,7 +711,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 0,
             'scorepenalty': 0,
-            'tags': [Task.SPECIAL],
+            'tags': [Task.SPECIAL, Task.NON_ROOT],
             'nxt': ['fetch3_end']
         },
         'fetch3_end': {
@@ -701,7 +723,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 10,
             'scorepenalty': 5,
-            'tags': [Task.SPECIAL],
+            'tags': [Task.SPECIAL, Task.NON_ROOT],
             'nxt': ['fetch4']
         },
         'fetch4': {
@@ -713,7 +735,7 @@ default tasks = {
             'tf': 9999,
             'scorebonus': 10,
             'scorepenalty': 5,
-            'tags': [Task.SPECIAL]
+            'tags': [Task.SPECIAL, Task.NON_ROOT]
         },
         'grabdish_1': {
             'btn': '6_2',
@@ -765,21 +787,19 @@ default tasks = {
                 ]
             }
         },
-        'getfood_1': {
-            'desc': 'Click on all the Cat MC pictures :D',
+        'grabfood_k_1': {
             'btn': 'pickuptable',
-            'tlabel': 'task_c1_toggle',
-            'tcost': 5,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 1,
-            'scorepenalty': 1,
+            't0': 1020,
             'game': {
-                'type': 'toggle',
-                'goal': [True, True],
-                'p': [(0.3, 0.5), (0.7, 0.5)],
-                'off': ['mini/icon_map_mc_%s.png', 'mini/icon_map_mc_%s.png'],
-                'on': ['mini/btn_item/item_air_%s.png', 'mini/btn_item/item_air_%s.png']
+                'type': 'grabfood'
+            },
+            'nxt': ['grabfood_b_1']
+        },
+        'grabfood_b_1': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
             }
         },
         'waterpour_1': {
@@ -870,6 +890,12 @@ default itemsAll = {
         'name': 'darkgreen jacket',
         'desc': 'A dark green jacket with three pockets.',
         'im': 'shirt',
+        'stackable': False
+    },
+    'food': {
+        'name': 'plate of food',
+        'desc': 'A plate of food.',
+        'im': 'food',
         'stackable': False
     }
 }

@@ -800,8 +800,6 @@ label c1_fetch3_end:
     n2 "Wait, did the maid always look like that?"
 
     $ docurtask(tname = "Fetch quest 3")
-    # TODO set current room to kitchen?
-    # would that be inconvenient for the players? -snail
 
     jump mini_main
 
@@ -2942,5 +2940,19 @@ label task_c1_laundry:
         show screen mgame_laundry(shaded=False)
         show screen mgame_overlay
         hide screen mgame_laundry with dissolve
+
+    jump mini_main
+
+label task_c1_grabfood:
+
+    $ update_inv(otheritem='food')
+    $ docurtask()
+
+    jump mini_main
+
+label task_c1_dropfood:
+
+    $ update_inv(myitem='food')
+    $ docurtask()
 
     jump mini_main
