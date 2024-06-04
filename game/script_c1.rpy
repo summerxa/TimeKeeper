@@ -650,6 +650,7 @@ label c1_fetch2:
     scene bg guestroom with cfade
     #TODO: replace bg with ballroom maybe
     
+    play ambience ballroom_ambience_2 fadein 1.0
     "Fetch quest 2"
 
     show npc1 at l1_5
@@ -728,7 +729,9 @@ label c1_fetch3:
     
     scene bg hallway with cfade
     #TODO: change bg
-
+    
+    play ambience ballroom_ambience_2 fadein 1.0
+    #i keep forgetting to add ambience at the start of every fetch quest... -jade
     "Fetch quest 3"
 
     show npc2 at l1_5
