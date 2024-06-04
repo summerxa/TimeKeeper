@@ -2834,6 +2834,9 @@ label task_c1_grabdishes:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
+        
+        # TODO reuse for candle task - changing icon when done
+        # $ curtask_btn['imtask_idle'] = 'mini/icon_map_mc_%s.png'
 
     jump mini_main
 
@@ -2864,7 +2867,6 @@ label task_c1_dropdishes:
         $ docurtask(True)
     else:
         $ docurtask(False, False)
-    if game_ret == 'done':
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve

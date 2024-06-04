@@ -55,7 +55,7 @@ screen btn_tsk(bt, hov_id=None):
             pos bt['p']
             xanchor 0.5 yanchor 0.5
             if bt['curtask']:
-                auto f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
+                auto bt['imtask_active']
                 if 'item_req' in bt['curtask']:
                     if task_can_proceed(bt['curtask']['item_req']):
                         action bt['act']
@@ -65,7 +65,7 @@ screen btn_tsk(bt, hov_id=None):
                     action bt['act']
                 activate_sound audio.button_click_sfx
             else:
-                auto f"mini/btn_task/btn_{bt['imtask']}_%s.png"
+                auto bt['imtask_idle']
                 action bt['act']
             if 'htext' in bt and not len(bt['htext']) == 0:
                 if bt['curtask']:
@@ -334,7 +334,7 @@ label mini_main():
 
         scene bg mgame_main
 
-        if was_from_roomchange():
+        if was_from_roomchange() or (curtask and Task.NO_FADE in curtask['tags']):
             call screen mini_screen
         else:
             call screen mini_screen with cfade
@@ -352,20 +352,33 @@ label mini_main():
 
 label mini_launch(startroom='main', startfloor=0):
     python:
-        completion = 0
-        completion_f = 0
-        hinttext = levelHints['default_start']
-        taskq.clear()
-        curroom = startroom
-        prevroom = None
-        curfloor = startfloor
-        curholder = None
-        notes_tab = 'tasks'
+        tolabel = ''
+
         tstart = levelInfo[curlevel]['t0']
         curtime = tstart
         tlimit = levelInfo[curlevel]['tf']
+        completion = 0
+        completion_f = 0
+
+        curroom = 'main'
+        prevroom = levelInfo[curlevel]['room0']
+        curfloor = levelInfo[curlevel]['floor0']
+
+        curtask = None
+        curtask_btn = None
+        curgame = None
+        taskq = []
+        taskrq = []
+
+        curholder = None
+        curhand = -1
         invitems = ['air', 'air']
         invstacks = [1, 1]
+        ichoice = None
+
+        notes_text = ''
+        notes_text_s = ''
+
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
             if 'hidden' in bt:
@@ -375,6 +388,8 @@ label mini_launch(startroom='main', startfloor=0):
                     bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
                 else:
                     bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+            bt['imtask_active'] = f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
+            bt['imtask_idle'] = f"mini/btn_task/btn_{bt['imtask']}_%s.png"
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1

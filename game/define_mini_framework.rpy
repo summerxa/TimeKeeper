@@ -212,10 +212,12 @@ init python:
                 if t['activated']:
                     store.taskq.append(t)
                     bt['curtask'] = t
-                    bt['act'] = [SetVariable('curtask', t)]
+                    bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt)]
                     if 'game' in t:
                         bt['act'].append(SetVariable('curgame', t['game']))
-                    bt['act'] += [Return(t['tlabel']), With(cfade)]
+                    bt['act'] += [Return(t['tlabel'])]
+                    if not Task.NO_FADE in t['tags']:
+                        bt['act'] += [With(cfade)]
                     bt['htext'] = fmtTskButton(bt['curtask'])
         generateTodo()
         return

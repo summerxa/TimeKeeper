@@ -39,6 +39,7 @@ init python:
         SPECIAL = 0     # task is recommended
         NO_REDO = 1     # can't retry task if failed
         DONOTHING = 2   # special optional task used to skip the minigame (speedrunnn)
+        NO_FADE = 3     # no fadein/fadeout animation
 
 default tolabel = ''
 
@@ -54,6 +55,7 @@ default prevroom = None
 default curfloor = 0
 
 default curtask = None
+default curtask_btn = None
 default curgame = None
 default taskq = []
 default taskrq = []

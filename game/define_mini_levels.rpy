@@ -31,7 +31,9 @@ default levelInfo = {
             'Fetch quest 2': False,
             'Fetch quest 3': False,
             'Fetch quest 4': False
-        }
+        },
+        'room0': 'ballroom',
+        'floor0': 0
     }
 }
 
@@ -831,7 +833,7 @@ default itemsAll = {
     'dish_dirty': {
         'name': 'dirty dishes',
         'desc': 'A stack of dirty dishes.',
-        'im': 'dish_dirty',
+        'im': 'food',
         'stackable': True
     },
     'wine_bottle': {
@@ -840,7 +842,7 @@ default itemsAll = {
         'im': 'wine_bottle',
         'stackable': False
     },
-    'candle': {
+    'candle_lit': {
         'name': 'candle',
         'desc': 'A lit candle.',
         'im': 'candle',
@@ -854,19 +856,19 @@ default itemsAll = {
     },
     'jacket_darkblue': {
         'name': 'dark blue jacket',
-        'desc': 'A dark blue jacket.',
+        'desc': 'A dark blue jacket with silver trim.',
         'im': 'shirt',
         'stackable': False
     },
     'jacket_black': {
         'name': 'black jacket',
-        'desc': 'A black jacket.',
+        'desc': 'A black jacket with light gold trim.',
         'im': 'shirt',
         'stackable': False
     },
     'jacket_darkgreen': {
         'name': 'darkgreen jacket',
-        'desc': 'A dark green jacket.',
+        'desc': 'A dark green jacket with three pockets.',
         'im': 'shirt',
         'stackable': False
     }
@@ -874,21 +876,14 @@ default itemsAll = {
 
 default itemHolders = {
     1: {
-        'h21': {
+        'kitchen1': {
             'item': {
-                'id': 'test_3'
+                'id': 'air'       
             },
-            'p': (0.5, 0),
-            'room': 'ballroom'
+            'p': (392, 266),
+            'room': 'kitchen'
         },
-        'h31': {
-            'item': {
-                'id': 'test_3'       
-            },
-            'p': (0.7, 0),
-            'room': 'ballroom'
-        },
-        'hkitchen': {
+        'kitchen2': {
             'item': {
                 'id': 'wine_bottle'
             },
@@ -922,6 +917,13 @@ default itemHolders = {
             },
             'p': (562,182),
             'room': 'laundry'
+        },
+        'gr_l1': {
+            'item': {
+                'id': 'candle_lit'
+            },
+            'p': (795, 275),
+            'room': 'guestroom l'
         }
     }
 }
