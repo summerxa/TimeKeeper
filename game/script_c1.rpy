@@ -540,7 +540,7 @@ label c1_scene3:
     "Scene 3 (amelia sick scene)"
 
     #shrug -jade
-    "Anatasia walks to the guestrooms, lighting the candles one by one."
+    "Anastasia walks to the guestrooms, lighting the candles one by one."
 
     scene cg amelia tired v1 with cfade
     "She eventually walks into Room 422, where Amelia is leaning against the wall. She seems to be in some discomfort." 
@@ -550,14 +550,14 @@ label c1_scene3:
     #ahh, true true -jade
     # (insert gremlin emoji here) -snail
 
-    "Anatasia lights up the candles and the fireplace in the room before approaching the bed."
+    "Anastasia lights up the candles and the fireplace in the room before approaching the bed."
 
     s "What are you doing?"
     
     show cg amelia tired v2
     a "!!!"
 
-    "Amelia steps towards Anatasia."
+    "Amelia steps towards Anastasia."
 
     a "Wait! I- D-Don’t tell Mother!"
 
@@ -591,7 +591,7 @@ label c1_scene3:
     # i think this transition should be fine- check with luna tho lol -snail
     #ok -jade
     play sound clothes_rustle volume 3.0
-    "Anatasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
+    "Anastasia walks out of the room and finishes lighting the candles and fireplaces in all of the rooms."
 
     $ node_unlock('c1_scene3')
     $ cg_unlock('c1_scene3')
@@ -1170,13 +1170,13 @@ label c1_scene6:
                     m "Were there any idle maids?"
 
                     $ focus_on(["mc","amelia"],{"amelia":2})
-                    "Anatasia looks at Amelia, who’s terrified."
+                    "Anastasia looks at Amelia, who’s terrified."
                     #TODO: uh, having them highlighted with the choices up might not look right...
 
                     $ clear_focus() # added a function to remove highlights manually :3
                     # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
-                        "Anatasia looks at Amelia, who’s terrified.{fast}"
+                        "Anastasia looks at Amelia, who’s terrified.{fast}"
                         # not sure if this line fits here but ehhhh -snail
 
                         "Yes":
@@ -1445,7 +1445,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .57
+    play ambience wind_howling_ambience fadein .57 volume .6
 
     show amelia 7a
     show snowfront zorder 10
@@ -1489,7 +1489,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6
+    play ambience wind_howling_ambience fadein .6 volume .6
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
