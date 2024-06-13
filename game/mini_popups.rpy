@@ -161,18 +161,17 @@ screen popup_trade():
                 xalign 0.5
                 ypos 0.85 yanchor 0.5
                 spacing 100
+                xmaximum 700
 
                 textbutton ltext:
-                    xpos 0.2
-                    yalign 0.6
-                    xanchor 0.5
+                    align (0.,0.6)
+                    text_align 0.5
                     action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
                     activate_sound audio.button_click_sfx
 
                 textbutton rtext:
-                    xpos 0.7
-                    yalign 0.6
-                    xanchor 0.5
+                    align(1.,0.6)
+                    text_align 0.5
                     action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
                     activate_sound audio.button_click_sfx
     

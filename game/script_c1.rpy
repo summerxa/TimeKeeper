@@ -2956,3 +2956,10 @@ label task_c1_dropfood:
     $ docurtask()
 
     jump mini_main
+
+label task_c1_lightcandle:
+
+    $ update_inv(myitem='matches', mystack=1)
+    $ docurtask()
+
+    jump mini_main

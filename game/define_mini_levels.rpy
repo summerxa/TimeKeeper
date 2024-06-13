@@ -40,7 +40,7 @@ default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
     'default_taskless': "No task available right now.",
-    'custom_taskless': "A custom idle message.", # TODO remove this placeholder text
+    'candle_taskless': "These candles are already lit.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
     'grabdishes_idle': "That's a lot of dirty dishes...",
     'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
@@ -49,7 +49,8 @@ default levelHints = {
     'waterpour_idle': "Time to cook :3",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
     'laundry_idle': "Woahhh it's laundry :o",
-    'dropfood_fail': "im not even holding food smh",
+    'dropfood_fail': "ur not even holding food smh",
+    'lightcandle_fail': "i need matches to light the candle :("
 }
 
 default helpText = {
@@ -97,7 +98,7 @@ Click on another cup to pour the topmost later of water into it.
 You can only pour into a cup if it has at least one empty slot.
 To complete the task, sort the drinks until each cup is either empty or contains all one color.
 Two or more cups cannot contain the same color.''',
-    'laundry': '''Drag each article of clothing into the correct washing machine.
+    'sort_laundry': '''Drag each article of clothing into the correct washing machine.
 Each washing machine is set to a certain amount of time.
 Light clothing needs to be washed for the least amount of time.
 Heavy clothing needs to be washed for the most amount of time.
@@ -347,8 +348,7 @@ default taskButtons = {
         'pickuptable': {
             'p': (459, 558),
             'room': 'kitchen',
-            'imtask': 'kitchen_pickup',
-            'taskless': 'custom_taskless'
+            'imtask': 'kitchen_pickup'
         },
         'kitchen_idk': {
             'p': (550, 292),
@@ -575,6 +575,12 @@ default taskButtons = {
                 'text': '432',
                 'style': 'plaque1_font'
             }
+        },
+        'gr_r_candle1': {
+            'p': (795, 796),
+            'room': 'guestroom r',
+            'imtask': 'candle',
+            'taskless': 'candle_taskless'
         }
     }
 }
@@ -609,7 +615,7 @@ default taskTemplates = {
         'desc': 'Bonus task: MC we need to cook',
         'tlabel': 'task_c1_waterpour'
     },
-    'laundry': {
+    'sort_laundry': {
         'tlabel': 'task_c1_laundry',
         'desc': 'Bonus task: Sort the laundry',
         'tcost': 15,
@@ -638,6 +644,18 @@ default taskTemplates = {
         'tags': [Task.NO_FADE, Task.NON_ROOT],
         'fail_id': 'dropfood_fail',
         'item_req': ['food']
+    },
+    'lightcandle': {
+        'tlabel': 'task_c1_lightcandle',
+        'desc': 'Light the candles',
+        'tcost': 0,
+        't0': -1,
+        'tf': 9999,
+        'scorebonus': 1,
+        'scorepenalty': 1,
+        'item_req': ['matches'],
+        'fail_id': 'lightcandle_fail',
+        'tags': [Task.NO_FADE]
     }
 }
 
@@ -831,7 +849,13 @@ default tasks = {
             'btn': 'laundry_1',
             't0': 1100,
             'game': {
-                'type': 'laundry'}
+                'type': 'sort_laundry'}
+        },
+        'candles_1': {
+            'btn': 'gr_r_candle1',
+            'game': {
+                'type': 'lightcandle'
+            }
         }
     }
 }
@@ -862,12 +886,6 @@ default itemsAll = {
         'im': 'wine_bottle',
         'stackable': False
     },
-    'candle_lit': {
-        'name': 'candle',
-        'desc': 'A lit candle.',
-        'im': 'candle',
-        'stackable': False
-    },
     'jacket_red': {
         'name': 'red jacket',
         'desc': 'A red jacket with golden trim.',
@@ -887,7 +905,7 @@ default itemsAll = {
         'stackable': False
     },
     'jacket_darkgreen': {
-        'name': 'darkgreen jacket',
+        'name': 'dark green jacket',
         'desc': 'A dark green jacket with three pockets.',
         'im': 'shirt',
         'stackable': False
@@ -897,6 +915,12 @@ default itemsAll = {
         'desc': 'A plate of food.',
         'im': 'food',
         'stackable': False
+    },
+    'matches': {
+        'name': 'box of matches',
+        'desc': 'A box of matches. Can be used to light candles.',
+        'im': 'matches',
+        'stackable': True
     }
 }
 
@@ -946,7 +970,8 @@ default itemHolders = {
         },
         'gr_l1': {
             'item': {
-                'id': 'candle_lit'
+                'id': 'matches',
+                'stack': 2
             },
             'p': (795, 275),
             'room': 'guestroom l'
