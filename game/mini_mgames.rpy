@@ -99,8 +99,8 @@ init python:
                     mgame_goal[j][0] = str(goal_idx)
         return 'done' if laundry_ok() else 'refresh'
 
-screen mgame_overlay(shaded=True):
-    use mini_overlay('mgame', curgame['type'], shaded)
+screen mgame_overlay(shaded=True, has_mc=True):
+    use mini_overlay('mgame', curgame['type'], shaded, has_mc)
 
 screen mgame_dragdrop():
     draggroup:
@@ -229,11 +229,12 @@ screen mgame_waterpour(shaded=True):
     
     use mgame_overlay(shaded=shaded)
 
-screen mgame_laundry_start(i):
+screen mgame_laundry_start(i, p_):
     dismiss action Hide('mgame_laundry_start')
 
     frame:
-        align (0.25 * (i+1), 0.5)
+        anchor (0.5,0.5)
+        pos (p_[0], p_[1] + 175)
         vbox:
             label "Select Time:"
             for j in range(3):
@@ -241,38 +242,34 @@ screen mgame_laundry_start(i):
                     action [Function(laundry_act_start, i=i, t=times[j]), Hide('mgame_laundry_start')]
 
 screen mgame_laundry(shaded=True):
-    for i in range(3):
-        hbox:
-            yalign 0.1
-            xalign (0.25 * (i+1))
-            text (f"{curgame['type_to_ind'][curgame['try_map'][i]]} MIN" if curgame['try_map'][i] >= 0 else "(NO TIME)"):
-                font gui.label_text_font
-                color '#ffffff'
-                size 60
-                align (0.,0.5)
-            imagebutton:
-                auto 'mini/icon_map_mc_%s.png'
-                action If(
-                    renpy.get_screen('mgame_laundry_start'),
-                    true=Hide('mgame_laundry_start'),
-                    false=Show('mgame_laundry_start', i=i)
-                )
-                hovered SetVariable('cur_hov', f'laundrystart{i}')
-                unhovered SetVariable('cur_hov', None)
-                at highlight_hov(cur_hov, f'laundrystart{i}')
 
+    for i, p_ in enumerate([[435, 180], [995, 293], [1660, 430]]):
+        imagebutton:
+            anchor (0.5,0.5)
+            pos (p_[0], p_[1])
+            auto f'mini/tgame/laundry/start{(2-i)+1}_%s.png'
+            action If(
+                renpy.get_screen('mgame_laundry_start'),
+                true=Hide('mgame_laundry_start'),
+                false=Show('mgame_laundry_start', i=i, p_=p_)
+            )
+            hovered SetVariable('cur_hov', f'laundrystart{i}')
+            unhovered SetVariable('cur_hov', None)
+            at highlight_hov(cur_hov, f'laundrystart{i}')
+    
     draggroup:
         # drop
-        for i in range(3):
+        for i, p_ in enumerate([[285, 500], [785, 595], [1330, 710]]):
             drag:
                 drag_name f"{i}"
-                xalign (0.25 * (i+1))
-                yalign 0.25
+                anchor (0.5,0.5)
+                pos p_
                 draggable False
                 droppable True
                 add 'mini/mini_rect.png':
+                    align (0.5,0.5)
                     xysize(200, 200)
-                    # at opac(0.0)
+                    at opac(0.0)
         
         # drag
         for d in curgame['drag']:
@@ -284,6 +281,6 @@ screen mgame_laundry(shaded=True):
                 droppable False
                 dragged laundry_act_drag
                 drag_raise True
-                add f"mini/tgame/laundry/clothes_{d['type']}.png"
+                add f"mini/tgame/laundry/laundry_{d['type']}_{d['type_sub']}.png"
 
-    use mgame_overlay(shaded=shaded)
+    use mgame_overlay(shaded=shaded, has_mc=False)

@@ -265,9 +265,10 @@ screen mc_hintbox(shaded=True):
                 xalign 0.5 yalign 0.5
                 text_align 0.5
 
-screen mini_overlay(curstate='main', gametype=None, shaded=True):
+screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
     use mini_sidebar(curstate, gametype)
-    use mc_hintbox(shaded)
+    if has_mc:
+        use mc_hintbox(shaded)
 
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():

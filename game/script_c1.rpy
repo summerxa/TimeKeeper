@@ -2872,7 +2872,9 @@ label task_c1_dropdishes:
     jump mini_main
 
 label task_c1_laundry:
-    scene hellway
+    scene bg mgame_laundry:
+        yalign 1.
+        xysize(1920, 1418)
 
     python:
         if not 'try' in curgame:
@@ -2914,7 +2916,8 @@ label task_c1_laundry:
                     curgame['drag'].append({
                         'n': tot_running,
                         'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
-                        'type': i
+                        'type': i,
+                        'type_sub': renpy.random.randint(0, 2)
                     })
                     curgame['goal'][tot_running] = [f"{-(i+1)}", i]
                     tot_running += 1
@@ -2922,7 +2925,8 @@ label task_c1_laundry:
             curgame['drag'].append({
                 'n': tot,
                 'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
-                'type': 2
+                'type': 2,
+                'type_sub': renpy.random.randint(0, 2)
             })
         mgame_try = curgame['try']
         mgame_goal = curgame['goal']
@@ -2938,7 +2942,7 @@ label task_c1_laundry:
 
     if game_ret == 'done':
         show screen mgame_laundry(shaded=False)
-        show screen mgame_overlay
+        show screen mgame_overlay(has_mc=False)
         hide screen mgame_laundry with dissolve
 
     jump mini_main

@@ -98,7 +98,7 @@ Click on another cup to pour the topmost later of water into it.
 You can only pour into a cup if it has at least one empty slot.
 To complete the task, sort the drinks until each cup is either empty or contains all one color.
 Two or more cups cannot contain the same color.''',
-    'sort_laundry': '''Drag each article of clothing into the correct washing machine.
+    'sortlaundry': '''Drag each article of clothing into the correct washing machine.
 Each washing machine is set to a certain amount of time.
 Light clothing needs to be washed for the least amount of time.
 Heavy clothing needs to be washed for the most amount of time.
@@ -586,8 +586,17 @@ default taskButtons = {
 }
 
 default taskTemplates = {
+    'donothing': {
+        't0': -1,
+        'tf': 9999,
+        'desc': 'Optional: Sit in the corner and do nothing',
+        'tlabel': 'task_c1_donothing',
+        'scorebonus': 0,
+        'scorepenalty': 0,
+        'tags': [Task.DONOTHING, Task.NON_ROOT]
+    },
     'grabdishes': {
-        'tcost': 5,
+        'tcost': 10,
         'dur': 20,
         'scorebonus': 2,
         'scorepenalty': 1,
@@ -603,22 +612,20 @@ default taskTemplates = {
         'desc': 'Drop off dirty dishes',
         'tlabel': 'task_c1_dropdishes',
         'fail_id': 'dropdishes_fail',
-        'item_req': ['dish_dirty'],
-        'scorebonus': 1,
-        'scorepenalty': 1
+        'item_req': ['dish_dirty']
     },
     'waterpour': {
-        'tcost': 10,
+        'tcost': 20,
         'dur': 30,
         'scorebonus': 4,
         'scorepenalty': 0,
         'desc': 'Bonus task: MC we need to cook',
         'tlabel': 'task_c1_waterpour'
     },
-    'sort_laundry': {
+    'sortlaundry': {
         'tlabel': 'task_c1_laundry',
         'desc': 'Bonus task: Sort the laundry',
-        'tcost': 15,
+        'tcost': 20,
         'dur': 30,
         'scorebonus': 3,
         'scorepenalty': 0
@@ -651,8 +658,8 @@ default taskTemplates = {
         'tcost': 0,
         't0': -1,
         'tf': 9999,
-        'scorebonus': 1,
-        'scorepenalty': 1,
+        'scorebonus': 2,
+        'scorepenalty': 2,
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
         'tags': [Task.NO_FADE]
@@ -664,13 +671,7 @@ default tasks = {
         'donothing': {
             'btn': '4_1',
             'tcost': 180,
-            't0': -1,
-            'tf': 9999,
-            'desc': 'Bonus task: Sit in the corner and do nothing',
-            'tlabel': 'task_c1_donothing',
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.DONOTHING, Task.NON_ROOT]
+            'game': {'type': 'donothing'}
         },
         'fetch1': {
             'desc': 'Talk to noble',
@@ -847,9 +848,10 @@ default tasks = {
         },
         'laundry_1': {
             'btn': 'laundry_1',
-            't0': 1100,
+            't0': 1020, # 1100
             'game': {
-                'type': 'sort_laundry'}
+                'type': 'sortlaundry'
+            }
         },
         'candles_1': {
             'btn': 'gr_r_candle1',
