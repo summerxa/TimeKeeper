@@ -54,74 +54,83 @@ default levelHints = {
 }
 
 default helpText = {
-    'main': '''{b}BASIC GAMEPLAY{/b}
+    'main': '''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
 Manage your time wisely and complete tasks before time runs out!
-Click on the name of a room to go to it, or the up/down arrows on the left to go up/down stairs.
-Some furniture will be highlighted, which means there's a task you need to complete.
-Click on an item to pick it up, or an empty space to place an item down. You can only carry one item in each hand, so you may be prompted to drop an item before picking up something else.
-Hovering over a task or item will show information about it.
+{b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
+{b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
+{b}Click{/b} on an item to pick it up, or an {b}empty space{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
+{b}Hovering{/b} over a task or item will show {b}information{/b} about it.
 
-{b}LEFT SIDEBAR{/b}
-Clock: shows the current time and how long you have left.
-Notebook: shows your current tasks.
-    Be sure to check this tab often, as new tasks could appear at any time.
-    Some tasks are related to the story and will be written in {i}italics{/i}.
-    You can remove this feature by unchecking "highlight recommended tasks" in settings.
-Map: previews every floor map.
-    You can use this to locate a task without physically moving to another room, which takes time!
-On-hand: shows the contents of your inventory.
-Help: shows this popup!
-    The contents of this popup will change based on your current activity.
-    If you are currently in a task minigame, it will show instructions on how to complete the task in addition to this text.
-Leave: exits the current game state.
-    If you are in a main floor map, pauses the game and opens the save menu.
-    If you are in a room map, exits to the main floor map.
-    If you are using the preview map, closes the map and returns to normal gameplay.
-    And if you are in a task minigame, causes you to leave the task. Be careful with this; leaving a task will take some time even if you didn't complete it!
+{size=40}{b}LEFT SIDEBAR{/b}{/size}
+{b}Clock{/b}: shows the {b}current time{/b} and how {b}long{/b} you have left.
+{b}Notebook{/b}: shows your current {b}tasks{/b}.
+    {b}Check{/b} this tab {b}often{/b}, as {b}new tasks{/b} could {b}appear{/b} at any time.
+    Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+    {b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.
+{b}Map{/b}: previews every floor map.
+    {b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!
+{b}On-hand{/b}: shows the contents of your {b}inventory{/b}.
+{b}Help{/b}: shows this popup!
+    Contents of this popup will {b}change{/b} based on {b}current activity{/b}.
+    If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how to complete the task in addition to this text.
+{b}Leave{/b}: {b}exits{/b} current game state.
+    If in a {b}main floor{/b} map, {b}pauses{/b} the game and {b}opens{/b} the save menu.
+    If in a {b}room{/b} map, {b}exits{/b} to the main floor map.
+    If using the {b}preview{/b} map, {b}closes{/b} the map and {b}returns{/b} to normal gameplay.
+    If in a {b}task minigame{/b}, causes you to {b}leave{/b} the task. Be careful: {b}leaving{/b} a task will take {b}time{/b} even if not completed!
 
-{b}COMPLETION{/b}
-The notebook will show your completion progress using two separate displays.
-The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
-    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
-    Certain tasks will be labeled as "bonus tasks". These tasks will award approval points upon completion, but will not subtract points if left undone.
-The second one shows how many major quests you have completed.
-    These quests are related to the story, and you are recommended to complete them for the best story experience.
+{size=40}{b}COMPLETION{/b}{/size}
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.
+    First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+    Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+    Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.
+The second one shows how many {b}major quests{/b} are completed.
+    These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.
 ''',
     'grabdishes': '''
-Drag a dirty dish from the table to pick it up and place it in your inventory.
-To complete the task, collect all dirty dishes from this table.''',
+{b}Drag{/b} a dirty dish from table to {b}pick it up{/b} and place into {b}inventory{/b}.
+
+To complete the task, {b}collect{/b} all {b}dirty dishes{/b} from the table.''',
     'dropdishes': '''
-Drag a dirty dish from the stack into the sink. This removes the dishes from your inventory.
-You can drop off as many dirty dishes as you like at any time, but you will only complete the task after every single dish is dropped off.''',
-    'waterpour': '''Click on a cup to select it, and click again to deselect it.
-Click on another cup to pour the topmost later of water into it.
-You can only pour into a cup if it has at least one empty slot.
-To complete the task, sort the drinks until each cup is either empty or contains all one color.
-Two or more cups cannot contain the same color.''',
-    'sortlaundry': '''Drag each article of clothing into the correct washing machine.
-Each washing machine is set to a certain amount of time.
-Light clothing needs to be washed for the least amount of time.
-Heavy clothing needs to be washed for the most amount of time.
-Lastly, medium clothing cannot be washed for too long or too short.'''
+{b}Drag{/b} a dirty dish from the stack into the {b}sink{/b}, which {b}removes{/b} the dishes from {b}inventory{/b}.
+
+Dirty dishes can be {b}dropped{/b} off at {b}any time{/b}, but the task will only be completed after {b}every{/b} single dish is {b}dropped{/b} off.''',
+    'waterpour': '''{b}Click{/b} on a cup to {b}select{/b} it, and {b}click again{/b} to {b}deselect{/b} it.
+
+{b}Click{/b} on {b}another{/b} cup to {b}pour{/b} the {b}topmost{/b} layer of water into it.
+
+You can {b}only pour{/b} into a cup if it has at least {b}one{/b} empty slot.
+
+To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.
+
+{b}Two{/b} or more cups {b}cannot contain{/b} the {b}same color{/b}.''',
+    'sort_laundry': '''Drag each article of {b}clothing{/b} into the correct {b}washing machine{/b}.
+Each {b}washing machine{/b} is {b}set{/b} for a {b}certain{/b} amount of time.
+{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of {b}time{/b}.
+{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of {b}time{/b}.
+{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.'''
 }
 
 default infoText = {
-    'notes': '''The notebook shows all your current tasks.
-    Be sure to check this tab often, as new tasks could appear at any time.
-    Some tasks are related to the story and will be written in {i}italics{/i}.
-    You can remove this feature by unchecking "highlight recommended tasks" in settings.
+    'notes': '''Notebook shows all current tasks.
+    {b}Check{/b} this tab {b}often{/b}, as {b}new tasks{/b} could {b}appear{/b} at any time.
+    Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+    {b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.
 
-The notebook will show your completion progress using two separate displays.
-The first one is an approval rating. Pay attention to this, as your final approval rating may affect the actions of other characters!
-    Failing to complete certain tasks will lower your approval rating, while succeeding will raise it.
-    Certain tasks will be labeled as "bonus tasks". These tasks will award approval points upon completion, but will not subtract points if left undone.
-The second one shows how many major quests you have completed.
-    These quests are related to the story, and you are recommended to complete them for the best story experience.''',
-    'onhand': '''You can pick up items by finding them around the map or by completing certain tasks.
-You can only hold two items at a time, so make use of empty spaces around the map to keep track of all your items!
-Finally, some items, like empty plates, can be stacked on top of each other and will only count as one item once stacked.
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.
+    First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+    Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+    Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.
+The second one shows how many {b}major quests{/b} are completed.
+    These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.''',
+    'onhand': '''Pick up {b}items{/b} by {b}finding{/b} them around the map or by {b}completing{/b} certain {b}tasks{/b}.
+
+You can only hold {b}two items{/b} at a time, so use {b}empty spaces{/b} around the map to keep track of all your items!
+
+{b}Stackable items{/b}, like empty plates, will only count as {b}one{/b} item once stacked.
 ''',
-    'trade': '''Normally, grabbing or dropping an item will be done automatically when you click on an item around the map.
+    'trade': '''Normally, grabbing or dropping an item will be done automatically when clicking on an item.
+    
 However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
 '''
 }

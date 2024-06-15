@@ -51,6 +51,8 @@ label c1_scene1:
     #highlight: $ focus_on(['bella'], {'bella': 2})
     #$ mother_name = "xyz"
     #"window hide dissolve" to hide text box w/ dissolve
+    #"xyz{fast}" to make text fast w/o being affected by text speed
+    #"{size=50}xyz{/size}" to change text size
 
 label c1_scene1_5: 
    
@@ -355,10 +357,11 @@ label c1_scene2:
     $ focus_on(['mother', 'mc'])
 
     #TODO: animate them better
-    show mc 3b at r1_4
+    show mc 3b at r1_5
     #flip
 
-    show mother 1a at ein(1.0, 0.25)
+    pause .5
+    show mother 1a at einf(-.8,1.0, 0.2)
     #flip
 
     pause .65
@@ -413,7 +416,7 @@ label c1_scene2:
 
     $ focus_on(['bella'])
 
-    show bella 1a #at flip
+    show bella 1a
 
     $ amelia_name = "AMELIA"
 
@@ -1174,8 +1177,6 @@ label c1_scene6:
                     $ clear_focus() # added a function to remove highlights manually :3
                     # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
-                        "Anastasia looks at Amelia, who’s terrified.{fast}"
-                        # not sure if this line fits here but ehhhh -snail
 
                         "Yes":
 
