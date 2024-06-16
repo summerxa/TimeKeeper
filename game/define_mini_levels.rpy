@@ -104,7 +104,7 @@ You can {b}only pour{/b} into a cup if it has at least {b}one{/b} empty slot.
 To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.
 
 {b}Two{/b} or more cups {b}cannot contain{/b} the {b}same color{/b}.''',
-    'sort_laundry': '''Drag each article of {b}clothing{/b} into the correct {b}washing machine{/b}.
+    'sortlaundry': '''Drag each article of {b}clothing{/b} into the correct {b}washing machine{/b}.
 Each {b}washing machine{/b} is {b}set{/b} for a {b}certain{/b} amount of time.
 {b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of {b}time{/b}.
 {b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of {b}time{/b}.
@@ -982,7 +982,7 @@ default itemHolders = {
         'gr_l1': {
             'item': {
                 'id': 'matches',
-                'stack': 2
+                'stack': 1
             },
             'p': (795, 275),
             'room': 'guestroom l'
