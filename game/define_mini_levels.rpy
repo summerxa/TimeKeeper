@@ -859,7 +859,7 @@ default tasks = {
             'btn': 'laundry_1',
             't0': 1020, # 1100
             'game': {
-                'type': 'sort_laundry'
+                'type': 'sortlaundry'
             }
         },
         'candles_1': {
