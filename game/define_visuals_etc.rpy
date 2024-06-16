@@ -327,6 +327,8 @@ image cg amelia ending_cropped = 'cgs/Amelia_Dies cropped.jpg'
 image cg bella ending 1 = "cgs/test image bella ending cg 1.jpg"
 image cg bella ending 2 = "cgs/test image amelia angy.jpg"
 
+image cg mc ending 1 = "cgs/mc_end_cg_1.jpg"
+image cg mc ending 2 = "cgs/mc_end_cg_2.jpg"
 
 image mc minigame = Comp_('mc', 641, 386, '01', '0b')
 
