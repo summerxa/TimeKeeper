@@ -2056,7 +2056,8 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     scene black with dissolve
 
     $ node_unlock('c1_mc_end')
-    $ cg_unlock('c1_mc_end')
+    $ cg_unlock('c1_mc_end 1')
+    $ cg_unlock('c1_mc_end 2')
     return
 
 label c1_scene7:

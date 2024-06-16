@@ -782,7 +782,8 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         },
         'c1_mc_end': {
             'tx': 'Amelia and Bella Talk',
-            'cg': 'bg seal room',
+            'cg_list': ['c1_mc_end 1', 'c1_mc_end 2'],
+            'cg_dict': {'c1_mc_end 1': 'cg mc ending 1', 'c1_mc_end 2': 'cg mc ending 2'},
             'p': (5536,837),
             'desc': "Anastasia protects Amelia and Bella from punishment."
         },
@@ -804,9 +805,8 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
         [0,'c1_amelia_end'],
         [0,'c1_bella_end 1'],
         [0,'c1_bella_end 2'],
-        # [0,'c1_bella_end_vis'],
-        # [0,'c1_bella_end_hidden'],
-        [0,'c1_mc_end']
+        [0,'c1_mc_end 1'],
+        [0,'c1_mc_end 2']
     ]
 
     default pg_m_cg = 6
@@ -880,7 +880,7 @@ screen character_menu(hov, charmenu_data, curstate, pg_m, single_page, single_ma
         grid 4 2:
             area(10, 10, 1300, 690)
 
-            for i in range(multi_page * pg_m, min(single_max, multi_page * pg_m + (pg_m - 1))):
+            for i in range(multi_page * pg_m, min(single_max, multi_page * pg_m + pg_m)):
                 $ d = charmenu_data[i]
                 if not main_menu:
                     $ c = chars_current[d['id_name']]
@@ -1086,7 +1086,7 @@ screen cgs_menu(hov, node_data, cgs_all, single_max_cg, multi_max_cg, multi_page
     grid 3 2:
         area(10, 10, 1300, 690)
 
-        for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + (pg_m_cg - 1))):
+        for i in range(multi_page_cg * pg_m_cg, min(single_max_cg, multi_page_cg * pg_m_cg + pg_m_cg)):
             if not cgs_all[i][1] in persistent.cgs_unlocked:
                 fixed:
                     maximum(400,225)
