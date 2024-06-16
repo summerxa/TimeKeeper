@@ -1798,10 +1798,9 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
 
-    scene bg guestroom with cfade
+    scene cg mc ending 1 with cfade
     #TODO: add cg here, figure out transition
     # shrug -snail
-    "insert cg"
 
     s "What are you doing?"
     
@@ -1823,6 +1822,8 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     pause 2.3
 
     a "!!!"
+
+    show cg mc ending 2 with cfade
 
     if c1_mc_type == "takes_blame":
 
