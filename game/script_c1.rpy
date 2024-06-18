@@ -821,8 +821,6 @@ label c1_fetch4:
     n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
 
     s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
-
-    # TODO either mark 1st part complete or set room to kitchen (automatic transition to next scene)
     
     stop ambience fadeout 2.0
 
@@ -951,9 +949,10 @@ label c1_scene5:
     scene bg guestroom with cfade
     #TODO: replace w/ ballroom bg
 
-    # TODO after adding minigame, include these 2 lines:
-    # hide screen mgame_overlay
-    # with cfade
+    # let me know if this looks wonky b/c there are many cases in which this animation will trigger
+    # and i can't guarantee that they all look nice ;-; -snail
+    hide screen mgame_overlay
+    with cfade
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
@@ -1081,9 +1080,8 @@ label c1_scene6:
     show mc 1b at einf(1.4,.8,1.0902)
 
     m "Anastasia."
-    # TODO calculate player’s completion here
-    # made a placeholder menu to test the dialogue lol -snail
-    
+
+    # TODO remember to delete this once scoring threshold is finalized
     "your completion score is [completion], you did [completion_f] fetch quest(s)"
 
     if completion >= levelInfo[curlevel]['threshold'][1]:
@@ -2209,8 +2207,6 @@ label c1_scene7:
 
     s "I will, Mother."
 
-    # TODO unlock c1_ending in persistent endings
-
     scene black with dissolve
 
     play sound "audio/random/boowomp.mp3" volume .3
@@ -2788,9 +2784,6 @@ label task_c1_grabdishes:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
-        
-        # TODO reuse for candle task - changing icon when done
-        # $ curtask_btn['imtask_idle'] = 'mini/icon_map_mc_%s.png'
 
     jump mini_main
 
@@ -2837,7 +2830,6 @@ init python:
     def sortlaundry_init_py():
         global curgame
         global mgame_try
-        # TODO add global stuff
         if not 'try' in curgame:
             curgame['times'] = [0, 0, 0]
             times = curgame['times']

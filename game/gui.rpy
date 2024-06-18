@@ -24,8 +24,6 @@ define config.check_conflicting_properties = True
 ##
 ## The colors of text in the interface.
 
-# TODO remember to regenerate gui images once colors are finalized
-
 ## An accent color used throughout the interface to label and highlight text.
 define gui.accent_color = '#C89B7C'
 

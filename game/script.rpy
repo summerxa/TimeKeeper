@@ -12,24 +12,17 @@ label start:
 
 label chapter1:
 
-    # call c1_scene1 from _call_c1_scene1
-    # #call c1_scene1_5 #only for testing
-    # call c1_scene2 from _call_c1_scene2
+    call c1_scene1 from _call_c1_scene1
+    #call c1_scene1_5 #only for testing
+    call c1_scene2 from _call_c1_scene2
 
-    # # call the minigame, since amelia cutscene is after the tutorial level
-    # call mini_placeholder([("Amelia sick scene", "c1_scene3")]) from _call_mini_placeholder
+    # call the minigame, since amelia cutscene is after the tutorial level
+    call mini_placeholder([("Amelia sick scene", "c1_scene3")]) from _call_mini_placeholder
 
-    # # actual minigame
+    # actual minigame
     $ node_unlock('c1_mgame')
     $ curlevel = 1
     call mini_launch
-
-    # call mini_placeholder([
-    #     ("Fetch quest 1 (wine)", "c1_fetch1"),
-    #     ("Fetch quest 2 (jacket)", "c1_fetch2"),
-    #     ("Fetch quest 3 (first Bella interference)", "c1_fetch3"),
-    #     ("Fetch quest 4 (Bella confrontation)", "c1_fetch4")
-    # ]) from _call_mini_placeholder_1
 
     call c1_scene5 from _call_c1_scene5
     call c1_scene6 from _call_c1_scene6
