@@ -185,7 +185,7 @@ screen popup_help(curstate='main'):
 
     style_prefix "confirm"
 
-    default h_tab = "main" if (curstate == 'main' or not curstate in helpText) else 'rules'
+    default h_tab = "main" if (curstate == 'main' or not curstate in helpText) else curstate
 
     frame:
         xalign 0.5
@@ -204,7 +204,7 @@ screen popup_help(curstate='main'):
                     spacing 23
 
                     textbutton "Minigame rules":
-                        action SetScreenVariable("h_tab", "rules")
+                        action SetScreenVariable("h_tab", curstate)
                         activate_sound audio.button_click_sfx
                         xalign 0.
 
@@ -219,10 +219,16 @@ screen popup_help(curstate='main'):
                 scrollbars "vertical"
                 vscrollbar_unscrollable "hide"
 
-                if h_tab == 'main':
-                    text helpText['main']
-                else:
-                    text helpText[curstate]
+                vbox:
+                    xmaximum 800
+                    for t_ in helpText[h_tab]:
+                        if t_[0] == ">":
+                            text t_[1:]:
+                                xanchor 0.
+                                xpos 0.05
+                        else:
+                            text t_:
+                                xalign 0.
         
         use popup_button_close('popup_help')
 
