@@ -2681,27 +2681,6 @@ label chap1_test_t1_end:
 
     jump mini_main
 
-label chap1_test_t2:
-    "drag left button to left square, right button to right square"
-
-    python:
-        mgame_goal = curgame['goal']
-        if not 'try' in curgame:
-            curgame['try'] = []
-            for i in range(len(mgame_goal)):
-                curgame['try'].append('')
-        mgame_try = curgame['try']
-
-    call screen mgame_dragdrop
-
-    if is_win_listeq():
-        "task 2 complete :D"
-    else:
-        "task 2 not complete :|"
-    $ docurtask(is_win_listeq())
-
-    jump mini_main
-
 label c1_default_idle:
     "this task isnt available right now"
 
@@ -2738,50 +2717,17 @@ label chap1_test_t6:
 
     jump mini_main
 
-label task_c1_toggle:
-    python:
-        mgame_goal = curgame['goal']
-        if not 'try' in curgame:
-            curgame['try'] = []
-            for i in range(len(mgame_goal)):
-                curgame['try'].append(False)
-        mgame_try = curgame['try']
-    
-    scene bg seal room
-
-    $ hinttext = levelHints['toggle_idle']
-
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
-        call screen mgame_toggle
-        $ game_ret = _return
-
-    if game_ret == 'done':
-        show screen mgame_toggle(shaded=False)
-        show screen mgame_overlay
-        hide screen mgame_toggle with dissolve
-    
-    if game_ret == 'done':
-        hide screen mgame_overlay
-        scene bg joyce why
-        with cfade
-        "task 4 complete (hooray!!!)"
-    else:
-        hide screen mgame_overlay
-        scene bg hellway
-        with cfade
-        "task 4 not complete (not hooray!!!)"
-    
-    $ docurtask(goodjob=is_win_listeq(), tname='Click some buttons whee')
-
-    jump mini_main
-
-label task_c1_waterpour:
-    python:
+init python:
+    def waterpour_init_py():
+        global curgame
         if not 'original' in curgame:
             curgame['original'] = []
             for c in curgame['cups']:
                 curgame['original'].append(c['colors'].copy())
+
+label task_c1_waterpour:
+
+    $ waterpour_init_py()
 
     scene bg mgame_waterpour
 
@@ -2803,8 +2749,11 @@ label task_c1_waterpour:
 
     jump mini_main
 
-label task_c1_grabdishes:
-    python:
+init python:
+    def grabdishes_init_py():
+        global curgame
+        global mgame_goal
+        global mgame_try
         if not 'try' in curgame:
             mgame_goal = curgame['goal']
             curgame['try'] = [0] * mgame_goal
@@ -2819,6 +2768,10 @@ label task_c1_grabdishes:
                 }
             ]
         mgame_try = curgame['try']
+
+label task_c1_grabdishes:
+    
+    $ grabdishes_init_py()
     
     scene bg hallway
 
@@ -2841,8 +2794,10 @@ label task_c1_grabdishes:
 
     jump mini_main
 
-label task_c1_dropdishes:
-    python:
+init python:
+    def dropdishes_init_py():
+        global curgame
+        global mgame_try
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some
         curgame['drag'] = []
         for i in range(invCountNum('dish_dirty')):
@@ -2853,6 +2808,10 @@ label task_c1_dropdishes:
                 'im': curgame['im']
             })
         mgame_try = curgame['try']
+
+label task_c1_dropdishes:
+
+    $ dropdishes_init_py()
     
     scene bg mgame_dropdishes
 
@@ -2874,12 +2833,11 @@ label task_c1_dropdishes:
 
     jump mini_main
 
-label task_c1_laundry:
-    scene bg mgame_laundry:
-        yalign 1.
-        xysize(1920, 1418)
-
-    python:
+init python:
+    def sortlaundry_init_py():
+        global curgame
+        global mgame_try
+        # TODO add global stuff
         if not 'try' in curgame:
             curgame['times'] = [0, 0, 0]
             times = curgame['times']
@@ -2889,25 +2847,17 @@ label task_c1_laundry:
                     tim = renpy.random.randint(30, 60)
                 times[i] = tim
 
-            curgame['type_to_ind'] = {
-                0: min(times),
-                2: max(times)
-            }
-            curgame['ind_to_type'] = {
+            curgame['time_to_weight'] = {
                 min(times): 0,
                 max(times): 2
             }
             for i in times:
                 if i != min(times) and i != max(times):
-                    curgame['type_to_ind'][1] = i
-                    curgame['ind_to_type'][i] = 1
+                    curgame['time_to_weight'][i] = 1
                     break
-            curgame['try_map'] = {0:-1, 1:-2, 2:-3}
-            curgame['try_map_rev'] = {-1:0, -2:1, -3:2}
 
             tot = renpy.random.randint(4, 8)
-            curgame['try'] = [''] * (tot+1)
-            curgame['goal'] = [''] * (tot+1)
+            curgame['try'] = [-1] * (tot+1)
             curgame['drag'] = []
             tot_running = 0
             for i in range(3):
@@ -2918,21 +2868,26 @@ label task_c1_laundry:
                 for j in range(num):
                     curgame['drag'].append({
                         'n': tot_running,
-                        'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
+                        'p': (1500, 0),
                         'type': i,
                         'type_sub': renpy.random.randint(0, 2)
                     })
-                    curgame['goal'][tot_running] = [f"{-(i+1)}", i]
                     tot_running += 1
-            curgame['goal'][tot] = ["-3", 2]
             curgame['drag'].append({
                 'n': tot,
-                'p': (renpy.random.randint(350, 1300), renpy.random.randint(540, 800)),
+                'p': (1500, 0),
                 'type': 2,
                 'type_sub': renpy.random.randint(0, 2)
             })
         mgame_try = curgame['try']
-        mgame_goal = curgame['goal']
+        curgame['starts'] = [-1, -1, -1]
+
+label task_c1_sortlaundry:
+    scene bg mgame_laundry:
+        yalign 1.
+        xysize(1920, 1418)
+
+    $ sortlaundry_init_py()
 
     $ hinttext = levelHints['laundry_idle']
 

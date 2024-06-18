@@ -315,6 +315,16 @@ screen mini_screen():
     
     use floor_sidebar('game')
 
+init python:
+    def process_scorepenalty():
+        global tasks
+        global curlevel
+        global curtime
+        global completion
+        for tname, t in tasks[curlevel].items():
+            if t['tf'] >= curtime and not t['done']:
+                completion -= t['scorepenalty']
+
 label mini_main():
 
     $ update_taskq()
@@ -344,41 +354,19 @@ label mini_main():
 
         jump expression tolabel
     else:
-        python:
-            for tname, t in tasks[curlevel].items():
-                if t['tf'] >= curtime and not t['done']:
-                    completion -= t['scorepenalty']
+        $ process_scorepenalty()
 
     return
 
-label mini_launch(startroom='main', startfloor=0):
-    python:
-        tolabel = ''
-
-        tstart = levelInfo[curlevel]['t0']
-        curtime = tstart
-        tlimit = levelInfo[curlevel]['tf']
-        completion = 0
-        completion_f = 0
-
-        curroom = 'main'
-        prevroom = levelInfo[curlevel]['room0']
-        curfloor = levelInfo[curlevel]['floor0']
-
-        curtask = None
-        curtask_btn = None
-        curgame = None
-        taskq = []
-        taskrq = []
-
-        curholder = None
-        curhand = -1
-        invitems = ['air', 'air']
-        invstacks = [1, 1]
-        ichoice = None
-
-        notes_text = ''
-        notes_text_s = ''
+init python:
+    def mini_launch_py():
+        global taskButtons
+        global itemHolders
+        global taskrq
+        global tasks
+        global curlevel
+        global taskTemplates
+        global roomArrows
 
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
@@ -417,6 +405,38 @@ label mini_launch(startroom='main', startfloor=0):
                 aname = roomButtons[curlevel][ar['toroom']]['name'].upper()
                 ar['btext'] = f'{aname} ◆ {tcost}'
                 ar['tcost'] = tcost
+
+label mini_launch(startroom='main', startfloor=0):
+    python:
+        tolabel = ''
+
+        tstart = levelInfo[curlevel]['t0']
+        curtime = tstart
+        tlimit = levelInfo[curlevel]['tf']
+        completion = 0
+        completion_f = 0
+
+        curroom = 'main'
+        prevroom = levelInfo[curlevel]['room0']
+        curfloor = levelInfo[curlevel]['floor0']
+
+        curtask = None
+        curtask_btn = None
+        curgame = None
+        taskq = []
+        taskrq = []
+
+        curholder = None
+        curhand = -1
+        invitems = ['air', 'air']
+        invstacks = [1, 1]
+        ichoice = None
+
+        notes_text = ''
+        notes_text_s = ''
+
+        mini_launch_py()
+
     jump mini_main
 
 label mini_failed:

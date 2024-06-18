@@ -74,29 +74,29 @@ init python:
         return waterpour_ok(curgame['cups'])
 
     def laundry_ok():
-        for i in range(len(store.mgame_try)):
-            if store.mgame_try[i] != store.mgame_goal[i][0]:
-                return False
+        global mgame_try
+        global curgame
+        if -1 in mgame_try:
+            return False
+        if -1 in curgame['starts'] or not 0 in curgame['starts'] or not 1 in curgame['starts'] or not 2 in curgame['starts']:
+            return False
+        for i in range(3):
+            for j in range(len(mgame_try)):
+                if mgame_try[j] == i and curgame['drag'][j]['type'] != curgame['starts'][i]:
+                    return False
         return True
 
     def laundry_act_drag(drags, drop):
         dragnum = int(drags[0].drag_name)
         store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if not drop:
-            store.mgame_try[dragnum] = ''
+            store.mgame_try[dragnum] = -1
         else:
-            store.mgame_try[dragnum] = drop.drag_name
+            store.mgame_try[dragnum] = int(drop.drag_name)
         return 'done' if laundry_ok() else 'refresh'
 
     def laundry_act_start(i, t):
-        curgame['try_map'][i] = curgame['ind_to_type'][t]
-        curgame['try_map_rev'][curgame['ind_to_type'][t]] = i
-        vals = list(curgame['try_map'].values())
-        for i_ in range(3):
-            goal_idx = curgame['try_map_rev'][i_] if (0 in vals and 1 in vals and 2 in vals) else -1
-            for j in range(len(mgame_goal)):
-                if mgame_goal[j][1] == i_:
-                    mgame_goal[j][0] = str(goal_idx)
+        curgame['starts'][i] = curgame['time_to_weight'][t]
         return 'done' if laundry_ok() else 'refresh'
 
 screen mgame_overlay(shaded=True, has_mc=True):
@@ -238,8 +238,8 @@ screen mgame_laundry_start(i, p_):
         vbox:
             label "Select Time:"
             for j in range(3):
-                textbutton (f"> {times[j]} MINUTES <" if (curgame['try_map'][i] in curgame['type_to_ind'] and times[j] == curgame['type_to_ind'][curgame['try_map'][i]]) else f"{times[j]} MINUTES"):
-                    action [Function(laundry_act_start, i=i, t=times[j]), Hide('mgame_laundry_start')]
+                textbutton (f"> {curgame['times'][j]} MINUTES <" if (curgame['time_to_weight'][curgame['times'][j]] == curgame['starts'][i]) else f"{curgame['times'][j]} MINUTES"):
+                    action [Function(laundry_act_start, i=i, t=curgame['times'][j]), Hide('mgame_laundry_start')]
 
 screen mgame_laundry(shaded=True):
 

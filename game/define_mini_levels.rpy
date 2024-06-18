@@ -632,7 +632,7 @@ default taskTemplates = {
         'tlabel': 'task_c1_waterpour'
     },
     'sortlaundry': {
-        'tlabel': 'task_c1_laundry',
+        'tlabel': 'task_c1_sortlaundry',
         'desc': 'Bonus task: Sort the laundry',
         'tcost': 20,
         'dur': 30,

@@ -330,8 +330,12 @@ init python:
         return itm_split[0] == typ
 
 # only if going to a room indirectly using the large map
-label gotoroom_indirect:
-    python:
+init python:
+    def gotoroom_indirect_py():
+        global prevroom
+        global roomButtons
+        global curtime
+        global hinttext
         if prevroom and prevroom != 'main':
             i1 = roomButtons[curlevel][prevroom]['num']
             i2 = roomButtons[curlevel][curroom]['num']
@@ -339,6 +343,9 @@ label gotoroom_indirect:
             prevroom = 'main'
             if i1 != i2:
                 hinttext = levelHints['default_idle']
+
+label gotoroom_indirect:
+    $ gotoroom_indirect_py()
     jump mini_main
 
 # just refreshes mini_main to check if time limit was reached...
