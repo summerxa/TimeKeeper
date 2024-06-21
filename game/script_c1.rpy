@@ -952,7 +952,6 @@ label c1_scene5:
     # let me know if this looks wonky b/c there are many cases in which this animation will trigger
     # and i can't guarantee that they all look nice ;-; -snail
     hide screen mgame_overlay
-    with cfade
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
