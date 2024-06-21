@@ -1817,7 +1817,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
         a "So, thank you. There’s no way I could leave you like this."
 
     play sound door_creak volume 1.5 
-    pause 2.3
 
     a "!!!"
 
