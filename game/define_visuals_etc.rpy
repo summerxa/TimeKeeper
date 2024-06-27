@@ -218,6 +218,8 @@ define audio.ballroom_ambience_1 = "<from 3.1 to 6.44>audio/ambience/bustling-ca
 define audio.ballroom_ambience_2 = "<from 3.5 to 7.0>audio/ambience/busy-restaurant-dining-room-ambience-128466.mp3"
 define audio.wind_howling_ambience = "<from .551 to 27.2>audio/ambience/wind-blowing-sfx-12809.mp3"
 
+# SOUNDTRACK
+define music.interrogation = "audio/Interrogation.wav"
 
 # --- UI STUFF ---
 

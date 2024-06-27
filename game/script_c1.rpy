@@ -1106,6 +1106,9 @@ label c1_scene6:
 
     m 5a "However, one of the guestrooms has not been properly cleaned."
 
+    play music interrogation
+    play sound glass_break_sfx volume .3
+
     m 6a "In fact, it was this room that was not cleaned."
 
     menu:
