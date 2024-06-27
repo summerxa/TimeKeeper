@@ -1104,10 +1104,9 @@ label c1_scene6:
 
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
-    m 5a "However, one of the guestrooms has not been properly cleaned."
+    play music interrogation fadein 2.0 volume .37
 
-    play music interrogation
-    play sound glass_break_sfx volume .3
+    m 5a "However, one of the guestrooms has not been properly cleaned."
 
     m 6a "In fact, it was this room that was not cleaned."
 
@@ -1444,7 +1443,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .57 volume .6
+    play ambience wind_howling_ambience fadein .8 volume .5
 
     show amelia 7a
     show snowfront zorder 10
@@ -1488,7 +1487,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6 volume .6
+    play ambience wind_howling_ambience fadein .6 volume .5
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
