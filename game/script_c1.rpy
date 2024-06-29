@@ -952,7 +952,6 @@ label c1_scene5:
     # let me know if this looks wonky b/c there are many cases in which this animation will trigger
     # and i can't guarantee that they all look nice ;-; -snail
     hide screen mgame_overlay
-    with cfade
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
@@ -1104,6 +1103,8 @@ label c1_scene6:
 
 
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
+
+    play music interrogation fadein 2.0 volume .37
 
     m 5a "However, one of the guestrooms has not been properly cleaned."
 
@@ -1442,7 +1443,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .57 volume .6
+    play ambience wind_howling_ambience fadein .8 volume .5
 
     show amelia 7a
     show snowfront zorder 10
@@ -1486,7 +1487,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6 volume .6
+    play ambience wind_howling_ambience fadein .6 volume .5
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
@@ -1817,7 +1818,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
         a "So, thank you. There’s no way I could leave you like this."
 
     play sound door_creak volume 1.5 
-    pause 2.3
 
     a "!!!"
 
