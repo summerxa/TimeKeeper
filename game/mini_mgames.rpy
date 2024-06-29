@@ -130,6 +130,9 @@ screen mgame_dragdrop_dishes(shaded=True):
             pos curgame['in_sink']['p']
             anchor (0.5,0.5)
     
+    if curgame['type'] == 'grabdishes':
+        use mgame_overlay(shaded=shaded)
+
     draggroup:
         # drop
         for d in curgame['drop']:
@@ -158,8 +161,9 @@ screen mgame_dragdrop_dishes(shaded=True):
                         dragged dragged_dropdishes
                     drag_raise True
                     child d['im']
-        
-    use mgame_overlay(shaded=shaded)
+    
+    if curgame['type'] == 'dropdishes':
+        use mgame_overlay(shaded=shaded)
 
     if 'overlay' in curgame:
         for overlay_itm in curgame['overlay']:

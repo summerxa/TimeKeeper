@@ -2760,7 +2760,7 @@ init python:
                 curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
             curgame['drop'] = [
                 {
-                    'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+                    'n': 'goal', 'p': (1450, 0), 'w': 600, 'h': 1080
                 }
             ]
         mgame_try = curgame['try']
@@ -2769,7 +2769,7 @@ label task_c1_grabdishes:
     
     $ grabdishes_init_py()
     
-    scene bg hallway
+    scene bg mgame_grabdishes
 
     $ hinttext = levelHints['grabdishes_idle']
 

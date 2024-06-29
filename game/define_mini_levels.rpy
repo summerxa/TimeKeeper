@@ -42,7 +42,7 @@ default levelHints = {
     'default_taskless': "No task available right now.",
     'candle_taskless': "These candles are already lit.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
-    'grabdishes_idle': "That's a lot of dirty dishes...",
+    'grabdishes_idle': "Drag the dishes to me :3",
     'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
     'dropdishes_idle': "Dirty dish tower!!!!",
     'toggle_idle': "Meow",
@@ -609,7 +609,7 @@ default taskTemplates = {
         'desc': 'Clear the table',
         'tlabel': 'task_c1_grabdishes',
         'fail_id': 'handsfull_fail',
-        'item_req': ['air', 'dish_dirty'],
+        'item_req': ['air', 'dish_dirty']
     },
     'dropdishes': {
         'tcost': 5,

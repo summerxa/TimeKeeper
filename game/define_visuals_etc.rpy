@@ -308,6 +308,7 @@ init python:
 image bg mgame_main = 'mini/ui_backrgons.jpg'
 image bg mgame_waterpour = 'mini/tgame/waterpour/waterpour_bg.jpg'
 image bg mgame_dropdishes = 'mini/tgame/grab_dropdishes/dropdishes_bg.jpg'
+image bg mgame_grabdishes = 'mini/tgame/grab_dropdishes/grabdishes_bg.jpg'
 image bg mgame_laundry = 'mini/tgame/laundry/mgame_laundry_bg.jpg'
 
 image bg guestroom = 'bgs/guestroom.jpg'

@@ -260,7 +260,7 @@ screen mc_hintbox(shaded=True):
         minimum (482, 288)
         style 'hintbox_frame'
         fixed:
-            area (30, 30, 400, 200)
+            area (30, 30, 400, 228)
             text hinttext:
                 xalign 0.5 yalign 0.5
                 text_align 0.5
