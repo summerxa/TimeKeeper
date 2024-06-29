@@ -957,6 +957,9 @@ label c1_scene5:
     #TODO: replace ambience w/ better ambience later
 
     "Scene 5"
+    
+    # TODO remember to delete this once scoring threshold is finalized
+    "your completion score is [completion], you did [completion_f] fetch quest(s)"
 
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})
@@ -1079,9 +1082,6 @@ label c1_scene6:
     show mc 1b at einf(1.4,.8,1.0902)
 
     m "Anastasia."
-
-    # TODO remember to delete this once scoring threshold is finalized
-    "your completion score is [completion], you did [completion_f] fetch quest(s)"
 
     if completion >= levelInfo[curlevel]['threshold'][1]:
 
@@ -2874,6 +2874,7 @@ init python:
                 'type': 2,
                 'type_sub': renpy.random.randint(0, 2)
             })
+            # TODO shuffle the drag list (otherwise clothing appears in order of weight - too easy!)
         mgame_try = curgame['try']
         curgame['starts'] = [-1, -1, -1]
 

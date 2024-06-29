@@ -23,7 +23,7 @@ default levelInfo = {
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
-        'ndishes': 12,
+        'ndishes': 29,
         'threshold': [-20, 40],
         'quests': {
             'Fetch quest 1': False,
@@ -582,8 +582,32 @@ default taskButtons = {
                 'style': 'plaque1_font'
             }
         },
+        'gr_l_candle1': {
+            'p': (592, 275),
+            'room': 'guestroom l',
+            'imtask': 'candle',
+            'taskless': 'candle_taskless'
+        },
+        'gr_l_candle2': {
+            'p': (1115, 796),
+            'room': 'guestroom l',
+            'imtask': 'candle',
+            'taskless': 'candle_taskless'
+        },
+        'gr_l_candle3': {
+            'p': (398, 796),
+            'room': 'guestroom l',
+            'imtask': 'candle',
+            'taskless': 'candle_taskless'
+        },
         'gr_r_candle1': {
             'p': (795, 796),
+            'room': 'guestroom r',
+            'imtask': 'candle',
+            'taskless': 'candle_taskless'
+        },
+        'gr_r_candle2': {
+            'p': (1320, 275),
             'room': 'guestroom r',
             'imtask': 'candle',
             'taskless': 'candle_taskless'
@@ -762,70 +786,70 @@ default tasks = {
             'scorepenalty': 5,
             'tags': [Task.SPECIAL, Task.NON_ROOT]
         },
-        'grabdish_1': {
+        'candles_l1': {
+            'btn': 'gr_l_candle1',
+            'game': {
+                'type': 'lightcandle'
+            }
+        },
+        'candles_l2': {
+            'btn': 'gr_l_candle2',
+            'game': {
+                'type': 'lightcandle'
+            }
+        },
+        'candles_l3': {
+            'btn': 'gr_l_candle3',
+            'game': {
+                'type': 'lightcandle'
+            }
+        },
+        'candles_r1': {
+            'btn': 'gr_r_candle1',
+            'game': {
+                'type': 'lightcandle'
+            }
+        },
+        'candles_r2': {
+            'btn': 'gr_r_candle2',
+            'game': {
+                'type': 'lightcandle'
+            }
+        },
+        'grabdish_1030': {
             'btn': '6_2',
-            't0': 1020,
+            't0': 1030,
             'game': {
                 'type': 'grabdishes',
                 'goal': 5
             }
         },
-        'grabdish_2': {
-            'btn': 'long2',
-            't0': 1040,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 3
-            }
-        },
-        'grabdish_last': {
-            'btn': '6_2',
-            't0': 1160,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'dropdish': {
-            'btn': 'sink',
-            't0': -1,
-            'tf': 1180,
-            'game': {
-                'type': 'dropdishes',
-                'xp': 0.5,
-                'drop': [
-                    {
-                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
-                    }
-                ],
-                'in_sink': {
-                    'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
-                },
-                'overlay': [
-                    {
-                        'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
-                    }
-                ]
-            }
-        },
-        'grabfood_k_1': {
+        'grabfood 1030': {
             'btn': 'pickuptable',
-            't0': 1020,
+            't0': 1030,
             'game': {
                 'type': 'grabfood'
             },
-            'nxt': ['grabfood_b_1']
+            'nxt': ['dropfood 1030']
         },
-        'grabfood_b_1': {
+        'dropfood 1030': {
             'btn': '4_3',
             't0': -2,
             'game': {
                 'type': 'dropfood'
             }
         },
+        'grabdish_1040': {
+            'btn': '6_2',
+            't0': 1040,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 4
+            }
+        },
         'waterpour_1': {
             'btn': 'bar',
-            't0': 1040,
+            't0': 1050,
             'game': {
                 'type': 'waterpour',
                 'cups': [
@@ -848,17 +872,163 @@ default tasks = {
                 ]
             }
         },
+        'grabdish_1075': {
+            'btn': '6_2',
+            't0': 1075,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 3
+            }
+        },
+        'grabfood 1080': {
+            'btn': 'pickuptable',
+            't0': 1080,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1080']
+        },
+        'dropfood 1080': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
+        'grabdish_1095': {
+            'btn': '6_2',
+            't0': 1095,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 4
+            }
+        },
+        'grabfood 1110': {
+            'btn': 'pickuptable',
+            't0': 1110,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1110']
+        },
+        'dropfood 1110': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
+        'grabdish_1115': {
+            'btn': '6_2',
+            't0': 1115,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 6
+            }
+        },
+        'grabfood 1120': {
+            'btn': 'pickuptable',
+            't0': 1120,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1120']
+        },
+        'dropfood 1120': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
+        'grabdish_1135': {
+            'btn': '6_2',
+            't0': 1135,
+            'game': {
+                'type': 'grabdishes',
+                'goal': 3
+            }
+        },
+        'grabfood 1140': {
+            'btn': 'pickuptable',
+            't0': 1140,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1140']
+        },
+        'dropfood 1140': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
         'laundry_1': {
             'btn': 'laundry_1',
-            't0': 1100,
+            't0': 1140,
             'game': {
                 'type': 'sortlaundry'
             }
         },
-        'candles_1': {
-            'btn': 'gr_r_candle1',
+        'grabdish_1160': {
+            'btn': '6_2',
+            't0': 1160,
             'game': {
-                'type': 'lightcandle'
+                'type': 'grabdishes',
+                'goal': 4
+            }
+        },
+        'grabfood 1170': {
+            'btn': 'pickuptable',
+            't0': 1170,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1170']
+        },
+        'dropfood 1170': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
+        'grabfood 1180': {
+            'btn': 'pickuptable',
+            't0': 1180,
+            'game': {
+                'type': 'grabfood'
+            },
+            'nxt': ['dropfood 1180']
+        },
+        'dropfood 1180': {
+            'btn': '4_3',
+            't0': -2,
+            'game': {
+                'type': 'dropfood'
+            }
+        },
+        'dropdish': {
+            'btn': 'sink',
+            't0': 1030,
+            'tf': 1190,
+            'game': {
+                'type': 'dropdishes',
+                'xp': 0.5,
+                'drop': [
+                    {
+                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+                    }
+                ],
+                'in_sink': {
+                    'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
+                },
+                'overlay': [
+                    {
+                        'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
+                    }
+                ]
             }
         }
     }
@@ -975,7 +1145,7 @@ default itemHolders = {
         'gr_l1': {
             'item': {
                 'id': 'matches',
-                'stack': 1
+                'stack': 5
             },
             'p': (795, 275),
             'room': 'guestroom l'
