@@ -2798,7 +2798,7 @@ init python:
             curgame['drag'].append({
                 'n': str(i),
                 'p': ((1200 + (i * 50)), 390),
-                'im': curgame['im']
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             })
         mgame_try = curgame['try']
 
@@ -2823,6 +2823,9 @@ label task_c1_dropdishes:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
+
+    # NOTE: need to do this for any task that auto-kicks you out without being marked as "done"
+    $ hinttext = levelHints['default_idle']
 
     jump mini_main
 

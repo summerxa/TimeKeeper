@@ -767,8 +767,7 @@ default tasks = {
             't0': 1020,
             'game': {
                 'type': 'grabdishes',
-                'goal': 5,
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+                'goal': 5
             }
         },
         'grabdish_2': {
@@ -776,8 +775,7 @@ default tasks = {
             't0': 1040,
             'game': {
                 'type': 'grabdishes',
-                'goal': 3,
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+                'goal': 3
             }
         },
         'grabdish_last': {
@@ -785,8 +783,7 @@ default tasks = {
             't0': 1160,
             'game': {
                 'type': 'grabdishes',
-                'goal': 4,
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+                'goal': 4
             }
         },
         'dropdish': {
@@ -796,7 +793,6 @@ default tasks = {
             'game': {
                 'type': 'dropdishes',
                 'xp': 0.5,
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png',
                 'drop': [
                     {
                         'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525

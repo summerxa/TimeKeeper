@@ -160,7 +160,7 @@ screen mgame_dragdrop_dishes(shaded=True):
                     else:
                         dragged dragged_dropdishes
                     drag_raise True
-                    child d['im']
+                    child 'mini/tgame/grab_dropdishes/plate_dirty.png'
     
     if curgame['type'] == 'dropdishes':
         use mgame_overlay(shaded=shaded)
