@@ -192,8 +192,8 @@ init python:
             if t in store.taskq:
                 if not t['activated']:
                     store.taskq.remove(t)
-                    if not t['done']:
-                        store.completion -= t['scorepenalty']
+                    # if not t['done']:
+                    #     store.completion -= t['scorepenalty']
                     try:
                         store.taskrq.remove(tn)
                     except:

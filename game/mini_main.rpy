@@ -322,7 +322,7 @@ init python:
         global curtime
         global completion
         for tname, t in tasks[curlevel].items():
-            if t['tf'] >= curtime and not t['done']:
+            if not t['done']:
                 completion -= t['scorepenalty']
 
 label mini_main():

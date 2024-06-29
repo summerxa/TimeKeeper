@@ -959,7 +959,13 @@ label c1_scene5:
     "Scene 5"
     
     # TODO remember to delete this once scoring threshold is finalized
-    "your completion score is [completion], you did [completion_f] fetch quest(s)"
+    python:
+        score_min = 0
+        score_max = 0
+        for tn_, t_ in tasks[curlevel].items():
+            score_min -= t_['scorepenalty']
+            score_max += t_['scorebonus']
+    "your completion score is [completion] on a scale of [score_min] to [score_max], you did [completion_f]/4 fetch quest(s)"
 
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})
