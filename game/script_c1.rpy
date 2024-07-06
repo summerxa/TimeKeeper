@@ -53,6 +53,7 @@ label c1_scene1:
     #"window hide dissolve" to hide text box w/ dissolve
     #"xyz{fast}" to make text fast w/o being affected by text speed
     #"{size=50}xyz{/size}" to change text size
+    #almost forgot about this one: with Dissolve(1.0,alpha=True)
 
 label c1_scene1_5: 
    
@@ -220,7 +221,7 @@ label c1_scene2:
     scene bg joyce why with cfade
     #TODO: replace with ballroom bg later
     
-    play ambience ballroom_ambience_1
+    play ambience ballroom_ambience_1 fadein .6
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
@@ -236,24 +237,20 @@ label c1_scene2:
     n2 "These are the most proficient of your maids, madam?"
 
     show mother 2a at l1_5
-    #flip
         
     m "Yes, Lord Layton."
     
     $ focus_on(['mc', 'mother'])
 
     show mother 2a at ein(0.8, 0.15)
-    #flip,
 
     show npc2 at ein(.8, .95) 
     #magic number .95
 
     show mc 1b at center
-    #flip,
 
     m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
 
-    
     n2 "I see."
 
     n2 "I suppose I might hire one of your maids in the near future."
@@ -271,16 +268,12 @@ label c1_scene2:
     b "Ah!"
     
     show mother 6a at lin(0.8, 0.4)
-    #unflip
 
     show mc 4b at lin(0.8, 0.7)
-    #unflip
 
     show npc2 at lin(0.8, 1.1)
-
     pause 0.7
     show bella 8a at ein(0.7, 0.0)
-    #flip
 
     pause 2.5
     m 7a "...Ah."
@@ -288,13 +281,14 @@ label c1_scene2:
     show mother 8a #at flip
     m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
 
-    play sound metal_pipe volume .23
-    hide npc2 with Dissolve(.4,alpha=True)
-   
-    
-    show mother 6a #at unflip
+    #play sound metal_pipe volume .23
+    #delete line above for public beta... well acutally, you dont really need to ig, bc i commented it out :P -jade
 
-    show bella 6a #at unflip
+    hide npc2 with Dissolve(.4,alpha=True)
+    
+    show mother 6a
+
+    show bella 6a
     b "Mother, I—"
 
     $ focus_on(['mother', 'bella'])
@@ -322,7 +316,7 @@ label c1_scene2:
 
     m 7a "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
 
-    show mother 1a #at flip
+    show mother 1a 
     m "Could you clean this up, my dears?"
 
     $ focus_on(['mother', 'bella'])
@@ -346,6 +340,8 @@ label c1_scene2:
     show amelia 1a
     "Anastasia and the other maids pull themselves together and clean up the mess."
 
+    stop ambience fadeout 2.0
+
     # turns out renpy has a built in black bg hooray -snail
     scene black with dissolve
 
@@ -354,18 +350,19 @@ label c1_scene2:
     scene bg joyce why with dissolve
     #TODO: replace with ballroom bg later
 
+    play ambience ballroom_ambience_1 fadein 1.0
+    #TODO: replace laterrrr
+
     $ focus_on(['mother', 'mc'])
 
     #TODO: animate them better
     show mc 3b at r1_5
-    #flip
 
     pause .5
     show mother 1a at einf(-.8,1.0, 0.2)
-    #flip
 
     pause .65
-    show mc 1b #at unflip
+    show mc 1b
 
     "Mother returns to the ballroom alone and walks to Anastasia."
 
@@ -402,16 +399,18 @@ label c1_scene2:
 
     $ node_unlock('c1_scene2_tasks')
 
+    stop ambience fadeout 2.0
+
     scene hallway with cfade
     #TODO: replace with ballroom bg later
 
     $ focus_on(['bella'])
 
     show bella 8a at r1_4
+    play ambience ballroom_ambience_2 fadein 1.0
     b "Ugh... Where is it? The cloth was here just a second ago!"
 
     show amelia 2a at einf(-0.2, 1.0 ,0.25)
-    #flip
     a "Here, take this."
 
     $ focus_on(['bella'])
@@ -454,7 +453,6 @@ label c1_scene2:
     $ focus_on(['amelia'], {'amelia': 2})
 
     show amelia 1a at eout(1.0, 0.2)
-    #unflip
     "Amelia starts to walk away, but—"
 
     # i made an animation maybe...? -snail
@@ -471,6 +469,7 @@ label c1_scene2:
 
     play sound metal_pipe volume .23
     #hehe :3
+    #TODO: replace this sound...
 
     # screen shake (might be a bit too intense?) -snail
     hide amelia with vpunch
@@ -606,7 +605,7 @@ label c1_fetch1:
     scene bg hallway with cfade
     #TODO: change this later maybe LMAO
 
-    play ambience ballroom_ambience_1 fadein 1.0
+    play ambience ballroom_ambience_2 fadein .6
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
     # :i_cri_evry_tiem: -snail
@@ -619,6 +618,8 @@ label c1_fetch1:
 
     n2 "Hey! You there. Bring me a bottle of red wine. The finest quality only!"
 
+    stop ambience fadeout 1.0
+
     $ docurtask()
 
     jump mini_main
@@ -627,7 +628,7 @@ label c1_fetch1_end:
     scene bg hallway with cfade
     #TODO: change this later maybe LMAO
 
-    play ambience ballroom_ambience_1 fadein .8
+    play ambience ballroom_ambience_1 fadein .6
 
     show npc2 at l1_5
     show mc 1b at r1_5
@@ -646,6 +647,8 @@ label c1_fetch1_end:
         
         $ node_unlock('c1_fetch1')
 
+    stop ambience fadeout 2.0
+
     jump mini_main
 
 label c1_fetch2:
@@ -653,7 +656,7 @@ label c1_fetch2:
     scene bg guestroom with cfade
     #TODO: replace bg with ballroom maybe
     
-    play ambience ballroom_ambience_2 fadein 1.0
+    play ambience ballroom_ambience_2 fadein .6
     "Fetch quest 2"
 
     show npc1 at l1_5
@@ -669,15 +672,17 @@ label c1_fetch2:
 
     s "Affirmative, sir."
 
+    stop ambience fadeout 2.0
+
     $ docurtask()
-
-    #[mc goes to the laundry room.] 
-
-    #[mc sees a dark blue jacket, a black jacket, a red jacket, and a dark green jacket.]
 
     jump mini_main
 
 label c1_fetch2_end:
+
+    play ambience ballroom_ambience_2 fadein .6
+    #TODO: still need actual ballroom ambience
+
     scene bg guestroom with cfade
     #TODO: replace bg with ballroom maybe
 
@@ -693,12 +698,15 @@ label c1_fetch2_end:
 
         n1 "Hmph. It appears that these maids are somewhat competent." 
 
+        stop ambience fadeout 2.0
+
         $ docurtask(tname = "Fetch quest 2")
         $ update_inv(myitem='jacket_red')
 
         scene bg hallway with cfade
         #TODO: replace bg w/ something else
 
+        play ambience ballroom_ambience_2 fadein .6
         show bella 8a at center
         b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
 
@@ -726,6 +734,8 @@ label c1_fetch2_end:
         #is this the right expression? -jade
         # it looks good :D -snail
 
+    stop ambience fadeout 2.0
+
     jump mini_main
 
 label c1_fetch3:
@@ -733,7 +743,7 @@ label c1_fetch3:
     scene bg hallway with cfade
     #TODO: change bg
     
-    play ambience ballroom_ambience_2 fadein 1.0
+    play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
     "Fetch quest 3"
 
@@ -756,11 +766,16 @@ label c1_fetch3:
 
     n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
 
+    stop ambience fadeout 2.0
+
     $ docurtask()
 
     jump mini_main
 
 label c1_fetch3_end:
+
+    play ambience ballroom_ambience_2 fadein 1.0
+    #TODO: replace w/ kitchen ambience
 
     scene bg kitchen with cfade
     #only for placeholder; not in actual game
@@ -780,9 +795,12 @@ label c1_fetch3_end:
 
     #when mc returns to ballroom, next scene triggers"
 
+    stop ambience fadeout 2.0
+
     scene bg hallway with cfade
     #TODO: replace with ballroom times a billion
 
+    play ambience ballroom_ambience_2 fadein .6
     show bella 1a at r1_5
     show npc2 at center
 
@@ -801,6 +819,8 @@ label c1_fetch3_end:
     hide bella
 
     n2 "Wait, did the maid always look like that?"
+
+    stop ambience fadeout 2.0
 
     $ docurtask(tname = "Fetch quest 3")
 
@@ -854,6 +874,7 @@ label c1_fetch4:
     scene bg guestroom with cfade
     #TODO: replace w/ ballroom, again
 
+    play ambience ballroom_ambience_2 fadein .6
     show npc4 at l1_5
     show bella 1a at r1_5
 
@@ -942,6 +963,8 @@ label c1_fetch4:
 
                     $ c1_has_bella_watch = True
 
+    stop ambience fadeout 2.0
+
     jump mini_main
 
 label c1_scene5:
@@ -999,14 +1022,13 @@ label c1_scene6:
     $ node_unlock('c1_scene6')
 
     "Anastasia walks through the hallways and tells any maids that she finds to go to the room that Mother is in."
-        
-    scene bg guestroom with cfade
     
     $ focus_on(['bella','amelia'], {'bella': 2, 'amelia': 2})
     show bella 5a at left
     show amelia 1a at l1_3
-    pause.5
-    show mc 1b at einf(1.2,.9,.9)
+    with Dissolve(1.0,alpha=True)
+    
+    show mc 1b at einf(1.2,1.2,.9)
     "Anastasia eventually comes across Amelia and Bella in Room 405, talking to each other in low voices."
 
     "Amelia looks better than when Anastasia last saw her, although Bella seems upset with her."
@@ -1297,6 +1319,7 @@ label c1_scene6:
 
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
+
     if c1_justify_blame:
         s "That would be Amelia. She had not been working on her tasks and was instead resting in this room."
     else:
@@ -1375,6 +1398,8 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     m 5a "Hmm… there was another task, was there not?" 
     
+    show amelia 7a
+
     m 1a "Joanne, do you recall what it was?"
 
     show npc3 with Dissolve(.6,alpha=True)
@@ -1416,7 +1441,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show bella 8a
     m 2a "Good girl. I can tell that you really are seeking to help out the family, Amelia."
 
-    a "Yes, I— y-you won’t kick me out, r-right?"
+    a 8a "Yes, I— y-you won’t kick me out, r-right?"
 
     m "Of course not. If you are able to complete all of these tasks perfectly, it would lighten everyone’s burden greatly. We would all be thankful to you."
 
@@ -1435,6 +1460,8 @@ label c1_amelia_ending(c1_justify_blame=True):
     pause .9
     show bella 8a at eout(2.2,1.4)
     "But she quickly steels herself and leaves as well."
+
+    stop music fadeout 1.0
 
     scene black with dissolve
 
@@ -1564,6 +1591,9 @@ label c1_amelia_ending(c1_justify_blame=True):
 
 label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     $ c1_ending = "bella"
+
+    stop music fadeout 1.0
+
     if c1_blame_bella_dialogue:
         if c1_justify_blame:
 
@@ -1699,6 +1729,9 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
 label c1_mc_ending(c1_mc_type="takes_blame"):
     $ c1_ending = "mc " + c1_mc_type
+
+    stop music fadeout 1.0
+
     if c1_mc_type == "takes_blame":
         s "That would be me, Mother."
 
@@ -2119,23 +2152,23 @@ label c1_scene7:
                 
                 b "Amelia didn’t deserve this…"
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "You’re a {i}sick{/i} human being. No, you’re below human."
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b "Well, I hope you rot in hell, bitch."
 
             "Be considerate":
 
                 s "I am… sorry that Amelia is dead."
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "Do you think ‘sorry’ is going to cut it? Do you think {i}‘sorry’{/i} is going to fix anything?!"
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b "She’s never coming back because of YOU!"
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b "{size=50}GO TO HELL!{/size}"  
 
             "Remain silent":
@@ -2146,10 +2179,10 @@ label c1_scene7:
 
                 b 5a "{size=40}Not even a robotic comment or reply?{/size}"
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b 6a "{size=50}Is that how little she matters to you?!{/size}"
 
-                play sound "audio/random/vineboom.mp3" volume .3
+                #play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "Fuck. {w=0.5}You."
 
                 # forces text not to scroll, but looks meh -snail
@@ -2158,7 +2191,6 @@ label c1_scene7:
                 # b "Fuck. You.{fast}"
 
         show bella at ein(.8,-.8)
-
 
     stop ambience fadeout 2.0
     scene black with dissolve
@@ -2215,10 +2247,7 @@ label c1_scene7:
 
     scene black with dissolve
 
-    play sound "audio/random/boowomp.mp3" volume .3
-    "da end"
-
-    "The end of the chapter"
+    "The end."
     $ node_unlock('c1_scene7')
     return
 
