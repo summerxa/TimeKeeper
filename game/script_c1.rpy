@@ -218,8 +218,7 @@ label c1_scene1_5:
   
 label c1_scene2:
     
-    scene bg joyce why with cfade
-    #TODO: replace with ballroom bg later
+    scene bg ballroom with cfade
     
     play ambience ballroom_ambience_1 fadein .6
     #idk anymore... -jade
@@ -347,8 +346,7 @@ label c1_scene2:
 
     "One hour later…"
 
-    scene bg joyce why with dissolve
-    #TODO: replace with ballroom bg later
+    scene bg ballroom with dissolve
 
     play ambience ballroom_ambience_1 fadein 1.0
     #TODO: replace laterrrr
@@ -401,7 +399,7 @@ label c1_scene2:
 
     stop ambience fadeout 2.0
 
-    scene hallway with cfade
+    scene bg ballroom with cfade
     #TODO: replace with ballroom bg later
 
     $ focus_on(['bella'])
@@ -602,8 +600,7 @@ label c1_scene3:
 
 label c1_fetch1:
     
-    scene bg hallway with cfade
-    #TODO: change this later maybe LMAO
+    scene bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein .6
     # TODO are we using ambience 1 or 2? -snail
@@ -625,8 +622,7 @@ label c1_fetch1:
     jump mini_main
 
 label c1_fetch1_end:
-    scene bg hallway with cfade
-    #TODO: change this later maybe LMAO
+    scene bg ballroom with cfade
 
     play ambience ballroom_ambience_1 fadein .6
 
@@ -653,8 +649,7 @@ label c1_fetch1_end:
 
 label c1_fetch2:
     
-    scene bg guestroom with cfade
-    #TODO: replace bg with ballroom maybe
+    scene bg ballroom with cfade
     
     play ambience ballroom_ambience_2 fadein .6
     "Fetch quest 2"
@@ -683,8 +678,7 @@ label c1_fetch2_end:
     play ambience ballroom_ambience_2 fadein .6
     #TODO: still need actual ballroom ambience
 
-    scene bg guestroom with cfade
-    #TODO: replace bg with ballroom maybe
+    scene bg ballroom with cfade
 
     show npc1 at l1_5
     show mc 1b at r1_5
@@ -703,8 +697,7 @@ label c1_fetch2_end:
         $ docurtask(tname = "Fetch quest 2")
         $ update_inv(myitem='jacket_red')
 
-        scene bg hallway with cfade
-        #TODO: replace bg w/ something else
+        scene bg ballroom with cfade
 
         play ambience ballroom_ambience_2 fadein .6
         show bella 8a at center
@@ -740,8 +733,7 @@ label c1_fetch2_end:
 
 label c1_fetch3:
     
-    scene bg hallway with cfade
-    #TODO: change bg
+    scene bg ballroom with cfade
     
     play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
@@ -778,7 +770,6 @@ label c1_fetch3_end:
     #TODO: replace w/ kitchen ambience
 
     scene bg kitchen with cfade
-    #only for placeholder; not in actual game
 
     #TODO: replace ballroom ambience w/ kitchen sounds
 
@@ -797,8 +788,7 @@ label c1_fetch3_end:
 
     stop ambience fadeout 2.0
 
-    scene bg hallway with cfade
-    #TODO: replace with ballroom times a billion
+    scene bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein .6
     show bella 1a at r1_5
@@ -828,8 +818,7 @@ label c1_fetch3_end:
 
 label c1_fetch4:
     
-    scene bg guestroom with cfade
-    #TODO: replace with ballroom bg
+    scene bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein 1.0
     #we really need better ambience, don't we...
@@ -871,8 +860,7 @@ label c1_fetch4:
 
     s "I see. Thank you for telling me."
     
-    scene bg guestroom with cfade
-    #TODO: replace w/ ballroom, again
+    scene bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein .6
     show npc4 at l1_5
@@ -969,8 +957,7 @@ label c1_fetch4:
 
 label c1_scene5:
     
-    scene bg guestroom with cfade
-    #TODO: replace w/ ballroom bg
+    scene bg ballroom with cfade
 
     # let me know if this looks wonky b/c there are many cases in which this animation will trigger
     # and i can't guarantee that they all look nice ;-; -snail
@@ -1465,8 +1452,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     scene black with dissolve
 
-    scene bg hellway
-    #TODO: replace w/ rooftop later
+    scene bg snowy
     show snowback
     show black
 
@@ -1502,16 +1488,13 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     show black zorder 11 with dissolve
 
-    scene bg hellway
-    #TODO: replace w/ rooftop later
+    scene bg snowy
     show snowback
     show black
 
     pause 1.5
 
     hide black with dissolve
-    
-    #TODO: replace w/ snowy bg later 
 
     show npc3_1 at l1_5
     show npc3 at r1_5
@@ -1535,7 +1518,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     #ohh, i didnt know that :0 -jade 
     $ npc4_name = "MAID 3"
 
-    show bg hellway at vshake
+    show bg snowy at vshake
     show npc3 at vshake
     show npc3_1 at vshake
     #show bg hellway with hpunch
@@ -2655,8 +2638,7 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
 label task_c1_donothing:
     # is this in character? -snail
 
-    scene bg seal room with cfade
-    # TODO replace w/ ballroom bg
+    scene bg ballroom with cfade
 
     $ focus_on(['mc'], {'mc': 2})
     show mc 1b #with dissolve
