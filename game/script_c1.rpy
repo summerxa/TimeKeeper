@@ -2083,7 +2083,7 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 label c1_scene7:
     "Reached ending: [c1_ending]"
 
-    show bg hallway with cfade
+    show bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein .8
 
