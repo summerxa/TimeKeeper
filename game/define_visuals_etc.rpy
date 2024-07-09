@@ -321,7 +321,7 @@ image bg seal room = 'bgs/seal room.png'
 image bg joyce why = 'bgs/joyce why.png'
 image bg hellway = 'bgs/hellway.png'
 
-image bg ballroom = "bgs/IMG_2016.jpg"
+image bg ballroom = "bgs/ballroom.jpg"
 image bg snowy = "bgs/snow_blender.jpg"
 
 image cg amelia tired v1 = 'cgs/Amelia_Cutscene look away.jpg'
