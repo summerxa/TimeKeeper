@@ -208,6 +208,7 @@ define audio.clothes_rustle = "<from 0.5 to 3>audio/story/fabric-rustling-and-sl
 define audio.chain_clink = "<from 0 to 1>audio/story/Small Size Chain Sound Effect.mp3"
 define audio.door_creak = "audio/story/door-creak-02-79920.mp3"
 define audio.chain_clink_2 = "<from 5.3 to 6>audio/story/metal-chain-7056.mp3"
+define audio.falling_sound = "audio/story/falling sound.mp3"
 
 # minigame sfx
 define audio.button_click_sfx = "audio/UI/btn_click_light_2.mp3"

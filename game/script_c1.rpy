@@ -359,10 +359,12 @@ label c1_scene2:
     pause .5
     show mother 1a at einf(-.8,1.0, 0.2)
 
-    pause .65
-    show mc 1b
+    #pause .65
+    #show mc 1b
 
     "Mother returns to the ballroom alone and walks to Anastasia."
+
+    show mc 1b
 
     m "Anastasia, dear."
 
@@ -454,7 +456,6 @@ label c1_scene2:
     "Amelia starts to walk away, but—"
 
     # i made an animation maybe...? -snail
-    # TODO add a falling sound
 
     show amelia 8a
     # amelia falls immediately (more jarring/shocking effect)
@@ -465,9 +466,10 @@ label c1_scene2:
     # falling animation
     hide amelia with easeoutbottom
 
-    play sound metal_pipe volume .23
+    #play sound metal_pipe volume .23
     #hehe :3
-    #TODO: replace this sound...
+
+    play sound falling_sound
 
     # screen shake (might be a bit too intense?) -snail
     hide amelia with vpunch
@@ -944,8 +946,9 @@ label c1_fetch4:
 
                 "Pick it up":
 
-                    play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
+                    #play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
                     "you got Bella's pocket watch! yippee!"
+                    #TODO: should prolly change this text for official version LMAO
                     
                     $ node_unlock('c1_fetch4_c_pickup')
 
