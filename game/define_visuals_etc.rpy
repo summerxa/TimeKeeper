@@ -108,7 +108,7 @@ init python:
                 if p > 1:
                     p = 1.0
                 
-                rv.append( At( At(image, opac(p)), zm(p) ) )
+                rv.append( At( At(image, opac(p)), zm(p/2) ) )
 
             return rv
         
@@ -187,8 +187,8 @@ transform opac(a):
     matrixcolor OpacityMatrix(a)
 
 
-image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=3)
-image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthin=9)
+image snowfront = Snow('particles/particle_snow_1.png', max_particles=25, depthmax=3, speed=500)
+image snowback = Snow('particles/particle_snow_1.png', max_particles=25, depthin=9, speed=500)
 
 image snowmenu = Snow(At('particles/particle_gold.png', opac(0.25)))
 
