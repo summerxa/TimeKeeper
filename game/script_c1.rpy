@@ -464,15 +464,25 @@ label c1_scene2:
     "!!!{w=[wtime]}{nw}"
 
     # falling animation
-    hide amelia with easeoutbottom
+    show amelia:
+        yanchor 0.5
+        ypos 0.5
+        easeout 0.1 ypos 0.55
 
     #play sound metal_pipe volume .23
     #hehe :3
 
     play sound falling_sound
 
+    pause 0.8
+
+    show amelia:
+        yanchor 0.5
+        ypos 0.55
+        easein 0.5 ypos 0.5
+
     # screen shake (might be a bit too intense?) -snail
-    hide amelia with vpunch
+    # hide amelia with vpunch
 
     #not sure if this expression quite matches up... but oh well
     #might need a pause here bc otherwise might feel too fast
