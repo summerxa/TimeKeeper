@@ -22,7 +22,7 @@ label chapter1:
     # minigame
     $ node_unlock('c1_mgame')
     $ curlevel = 1
-    call mini_launch
+    call mini_launch from _call_mini_launch_1
 
     call c1_scene5 from _call_c1_scene5
     call c1_scene6 from _call_c1_scene6

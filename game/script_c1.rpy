@@ -643,7 +643,7 @@ label c1_fetch1_end:
     
     #after item is obtained, interacting with nobleman again triggers this
 
-    call c1_give_item_prompt(n2, "wine_bottle")
+    call c1_give_item_prompt(n2, "wine_bottle") from _call_c1_give_item_prompt_1
 
     if ichoice == 'wine_bottle':
         s 1b "Your wine, sir."
@@ -695,7 +695,7 @@ label c1_fetch2_end:
     show npc1 at l1_5
     show mc 1b at r1_5
 
-    call c1_give_item_prompt(n1, "jacket_red")
+    call c1_give_item_prompt(n1, "jacket_red") from _call_c1_give_item_prompt_2
 
     if ichoice == 'jacket_red':
     
