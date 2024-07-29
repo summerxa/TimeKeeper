@@ -1,6 +1,9 @@
 ﻿ 
 label c1_scene1:
     
+    # stops the main menu music from playing during the game
+    stop music fadeout 2.0
+    
     "Scene 1 (Memory)"
     
     $ mother_name = "???"

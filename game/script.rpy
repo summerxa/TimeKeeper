@@ -45,6 +45,7 @@ label mgame_testing:
     return
 
 label after_load:
+
     if save_version != config.version and persistent.showversionwarning:
         show screen prompt_diffversion(save_version, config.version)
 
