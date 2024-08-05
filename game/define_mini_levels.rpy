@@ -966,7 +966,7 @@ default tasks = {
         },
         'laundry_1': {
             'btn': 'laundry_1',
-            't0': 1140,
+            't0': 1020, # 1140
             'game': {
                 'type': 'sortlaundry'
             }

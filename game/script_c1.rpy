@@ -3,7 +3,7 @@ label c1_scene1:
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-    
+
     "Scene 1 (Memory)"
     
     $ mother_name = "???"
@@ -405,7 +405,6 @@ label c1_scene2:
     stop ambience fadeout 2.0
 
     scene bg ballroom with cfade
-    #TODO: replace with ballroom bg later
 
     $ focus_on(['bella'])
 
@@ -1836,8 +1835,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
 
     scene cg mc ending 1 with cfade
-    #TODO: add cg here, figure out transition
-    # shrug -snail
 
     s "What are you doing?"
     
@@ -2895,19 +2892,19 @@ init python:
                     num = renpy.random.randint(1, min(3, tot - tot_running))
                 for j in range(num):
                     curgame['drag'].append({
-                        'n': tot_running,
                         'p': (1500, 0),
                         'type': i,
                         'type_sub': renpy.random.randint(0, 2)
                     })
                     tot_running += 1
             curgame['drag'].append({
-                'n': tot,
                 'p': (1500, 0),
                 'type': 2,
                 'type_sub': renpy.random.randint(0, 2)
             })
-            # TODO shuffle the drag list (otherwise clothing appears in order of weight - too easy!)
+            renpy.random.shuffle(curgame['drag'])
+            for i in range(len(curgame['drag'])):
+                curgame['drag'][i]['n'] = i
         mgame_try = curgame['try']
         curgame['starts'] = [-1, -1, -1]
 
