@@ -337,6 +337,7 @@ label mini_main():
     if curtime < tlimit and (taskq or taskrq) and not (len(taskq) == 1 and not taskrq and Task.DONOTHING in taskq[0]['tags']):
         # TODO maybe hide quickmenu if its too obtrusive
 
+        stop music fadeout 1.0
         # TODO play soundtrack (if not playing already) - alt version based on how much time left
         # if we feeling fancy, make transition from normal to fast version smoother by calculating
         # where to start in the fast track based on position in the normal track

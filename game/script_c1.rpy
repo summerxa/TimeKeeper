@@ -223,6 +223,7 @@ label c1_scene2:
     
     scene bg ballroom with cfade
     
+    play music ballroom_ost
     play ambience ballroom_ambience_1 fadein .6
     #idk anymore... -jade
     # sound design is pain -snail
@@ -616,6 +617,7 @@ label c1_fetch1:
     
     scene bg ballroom with cfade
 
+    play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
@@ -638,6 +640,7 @@ label c1_fetch1:
 label c1_fetch1_end:
     scene bg ballroom with cfade
 
+    play music ballroom_ost
     play ambience ballroom_ambience_1 fadein .6
 
     show npc2 at l1_5
@@ -665,6 +668,7 @@ label c1_fetch2:
     
     scene bg ballroom with cfade
     
+    play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     "Fetch quest 2"
 
@@ -689,6 +693,7 @@ label c1_fetch2:
 
 label c1_fetch2_end:
 
+    play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     #TODO: still need actual ballroom ambience
 
@@ -749,6 +754,7 @@ label c1_fetch3:
     
     scene bg ballroom with cfade
     
+    play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
     "Fetch quest 3"
@@ -780,6 +786,8 @@ label c1_fetch3:
 
 label c1_fetch3_end:
 
+    play music ballroom_ost
+    # does this work for the kitchen?? idk
     play ambience ballroom_ambience_2 fadein 1.0
     #TODO: replace w/ kitchen ambience
 
@@ -832,6 +840,7 @@ label c1_fetch3_end:
 
 label c1_fetch4:
     
+    play music ballroom_ost
     scene bg ballroom with cfade
 
     play ambience ballroom_ambience_2 fadein 1.0
@@ -972,6 +981,11 @@ label c1_fetch4:
 
 label c1_scene5:
     
+    stop music fadeout 2.0
+    # stop the minigame music
+
+    play music ballroom_ost
+    # idk what music to use for this scene...
     scene bg ballroom with cfade
 
     # let me know if this looks wonky b/c there are many cases in which this animation will trigger
@@ -1134,6 +1148,7 @@ label c1_scene6:
 
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
+    stop music fadeout 2.0
     play music interrogation fadein 2.0 volume .37
 
     m 5a "However, one of the guestrooms has not been properly cleaned."
@@ -2649,9 +2664,13 @@ label c1_give_item_prompt(npc=None, goal_choice=''):
             npc "...The best maid of the lot, huh?"
 
 label task_c1_donothing:
-    # is this in character? -snail
+    # meme task, may or may not be in release version :shrug:
 
     scene bg ballroom with cfade
+    
+    play music ballroom_ost
+    play ambience ballroom_ambience_1 fadein 1.0
+    #TODO: replace laterrrr
 
     $ focus_on(['mc'], {'mc': 2})
     show mc 1b #with dissolve
