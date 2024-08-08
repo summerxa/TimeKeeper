@@ -693,11 +693,11 @@ label c1_fetch2:
 
 label c1_fetch2_end:
 
+    scene bg ballroom with cfade
+
     play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     #TODO: still need actual ballroom ambience
-
-    scene bg ballroom with cfade
 
     show npc1 at l1_5
     show mc 1b at r1_5
@@ -786,12 +786,13 @@ label c1_fetch3:
 
 label c1_fetch3_end:
 
+    scene bg kitchen with cfade
+
     play music ballroom_ost
     # does this work for the kitchen?? idk
+    #ehhhhh... we'll see if luna says anything about it lmao -jade
     play ambience ballroom_ambience_2 fadein 1.0
     #TODO: replace w/ kitchen ambience
-
-    scene bg kitchen with cfade
 
     #TODO: replace ballroom ambience w/ kitchen sounds
 
@@ -840,11 +841,13 @@ label c1_fetch3_end:
 
 label c1_fetch4:
     
-    play music ballroom_ost
     scene bg ballroom with cfade
+
+    play music ballroom_ost
 
     play ambience ballroom_ambience_2 fadein 1.0
     #we really need better ambience, don't we...
+
     "Fetch quest 4"
 
     show npc4 at l1_5
