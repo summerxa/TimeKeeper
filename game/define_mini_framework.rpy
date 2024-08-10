@@ -155,10 +155,6 @@ init python:
                 store.levelInfo[store.curlevel]['quests'][tname] = True
         else:
             store.curtime += tsk['tcost'] // 2
-            if Task.NO_REDO in tsk['tags']:
-                tsk['done'] = True
-                if punish:
-                    store.completion -= tsk['scorepenalty']
         if tsk['done'] or store.curtime > tsk['tf']:
             store.hinttext = store.levelHints['default_idle']
         if tsk['done']:

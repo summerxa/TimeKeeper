@@ -42,7 +42,27 @@ screen popup_info(info_name, info_title):
             draggable True
             scrollbars "vertical"
             vscrollbar_unscrollable "hide"
-            text infoText[info_name]
+            
+            vbox:
+                for t_ in infoText[info_name]:
+                    if t_[0] == ">":
+                        text t_[1:]:
+                            xanchor 0.
+                            xpos 0.05
+                    else:
+                        text t_:
+                            xalign 0.
+
+        # vbox:
+        #             xmaximum 800
+        #             for t_ in helpText[h_tab]:
+        #                 if t_[0] == ">":
+        #                     text t_[1:]:
+        #                         xanchor 0.
+        #                         xpos 0.05
+        #                 else:
+        #                     text t_:
+        #                         xalign 0.
         
         textbutton 'X':
             text_color gui.hover_color

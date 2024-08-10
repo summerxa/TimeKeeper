@@ -37,10 +37,9 @@ init python:
     from enum import Enum
     class Task(Enum):
         SPECIAL = 0     # task is recommended
-        NO_REDO = 1     # can't retry task if failed
-        DONOTHING = 2   # special optional task used to skip the minigame (speedrunnn)
-        NO_FADE = 3     # no fadein/fadeout animation
-        NON_ROOT = 4    # cannot be completed w/o doing prereq quests
+        DONOTHING = 1   # special optional task used to skip the minigame (speedrunnn)
+        NO_FADE = 2     # no fadein/fadeout animation
+        NON_ROOT = 3    # cannot be completed w/o doing prereq quests
 
 default tolabel = ''
 

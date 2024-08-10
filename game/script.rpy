@@ -16,8 +16,8 @@ label chapter1:
     #call c1_scene1_5 #only for testing
     call c1_scene2 from _call_c1_scene2
 
-    # call the minigame, since amelia cutscene is after the tutorial level
-    call mini_placeholder([("Amelia sick scene", "c1_scene3")]) from _call_mini_placeholder
+    # eventually this will be part of the tutorial minigame
+    call c1_scene3 from _call_c1_scene3
 
     # minigame
     $ node_unlock('c1_mgame')

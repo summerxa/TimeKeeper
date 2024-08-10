@@ -39,6 +39,7 @@ default levelInfo = {
 default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
+    'quest_idle': "I should help the nobles first.",
     'default_taskless': "No task available right now.",
     'candle_taskless': "These candles are already lit.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
@@ -625,74 +626,82 @@ default taskTemplates = {
         'scorepenalty': 0,
         'tags': [Task.DONOTHING, Task.NON_ROOT]
     },
-    'grabdishes': {
+    'fetchquest': {
         'tcost': 10,
-        'dur': 20,
-        'scorebonus': 2,
-        'scorepenalty': 1,
+        'type': 'none',
+        'attributes': [0,0,0]
+    },
+    'fetchquest_end': {
+        'tcost': 10,
+        'type': 'medium',
+        'attributes': [1,1,3]
+    },
+    'grabdishes': {
+        'tcost': 5,
+        'type': 'none',
         'desc': 'Clear the table',
         'tlabel': 'task_c1_grabdishes',
         'fail_id': 'handsfull_fail',
-        'item_req': ['air', 'dish_dirty']
+        'item_req': ['air', 'dish_dirty'],
+        'attributes': [0,0,0],
+        'nxt': 'dropdishes'
+        # after completing this part, next generated task will be of type "dropdishes"
     },
     'dropdishes': {
         'tcost': 5,
-        'scorebonus': 5,
-        'scorepenalty': 1,
+        'type': 'medium',
         'desc': 'Drop off dirty dishes',
         'tlabel': 'task_c1_dropdishes',
         'fail_id': 'dropdishes_fail',
-        'item_req': ['dish_dirty']
+        'item_req': ['dish_dirty'],
+        'attributes': [3,1,1],
+        'nxt': 'grabdishes'
     },
     'waterpour': {
         'tcost': 20,
-        'dur': 30,
-        'scorebonus': 4,
-        'scorepenalty': 0,
-        'desc': 'Bonus task: MC we need to cook',
-        'tlabel': 'task_c1_waterpour'
+        'type': 'large',
+        'desc': 'Pour drinks at the bar',
+        'tlabel': 'task_c1_waterpour',
+        'attributes': [1,3,6]
     },
     'sortlaundry': {
-        'tlabel': 'task_c1_sortlaundry',
-        'desc': 'Bonus task: Sort the laundry',
         'tcost': 20,
-        'dur': 30,
-        'scorebonus': 3,
-        'scorepenalty': 0
+        'type': 'large',
+        'tlabel': 'task_c1_sortlaundry',
+        'desc': 'Sort the laundry',
+        'attributes': [4,4,2]
     },
     'grabfood': {
+        'tcost': 5,
+        'type': 'none',
         'tlabel': 'task_c1_grabfood',
         'desc': 'Pick up finished dishes',
-        'tcost': 0,
-        'dur': 10,
-        'scorebonus': 0,
-        'scorepenalty': 0,
         'tags': [Task.NO_FADE],
         'fail_id': 'handsfull_fail',
-        'item_req': ['air']
+        'item_req': ['air'],
+        'attributes': [0,0,0],
+        'nxt': 'dropfood'
     },
     'dropfood': {
+        'tcost': 5,
+        'type': 'medium',
         'tlabel': 'task_c1_dropfood',
         'desc': 'Drop off finished dishes',
-        'tcost': 0,
-        'dur': 10,
-        'scorebonus': 2,
-        'scorepenalty': 2,
-        'tags': [Task.NO_FADE, Task.NON_ROOT],
+        'tags': [Task.NO_FADE],
         'fail_id': 'dropfood_fail',
-        'item_req': ['food']
+        'item_req': ['food'],
+        'attributes': [1,2,2],
+        'nxt': 'grabfood'
     },
     'lightcandle': {
+        'tcost': 1,
+        'type': 'small'
         'tlabel': 'task_c1_lightcandle',
         'desc': 'Light the candles',
-        'tcost': 0,
-        't0': -1,
-        'tf': 9999,
-        'scorebonus': 2,
-        'scorepenalty': 2,
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
-        'tags': [Task.NO_FADE]
+        'tags': [Task.NO_FADE],
+        'attributes': [0,0,1]
     }
 }
 
@@ -707,330 +716,143 @@ default tasks = {
             'desc': 'Talk to noble',
             'btn': '4_5',
             'tlabel': 'c1_fetch1',
-            'tcost': 0,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
+            't0': 1100,
             'tags': [Task.SPECIAL],
-            'nxt': ['fetch1_end']
+            'nxt': ['fetch1_end'],
+            'game': {'type': 'fetchquest'}
         },
         'fetch1_end': {
             'desc': 'Bring wine to noble',
             'btn': '4_5',
             'tlabel': 'c1_fetch1_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
             'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch2']
+            'game': {'type': 'fetchquest_end'}
         },
         'fetch2': {
             'desc': 'Talk to noble',
             'btn': '6_5',
             'tlabel': 'c1_fetch2',
-            'tcost': 0,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch2_end']
+            't0': 1125,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch2_end'],
+            'game': {'type': 'fetchquest'}
         },
         'fetch2_end': {
             'desc': 'Bring jacket to noble',
             'btn': '6_5',
             'tlabel': 'c1_fetch2_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
             'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch3']
+            'game': {'type': 'fetchquest_end'}
         },
         'fetch3': {
             'desc': 'Talk to noble',
             'btn': '6_5',
             'tlabel': 'c1_fetch3',
-            'tcost': 0,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch3_end']
+            't0': 1150,
+            'tags': [Task.SPECIAL],
+            'nxt': ['fetch3_end'],
+            'game': {'type': 'fetchquest'}
         },
         'fetch3_end': {
             'desc': 'Ask the chefs for desserts',
             'btn': 'kitchen_idk',
             'tlabel': 'c1_fetch3_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
             'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch4']
+            'game': {'type': 'fetchquest_end'}
         },
         'fetch4': {
             'desc': 'Talk to noble',
             'btn': 'long1',
             'tlabel': 'c1_fetch4',
-            'tcost': 10,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
-            'tags': [Task.SPECIAL, Task.NON_ROOT]
-        },
-        'candles_l1': {
-            'btn': 'gr_l_candle1',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_l2': {
-            'btn': 'gr_l_candle2',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_l3': {
-            'btn': 'gr_l_candle3',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_r1': {
-            'btn': 'gr_r_candle1',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_r2': {
-            'btn': 'gr_r_candle2',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'grabdish_1030': {
-            'btn': '6_2',
-            't0': 1030,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 5
-            }
-        },
-        'grabfood 1030': {
-            'btn': 'pickuptable',
-            't0': 1030,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1030']
-        },
-        'dropfood 1030': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1040': {
-            'btn': '6_2',
-            't0': 1040,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'waterpour_1': {
-            'btn': 'bar',
-            't0': 1050,
-            'game': {
-                'type': 'waterpour',
-                'cups': [
-                    {
-                        'xp': 0.24,
-                        'colors': ['#920e0e']
-                    },
-                    {
-                        'xp': 0.38,
-                        'colors': ['#920e0e', '#a4f910', '#920e0e', '#eedfab']
-                    },
-                    {
-                        'xp': 0.52,
-                        'colors': ['#eedfab', '#a4f910', '#a4f910', '#920e0e']
-                    },
-                    {
-                        'xp': 0.66,
-                        'colors': ['#eedfab', '#eedfab', '#a4f910']
-                    }
-                ]
-            }
-        },
-        'grabdish_1075': {
-            'btn': '6_2',
-            't0': 1075,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 3
-            }
-        },
-        'grabfood 1080': {
-            'btn': 'pickuptable',
-            't0': 1080,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1080']
-        },
-        'dropfood 1080': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1095': {
-            'btn': '6_2',
-            't0': 1095,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'grabfood 1110': {
-            'btn': 'pickuptable',
-            't0': 1110,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1110']
-        },
-        'dropfood 1110': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1115': {
-            'btn': '6_2',
-            't0': 1115,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 6
-            }
-        },
-        'grabfood 1120': {
-            'btn': 'pickuptable',
-            't0': 1120,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1120']
-        },
-        'dropfood 1120': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1135': {
-            'btn': '6_2',
-            't0': 1135,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 3
-            }
-        },
-        'grabfood 1140': {
-            'btn': 'pickuptable',
-            't0': 1140,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1140']
-        },
-        'dropfood 1140': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'laundry_1': {
-            'btn': 'laundry_1',
-            't0': 1020, # 1140
-            'game': {
-                'type': 'sortlaundry'
-            }
-        },
-        'grabdish_1160': {
-            'btn': '6_2',
-            't0': 1160,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'grabfood 1170': {
-            'btn': 'pickuptable',
             't0': 1170,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1170']
-        },
-        'dropfood 1170': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabfood 1180': {
-            'btn': 'pickuptable',
-            't0': 1180,
-            'game': {
-                'type': 'grabfood'
-            },
-            'nxt': ['dropfood 1180']
-        },
-        'dropfood 1180': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'dropdish': {
-            'btn': 'sink',
-            't0': 1030,
-            'tf': 1190,
-            'game': {
-                'type': 'dropdishes',
-                'xp': 0.5,
-                'drop': [
-                    {
-                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
-                    }
-                ],
-                'in_sink': {
-                    'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
-                },
-                'overlay': [
-                    {
-                        'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
-                    }
-                ]
-            }
+            'tags': [Task.SPECIAL],
+            'game': {'type': 'fetchquest_end'}
         }
+        ### BELOW IS ONLY FOR REFERENCE
+
+        # 'candles_l1': {
+        #     'btn': 'gr_l_candle1',
+        #     'game': {
+        #         'type': 'lightcandle'
+        #     }
+        # },
+        # 'grabdish_1030': {
+        #     'btn': '6_2',
+        #     't0': 1030,
+        #     'game': {
+        #         'type': 'grabdishes',
+        #         'goal': 5
+        #     }
+        # },
+        # 'grabfood 1030': {
+        #     'btn': 'pickuptable',
+        #     't0': 1030,
+        #     'game': {
+        #         'type': 'grabfood'
+        #     },
+        #     'nxt': ['dropfood 1030']
+        # },
+        # 'dropfood 1030': {
+        #     'btn': '4_3',
+        #     't0': -2,
+        #     'game': {
+        #         'type': 'dropfood'
+        #     }
+        # },
+        # 'waterpour_1': {
+        #     'btn': 'bar',
+        #     't0': 1050,
+        #     'game': {
+        #         'type': 'waterpour',
+        #         'cups': [
+        #             {
+        #                 'xp': 0.24,
+        #                 'colors': ['#920e0e']
+        #             },
+        #             {
+        #                 'xp': 0.38,
+        #                 'colors': ['#920e0e', '#a4f910', '#920e0e', '#eedfab']
+        #             },
+        #             {
+        #                 'xp': 0.52,
+        #                 'colors': ['#eedfab', '#a4f910', '#a4f910', '#920e0e']
+        #             },
+        #             {
+        #                 'xp': 0.66,
+        #                 'colors': ['#eedfab', '#eedfab', '#a4f910']
+        #             }
+        #         ]
+        #     }
+        # },
+        # 'laundry_1': {
+        #     'btn': 'laundry_1',
+        #     't0': 1140,
+        #     'game': {
+        #         'type': 'sortlaundry'
+        #     }
+        # },
+        # 'dropdish': {
+        #     'btn': 'sink',
+        #     't0': 1030,
+        #     'tf': 1190,
+        #     'game': {
+        #         'type': 'dropdishes',
+        #         'xp': 0.5,
+        #         'drop': [
+        #             {
+        #                 'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+        #             }
+        #         ],
+        #         'in_sink': {
+        #             'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
+        #         },
+        #         'overlay': [
+        #             {
+        #                 'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
+        #             }
+        #         ]
+        #     }
+        # }
     }
 }
 
