@@ -908,9 +908,11 @@ label c1_fetch4:
 
     $ docurtask(tname = "Fetch quest 4")
 
+    b 5a "...Hmmm?"
+
     menu:
 
-        b 5a "...Hmmm?"
+        b 5a "...Hmmm?{fast}"
 
         "Do nothing":
 
@@ -956,6 +958,8 @@ label c1_fetch4:
             hide bella
 
             menu:
+
+                "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch.{fast}"
 
                 "Leave it behind":
 
@@ -1081,6 +1085,9 @@ label c1_scene6:
     b 10a "Wait... Did you hear what we were talking about?"
 
     menu:
+
+        b 10a "Wait... Did you hear what we were talking about?{fast}"
+
         "Remain silent":
 
             s "..."
@@ -1157,9 +1164,11 @@ label c1_scene6:
 
     m 6a "In fact, it was this room that was not cleaned."
 
+    m "Anastasia, did you see any maids disobeying my orders?"
+
     menu:
 
-        m "Anastasia, did you see any maids disobeying my orders?"
+        m "Anastasia, did you see any maids disobeying my orders?{fast}"
 
         "Yes":
 
@@ -1218,11 +1227,12 @@ label c1_scene6:
 
                     $ focus_on(["mc","amelia"],{"amelia":2})
                     "Anastasia looks at Amelia, who’s terrified."
-                    #TODO: uh, having them highlighted with the choices up might not look right...
 
                     $ clear_focus() # added a function to remove highlights manually :3
                     # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
+                    
+                        "Anastasia looks at Amelia, who’s terrified.{fast}"
 
                         "Yes":
 
@@ -1289,6 +1299,8 @@ label c1_scene6:
             m "Anastasia? Who was it?"
 
             menu:
+                
+                m "Anastasia? Who was it?{fast}"
 
                 "Amelia":
                     call c1_amelia_ending from _call_c1_amelia_ending_5
@@ -1955,6 +1967,8 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         menu:
 
+            b "Jesus christ, are you a robot?{fast}"
+
             "Clarify":
 
                 s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
@@ -2192,6 +2206,8 @@ label c1_scene7:
         # shrug- jade
 
         menu:
+
+            b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you.{fast}"
 
             "Respond Factually":
 
@@ -2726,6 +2742,9 @@ label task_c1_donothing:
     "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day."
 
     menu:
+
+        "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day.{fast}"
+        
         "Sit down":
             $ focus_on(['mc'], {'mc': 2})
             "Anastasia decides to sit and do nothing for the remainder of the day."

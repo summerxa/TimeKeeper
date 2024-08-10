@@ -39,11 +39,11 @@ default levelInfo = {
 default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
-    'default_taskless': "No task available right now.",
+    'default_taskless': "There's nothing here for me to do.",
     'candle_taskless': "These candles are already lit.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
     'grabdishes_idle': "Drag the dishes to me :3",
-    'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
+    'dropdishes_fail': "I need to drop off dirty dishes here.",
     'dropdishes_idle': "Dirty dish tower!!!!",
     'toggle_idle': "Meow",
     'waterpour_idle': "Time to cook :3",

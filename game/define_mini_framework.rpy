@@ -365,6 +365,7 @@ label give_item_prompt(vb='Give', both_hands=False):
 
     if both_hands:
         menu:
+
             "[vb] [ltext] and [rtext]" if showlh and showrh:
                 $ ichoice = invitems
             "[vb] [ltext]" if showlh and not showrh:
@@ -375,6 +376,7 @@ label give_item_prompt(vb='Give', both_hands=False):
                 $ ichoice = None
     else:
         menu:
+
             "[vb] [ltext]" if showlh:
                 $ ichoice = invitems[0]
             "[vb] [rtext]" if showrh:
