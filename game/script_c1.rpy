@@ -917,9 +917,6 @@ label c1_fetch4:
             b 10a "What are you staring at? Don’t you have work to do as the head maid?"
 
             show bella 10a at eout(1.2,1.4)
-            pause 0.6
-            show mc at mc_gets_bonked
-            play sound chain_clink_2 volume 1.0
 
             $ focus_on(['bella'])
 
@@ -1035,6 +1032,8 @@ label c1_scene5:
 label c1_scene6:
     
     stop ambience fadeout 2.0
+
+    stop music fadeout 1.0
 
     scene bg guestroom with cfade
 
@@ -1902,61 +1901,91 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         a "But Anastasia didn’t do any of that! You were the one who lied and shifted the blame onto someone else!"
 
-        b "But—"
+        b "I was trying to protect you—"
 
-        a "Am I wrong?"
+        show cg mc ending 2 at vshake
 
-        b "...No."
+        a "{size=50}I DIDN'T ASK FOR YOUR PROTECTION!{/size}"
 
-        s "..."
+        "Bella flinches in shock."
+
+        b "Amelia—"
+
+        a "{i}I{/i} didn't ask you to lie to Mother; {i}I{/i} didn't ask you to blame others for my mistakes; {i}I{/i} didn't ask you to do any of that!"
+
+        a "{i}YOU{/i} were the one who chose to do all that!"
+
+        "Bella looks away in shame."
+
+        a "We're done."
+
+        "Bella quickly raises her head in horror."
+
+        b "WHAT?!"
+
+        a "I don't want to see you right now, Bella."
+
+        "Bella opens her mouth to say something, but instead bites her lip and stays silent. She looks down at the floor, before turning and walking to the doorway."
+
+        "Bella hesitates for a moment and turns to look at Amelia, who firmly refuses to meet her gaze."
+
+        "Bella looks away for one final time and leaves the room."
+
+        scene cg mc ending 1 with cfade
+
+        "Amelia watches her leave with a heartbroken but resigned expression."
+
+        "Amelia stares at the closed door for a while, before suddenly remembering Anastasia's presence in the room."
+
+        "She hurriedly wipes away the tears on her face with her sleeves."
 
         a "Um… a-anyways, Anastasia, could you hold out your hands, please? If-if that wouldn’t be too much, of course!"
 
-    s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
+        scene bg guestroom with cfade
+        show mc 1b at l1_5
+        show amelia 1a at r1_5
 
-    b "Jesus christ, are you a robot?"
-
-    menu:
-
-        "Clarify":
-
-            s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
-
-            b "...I don’t even know whether to laugh or cry."
-
-        "Ignore":
-
-            pass
-
-        "Question":
-
-            s "Why would you say that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
-
-            b "Oh my god, I was being sarcastic."
-
-            a "...Not everyone understands your sarcasm, Bella."
-
-    "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia’s arm."
-
-    scene bg guestroom with cfade
-
-    show mc 1b at left
-    show amelia 1a at center
-    show bella 5a at right
-    #might change positions later -jade
-    #also, transitions is bit ehhhh
+    #a "I’m really, {i}really{/i} sorry for everything Bella did!"
 
     if c1_mc_type == "takes_blame":
+
+        s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
+
+        b "Jesus christ, are you a robot?"
+
+        menu:
+
+            "Clarify":
+
+                s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
+
+                b "...I don’t even know whether to laugh or cry."
+
+            "Ignore":
+
+                pass
+
+            "Question":
+
+                s "Why would you say that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
+
+                b "Oh my god, I was being sarcastic."
+
+                a "...Not everyone understands your sarcasm, Bella."
+
+        "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia’s arm."
+
+        scene bg guestroom with cfade
+
+        show mc 1b at left
+        show amelia 1a at center
+        show bella 5a at right
+        #might change positions later -jade
+        #also, transitions is bit ehhhh
 
         a "Bella, try to be nice to Anastasia, okay? She did help me…"
 
-    else:
-
-        a "Bella, be nice to Anastasia, okay? She did help me, even though you blamed her for what I did."
-
-    b 8a "Ugh."
-
-    if c1_mc_type == "takes_blame":
+        b 8a "Ugh."
 
         a "Bella...you did something, didn’t you?"
     
@@ -1968,116 +1997,129 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         a 1a "I’m really sorry for everything Bella did."
 
-    else:
+        s "..."
 
-        a "I’m really, {i}really{/i} sorry for everything Bella did!"
+        a "Bella..."
 
-    s "..."
+        b 6a "Ugh, I’m sorry for taking your tasks, but I don’t regret it. Wasn’t gonna get punished again."
 
-    a "Bella..."
+        a "Bella!"
 
-    b 6a "Ugh, I’m sorry for taking your tasks, but I don’t regret it. Wasn’t gonna get punished again."
+        b 8a "Fine..." 
+        
+        b 5a "I’m sorry that I was being rude, and I won’t do that again."
 
-    a "Bella!"
-
-    b 8a "Fine..." 
-    
-    b 5a "I’m sorry that I was being rude, and I won’t do that again."
-
-    b 8a "And..." 
-    pause 1.5
-
-    if c1_mc_type == "takes_blame":
+        b 8a "And..." 
+        pause 1.5
 
         b 5a "Thank you for protecting Amelia."
 
-    else:
+        if c1_saw_bella_watch == True:
 
-        b "I’m sorry for blaming you for what Amelia did." 
+            b 6a "A-anyways, do you have the time, Amelia?"
 
-        b "Thank you for protecting Amelia, despite the fact that you had every reason not to."
+            show bella 1a 
+            a 2a "Um… it’s half past nine. Why do you ask?"
 
-    b 6a "A-anyways, do you have the time, Amelia?"
+            b "Nothing, it’s just that I lost my pocket watch earlier."
 
-    show bella 1a 
-    a 2a "Um… it’s half past nine. Why do you ask?"
+            a 1a "What? When?"
 
-    b "Nothing, it’s just that I lost my pocket watch earlier."
+            b "I think it might’ve been when I was helping out another noble, but I don’t really know."
 
-    a 1a "What? When?"
+            if not c1_has_bella_watch:
 
-    b "I think it might’ve been when I was helping out another noble, but I don’t really know."
+                if not c1_saw_bella_watch:
 
-    if not c1_has_bella_watch:
+                    a "Maybe you dropped it in the ballroom?"
 
-        if not c1_saw_bella_watch:
+                    b 5a "I guess so…"
 
-            a "Maybe you dropped it in the ballroom?"
+                else:
 
-            b 5a "I guess so…"
+                    s "You dropped it after I confronted you about taking my tasks."
 
-        else:
+                    b 5a "That’s where it is? I can't believe I dropped it…"
 
-            s "You dropped it after I confronted you about taking my tasks."
+                b 8a "Hopefully I can still find it…"
 
-            b 5a "That’s where it is? I can't believe I dropped it…"
+                a 4a "I’m sure you’ll be able to, Bella! I can help."
 
-        b 8a "Hopefully I can still find it…"
+                b 1a "I’ll take you up on your offer if I can’t find it after a while."
 
-        a 4a "I’m sure you’ll be able to, Bella! I can help."
+                b 7a "Well, I guess I better go find it." 
+                
+                b 1a "See ya, Amelia. And… you too, I guess."
 
-        b 1a "I’ll take you up on your offer if I can’t find it after a while."
+                a 1a "Bella!"
 
-        b 7a "Well, I guess I better go find it." 
-        
-        b 1a "See ya, Amelia. And… you too, I guess."
+                $ focus_on(["bella"])
+                show bella at eout(.7,1.4)
 
-        a 1a "Bella!"
+                "Bella leaves the room."
 
-        $ focus_on(["bella"])
-        show bella at eout(.7,1.4)
+                a 5a "Well, that’s… one of the better apologies she’s given, honestly speaking. Could still work on the goodbye, though."
 
-        "Bella leaves the room."
+                hide bella 
 
-        a 5a "Well, that’s… one of the better apologies she’s given, honestly speaking. Could still work on the goodbye, though."
+                a 1a "Again— I’m really, really sorry for everything Bella’s done."
 
-        hide bella 
+            if c1_has_bella_watch:
 
-        a 1a "Again— I’m really, really sorry for everything Bella’s done."
+                $ c1_has_bella_watch = False
 
-    if c1_has_bella_watch:
+                $ focus_on(["mc","bella"])
+                show bella 9a
+                "Anastasia pulls the pocket watch out of her pocket and presents it to Bella. In shock, she takes it from her."
 
-        $ c1_has_bella_watch = False
+                b "I— my pocket watch— where did you find it?"
 
-        $ focus_on(["mc","bella"])
-        show bella 9a
-        "Anastasia pulls the pocket watch out of her pocket and presents it to Bella. In shock, she takes it from her."
+                s "You dropped it after I found you serving food to the noble."
 
-        b "I— my pocket watch— where did you find it?"
+                b "What? I dropped it then?"
 
-        s "You dropped it after I found you serving food to the noble."
+                b 8a "I..."
 
-        b "What? I dropped it then?"
+                b 5a "I still don’t like you, but..." 
 
-        b 8a "I..."
+                b "I-I guess you’re not as bad as I thought."
+                #TODO: friendship meter increased! :3 -jade
 
-        b 5a "I still don’t like you, but..." 
+                a 4a "Hehehe...So you can be nice!"
 
-        b "I-I guess you’re not as bad as I thought."
-        #TODO: friendship meter increased! :3 -jade
+                b 8a "A-anyways, I have to finish my tasks."
 
-        a 4a "Hehehe...So you can be nice!"
+                $ focus_on(["bella"])
+                show bella at ein(.5,1.4)
+                "Bella hurriedly leaves the room."
+                hide bella
 
-        b 8a "A-anyways, I have to finish my tasks."
+                show mc at ein(.8,.2)
+                show amelia at ein(1.0,.8)
+                a 3a "You know... that’s the best ‘thank you’ I ever heard Bella give."
 
-        $ focus_on(["bella"])
-        show bella at ein(.5,1.4)
-        "Bella hurriedly leaves the room."
-        hide bella
+        else: 
 
-        show mc at ein(.8,.2)
-        show amelia at ein(1.0,.8)
-        a 3a "You know... that’s the best ‘thank you’ I ever heard Bella give."
+            a 2a "Bella, you..."
+
+            b 8a "Well, a-anyways, I need to go finish up my tasks."
+
+            b 1a "Bye, Amelia."
+
+            $ focus_on(["bella"])
+            show bella 7a at eout(.7,1.4)
+
+            s "..."
+
+            a "I'm really sorry about Bella!"
+
+            a "I know she seems really rude sometimes—"
+
+            a 2a "Well, most of the time..."
+
+            a 1a "But deep down, she's a good person!"
+
+            s "..."
 
     $ focus_on(["amelia","mc"])
     "Amelia finishes bandaging Anastasia’s hands."
@@ -2116,6 +2158,7 @@ label c1_scene7:
 
     show bg ballroom with cfade
 
+    #TODO: add ballroom music if needed
     play ambience ballroom_ambience_2 fadein .8
 
     $ focus_on(["mc","npc3"])
