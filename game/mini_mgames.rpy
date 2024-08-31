@@ -126,8 +126,8 @@ screen mgame_dragdrop():
 
 screen mgame_dragdrop_dishes(shaded=True):
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
-        add curgame['in_sink']['im']:
-            pos curgame['in_sink']['p']
+        add 'mini/tgame/grab_dropdishes/plate_clean.png':
+            pos (778, 618)
             anchor (0.5,0.5)
     
     if curgame['type'] == 'grabdishes':
@@ -164,12 +164,10 @@ screen mgame_dragdrop_dishes(shaded=True):
     
     if curgame['type'] == 'dropdishes':
         use mgame_overlay(shaded=shaded)
-
-    if 'overlay' in curgame:
-        for overlay_itm in curgame['overlay']:
-            add overlay_itm['im']:
-                pos overlay_itm['p']
-                xanchor 0.5 yanchor 0.5
+        
+        add 'mini/tgame/grab_dropdishes/dropdishes_faucet.png':
+            pos (678, 413)
+            xanchor 0.5 yanchor 0.5
 
 screen mgame_toggle(shaded=True):
     for i in range(len(curgame['goal'])):

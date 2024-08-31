@@ -2896,6 +2896,11 @@ init python:
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             })
         mgame_try = curgame['try']
+        curgame['drop'] = [
+            {
+                'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+            }
+        ]
 
 label task_c1_dropdishes:
 

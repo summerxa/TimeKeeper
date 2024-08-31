@@ -159,14 +159,14 @@ init python:
             store.hinttext = store.levelHints['default_idle']
         if tsk['done']:
             # activate any follow-ups
-            if 'nxt' in tsk:
-                for tn in tsk['nxt']:
+            if 'next' in tsk:
+                for tn in tsk['next']:
                     t = store.tasks[curlevel][tn]
                     if t['t0'] == -2:
                         setTlimit(t)
 
     # t0 = -1 -> starts when minigame starts
-    # t0 = -2 -> has one prerequisite task (that contains *this* task in its 'nxt')
+    # t0 = -2 -> has one prerequisite task (that contains *this* task in its 'next')
     # t0 = -3 -> has multiple prereqs (contained in *this* task's 'prq')
     def update_taskq():
         for tn, t in store.tasks[curlevel].items():

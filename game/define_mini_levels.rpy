@@ -619,13 +619,12 @@ default taskButtons = {
 
 default taskTemplates = {
     'donothing': {
-        't0': -1,
-        'tf': 9999,
         'desc': 'Optional: Sit in the corner and do nothing',
+        'tcost': 9999,
         'tlabel': 'task_c1_donothing',
-        'scorebonus': 0,
-        'scorepenalty': 0,
-        'tags': [Task.DONOTHING, Task.NON_ROOT]
+        'type': 'none',
+        'attributes': [0,0,0],
+        'tags': [Task.DONOTHING]
     },
     'fetchquest': {
         'tcost': 10,
@@ -645,8 +644,7 @@ default taskTemplates = {
         'fail_id': 'handsfull_fail',
         'item_req': ['air', 'dish_dirty'],
         'attributes': [0,0,0],
-        'nxt': 'dropdishes'
-        # after completing this part, next generated task will be of type "dropdishes"
+        'next': 'dropdishes'
     },
     'dropdishes': {
         'tcost': 5,
@@ -656,7 +654,12 @@ default taskTemplates = {
         'fail_id': 'dropdishes_fail',
         'item_req': ['dish_dirty'],
         'attributes': [3,1,1],
-        'nxt': 'grabdishes'
+        'next': 'grabdishes'
+    },
+    'dishes_chain': { # contains all the parts of the "quest chain"
+        'sequence': ['grabdishes', 'dropdishes'],
+        'desc': 'Clear the ballroom tables, drop off dirty dishes in the kitchen',
+        'attributes': [3,1,1]
     },
     'waterpour': {
         'tcost': 20,
@@ -681,7 +684,7 @@ default taskTemplates = {
         'fail_id': 'handsfull_fail',
         'item_req': ['air'],
         'attributes': [0,0,0],
-        'nxt': 'dropfood'
+        'next': 'dropfood'
     },
     'dropfood': {
         'tcost': 5,
@@ -692,7 +695,12 @@ default taskTemplates = {
         'fail_id': 'dropfood_fail',
         'item_req': ['food'],
         'attributes': [1,2,2],
-        'nxt': 'grabfood'
+        'next': 'grabfood'
+    },
+    'food_chain': {
+        'sequence': ['grabfood', 'dropfood'],
+        'desc': 'Pick up finished dishes in the kitchen, drop off dishes in ballroom',
+        'attributes': [1,2,2]
     },
     'lightcandle': {
         'tcost': 1,
@@ -708,98 +716,101 @@ default taskTemplates = {
 
 default tasks = {
     1: {
-        'donothing': {
-            'btn': '4_1',
-            'tcost': 180,
-            'game': {'type': 'donothing'}
+        'single': { # for quests that only show up once
+            'donothing': {
+                't0': 1020,
+                'btn': '4_1',
+                'game': {'type': 'donothing'}
+            },
+            'fetch1': {
+                'desc': 'Talk to noble',
+                'btn': '4_5',
+                'tlabel': 'c1_fetch1',
+                't0': 1100,
+                'tags': [Task.SPECIAL],
+                'next': ['fetch1_end'],
+                'game': {'type': 'fetchquest'}
+            },
+            'fetch1_end': {
+                'desc': 'Bring wine to noble',
+                'btn': '4_5',
+                'tlabel': 'c1_fetch1_end',
+                'tags': [Task.SPECIAL, Task.NON_ROOT],
+                'game': {'type': 'fetchquest_end'}
+            },
+            'fetch2': {
+                'desc': 'Talk to noble',
+                'btn': '6_5',
+                'tlabel': 'c1_fetch2',
+                't0': 1125,
+                'tags': [Task.SPECIAL],
+                'next': ['fetch2_end'],
+                'game': {'type': 'fetchquest'}
+            },
+            'fetch2_end': {
+                'desc': 'Bring jacket to noble',
+                'btn': '6_5',
+                'tlabel': 'c1_fetch2_end',
+                'tags': [Task.SPECIAL, Task.NON_ROOT],
+                'game': {'type': 'fetchquest_end'}
+            },
+            'fetch3': {
+                'desc': 'Talk to noble',
+                'btn': '6_3',
+                'tlabel': 'c1_fetch3',
+                't0': 1150,
+                'tags': [Task.SPECIAL],
+                'next': ['fetch3_end'],
+                'game': {'type': 'fetchquest'}
+            },
+            'fetch3_end': {
+                'desc': 'Ask the chefs for desserts',
+                'btn': 'kitchen_idk',
+                'tlabel': 'c1_fetch3_end',
+                'tags': [Task.SPECIAL, Task.NON_ROOT],
+                'game': {'type': 'fetchquest_end'}
+            },
+            'fetch4': {
+                'desc': 'Talk to noble',
+                'btn': 'long1',
+                'tlabel': 'c1_fetch4',
+                't0': 1170,
+                'tags': [Task.SPECIAL],
+                'game': {'type': 'fetchquest_end'}
+            }
         },
-        'fetch1': {
-            'desc': 'Talk to noble',
-            'btn': '4_5',
-            'tlabel': 'c1_fetch1',
-            't0': 1100,
-            'tags': [Task.SPECIAL],
-            'nxt': ['fetch1_end'],
-            'game': {'type': 'fetchquest'}
-        },
-        'fetch1_end': {
-            'desc': 'Bring wine to noble',
-            'btn': '4_5',
-            'tlabel': 'c1_fetch1_end',
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'game': {'type': 'fetchquest_end'}
-        },
-        'fetch2': {
-            'desc': 'Talk to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch2',
-            't0': 1125,
-            'tags': [Task.SPECIAL],
-            'nxt': ['fetch2_end'],
-            'game': {'type': 'fetchquest'}
-        },
-        'fetch2_end': {
-            'desc': 'Bring jacket to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch2_end',
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'game': {'type': 'fetchquest_end'}
-        },
-        'fetch3': {
-            'desc': 'Talk to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch3',
-            't0': 1150,
-            'tags': [Task.SPECIAL],
-            'nxt': ['fetch3_end'],
-            'game': {'type': 'fetchquest'}
-        },
-        'fetch3_end': {
-            'desc': 'Ask the chefs for desserts',
-            'btn': 'kitchen_idk',
-            'tlabel': 'c1_fetch3_end',
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'game': {'type': 'fetchquest_end'}
-        },
-        'fetch4': {
-            'desc': 'Talk to noble',
-            'btn': 'long1',
-            'tlabel': 'c1_fetch4',
-            't0': 1170,
-            'tags': [Task.SPECIAL],
-            'game': {'type': 'fetchquest_end'}
+        'infinite': { # tasks that are infinitely generated
+            'dishes_chain': {
+                'btns': {
+                    'grabdishes': [['ballroom', ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']]],
+                    'dropdishes': [['kitchen', ['sink']]]
+                },
+                'goal_range': [3, 6] # possible number of dishes goes from 3 to 6
+            },
+            'waterpour': {
+                'btns': [['ballroom', ['bar']]]
+            },
+            'sortlaundry': {
+                'btns': [['laundry', ['laundry_1']]]
+            },
+            'food_chain': {
+                'btns': {
+                    'grabfood': [['kitchen', ['pickuptable']]],
+                    'dropfood': [['ballroom', ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']]]
+                }
+            },
+            'lightcandle': {
+                'btns': [
+                    ['guestroom l': ['gr_l_candle1', 'gr_l_candle2', 'gr_l_candle3']],
+                    ['guestroom r': ['gr_r_candle1', 'gr_r_candle2']]
+                ],
+                'remaining': 5 # stops generating once 5 candle tasks have been generated
+                # TODO: find a way to generate them at "random" times
+                #   - maybe when launching minigame, randomly generate 5 times to determine
+                #     when each candle spawns?
+            }
         }
         ### BELOW IS ONLY FOR REFERENCE
-
-        # 'candles_l1': {
-        #     'btn': 'gr_l_candle1',
-        #     'game': {
-        #         'type': 'lightcandle'
-        #     }
-        # },
-        # 'grabdish_1030': {
-        #     'btn': '6_2',
-        #     't0': 1030,
-        #     'game': {
-        #         'type': 'grabdishes',
-        #         'goal': 5
-        #     }
-        # },
-        # 'grabfood 1030': {
-        #     'btn': 'pickuptable',
-        #     't0': 1030,
-        #     'game': {
-        #         'type': 'grabfood'
-        #     },
-        #     'nxt': ['dropfood 1030']
-        # },
-        # 'dropfood 1030': {
-        #     'btn': '4_3',
-        #     't0': -2,
-        #     'game': {
-        #         'type': 'dropfood'
-        #     }
-        # },
         # 'waterpour_1': {
         #     'btn': 'bar',
         #     't0': 1050,
@@ -821,35 +832,6 @@ default tasks = {
         #             {
         #                 'xp': 0.66,
         #                 'colors': ['#eedfab', '#eedfab', '#a4f910']
-        #             }
-        #         ]
-        #     }
-        # },
-        # 'laundry_1': {
-        #     'btn': 'laundry_1',
-        #     't0': 1140,
-        #     'game': {
-        #         'type': 'sortlaundry'
-        #     }
-        # },
-        # 'dropdish': {
-        #     'btn': 'sink',
-        #     't0': 1030,
-        #     'tf': 1190,
-        #     'game': {
-        #         'type': 'dropdishes',
-        #         'xp': 0.5,
-        #         'drop': [
-        #             {
-        #                 'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
-        #             }
-        #         ],
-        #         'in_sink': {
-        #             'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
-        #         },
-        #         'overlay': [
-        #             {
-        #                 'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
         #             }
         #         ]
         #     }
