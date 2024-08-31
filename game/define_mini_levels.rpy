@@ -45,8 +45,7 @@ default levelHints = {
     'grabdishes_idle': "Drag the dishes to me :3",
     'dropdishes_fail': "I need to drop off dirty dishes here.",
     'dropdishes_idle': "Dirty dish tower!!!!",
-    'toggle_idle': "Meow",
-    'waterpour_idle': "Time to cook :3",
+    'waterpour_idle': "I need to sort the different colored drinks.",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
     'laundry_idle': "Woahhh it's laundry :o",
     'dropfood_fail': "ur not even holding food smh",
@@ -649,7 +648,7 @@ default taskTemplates = {
         'dur': 30,
         'scorebonus': 4,
         'scorepenalty': 0,
-        'desc': 'Bonus task: MC we need to cook',
+        'desc': 'Bonus task: Help out at the bar',
         'tlabel': 'task_c1_waterpour'
     },
     'sortlaundry': {
