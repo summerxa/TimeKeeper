@@ -188,12 +188,6 @@ init python:
             if t in store.taskq:
                 if not t['activated']:
                     store.taskq.remove(t)
-                    # if not t['done']:
-                    #     store.completion -= t['scorepenalty']
-                    try:
-                        store.taskrq.remove(tn)
-                    except:
-                        pass
                     bt['curtask'] = None
                     bt['htext'] = ''
                     if 'hidden' in bt:

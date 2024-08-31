@@ -58,7 +58,6 @@ default curtask = None
 default curtask_btn = None
 default curgame = None
 default taskq = []
-default taskrq = []
 
 default curholder = None
 default curhand = -1

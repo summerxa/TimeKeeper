@@ -334,7 +334,7 @@ label mini_main():
     hide screen mgame_overlay
 
     # time is not up, still remaining tasks
-    if curtime < tlimit and (taskq or taskrq) and not (len(taskq) == 1 and not taskrq and Task.DONOTHING in taskq[0]['tags']):
+    if curtime < tlimit and (taskq) and not (len(taskq) == 1 and Task.DONOTHING in taskq[0]['tags']):
         # TODO maybe hide quickmenu if its too obtrusive
 
         stop music fadeout 1.0
@@ -363,7 +363,6 @@ init python:
     def mini_launch_py():
         global taskButtons
         global itemHolders
-        global taskrq
         global tasks
         global curlevel
         global taskTemplates
@@ -383,7 +382,6 @@ init python:
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
-        taskrq = []
         for tn, t in tasks[curlevel].items():
             t['activated'] = False
             t['done'] = False
@@ -395,8 +393,6 @@ init python:
                     if tn_ == 'dur':
                         t['tf'] = t['t0'] + t_
                     t[tn_] = t_
-            if not Task.NON_ROOT in t['tags']:
-                taskrq.append(tn)
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:
@@ -425,7 +421,6 @@ label mini_launch(startroom='main', startfloor=0):
         curtask_btn = None
         curgame = None
         taskq = []
-        taskrq = []
 
         curholder = None
         curhand = -1

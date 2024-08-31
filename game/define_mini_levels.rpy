@@ -24,7 +24,8 @@ default levelInfo = {
         'tstairs': 2,
         'nfloors': 2,
         'ndishes': 29,
-        'threshold': [-20, 40],
+        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
+        'mother_threshold': [20, 40], # below first value is bad, below second value is mid
         'quests': {
             'Fetch quest 1': False,
             'Fetch quest 2': False,
@@ -39,7 +40,7 @@ default levelInfo = {
 default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
-    'quest_idle': "I should help the nobles first.",
+    'quest_idle': "I should help the nobles before working on other tasks.",
     'default_taskless': "No task available right now.",
     'candle_taskless': "These candles are already lit.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
