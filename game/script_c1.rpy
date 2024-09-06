@@ -3,8 +3,6 @@ label c1_scene1:
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-
-    "Scene 1 (Memory)"
     
     $ mother_name = "???"
 
@@ -228,8 +226,6 @@ label c1_scene2:
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
-
-    "Scene 2 (Intro + tasks)"
 
     $ mother_name = "MOTHER"
     $ bella_name = "???"
@@ -551,8 +547,6 @@ label c1_scene3:
     scene black with dissolve
 
     stop ambience fadeout 2.0
-
-    "Scene 3 (amelia sick scene)"
 
     #shrug -jade
     "Anastasia walks to the guestrooms, lighting the candles one by one."
@@ -998,8 +992,6 @@ label c1_scene5:
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
-
-    "Scene 5"
     
     # TODO remember to delete this once scoring threshold is finalized
     python:
