@@ -1150,7 +1150,7 @@ label c1_scene6:
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
     stop music fadeout 2.0
-    play music interrogation fadein 2.0 volume .37
+    play music interrogation fadein 2.0 volume .53
 
     m 5a "However, one of the guestrooms has not been properly cleaned."
 
@@ -1484,8 +1484,6 @@ label c1_amelia_ending(c1_justify_blame=True):
     show bella 8a at eout(2.2,1.4)
     "But she quickly steels herself and leaves as well."
 
-    stop music fadeout 1.0
-
     scene black with dissolve
 
     scene bg snowy
@@ -1498,7 +1496,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .8 volume .5
+    play ambience wind_howling_ambience fadein .8 volume .42
 
     show amelia 7a
     show snowfront zorder 10
@@ -1539,7 +1537,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6 volume .5
+    play ambience wind_howling_ambience fadein .6 volume .42
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
@@ -1562,6 +1560,9 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3_1 "W-what’s going on?"
 
+    #play music death fadein 2.0 volume .55
+    play music death_1 fadein 2.0 volume .55
+
     n3 "Oh my god!"
 
     show mc 5a
@@ -1580,7 +1581,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show cg amelia ending:
         subpixel True
         yalign 1.0
-        easeout 28.0 yalign 0.7
+        easeout 30.0 yalign 0.75
     
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
@@ -1589,12 +1590,17 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
 
+    stop music fadeout 2.0
+    play music death_2 volume .55
+
     window hide dissolve
+
+    #pause 3.0
 
     show cg amelia ending at yal(0.0)
     with cfade
    
-    pause 5.0
+    pause 10.0
 
     scene black with dissolve
 
@@ -2160,6 +2166,9 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     return
 
 label c1_scene7:
+    
+    stop music fadeout 1.0
+    
     "Reached ending: [c1_ending]"
 
     show bg ballroom with cfade
