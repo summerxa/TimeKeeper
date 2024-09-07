@@ -1591,7 +1591,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
 
     stop music fadeout 2.0
-    play music death_2 volume .55
+    play music death_2 volume .55 fadein 1.0 noloop
 
     window hide dissolve
 
@@ -1600,7 +1600,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show cg amelia ending at yal(0.0)
     with cfade
    
-    pause 10.0
+    pause 5.5
 
     scene black with dissolve
 

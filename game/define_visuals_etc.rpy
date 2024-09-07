@@ -222,7 +222,7 @@ define audio.wind_howling_ambience = "<from .551 to 27.2>audio/ambience/wind-blo
 # SOUNDTRACK
 define audio.interrogation = "audio/music/Interrogation2.0.mp3"
 define audio.death_1 = "<from 0 to 30.5>audio/music/Death.mp3"
-define audio.death_2 = "<from 31.5 to 49.5>audio/music/Death.mp3"
+define audio.death_2 = "<from 34.3 to 49>audio/music/Death.mp3"
 define audio.ballroom_ost = "audio/music/Ballroom.mp3"
 
 # --- UI STUFF ---
