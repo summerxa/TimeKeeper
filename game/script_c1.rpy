@@ -997,15 +997,6 @@ label c1_scene5:
 
     "Scene 5"
     
-    # TODO remember to delete this once scoring threshold is finalized
-    python:
-        score_min = 0
-        score_max = 0
-        for tn_, t_ in tasks[curlevel].items():
-            score_min -= t_['scorepenalty']
-            score_max += t_['scorebonus']
-    "your completion score is [completion] on a scale of [score_min] to [score_max], you did [completion_f]/4 fetch quest(s)"
-
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})
     "Anastasia goes to the ballroom and looks out a window. There’s an intense blizzard outside."
@@ -1129,7 +1120,9 @@ label c1_scene6:
 
     m "Anastasia."
 
-    if completion >= levelInfo[curlevel]['threshold'][1]:
+    $ mgame_score = calculateFinalScore()
+
+    if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
 
         m 2a "Your work today was excellent."
 
@@ -1137,7 +1130,7 @@ label c1_scene6:
 
         m "This is what a good maid should be."
 
-    elif completion <= levelInfo[curlevel]['threshold'][0]:
+    elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
 
         m 6a "Your work today was… quite frankly, {i}dreadful{/i}." 
 

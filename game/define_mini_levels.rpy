@@ -18,14 +18,13 @@ init python:
 
 
 default levelInfo = {
-    1: {
+    0: {
         't0': 1020,
-        'tf': 1200,
+        'tf': 1080,
         'tstairs': 2,
         'nfloors': 2,
-        'ndishes': 29,
         'level_threshold': [10, 10, 25], # cleanliness, coverage, service
-        'mother_threshold': [20, 40], # below first value is bad, below second value is mid
+        'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
         'quests': {
             'Fetch quest 1': False,
             'Fetch quest 2': False,
@@ -34,6 +33,24 @@ default levelInfo = {
         },
         'room0': 'ballroom',
         'floor0': 0
+        # TODO tutorial data... may or may not adjust
+    },
+    1: {
+        't0': 1080,
+        'tf': 1200,
+        'tstairs': 2,
+        'nfloors': 2,
+        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
+        'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
+        'quests': {
+            'Fetch quest 1': False,
+            'Fetch quest 2': False,
+            'Fetch quest 3': False,
+            'Fetch quest 4': False
+        },
+        'room0': 'ballroom',
+        'floor0': 0
+        # TODO this *might* be guestrooms if we use amelia sick cutscene as a transition
     }
 }
 
@@ -53,85 +70,6 @@ default levelHints = {
     'laundry_idle': "Woahhh it's laundry :o",
     'dropfood_fail': "ur not even holding food smh",
     'lightcandle_fail': "i need matches to light the candle :("
-}
-
-default helpText = {
-    'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
-Manage your time wisely and complete tasks before time runs out!
-{b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
-{b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
-{b}Click{/b} on an item to pick it up, or a {b}hand icon{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
-{b}Hovering{/b} over a task or item will show {b}information{/b} about it.
-
-{size=40}{b}LEFT SIDEBAR{/b}{/size}
-{b}Clock{/b}: shows the {b}current time{/b} and how long you have left.
-{b}Notebook{/b}: shows your current {b}tasks{/b}.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
-'''{b}Map{/b}: previews every floor map.''',
-'''>{b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!''',
-'''{b}On-hand{/b}: shows the contents of your inventory.
-{b}Help{/b}: shows this popup!''',
-'''>Contents of this popup will change based on {b}current activity{/b}.
-If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how to complete the task in addition to this text.''',
-'''{b}Leave{/b}: {b}exits{/b} current game state.''',
-'''>If in a {b}main floor{/b} map, pauses the game and opens the save menu.
-If in a {b}room{/b} map, exits to the main floor map.
-If using the {b}preview{/b} map, closes the map and returns to normal gameplay.
-If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: leaving a task will take time even if not completed!''',
-'''{size=40}{b}COMPLETION{/b}{/size}
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''
-],
-    'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
-
-To complete the task, collect all dirty dishes from the table.'''],
-    'dropdishes': ['''Drag a dirty dish from the stack into the sink, which removes the dishes from inventory.
-
-Dirty dishes can be dropped off at any time, but the task will only be completed after every single dish is dropped off.'''],
-    'waterpour': ['''Click on a cup to select it, and click again to deselect it.
-
-Click on another cup to pour the topmost layer of water into it.
-
-You can only pour into a cup if it has at least one empty slot.
-
-Two or more cups cannot contain the same color.
-
-To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.'''],
-    'sortlaundry': ['''Drag each article of clothing into the {b}correct{/b} washing machine.
-Each {b}washing machine{/b} is set for a {b}certain{/b} amount of time.
-{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of time.
-{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of time.
-{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
-}
-
-default infoText = {
-    'notes': ['''Notebook shows all current tasks.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
-'''
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''],
-    'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
-
-You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!
-
-{b}Stackable items{/b}, like empty plates, will only count as 1 item once stacked.
-'''],
-    'trade': ['''Normally, grabbing or dropping an item will be done automatically when clicking on an item.
-    
-However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
-''']
 }
 
 # size/pos of room on main floor map
@@ -782,32 +720,25 @@ default tasks = {
         'infinite': { # tasks that are infinitely generated
             'dishes_chain': {
                 'btns': {
-                    'grabdishes': [['ballroom', ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']]],
-                    'dropdishes': [['kitchen', ['sink']]]
+                    'grabdishes': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10'],
+                    'dropdishes': ['sink']
                 },
                 'goal_range': [3, 6] # possible number of dishes goes from 3 to 6
             },
             'waterpour': {
-                'btns': [['ballroom', ['bar']]]
+                'btns': ['bar']
             },
             'sortlaundry': {
-                'btns': [['laundry', ['laundry_1']]]
+                'btns': ['laundry_1']
             },
             'food_chain': {
                 'btns': {
-                    'grabfood': [['kitchen', ['pickuptable']]],
-                    'dropfood': [['ballroom', ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']]]
+                    'grabfood': ['pickuptable'],
+                    'dropfood': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']
                 }
             },
             'lightcandle': {
-                'btns': [
-                    ['guestroom l': ['gr_l_candle1', 'gr_l_candle2', 'gr_l_candle3']],
-                    ['guestroom r': ['gr_r_candle1', 'gr_r_candle2']]
-                ],
-                'remaining': 5 # stops generating once 5 candle tasks have been generated
-                # TODO: find a way to generate them at "random" times
-                #   - maybe when launching minigame, randomly generate 5 times to determine
-                #     when each candle spawns?
+                'btns': ['gr_l_candle1', 'gr_l_candle2', 'gr_l_candle3', 'gr_r_candle1', 'gr_r_candle2']
             }
         }
         ### BELOW IS ONLY FOR REFERENCE
@@ -839,7 +770,6 @@ default tasks = {
     }
 }
 
-# normally "air" would be a transparent image but it's visible for testing purposes lol
 default itemsAll = {
     'air': {
         'name': 'empty',
@@ -956,4 +886,84 @@ default itemHolders = {
             'room': 'guestroom l'
         }
     }
+}
+
+
+default helpText = {
+    'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
+Manage your time wisely and complete tasks before time runs out!
+{b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
+{b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
+{b}Click{/b} on an item to pick it up, or a {b}hand icon{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
+{b}Hovering{/b} over a task or item will show {b}information{/b} about it.
+
+{size=40}{b}LEFT SIDEBAR{/b}{/size}
+{b}Clock{/b}: shows the {b}current time{/b} and how long you have left.
+{b}Notebook{/b}: shows your current {b}tasks{/b}.''',
+'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
+Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
+'''{b}Map{/b}: previews every floor map.''',
+'''>{b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!''',
+'''{b}On-hand{/b}: shows the contents of your inventory.
+{b}Help{/b}: shows this popup!''',
+'''>Contents of this popup will change based on {b}current activity{/b}.
+If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how to complete the task in addition to this text.''',
+'''{b}Leave{/b}: {b}exits{/b} current game state.''',
+'''>If in a {b}main floor{/b} map, pauses the game and opens the save menu.
+If in a {b}room{/b} map, exits to the main floor map.
+If using the {b}preview{/b} map, closes the map and returns to normal gameplay.
+If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: leaving a task will take time even if not completed!''',
+'''{size=40}{b}COMPLETION{/b}{/size}
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
+'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
+'''The second one shows how many {b}major quests{/b} are completed.''',
+'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''
+],
+    'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
+
+To complete the task, collect all dirty dishes from the table.'''],
+    'dropdishes': ['''Drag a dirty dish from the stack into the sink, which removes the dishes from inventory.
+
+Dirty dishes can be dropped off at any time, but the task will only be completed after every single dish is dropped off.'''],
+    'waterpour': ['''Click on a cup to select it, and click again to deselect it.
+
+Click on another cup to pour the topmost layer of water into it.
+
+You can only pour into a cup if it has at least one empty slot.
+
+Two or more cups cannot contain the same color.
+
+To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.'''],
+    'sortlaundry': ['''Drag each article of clothing into the {b}correct{/b} washing machine.
+Each {b}washing machine{/b} is set for a {b}certain{/b} amount of time.
+{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of time.
+{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of time.
+{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
+}
+
+default infoText = {
+    'notes': ['''Notebook shows all current tasks.''',
+'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
+Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
+'''
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
+'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
+'''The second one shows how many {b}major quests{/b} are completed.''',
+'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''],
+    'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
+
+You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!
+
+{b}Stackable items{/b}, like empty plates, will only count as 1 item once stacked.
+'''],
+    'trade': ['''Normally, grabbing or dropping an item will be done automatically when clicking on an item.
+    
+However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
+''']
 }

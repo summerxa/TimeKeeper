@@ -14,6 +14,19 @@ init python:
                 return True
         return False
 
+    def addTime(mins, isProductive=False, isBonusTask=False):
+        global curtime
+        global productivity
+        curtime += mins
+        # TODO trigger any related major/bonus quests
+        if isBonusTask:
+            productivity += 5
+        elif isProductive:
+            # TODO check w/ luna - is productivity an int or float?
+            productivity += (100 - productivity) * 0.01 * mins
+        else:
+            productivity = max(0, productivity - mins)
+
     # returns time in am/pm
     def getTimeDig(t):
         tx = ''
@@ -41,6 +54,12 @@ init python:
         if mleft:
             sleft += f"{' and ' if hleft else ''}{mleft} {'minutes' if mleft > 1 else 'minute'}"
         return f"It's currently {getTimeDig(store.curtime)}. I have {sleft} left."
+
+    def calculateFinalScore():
+        for i in range(3):
+            if store.player_levels[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
+                return 0
+        return sum(store.player_levels) * store.productivity * 0.01
 
     # --- TASK/TASKBUTTON FORMATTING ---
 
@@ -77,6 +96,17 @@ init python:
 
     def fmtTskButton(t):
         return f"{fmtTsk(t)} ({t['tcost']} min)"
+
+    def getTaskButton(all_btns):
+        a = all_btns.copy()
+        while not a.empty():
+            bt = renpy.random.choice(a)
+            if not store.taskButtons[store.curlevel][bt]['curtask']:
+                return bt
+            else:
+                # ensures we don't keep drawing occupied buttons
+                a.remove(bt)
+        return None
 
     # sorts tasks by tf, tiebreaking by t0 and then room name
     def generateTodo():
@@ -147,14 +177,14 @@ init python:
         if not tsk:
             tsk = store.curtask
         if goodjob:
-            store.curtime += tsk['tcost']
+            addTime(tsk['tcost'], True)
             tsk['done'] = True
             store.completion += tsk['scorebonus']
             if Task.SPECIAL in tsk['tags'] and tname:
                 store.completion_f += 1
                 store.levelInfo[store.curlevel]['quests'][tname] = True
         else:
-            store.curtime += tsk['tcost'] // 2
+            addTime(tsk['tcost'] // 2)
         if tsk['done'] or store.curtime > tsk['tf']:
             store.hinttext = store.levelHints['default_idle']
         if tsk['done']:
@@ -329,7 +359,7 @@ init python:
         if prevroom and prevroom != 'main':
             i1 = roomButtons[curlevel][prevroom]['num']
             i2 = roomButtons[curlevel][curroom]['num']
-            curtime += roomProxim[curlevel][curfloor][i1][i2]
+            addTime(roomProxim[curlevel][curfloor][i1][i2])
             prevroom = 'main'
             if i1 != i2:
                 hinttext = levelHints['default_idle']

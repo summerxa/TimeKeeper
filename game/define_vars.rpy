@@ -50,6 +50,10 @@ default tlimit = 9999
 default completion = 0
 default completion_f = 0
 
+default productivity = 100
+# cleanliness, coverage, service
+default player_levels = [0, 0, 0]
+
 default curroom = 'main'
 default prevroom = None
 default curfloor = 0

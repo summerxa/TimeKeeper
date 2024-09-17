@@ -24,7 +24,7 @@ screen btn_roomarrow(bt, hov_id):
             ypos 0.90
         xpos bt['xp']
         xanchor 0.5 yanchor 0.5
-        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
+        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), Function(addTime, mins=bt['tcost']), Return('gotoroom_direct')]
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
         activate_sound audio.button_click_sfx
@@ -201,7 +201,7 @@ screen mini_sidebar(curstate='main', gametype=None):
 
 screen floor_sidebar(curstate='game', mapfloor=0):
     default act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
-    default act2 = [SetVariable('curtime', curtime+levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
+    default act2 = [Function(addTime, mins=levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
     if curfloor < levelInfo[curlevel]['nfloors']-1 or curstate == 'map':
         imagebutton:
             auto 'mini/ui/btn_floor_up_%s.png'
@@ -405,6 +405,8 @@ init python:
 
 label mini_launch(startroom='main', startfloor=0):
     python:
+        levelInfo[curlevel]['bonus_remaining'] = 5
+
         tolabel = ''
 
         tstart = levelInfo[curlevel]['t0']
@@ -412,6 +414,9 @@ label mini_launch(startroom='main', startfloor=0):
         tlimit = levelInfo[curlevel]['tf']
         completion = 0
         completion_f = 0
+
+        productivity = 100
+        player_levels = [0, 0, 0]
 
         curroom = 'main'
         prevroom = levelInfo[curlevel]['room0']

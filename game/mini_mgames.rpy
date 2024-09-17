@@ -183,15 +183,16 @@ screen mgame_toggle(shaded=True):
 screen mgame_waterpour(shaded=True):
     default sel = -1
     default yp = 0.513
+    default xplist = [0.24, 0.38, 0.52, 0.66]
 
     for i, c in enumerate(curgame['cups']):
         if sel != i:
             add 'mini/tgame/waterpour/waterpour_reflection.png':
-                xpos c['xp']
+                xpos xplist[i]
                 ypos yp + 0.22
                 xanchor 0.5 yanchor 0.5
         imagebutton:
-            xpos c['xp']
+            xpos xplist[i]
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
             auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
@@ -211,12 +212,12 @@ screen mgame_waterpour(shaded=True):
             )
         for j, curcolor in list(enumerate(c['colors'])):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
-                xpos c['xp']
+                xpos xplist[i]
                 ypos yp - (0.1 if sel == i else 0.)
                 xanchor 0.5 yanchor 0.5
                 at tint(curcolor)
         add 'mini/tgame/waterpour/waterpour_highlights.png':
-            xpos c['xp']
+            xpos xplist[i]
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
     textbutton "{b}RESET{/b}":
