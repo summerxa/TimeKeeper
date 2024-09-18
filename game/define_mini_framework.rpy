@@ -183,7 +183,9 @@ init python:
                 setTaskButton(tname, t)
         else:
             del fetchq[0]
-            levelInfo[curlevel]['quests'].add(tname)
+            if not fetchq.empty(): # activate next quest in quest chain, if it is unlocked
+                activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
+            levelInfo[curlevel]['quests_done'].add(tname)
 
     # --- ITEM/INVENTORY STUFF ---
 

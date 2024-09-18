@@ -25,7 +25,7 @@ default levelInfo = {
         'nfloors': 2,
         'level_threshold': [10, 10, 25], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
-        'quests': set(),
+        'quests_done': set(),
         'bonus_remaining': 5,
         'room0': 'ballroom',
         'floor0': 0
@@ -38,7 +38,7 @@ default levelInfo = {
         'nfloors': 2,
         'level_threshold': [10, 10, 25], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
-        'quests': set(),
+        'quests_done': set(),
         'bonus_remaining': 5,
         'room0': 'ballroom',
         'floor0': 0
