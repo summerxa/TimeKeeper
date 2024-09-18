@@ -642,7 +642,7 @@ default taskTemplates = {
     },
     'lightcandle': {
         'tcost': 1,
-        'type': 'small'
+        'type': 'small',
         'tlabel': 'task_c1_lightcandle',
         'desc': 'Light the candles',
         'item_req': ['matches'],

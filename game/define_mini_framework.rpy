@@ -6,6 +6,7 @@ init python:
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
     
+    # whether you have the required items to do the task in your inventory
     def task_can_proceed(item_req=[]):
         if not len(item_req):
             return True
@@ -14,6 +15,8 @@ init python:
                 return True
         return False
 
+    # increment the current time and adjust the player's productivity
+    # triggers any related events (such as new fetch quests or bonus tasks)
     def addTime(mins, isProductive=False, isBonusTask=False):
         global curtime
         global productivity
@@ -44,6 +47,7 @@ init python:
             tx += 'pm'
         return tx
 
+    # formats the time in mc textbox when player clicks on the clock
     def fmtTimeHinttext():
         mleft = store.tlimit - store.curtime
         hleft = mleft // 60
@@ -55,6 +59,7 @@ init python:
             sleft += f"{' and ' if hleft else ''}{mleft} {'minutes' if mleft > 1 else 'minute'}"
         return f"It's currently {getTimeDig(store.curtime)}. I have {sleft} left."
 
+    # calculates minigame score
     def calculateFinalScore():
         for i in range(3):
             if store.player_levels[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
@@ -62,27 +67,6 @@ init python:
         return sum(store.player_levels) * store.productivity * 0.01
 
     # --- TASK/TASKBUTTON FORMATTING ---
-
-    def setTlimit(t):
-        t['t0'] = store.curtime
-        if ('tf' in t and t['tf'] == 9999) or ('dur' in t and t['dur'] == 9999):
-            t['tf'] = store.tlimit
-        elif 'dur' in t:
-            t['tf'] = min(t['t0'] + t['dur'], store.tlimit)
-
-    def fmtTsk(t):
-        tx = "("
-        if t['t0'] != -1:
-            tx += getTimeDig(t['t0'])
-        else:
-            tx += getTimeDig(tstart)
-        tx += '-'
-        if t['tf'] != 9999:
-            tx += getTimeDig(t['tf'])
-        else:
-            tx += getTimeDig(tlimit)
-        tx += ") " + t['desc']
-        return tx
 
     # by default, checks if special highlight is enabled in settings
     # passing forced=True forces the fn. to add special formatting regardless of settings
@@ -108,46 +92,9 @@ init python:
                 a.remove(bt)
         return None
 
-    # sorts tasks by tf, tiebreaking by t0 and then room name
-    def generateTodo():
-        if len(store.taskq) == 0:
-            store.notes_text = "No tasks right now."
-            store.notes_text_s = store.notes_text
-            return
-        tqs = []
-        for t in store.taskq:
-            tqs.append([t['tf'], t['t0'], not Task.SPECIAL in t['tags'], -t['scorebonus'], fmtBaseTask(t)])
-        tqs.sort()
-        tq = []
-        tq_s = []
-        for t in tqs:
-            tx = t[4]
-            tq.append(tx)
-            if not t[2]:
-                tx = fmtSpecialTask(tx, True)
-            tq_s.append(tx)
-        store.notes_text = '\n'.join(tq)
-        store.notes_text_s = '\n'.join(tq_s)
-    
-    def generateScore():
-        tx = "Approval rating: "
-        if store.completion < store.levelInfo[store.curlevel]['threshold'][0]:
-            tx += "Bad"
-        elif store.completion > store.levelInfo[store.curlevel]['threshold'][1]:
-            tx += "Good"
-        else:
-            tx += "Mid"
-        tx += f"\n\nQuests completed: {completion_f}/{len(store.levelInfo[store.curlevel]['quests'])}"
-        for qn, q_ in store.levelInfo[store.curlevel]['quests'].items():
-            tx += f"\n- {qn} "
-            if q_:
-                tx += "(done)"
-            else:
-                tx += "(to-do)"
-        return tx
-
     # --- ROOM/MAP STUFF ---
 
+    # formats room names in the large map
     def get_room_text(toRoom, is_map=False):
         if curroom == 'main' and not prevroom:
             return toRoom.upper()
@@ -243,18 +190,21 @@ init python:
 
     # --- ITEM/INVENTORY STUFF ---
 
+    # formats name of item when seen in inventory
     def fmtItemName(itm, stk=1):
         tx = itemsAll[itm]['name']
         if itemsAll[itm]['stackable']:
             tx += " (" + str(stk) + ")"
         return tx
 
+    # formats flavor text for items when moused over in map
     def fmtItemDesc(itm, stk=1):
         tx = itemsAll[itm]['desc']
         if itemsAll[itm]['stackable']:
             tx += " (" + str(stk) + ")"
         return tx
 
+    # sorry I forgot what this function does :'D
     def invGetStack(giveitem):
         nonestack = True
         for i in range(len(invitems)):
@@ -268,6 +218,7 @@ init python:
                 stackhand = i
         return stackhand
 
+    # counts how many instances of "itm" are in the player's inventory
     def invCountNum(itm):
         counter = 0
         for i in range(len(invitems)):
@@ -275,11 +226,23 @@ init python:
                 counter += invstacks[i]
         return counter
 
+    # helper method that verifies if player can pick up an item on the map
     def inventoryOk(item_id):
         oneHandEmpty = 'air' in invitems
         itemCanStack = (itemsAll[item_id]['stackable'] and invGetStack(item_id) >= 0)
         return oneHandEmpty or itemCanStack
 
+    '''
+    This implementation is absolutely awful spaghetti code, but it hasn't broken yet
+    (knock on wood). Don't worry about how it works until something goes horribly wrong.
+    USAGE:
+    holder = itemholder to drop the item into (this should always be None except when clicking an item button)
+    myitem = item in your inventory to remove
+    mystack = if myitem is stackable, how many stacks of it to remove
+    otheritem = item to place in your inventory
+    otherstack = if otheritem is stackable, how many stacks to place
+    useholder = if True, swaps the target item b/w your inventory and an itemholder (again, should always be False by default)
+    '''
     def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:
             if not holder:
@@ -373,6 +336,7 @@ label gotoroom_direct:
     $ hinttext = levelHints['default_idle']
     jump mini_main
 
+# shows menu to give an item to an NPC in fetch quests
 label give_item_prompt(vb='Give', both_hands=False):
     $ showlh = (invitems[0] != 'air')
     if both_hands:
