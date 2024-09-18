@@ -2,9 +2,10 @@ init python:
     def getMainMap(lvl, floor):
         return f"mini/map/map_{lvl}_main_{floor}.png"
 
-    # returns True if there are fetch quests active, otherwise False
-    def is_in_fetchquest():
-        return not fetchq.empty()
+    # returns True if there are no fetch quests active
+    # otherwise, returns True if this button has the currently active fetch quest; and False if it doesn't
+    def can_show_task(bt):
+        return bt['curtask'] and (store.fetchq.empty() or (bt['curtask']['game']['type'] == 'fetchquest' or bt['curtask']['game']['type'] == 'fetchquest_end'))
 
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
@@ -25,7 +26,10 @@ init python:
         global curtime
         global productivity
         curtime += mins
-        # TODO trigger any related major/bonus quests
+        # TODO trigger bonus quest if applicable
+        for tn, t in store.tasks['single'].items():
+            if t['t0'] <= curtime and not tn in fetchq:
+                addFquest(tn, t)
         if isBonusTask:
             productivity += 5
         elif isProductive:
@@ -87,6 +91,19 @@ init python:
                 a.remove(bt)
         return None
 
+    def fmtTask(task_name, task_part, is_fquest=False):
+        if is_fquest:
+            d = store.tasks[store.curlevel]['single'][task_name]
+            t = store.taskTemplates['fetchquest']
+        elif 'sequence' in store.tasks[store.curlevel]['infinite'][task_name]:
+            d = store.taskTemplates[task_part]
+            t = d
+        else:
+            d = store.taskTemplates[task_name]
+            t = d
+        return d['desc'] + " (" + str(t['tcost']) + " min)"
+
+    # ONLY USE FOR INFINITE GENREATING TASKS
     # task_name = ID of the task
     # task = the actual task itself
     # task_part = optional - for multi-part tasks, the ID of the specific part
@@ -96,8 +113,29 @@ init python:
         else:
             btn_list = store.tasks[store.curlevel]['btns']
         bt_choice = getTaskButton(btn_list)
-        store.taskButtons[store.curlevel][bt_choice]['curtask'] = task
         store.taskq[task_name]['btn'] = bt_choice
+        
+        bt = store.taskButtons[store.curlevel][bt_choice]
+        bt['curtask'] = task
+
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', t['game']), Return(t['tlabel'])]
+        if not Task.NO_FADE in t['tags']:
+            bt['act'] += [With(cfade)]
+        
+        bt['htext'] = fmtTask(task_name, task_part)
+    
+    # adds a fetch quest to fetchq
+    def addFquest(task_name, task):
+        fetchq.append(task_name)
+        if fetchq.empty():
+            activateFquest(task_name, task)
+    
+    # activates the fetch quest
+    def activateFquest(task_name, task):
+        bt = store.taskButtons[store.curlevel]['single'][task['btn']]
+        bt['htext'] = fmtTask(task_name, '', True)
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', t['game']), Return(t['tlabel'])]
+            
 
     # --- ROOM/MAP STUFF ---
 

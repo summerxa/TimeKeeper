@@ -764,16 +764,6 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
             'p': (5536,611),
             'desc': "Bella is punished by Mother."
         },
-        # 'c1_bella_end_vis': {
-        #     'tx': 'Bella Dies',
-        #     'cg': 'bg kitchen',
-        #     'p': (5536,611),
-        #     'desc': "Bella is punished by Mother."
-        # },
-        # 'c1_bella_end_hidden': {
-        #     'cg': 'bg joyce why',
-        #     'hidden': True
-        # },
         'c1_mc_blame': {
             'tx': 'Blame Anastasia',
             'c': 'mc',
@@ -1069,8 +1059,6 @@ screen endings_menu(hov, hov_chp, node_data, node_ch_data, zfact_bar, zfact):
                     zoom zfact
                 for chp in range(len(node_data)):
                     for n_id, n_ in node_data[chp].items():
-                        if 'hidden' in n_:
-                            continue
                         use btn_node(hov, hov_chp, node_ch_data, n_id in persistent.nodes_unlocked, n_, n_id, chp, zfact)
                 if hov and hov_chp >= 0:
                     use node_desc(node_data[hov_chp][hov], hov, zfact)

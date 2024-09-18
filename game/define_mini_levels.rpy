@@ -49,14 +49,14 @@ default levelInfo = {
 default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
-    'quest_idle': "I should help the nobles before working on other tasks.",
-    'default_taskless': "No task available right now.",
-    'candle_taskless': "These candles are already lit.",
+    'quest_idle': "One of the guests requires assistance. I should go help.",
+    'quest_taskless': "I should help the nobles before working on other tasks.",
+    'default_taskless': "There aren't any tasks here right now.",
+    'candle_taskless': "These candles don't need to be lit right now.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
     'grabdishes_idle': "Drag the dishes to me :3",
-    'dropdishes_fail': "you're not even holding dishes in your inventory?? what???",
-    'dropdishes_idle': "Dirty dish tower!!!!",
-    'toggle_idle': "Meow",
+    'dropdishes_fail': "I need to drop off dirty dishes here.",
+    'dropdishes_idle': "Drop the dishes off in the sink.",
     'waterpour_idle': "Time to cook :3",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
     'laundry_idle': "Woahhh it's laundry :o",
@@ -649,12 +649,15 @@ default taskTemplates = {
 
 default tasks = {
     1: {
-        'single': { # for quests that only show up once
+        'optional': { # for easter egg quests
             'donothing': {
                 't0': 1020,
                 'btn': '4_1',
+                'tags': [Task.OPTIONAL],
                 'game': {'type': 'donothing'}
             },
+        },
+        'single': { # for quests that only show up once
             'fetch1': {
                 'desc': 'Talk to noble',
                 'btn': '4_5',

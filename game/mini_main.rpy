@@ -50,47 +50,57 @@ screen btn_roomarrow(bt, hov_id):
                     xalign 0.5
 
 screen btn_tsk(bt, hov_id=None):
-    if bt['curtask'] or not 'hidden' in bt:
-        imagebutton:
-            pos bt['p']
-            xanchor 0.5 yanchor 0.5
-            if bt['curtask']:
-                auto bt['imtask_active']
-                if 'item_req' in bt['curtask']:
-                    if task_can_proceed(bt['curtask']['item_req']):
-                        action bt['act']
-                    else:
-                        action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
-                else:
+    imagebutton:
+        pos bt['p'] anchor (0.5, 0.5)
+        if can_show_task(bt):
+            # there is an active task, highlight this button
+            auto bt['imtask_active']
+            
+            if 'item_req' in bt['curtask']:
+                if task_can_proceed(bt['curtask']['item_req']):
                     action bt['act']
-                activate_sound audio.button_click_sfx
-            else:
-                auto bt['imtask_idle']
-                action bt['act']
-            if 'htext' in bt and not len(bt['htext']) == 0:
-                if bt['curtask']:
-                    if Task.SPECIAL in bt['curtask']['tags']:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(bt['htext']))]
-                    else:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
-                    
-                    unhovered SetVariable('cur_hov', None)
-            if bt['curtask']:
-                if 'rot' in bt:
-                    at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
                 else:
-                    at highlight_hov(cur_hov, hov_id)
+                    action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
             else:
-                if 'rot' in bt:
-                    at rot(bt['rot'])
-        if 'tx' in bt:
-            text bt['tx']['text']:
-                pos bt['p']
-                xanchor 0.5 yanchor 0.5
-                if 'style' in bt['tx']:
-                    style bt['tx']['style']
-                if bt['curtask']:
-                    at highlight_hov(cur_hov, hov_id)
+                action bt['act']
+
+            # highlight and change mc textbox when hovered
+            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
+            if fetchq.empty():
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+            else:
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+
+            activate_sound audio.button_click_sfx
+        else:
+            # don't highlight button
+            auto bt['imtask_idle']
+            if not fetchq.empty():
+                # noble has a request
+                action SetVariable('hinttext', levelHints['quest_taskless'])
+            else:
+                # no task in button
+                if 'taskless' in bt:
+                    bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
+                else:
+                    bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+        # show highlights and rotation (if applicable)
+        if can_show_task(bt):
+            if 'rot' in bt:
+                at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
+            else:
+                at highlight_hov(cur_hov, hov_id)
+        else:
+            if 'rot' in bt:
+                at rot(bt['rot'])
+    # add text overlay on button
+    if 'tx' in bt:
+        text bt['tx']['text']:
+            pos bt['p'] anchor (0.5, 0.5)
+            if 'style' in bt['tx']:
+                style bt['tx']['style']
+            if can_show_task(bt):
+                at highlight_hov(cur_hov, hov_id)
 
 # item holder
 screen btn_item(bt, hov_id):
@@ -358,13 +368,10 @@ init python:
 
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
-            if 'hidden' in bt:
-                bt['act'] = []
+            if 'taskless' in bt:
+                bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
             else:
-                if 'taskless' in bt:
-                    bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
-                else:
-                    bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             bt['imtask_active'] = f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
             bt['imtask_idle'] = f"mini/btn_task/btn_{bt['imtask']}_%s.png"
         for hn, h in itemHolders[curlevel].items():

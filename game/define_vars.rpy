@@ -36,7 +36,7 @@ init python:
     from enum import Enum
     class Task(Enum):
         SPECIAL = 0     # task is recommended
-        DONOTHING = 1   # special optional task used to skip the minigame (speedrunnn)
+        OPTIONAL = 1    # for easter egg tasks
         NO_FADE = 2     # no fadein/fadeout animation
         NON_ROOT = 3    # cannot be completed w/o doing prereq quests
 
@@ -58,6 +58,7 @@ default curfloor = 0
 default curtask = None
 default curtask_btn = None
 default curgame = None
+default fetchq = {}
 default taskq = {}
 
 default curholder = None
