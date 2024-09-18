@@ -1407,7 +1407,6 @@ screen preferences():
                 vbox:
                     style_prefix "check"
                     label _("Gameplay")
-                    textbutton _("Highlight recommended tasks") action ToggleVariable('persistent.showspecial')
                     textbutton _("Name save files") action ToggleVariable('persistent.namesaves')
                     textbutton _("Warn before leaving minigame") action ToggleVariable('persistent.showleavewarning')
                     textbutton _("Warn before resetting minigame") action ToggleVariable('persistent.showresetwarning')

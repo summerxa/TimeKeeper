@@ -82,7 +82,6 @@ screen popup_notes():
     style_prefix "confirm"
 
     default notes_tab = 'tasks'
-    default tx = notes_text_s if persistent.showspecial else notes_text
 
     frame:
         xalign 0.5
@@ -95,23 +94,23 @@ screen popup_notes():
             spacing 23
             align (0.5,0.)
             xminimum 1367
-            for tab in [['Tasks', notes_text_s if persistent.showspecial else notes_text], ['Completion', generateScore()]]:
-                vbox:
-                    text f"◆ {tab[0]} ◆":
-                        style 'fancy_font'
-                        size 50
-                        xalign 0.5
+            # TODO change this to the new UI
+            # for tab in [['Tasks', notes_text], ['Completion', generateScore()]]:
+            #     vbox:
+            #         text f"◆ {tab[0]} ◆":
+            #             style 'fancy_font'
+            #             size 50
+            #             xalign 0.5
 
-                    viewport:
-                        area (0, 20, 600, 800)
+            #         viewport:
+            #             area (0, 20, 600, 800)
                         
-                        mousewheel True
-                        draggable True
-                        scrollbars "vertical"
-                        vscrollbar_unscrollable "hide"
-                        # text 'whee\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwhee':
-                        text tab[1]:
-                            color '#906548'
+            #             mousewheel True
+            #             draggable True
+            #             scrollbars "vertical"
+            #             vscrollbar_unscrollable "hide"
+            #             text tab[1]:
+            #                 color '#906548'
         
         button:
             anchor (0.,0.)

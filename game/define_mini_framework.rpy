@@ -2,6 +2,10 @@ init python:
     def getMainMap(lvl, floor):
         return f"mini/map/map_{lvl}_main_{floor}.png"
 
+    # returns True if there are fetch quests active, otherwise False
+    def is_in_fetchquest():
+        return not fetchq.empty()
+
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
@@ -62,25 +66,16 @@ init python:
     # calculates minigame score
     def calculateFinalScore():
         for i in range(3):
-            if store.player_levels[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
+            if store.player_attrs[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
                 return 0
-        return sum(store.player_levels) * store.productivity * 0.01
+        return sum(store.player_attrs) * store.productivity * 0.01
 
     # --- TASK/TASKBUTTON FORMATTING ---
-
-    # by default, checks if special highlight is enabled in settings
-    # passing forced=True forces the fn. to add special formatting regardless of settings
-    def fmtSpecialTask(t, forced=False):
-        if not persistent.showspecial and not forced:
-            return t
-        return "{i}" + t + "{/i}"
-
-    def fmtBaseTask(t):
-        return f"- {fmtTsk(t)} [[{roomButtons[curlevel][t['room']]['name']}]"
 
     def fmtTskButton(t):
         return f"{fmtTsk(t)} ({t['tcost']} min)"
 
+    # DON'T call this directly! helper method for setTaskButton
     def getTaskButton(all_btns):
         a = all_btns.copy()
         while not a.empty():
@@ -91,6 +86,18 @@ init python:
                 # ensures we don't keep drawing occupied buttons
                 a.remove(bt)
         return None
+
+    # task_name = ID of the task
+    # task = the actual task itself
+    # task_part = optional - for multi-part tasks, the ID of the specific part
+    def setTaskButton(task_name, task, task_part=''):
+        if 'sequence' in store.tasks[store.curlevel][task_name]:
+            btn_list = store.tasks[store.curlevel]['btns'][task_part]
+        else:
+            btn_list = store.tasks[store.curlevel]['btns']
+        bt_choice = getTaskButton(btn_list)
+        store.taskButtons[store.curlevel][bt_choice]['curtask'] = task
+        store.taskq[task_name]['btn'] = bt_choice
 
     # --- ROOM/MAP STUFF ---
 
@@ -118,75 +125,27 @@ init python:
 
     # --- TASK STUFF ---
 
-    # goodjob = task was done correctly
-    # punish = subtract from completion score if not goodjob
-    def docurtask(goodjob=True, punish=True, tsk=None, tname=None):
-        if not tsk:
-            tsk = store.curtask
+    # tname = name of task
+    # goodjob = task was completed (instead of ditching)
+    # task_type = either infinite or single
+    def docurtask(tname=None, goodjob=True, task_type='infinite'):
+        t = store.taskTemplates[tname]
+        addTime(t['tcost'], goodjob, t['type'] == 'small')
         if goodjob:
-            addTime(tsk['tcost'], True)
-            tsk['done'] = True
-            store.completion += tsk['scorebonus']
-            if Task.SPECIAL in tsk['tags'] and tname:
-                store.completion_f += 1
-                store.levelInfo[store.curlevel]['quests'][tname] = True
-        else:
-            addTime(tsk['tcost'] // 2)
-        if tsk['done'] or store.curtime > tsk['tf']:
-            store.hinttext = store.levelHints['default_idle']
-        if tsk['done']:
-            # activate any follow-ups
-            if 'next' in tsk:
-                for tn in tsk['next']:
-                    t = store.tasks[curlevel][tn]
-                    if t['t0'] == -2:
-                        setTlimit(t)
-
-    # t0 = -1 -> starts when minigame starts
-    # t0 = -2 -> has one prerequisite task (that contains *this* task in its 'next')
-    # t0 = -3 -> has multiple prereqs (contained in *this* task's 'prq')
-    def update_taskq():
-        for tn, t in store.tasks[curlevel].items():
-            if t['t0'] == -3:
-                meet_prereq = True
-                for tn in t['prq']:
-                    if not store.tasks[curlevel][tn]['done']:
-                        meet_prereq = False
-                        break
-                if meet_prereq:
-                    setTlimit(t)
-
-            if t['done'] or t['t0'] < -1 or (store.curtime < t['t0'] or t['tf'] < store.curtime):
-                t['activated'] = False
-            elif not t['done'] and (t['t0'] <= store.curtime and store.curtime <= t['tf']):
-                t['activated'] = True
-
-            bt = store.taskButtons[curlevel][t['btn']]
-            if t in store.taskq:
-                if not t['activated']:
-                    store.taskq.remove(t)
-                    bt['curtask'] = None
-                    bt['htext'] = ''
-                    if 'hidden' in bt:
-                        bt['act'] = []
-                    else:
-                        if 'taskless' in bt:
-                            bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
-                        else:
-                            bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+            for i in range(len(player_attrs)):
+                player_attrs[i] += taskTemplates[tname]['attributes'][i]
+        if task_type == 'infinite':
+            if t['type'] == 'small' and levelInfo[curlevel]['bonus_remaining'] > 0:
+                levelInfo[curlevel]['bonus_remaining'] -= 1
+                pass # TODO generate next time for bonus task
+            if 'next' in tname:
+                store.taskq[t['parent']]['part'] = tname['next']
+                setTaskButton(t['parent'], taskTemplates[t['parent']], tname['next'])
             else:
-                if t['activated']:
-                    store.taskq.append(t)
-                    bt['curtask'] = t
-                    bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt)]
-                    if 'game' in t:
-                        bt['act'].append(SetVariable('curgame', t['game']))
-                    bt['act'] += [Return(t['tlabel'])]
-                    if not Task.NO_FADE in t['tags']:
-                        bt['act'] += [With(cfade)]
-                    bt['htext'] = fmtTskButton(bt['curtask'])
-        generateTodo()
-        return
+                setTaskButton(tname, t)
+        else:
+            del fetchq[0]
+            levelInfo[curlevel]['quests'].add(tname)
 
     # --- ITEM/INVENTORY STUFF ---
 

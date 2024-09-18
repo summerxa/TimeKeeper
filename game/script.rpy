@@ -70,13 +70,9 @@ label meet_all_chars:
 # simulates entering a fetch quest
 # however, tasks can be done repeatedly or in any order for testing convenience
 label mini_placeholder(quests):
-    $ completion = 0
     $ fquest = 'temp'
     while fquest != "leave":
         $ fquest = renpy.display_menu(quests + [("Leave minigame", "leave")])
         if fquest != "leave":
             call expression fquest from _call_expression
-            $ completion += 1
-    if not completion:
-        jump mini_failed
     return

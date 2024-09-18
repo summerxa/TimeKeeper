@@ -633,7 +633,7 @@ label c1_fetch1:
 
     stop ambience fadeout 1.0
 
-    $ docurtask()
+    $ docurtask('fetch1', task_type='single')
 
     jump mini_main
 
@@ -656,7 +656,7 @@ label c1_fetch1_end:
         n2 "Ah, perfect. Just the type I was looking for."
 
         $ update_inv(myitem='wine_bottle')
-        $ docurtask(tname = "Fetch quest 1")
+        $ docurtask('fetch1_end', task_type='single')
         
         $ node_unlock('c1_fetch1')
 
@@ -687,7 +687,7 @@ label c1_fetch2:
 
     stop ambience fadeout 2.0
 
-    $ docurtask()
+    $ docurtask('fetch2', task_type='single')
 
     jump mini_main
 
@@ -713,7 +713,7 @@ label c1_fetch2_end:
 
         stop ambience fadeout 2.0
 
-        $ docurtask(tname = "Fetch quest 2")
+        $ docurtask('fetch2_end', task_type='single')
         $ update_inv(myitem='jacket_red')
 
         scene bg ballroom with cfade
@@ -780,7 +780,7 @@ label c1_fetch3:
 
     stop ambience fadeout 2.0
 
-    $ docurtask()
+    $ docurtask('fetch3', task_type='single')
 
     jump mini_main
 
@@ -835,7 +835,7 @@ label c1_fetch3_end:
 
     stop ambience fadeout 2.0
 
-    $ docurtask(tname = "Fetch quest 3")
+    $ docurtask('fetch3_end', task_type='single')
 
     jump mini_main
 
@@ -906,7 +906,7 @@ label c1_fetch4:
 
     $ node_unlock('c1_fetch4')
 
-    $ docurtask(tname = "Fetch quest 4")
+    $ docurtask('fetch4_end', task_type='single')
 
     menu:
 
@@ -2724,7 +2724,7 @@ label task_c1_donothing:
             "Anastasia decides to sit and do nothing for the remainder of the day."
 
             "This will be difficult to explain to Mother..."
-            $ docurtask()
+            $ docurtask('donothing', False, 'single')
         "Leave for now":
             $ focus_on(['mc'])
             "Anastasia returns to her tasks."
@@ -2825,7 +2825,8 @@ label task_c1_waterpour:
             $ waterpour_init()
             $ hinttext = levelHints['waterpour_idle']
 
-    $ docurtask(game_ret == 'done')
+    $ docurtask('waterpour', game_ret == 'done')
+
     if game_ret == 'done':
         show screen mgame_waterpour(shaded=False)
         show screen mgame_overlay
@@ -2866,7 +2867,8 @@ label task_c1_grabdishes:
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
     
-    $ docurtask(game_ret == 'done')
+    $ docurtask('grabdishes', game_ret == 'done')
+
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
     if game_ret == 'done':
         show screen mgame_dragdrop_dishes(shaded=False)
@@ -2909,6 +2911,7 @@ label task_c1_dropdishes:
         $ game_ret = _return
 
     $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
+    # TODO fix this - should be based on number of dishes from previous part of quest chain
     if not levelInfo[curlevel]['ndishes']:
         $ docurtask(True)
     else:
@@ -2985,7 +2988,7 @@ label task_c1_sortlaundry:
         call screen mgame_laundry
         $ game_ret = _return
     
-    $ docurtask(game_ret == 'done')
+    $ docurtask('sortlaundry', game_ret == 'done')
 
     if game_ret == 'done':
         show screen mgame_laundry(shaded=False)
@@ -2997,20 +3000,20 @@ label task_c1_sortlaundry:
 label task_c1_grabfood:
 
     $ update_inv(otheritem='food')
-    $ docurtask()
+    $ docurtask('grabfood')
 
     jump mini_main
 
 label task_c1_dropfood:
 
     $ update_inv(myitem='food')
-    $ docurtask()
+    $ docurtask('dropfood')
 
     jump mini_main
 
 label task_c1_lightcandle:
 
     $ update_inv(myitem='matches', mystack=1)
-    $ docurtask()
+    $ docurtask('lightcandle')
 
     jump mini_main

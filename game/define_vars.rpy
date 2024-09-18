@@ -20,7 +20,6 @@ default current_speaker = None
 default focus_dict = {}
 
 # --- CUSTOM SETTINGS ---
-default persistent.showspecial = True # highlights recommended quests if True
 default persistent.namesaves = True # prompts user to name save files if True
 default persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
 default persistent.showresetwarning = True # same as above but for resetting minigame progress
@@ -47,12 +46,10 @@ default curlevel = 500
 default curtime = 0
 default tstart = 0
 default tlimit = 9999
-default completion = 0
-default completion_f = 0
 
 default productivity = 100
 # cleanliness, coverage, service
-default player_levels = [0, 0, 0]
+default player_attrs = [0, 0, 0]
 
 default curroom = 'main'
 default prevroom = None
@@ -61,16 +58,13 @@ default curfloor = 0
 default curtask = None
 default curtask_btn = None
 default curgame = None
-default taskq = []
+default taskq = {}
 
 default curholder = None
 default curhand = -1
 default invitems = ['air', 'air']
 default invstacks = [1, 1]
 default ichoice = None
-
-default notes_text = ''
-default notes_text_s = ''
 
 # (not using screen variable b/c will have to redeclare for every screen that uses a button)
 default cur_hov = None

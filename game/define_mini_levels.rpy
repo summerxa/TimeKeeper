@@ -25,12 +25,8 @@ default levelInfo = {
         'nfloors': 2,
         'level_threshold': [10, 10, 25], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
-        'quests': {
-            'Fetch quest 1': False,
-            'Fetch quest 2': False,
-            'Fetch quest 3': False,
-            'Fetch quest 4': False
-        },
+        'quests': set(),
+        'bonus_remaining': 5,
         'room0': 'ballroom',
         'floor0': 0
         # TODO tutorial data... may or may not adjust
@@ -42,12 +38,8 @@ default levelInfo = {
         'nfloors': 2,
         'level_threshold': [10, 10, 25], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
-        'quests': {
-            'Fetch quest 1': False,
-            'Fetch quest 2': False,
-            'Fetch quest 3': False,
-            'Fetch quest 4': False
-        },
+        'quests': set(),
+        'bonus_remaining': 5,
         'room0': 'ballroom',
         'floor0': 0
         # TODO this *might* be guestrooms if we use amelia sick cutscene as a transition
@@ -582,7 +574,9 @@ default taskTemplates = {
         'fail_id': 'handsfull_fail',
         'item_req': ['air', 'dish_dirty'],
         'attributes': [0,0,0],
-        'next': 'dropdishes'
+        'next': 'dropdishes',
+        'parent': 'dishes_chain',
+        'goal_range': [3, 6] # possible number of dishes goes from 3 to 6
     },
     'dropdishes': {
         'tcost': 5,
@@ -592,7 +586,8 @@ default taskTemplates = {
         'fail_id': 'dropdishes_fail',
         'item_req': ['dish_dirty'],
         'attributes': [3,1,1],
-        'next': 'grabdishes'
+        'next': 'grabdishes',
+        'parent': 'dishes_chain'
     },
     'dishes_chain': { # contains all the parts of the "quest chain"
         'sequence': ['grabdishes', 'dropdishes'],
@@ -708,7 +703,7 @@ default tasks = {
                 'tags': [Task.SPECIAL, Task.NON_ROOT],
                 'game': {'type': 'fetchquest_end'}
             },
-            'fetch4': {
+            'fetch4_end': {
                 'desc': 'Talk to noble',
                 'btn': 'long1',
                 'tlabel': 'c1_fetch4',
@@ -722,8 +717,7 @@ default tasks = {
                 'btns': {
                     'grabdishes': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10'],
                     'dropdishes': ['sink']
-                },
-                'goal_range': [3, 6] # possible number of dishes goes from 3 to 6
+                }
             },
             'waterpour': {
                 'btns': ['bar']

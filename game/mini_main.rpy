@@ -315,26 +315,14 @@ screen mini_screen():
     
     use floor_sidebar('game')
 
-init python:
-    def process_scorepenalty():
-        global tasks
-        global curlevel
-        global curtime
-        global completion
-        for tname, t in tasks[curlevel].items():
-            if not t['done']:
-                completion -= t['scorepenalty']
-
 label mini_main():
-
-    $ update_taskq()
 
     # TODO stop skipping (if player is skipping fetch quests, it gets stuck when it returns to minigame)
 
     hide screen mgame_overlay
 
     # time is not up, still remaining tasks
-    if curtime < tlimit and (taskq) and not (len(taskq) == 1 and Task.DONOTHING in taskq[0]['tags']):
+    if curtime < tlimit:
         # TODO maybe hide quickmenu if its too obtrusive
 
         stop music fadeout 1.0
@@ -382,17 +370,20 @@ init python:
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
-        for tn, t in tasks[curlevel].items():
-            t['activated'] = False
-            t['done'] = False
+        for tn, t in tasks[curlevel]['infinite'].items():
             t['room'] = taskButtons[curlevel][t['btn']]['room']
             if not 'tags' in t:
                 t['tags'] = []
-            if 'game' in t and t['game']['type'] in taskTemplates:
-                for tn_, t_ in taskTemplates[t['game']['type']].items():
-                    if tn_ == 'dur':
-                        t['tf'] = t['t0'] + t_
-                    t[tn_] = t_
+            taskq[tn] = {}
+            if not taskTemplates[tn]['type'] == 'small':
+                if 'sequence' in t:
+                    setTaskButton(tn, taskTemplates[tn], t['sequence'][0])
+                    taskq[tn]['part'] = t['sequence'][0]
+                else:
+                    setTaskButton(tn, taskTemplates[tn])
+            else:
+                taskq[tn]['btn'] = None
+                pass # TODO generate task starting time
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:
@@ -412,11 +403,9 @@ label mini_launch(startroom='main', startfloor=0):
         tstart = levelInfo[curlevel]['t0']
         curtime = tstart
         tlimit = levelInfo[curlevel]['tf']
-        completion = 0
-        completion_f = 0
 
         productivity = 100
-        player_levels = [0, 0, 0]
+        player_attrs = [0, 0, 0]
 
         curroom = 'main'
         prevroom = levelInfo[curlevel]['room0']
@@ -425,16 +414,12 @@ label mini_launch(startroom='main', startfloor=0):
         curtask = None
         curtask_btn = None
         curgame = None
-        taskq = []
 
         curholder = None
         curhand = -1
         invitems = ['air', 'air']
         invstacks = [1, 1]
         ichoice = None
-
-        notes_text = ''
-        notes_text_s = ''
 
         mini_launch_py()
 
