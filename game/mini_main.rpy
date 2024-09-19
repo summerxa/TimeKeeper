@@ -65,7 +65,7 @@ screen btn_tsk(bt, hov_id=None):
                 action bt['act']
 
             # highlight and change mc textbox when hovered
-            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
+            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['curtask']['desc'])]
             if fetchq.empty():
                 unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
             else:
@@ -382,15 +382,30 @@ init python:
             if not 'tags' in t:
                 t['tags'] = []
             taskq[tn] = {}
-            if not taskTemplates[tn]['type'] == 'small':
+            for ttn, tt in taskTemplates[tn]:
+                if not ttn in t:
+                    t[ttn] = tt
+            if not t['type'] == 'small':
                 if 'sequence' in t:
-                    setTaskButton(tn, taskTemplates[tn], t['sequence'][0])
+                    setTaskButton(tn, t, t['sequence'][0])
                     taskq[tn]['part'] = t['sequence'][0]
                 else:
-                    setTaskButton(tn, taskTemplates[tn])
+                    setTaskButton(tn, t)
             else:
                 taskq[tn]['btn'] = None
                 pass # TODO generate task starting time
+        for tn, t in store.tasks['single'].items():
+            for ttn, tt in taskTemplates[tn]:
+                if not ttn in t:
+                    t[ttn] = tt
+            if t['t0'] <= curtime:
+                addFquest(tn, t)
+        for tn, t in store.tasks['optional'].items():
+            for ttn, tt in taskTemplates[tn]:
+                if not ttn in t:
+                    t[ttn] = tt
+            if t['t0'] <= curtime:
+                taskButtons[curlevel][t['btn']]['curtask'] = t
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:
