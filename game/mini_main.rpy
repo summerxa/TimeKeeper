@@ -65,12 +65,7 @@ screen btn_tsk(bt, hov_id=None):
                 action bt['act']
 
             # highlight and change mc textbox when hovered
-            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['curtask']['desc'])]
-            if fetchq.empty():
-                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
-            else:
-                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
-
+            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', b['htext'])]
             activate_sound audio.button_click_sfx
         else:
             # don't highlight button
@@ -79,11 +74,14 @@ screen btn_tsk(bt, hov_id=None):
                 # noble has a request
                 action SetVariable('hinttext', levelHints['quest_taskless'])
             else:
-                # no task in button
-                if 'taskless' in bt:
-                    bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
-                else:
-                    bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                # use the button's default "task unavailable" text
+                action bt['act']
+
+        if fetchq.empty():
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+
         # show highlights and rotation (if applicable)
         if can_show_task(bt):
             if 'rot' in bt:
@@ -110,7 +108,11 @@ screen btn_item(bt, hov_id):
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
-        unhovered SetVariable('cur_hov', None)
+        if fetchq.empty():
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
 
@@ -248,7 +250,10 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
-            unhovered SetVariable('cur_hov', None)
+            if fetchq.empty():
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+            else:
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 
@@ -332,7 +337,7 @@ label mini_main():
     hide screen mgame_overlay
 
     # time is not up, still remaining tasks
-    if curtime < tlimit:
+    if curtime < levelInfo[curlevel]['tf']:
         # TODO maybe hide quickmenu if its too obtrusive
 
         stop music fadeout 1.0
@@ -422,9 +427,7 @@ label mini_launch(startroom='main', startfloor=0):
 
         tolabel = ''
 
-        tstart = levelInfo[curlevel]['t0']
-        curtime = tstart
-        tlimit = levelInfo[curlevel]['tf']
+        curtime = levelInfo[curlevel]['t0']
 
         productivity = 100
         player_attrs = [0, 0, 0]

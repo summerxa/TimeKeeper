@@ -44,8 +44,6 @@ default tolabel = ''
 
 default curlevel = 500
 default curtime = 0
-default tstart = 0
-default tlimit = 9999
 
 default productivity = 100
 # cleanliness, coverage, service

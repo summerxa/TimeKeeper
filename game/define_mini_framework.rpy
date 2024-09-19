@@ -60,7 +60,7 @@ init python:
 
     # formats the time in mc textbox when player clicks on the clock
     def fmtTimeHinttext():
-        mleft = store.tlimit - store.curtime
+        mleft = store.levelInfo[store.curlevel]['tf'] - store.curtime
         hleft = mleft // 60
         mleft %= 60
         sleft = ""
@@ -98,7 +98,8 @@ init python:
         d = store.tasks[store.curlevel][task_type][task_name]
         if task_type == 'infinite' and 'sequence' in store.tasks[store.curlevel]['infinite'][task_name]:
             d = store.tasks[store.curlevel]['infinite'][task_part]
-        return d['desc'] + " (" + str(min(tlimit - tstart, t['tcost'])) + " min)"
+        # if cost of time is 9999 (skips entire minigame), show a smaller value for the time cost
+        return d['desc'] + " (" + str(min(levelInfo[curlevel]['tf'] - levelInfo[curlevel]['t0'], t['tcost'])) + " min)"
 
     # ONLY USE FOR INFINITE GENREATING TASKS
     # task_name = ID of the task
