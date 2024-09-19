@@ -2802,46 +2802,13 @@ label chap1_test_t6:
     jump mini_main
 
 init python:
-    def waterpour_init_py():
-        global curgame
-        if not 'original' in curgame:
-            curgame['original'] = []
-            for c in curgame['cups']:
-                curgame['original'].append(c['colors'].copy())
-
-label task_c1_waterpour:
-
-    $ waterpour_init_py()
-
-    scene bg mgame_waterpour
-
-    $ hinttext = levelHints['waterpour_idle']
-
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh' or game_ret == 'reset':
-        call screen mgame_waterpour
-        $ game_ret = _return
-        if game_ret == 'reset':
-            $ waterpour_init()
-            $ hinttext = levelHints['waterpour_idle']
-
-    $ docurtask('waterpour', game_ret == 'done')
-
-    if game_ret == 'done':
-        show screen mgame_waterpour(shaded=False)
-        show screen mgame_overlay
-        hide screen mgame_waterpour with dissolve
-
-    jump mini_main
-
-init python:
     def grabdishes_init_py():
         global curgame
         global mgame_goal
         global mgame_try
         global taskq
         if not 'try' in curgame:
-            # TODO double check docs- should be int btwn 3 to 6 inclusive
+            # generate random number of dishes between 3 and 6 inclusive
             mgame_goal = renpy.random.randint(3, 6)
             curgame['try'] = [0] * mgame_goal
             curgame['drag'] = []
@@ -2899,7 +2866,7 @@ init python:
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             })
         mgame_try = curgame['try']
-        # we can access "ndishes" again down here!
+        # we can access "ndishes" again because it was saved in taskq
         mgame_goal = store.taskq['dishes_chain']['ndishes']
         curgame['drop'] = [
             {
@@ -2920,8 +2887,6 @@ label task_c1_dropdishes:
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
 
-    # $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
-    # TODO fix this - should be based on number of dishes from previous part of quest chain
     $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
     $ docurtask(not taskq['dishes_chain']['ndishes'])
     if game_ret == 'done':
@@ -2933,6 +2898,53 @@ label task_c1_dropdishes:
     # ie. in drop dishes, you get kicked when you drop off all dishes in your inventory,
     # NOT when you've dropped off the expected total number of dishes
     $ hinttext = levelHints['default_idle']
+
+    jump mini_main
+
+init python:
+    def waterpour_init_py():
+        global curgame
+        if not 'cups' in curgame:
+            curgame['cups'] = [[], [], [], []]
+            for i in ['#920e0e', '#a4f910', '#eedfab']:
+                candidate_pos = [0, 1, 2, 3]
+                for j in range(4):
+                    while True:
+                        p = renpy.random.choice(candidate_pos)
+                        if len(curgame['cups'][p]) == 4 or (len(curgame['cups'][p] == 3) and curgame['cups'][p].count(i) == 3):
+                            candidate_pos.remove(p)
+                        else:
+                            curgame['cups'][p].append(i)
+                            break
+            for c in curgame['cups']:
+                renpy.random.shuffle(c)
+        if not 'original' in curgame:
+            curgame['original'] = []
+            for c in curgame['cups']:
+                curgame['original'].append(c['colors'].copy())
+
+label task_c1_waterpour:
+
+    $ waterpour_init_py()
+
+    scene bg mgame_waterpour
+
+    $ hinttext = levelHints['waterpour_idle']
+
+    $ game_ret = 'refresh'
+    while game_ret == 'refresh' or game_ret == 'reset':
+        call screen mgame_waterpour
+        $ game_ret = _return
+        if game_ret == 'reset':
+            $ waterpour_init()
+            $ hinttext = levelHints['waterpour_idle']
+
+    $ docurtask('waterpour', game_ret == 'done')
+
+    if game_ret == 'done':
+        show screen mgame_waterpour(shaded=False)
+        show screen mgame_overlay
+        hide screen mgame_waterpour with dissolve
 
     jump mini_main
 

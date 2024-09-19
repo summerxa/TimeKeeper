@@ -575,8 +575,7 @@ default taskTemplates = {
         'item_req': ['air', 'dish_dirty'],
         'attributes': [0,0,0],
         'next': 'dropdishes',
-        'parent': 'dishes_chain',
-        'goal_range': [3, 6] # possible number of dishes goes from 3 to 6
+        'parent': 'dishes_chain'
     },
     'dropdishes': {
         'tcost': 5,
