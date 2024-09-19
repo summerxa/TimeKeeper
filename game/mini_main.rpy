@@ -65,23 +65,22 @@ screen btn_tsk(bt, hov_id=None):
                 action bt['act']
 
             # highlight and change mc textbox when hovered
-            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', b['htext'])]
+            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
             activate_sound audio.button_click_sfx
         else:
             # don't highlight button
             auto bt['imtask_idle']
-            if not fetchq.empty():
+            if fetchq:
                 # noble has a request
                 action SetVariable('hinttext', levelHints['quest_taskless'])
             else:
                 # use the button's default "task unavailable" text
                 action bt['act']
 
-        if fetchq.empty():
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
-        else:
+        if fetchq:
             unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
-
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
         # show highlights and rotation (if applicable)
         if can_show_task(bt):
             if 'rot' in bt:
@@ -108,10 +107,10 @@ screen btn_item(bt, hov_id):
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
-        if fetchq.empty():
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
-        else:
+        if fetchq:
             unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
 
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
@@ -191,8 +190,8 @@ screen mini_sidebar(curstate='main', gametype=None):
                 xalign 0.5
                 yalign 0.5
                 auto 'mini/ui/clock_%s.png'
-                action [SetVariable('hinttext', fmtTimeHinttext())]
-                hovered SetVariable('cur_hov', 'clock_btn')
+                action NullAction()
+                hovered [SetVariable('cur_hov', 'clock_btn'), SetVariable('hinttext', fmtTimeHinttext())]
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'clock_btn')
                 activate_sound audio.button_click_sfx
@@ -250,10 +249,10 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
-            if fetchq.empty():
-                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
-            else:
+            if fetchq:
                 unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+            else:
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 
@@ -383,11 +382,11 @@ init python:
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
         for tn, t in tasks[curlevel]['infinite'].items():
-            t['room'] = taskButtons[curlevel][t['btn']]['room']
+            t['tasktype'] = tn
             if not 'tags' in t:
                 t['tags'] = []
             taskq[tn] = {}
-            for ttn, tt in taskTemplates[tn]:
+            for ttn, tt in taskTemplates[tn].items():
                 if not ttn in t:
                     t[ttn] = tt
             if not t['type'] == 'small':
@@ -396,21 +395,22 @@ init python:
                     taskq[tn]['part'] = t['sequence'][0]
                 else:
                     setTaskButton(tn, t)
+                t['room'] = taskButtons[curlevel][taskq[tn]['btn']]['room']
             else:
                 taskq[tn]['btn'] = None
                 pass # TODO generate task starting time
-        for tn, t in store.tasks['single'].items():
-            for ttn, tt in taskTemplates[tn]:
+        for tn, t in store.tasks[store.curlevel]['single'].items():
+            for ttn, tt in taskTemplates[t['tasktype']].items():
                 if not ttn in t:
                     t[ttn] = tt
-            if t['t0'] <= curtime:
+            if 't0' in t and t['t0'] <= curtime:
                 addFquest(tn, t)
-        for tn, t in store.tasks['optional'].items():
-            for ttn, tt in taskTemplates[tn]:
+        for tn, t in store.tasks[store.curlevel]['optional'].items():
+            for ttn, tt in taskTemplates[t['tasktype']].items():
                 if not ttn in t:
                     t[ttn] = tt
-            if t['t0'] <= curtime:
-                taskButtons[curlevel][t['btn']]['curtask'] = t
+            if 't0' in t and t['t0'] <= curtime:
+                activateOptquest(tn, t)
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:

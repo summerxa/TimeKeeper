@@ -2911,7 +2911,7 @@ init python:
                 for j in range(4):
                     while True:
                         p = renpy.random.choice(candidate_pos)
-                        if len(curgame['cups'][p]) == 4 or (len(curgame['cups'][p] == 3) and curgame['cups'][p].count(i) == 3):
+                        if len(curgame['cups'][p]) == 4 or (len(curgame['cups'][p]) == 3 and curgame['cups'][p].count(i) == 3):
                             candidate_pos.remove(p)
                         else:
                             curgame['cups'][p].append(i)
@@ -2921,7 +2921,7 @@ init python:
         if not 'original' in curgame:
             curgame['original'] = []
             for c in curgame['cups']:
-                curgame['original'].append(c['colors'].copy())
+                curgame['original'].append(c.copy())
 
 label task_c1_waterpour:
 

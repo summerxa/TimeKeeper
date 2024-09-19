@@ -52,17 +52,6 @@ screen popup_info(info_name, info_title):
                     else:
                         text t_:
                             xalign 0.
-
-        # vbox:
-        #             xmaximum 800
-        #             for t_ in helpText[h_tab]:
-        #                 if t_[0] == ">":
-        #                     text t_[1:]:
-        #                         xanchor 0.
-        #                         xpos 0.05
-        #                 else:
-        #                     text t_:
-        #                         xalign 0.
         
         textbutton 'X':
             text_color gui.hover_color
@@ -94,6 +83,36 @@ screen popup_notes():
             spacing 23
             align (0.5,0.)
             xminimum 1367
+            vbox:
+                text f"◆ left page ◆":
+                    style 'fancy_font'
+                    size 50
+                    xalign 0.5
+
+                viewport:
+                    area (0, 20, 600, 800)
+                    
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+                    text "this is filler text blahblah":
+                        color '#906548'
+                
+                text f"◆ right page ◆":
+                    style 'fancy_font'
+                    size 50
+                    xalign 0.5
+
+                viewport:
+                    area (0, 20, 600, 800)
+                    
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+                    text "there will be stuff here eventually":
+                        color '#906548'
             # TODO change this to the new UI
             # for tab in [['Tasks', notes_text], ['Completion', generateScore()]]:
             #     vbox:

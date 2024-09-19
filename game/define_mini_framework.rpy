@@ -5,7 +5,11 @@ init python:
     # returns True if there are no fetch quests active
     # otherwise, returns True if this button has the currently active fetch quest; and False if it doesn't
     def can_show_task(bt):
-        return bt['curtask'] and (store.fetchq.empty() or (bt['curtask']['game']['type'] == 'fetchquest' or bt['curtask']['game']['type'] == 'fetchquest_end'))
+        if not bt['curtask']:
+            return False
+        not_noble_req = (not fetchq or (bt['curtask']['tasktype'] == 'fetchquest' or bt['curtask']['tasktype'] == 'fetchquest_end'))
+        not_optional = (bt['curtask']['type'] != 'optional')
+        return not_noble_req and not_optional
 
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
@@ -27,10 +31,10 @@ init python:
         global productivity
         curtime += mins
         # TODO trigger bonus quest if applicable
-        for tn, t in store.tasks['single'].items():
-            if t['t0'] <= curtime and not tn in fetchq and not tn in levelInfo[curlevel]['quests_done']:
+        for tn, t in store.tasks[store.curlevel]['single'].items():
+            if 't0' in t and t['t0'] <= curtime and not tn in fetchq and not tn in levelInfo[curlevel]['quests_done']:
                 addFquest(tn, t)
-        for tn, t in store.tasks['optional'].items():
+        for tn, t in store.tasks[store.curlevel]['optional'].items():
             if t['t0'] <= curtime and not tn in levelInfo[curlevel]['quests_done']:
                 taskButtons[curlevel][t['btn']]['curtask'] = t
         if isBonusTask:
@@ -58,7 +62,7 @@ init python:
             tx += 'pm'
         return tx
 
-    # formats the time in mc textbox when player clicks on the clock
+    # formats the time in mc textbox when player hovers on the clock
     def fmtTimeHinttext():
         mleft = store.levelInfo[store.curlevel]['tf'] - store.curtime
         hleft = mleft // 60
@@ -79,13 +83,17 @@ init python:
 
     # --- TASK/TASKBUTTON FORMATTING ---
 
-    def fmtTskButton(t):
-        return f"{fmtTsk(t)} ({t['tcost']} min)"
+    def fmtTask(task_name, task_part='', task_type='infinite'):
+        d = store.tasks[store.curlevel][task_type][task_name]
+        if task_type == 'infinite' and 'sequence' in store.tasks[store.curlevel]['infinite'][task_name]:
+            d = store.taskTemplates[task_part]
+        # if cost of time is 9999 (skips entire minigame), show a smaller value for the time cost
+        return d['desc'] + " (" + str(min(levelInfo[curlevel]['tf'] - levelInfo[curlevel]['t0'], d['tcost'])) + " min)"
 
     # DON'T call this directly! helper method for setTaskButton
     def getTaskButton(all_btns):
         a = all_btns.copy()
-        while not a.empty():
+        while a:
             bt = renpy.random.choice(a)
             if not store.taskButtons[store.curlevel][bt]['curtask']:
                 return bt
@@ -93,13 +101,6 @@ init python:
                 # ensures we don't keep drawing occupied buttons
                 a.remove(bt)
         return None
-
-    def fmtTask(task_name, task_part='', task_type='infinite'):
-        d = store.tasks[store.curlevel][task_type][task_name]
-        if task_type == 'infinite' and 'sequence' in store.tasks[store.curlevel]['infinite'][task_name]:
-            d = store.tasks[store.curlevel]['infinite'][task_part]
-        # if cost of time is 9999 (skips entire minigame), show a smaller value for the time cost
-        return d['desc'] + " (" + str(min(levelInfo[curlevel]['tf'] - levelInfo[curlevel]['t0'], t['tcost'])) + " min)"
 
     # ONLY USE FOR INFINITE GENREATING TASKS
     # task_name = ID of the task
@@ -110,14 +111,22 @@ init python:
             btn_list = task['btns'][task_part]
         else:
             btn_list = task['btns']
+
         bt_choice = getTaskButton(btn_list)
         store.taskq[task_name]['btn'] = bt_choice
         
         bt = store.taskButtons[store.curlevel][bt_choice]
         bt['curtask'] = task
 
-        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', t['game']), Return(t['tlabel'])]
-        if not Task.NO_FADE in t['tags']:
+        bt['act'] = [SetVariable('curtask', task), SetVariable('curtask_btn', bt)]
+        if 'sequence' in task:
+            to_label = store.taskTemplates[task_part]['tlabel']
+            bt['act'] += [SetVariable('curgame', {'type': task_part})]
+        else:
+            to_label = task['tlabel']
+            bt['act'] += [SetVariable('curgame', {'type': task['tasktype']})]
+        bt['act'] += [Return(to_label)]
+        if not Task.NO_FADE in task['tags']:
             bt['act'] += [With(cfade)]
         
         bt['htext'] = fmtTask(task_name, task_part)
@@ -125,15 +134,21 @@ init python:
     # adds a fetch quest to fetchq
     def addFquest(task_name, task):
         fetchq.append(task_name)
-        if fetchq.empty():
+        if len(fetchq) == 1:
             activateFquest(task_name, task)
     
     # activates the fetch quest
-    def activateFquest(task_name, task):
-        bt = store.taskButtons[store.curlevel]['single'][task['btn']]
-        bt['htext'] = fmtTask(task_name, '', True)
-        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', t['game']), Return(t['tlabel'])]
-            
+    def activateFquest(task_name, t):
+        bt = store.taskButtons[store.curlevel][t['btn']]
+        bt['htext'] = fmtTask(task_name, '', 'single')
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
+    
+    # activates the optional quest
+    def activateOptquest(task_name, t):
+        bt = store.taskButtons[store.curlevel][t['btn']]
+        bt['htext'] = fmtTask(task_name, '', 'optional')
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
+    
 
     # --- ROOM/MAP STUFF ---
 
@@ -165,12 +180,15 @@ init python:
     # goodjob = task was completed (instead of ditching)
     # task_type = either infinite or single
     def docurtask(tname=None, goodjob=True, task_type='infinite'):
-        t = store.tasks[tname]
+        if task_type == 'infinite' and 'sequence' in tasks[curlevel]['infinite'][tname]:
+            t = taskTemplates[tname]
+        else:
+            t = store.tasks[store.curlevel][task_type][tname]
         addTime(t['tcost'], goodjob, t['type'] == 'small')
         store.curtask_btn['curtask'] = None
         if goodjob:
             for i in range(len(player_attrs)):
-                player_attrs[i] += tasks[tname]['attributes'][i]
+                player_attrs[i] += t['attributes'][i]
         if task_type == 'infinite':
             if t['type'] == 'small' and levelInfo[curlevel]['bonus_remaining'] > 0:
                 levelInfo[curlevel]['bonus_remaining'] -= 1
@@ -181,9 +199,11 @@ init python:
             else:
                 setTaskButton(tname, t)
         else:
-            if task_type == 'single:'
+            if task_type == 'single':
                 del fetchq[0]
-                if not fetchq.empty(): # activate next quest in quest chain, if it is unlocked
+                if 'next' in t:
+                    fetchq.insert(0, t['next'])
+                if fetchq: # activate next quest in quest chain, if it is unlocked
                     activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
             levelInfo[curlevel]['quests_done'].add(tname)
 

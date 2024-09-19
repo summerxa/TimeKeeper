@@ -12,12 +12,15 @@ label start:
 
 label chapter1:
 
-    call c1_scene1 from _call_c1_scene1
-    #call c1_scene1_5 #only for testing
-    call c1_scene2 from _call_c1_scene2
+    # call c1_scene1 from _call_c1_scene1
+    # #call c1_scene1_5 #only for testing
+    # call c1_scene2 from _call_c1_scene2
 
-    # eventually this will be part of the tutorial minigame
-    call c1_scene3 from _call_c1_scene3
+    # # eventually this will be part of the tutorial minigame
+    # call c1_scene3 from _call_c1_scene3
+
+    show mc 1a
+    s "insert cutscene here that transitions to the minigame"
 
     # minigame
     $ node_unlock('c1_mgame')

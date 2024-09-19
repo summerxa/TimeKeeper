@@ -31,11 +31,10 @@ init python:
         all_colors = []
         failed = False
         for cup in cups:
-            cup_colors = cup['colors']
-            if not len(cup_colors):
+            if not len(cup):
                 continue
-            curcolor = cup_colors[0]
-            for c in cup_colors:
+            curcolor = cup[0]
+            for c in cup:
                 if c in all_colors or c != curcolor:
                     failed = True
                     break
@@ -48,12 +47,12 @@ init python:
     def waterpour_init():
         i = 0
         for c in curgame['cups']:
-            c['colors'] = curgame['original'][i].copy()
+            c = curgame['original'][i].copy()
             i += 1
 
     def waterpour_act(sel, dest):
-        color = store.curgame['cups'][sel]['colors'].pop()
-        store.curgame['cups'][dest]['colors'].append(color)
+        color = store.curgame['cups'][sel].pop()
+        store.curgame['cups'][dest].append(color)
         return waterpour_ok(curgame['cups'])
 
     def laundry_ok():
@@ -162,7 +161,7 @@ screen mgame_waterpour(shaded=True):
             action If(
                 sel < 0, true=SetScreenVariable('sel', i), false=If(
                     sel == i, true=SetScreenVariable('sel', -1), false=If(
-                        len(c['colors']) >= 4,
+                        len(c) >= 4,
                         true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
                         false=[
                             Function(waterpour_act, sel=sel, dest=i),
@@ -172,7 +171,7 @@ screen mgame_waterpour(shaded=True):
                     )
                 )
             )
-        for j, curcolor in list(enumerate(c['colors'])):
+        for j, curcolor in list(enumerate(c)):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
                 xpos xplist[i]
                 ypos yp - (0.1 if sel == i else 0.)

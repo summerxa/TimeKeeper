@@ -38,7 +38,6 @@ init python:
         SPECIAL = 0     # task is recommended
         OPTIONAL = 1    # for easter egg tasks
         NO_FADE = 2     # no fadein/fadeout animation
-        NON_ROOT = 3    # cannot be completed w/o doing prereq quests
 
 default tolabel = ''
 
@@ -56,7 +55,7 @@ default curfloor = 0
 default curtask = None
 default curtask_btn = None
 default curgame = None
-default fetchq = {}
+default fetchq = []
 default taskq = {}
 
 default curholder = None
