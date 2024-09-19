@@ -1,34 +1,17 @@
 init python:
-    def is_win_listeq():
-        for i in range(len(store.mgame_try)):
-            if store.mgame_try[i] != store.mgame_goal[i]:
-                return False
-        return True
-
-    def is_win_count(tocount):
-        return store.mgame_try.count(tocount) == store.mgame_goal
-
-
-    def toggle_act(i):
-        store.mgame_try[i] = not store.mgame_try[i]
-        return 'done' if is_win_listeq() else 'refresh'
-
-    def items_dragged(drags, drop):
-        dragnum = int(drags[0].drag_name)
-        store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
-        if not drop:
-            store.mgame_try[dragnum] = ''
-        else:
-            store.mgame_try[dragnum] = drop.drag_name
-        return 'done' if is_win_listeq() else 'refresh'
-    
+    # FOR MINIGAMES:
+    # functions formatted as gamename_act, legal return values include:
+    # 'refresh' to reload the game screen and show the new game state
+    # 'done' to exit the game (done automatically once there's nothing left to do in the minigame)
+    #       IMPORTANT: 'done' =/= mark the task as completed; for some tasks you need to
+    #           manually double check whether the task was done
     def dishes_act(drags, drop):
         dragnum = int(drags[0].drag_name)
         store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'done' if not 0 in store.mgame_try else 'refresh'
-        return 'none'
+        return 'refresh'
 
     def dragged_grabdishes(drags, drop):
         ret = dishes_act(drags, drop)
@@ -102,27 +85,6 @@ init python:
 screen mgame_overlay(shaded=True, has_mc=True):
     use mini_overlay('mgame', curgame['type'], shaded, has_mc)
 
-screen mgame_dragdrop():
-    draggroup:
-        # drop
-        for d in curgame['drop']:
-            drag:
-                drag_name d['n']
-                pos d['p']
-                draggable False
-                droppable True
-                child d['im']
-        
-        # drag
-        for d in curgame['drag']:
-            drag:
-                drag_name d['n']
-                pos d['p']
-                draggable True
-                droppable False
-                dragged items_dragged
-                drag_raise True
-                child d['im']
 
 screen mgame_dragdrop_dishes(shaded=True):
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:

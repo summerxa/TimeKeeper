@@ -2839,8 +2839,10 @@ init python:
         global curgame
         global mgame_goal
         global mgame_try
+        global taskq
         if not 'try' in curgame:
-            mgame_goal = curgame['goal']
+            # TODO double check docs- should be int btwn 3 to 6 inclusive
+            mgame_goal = renpy.random.randint(3, 6)
             curgame['try'] = [0] * mgame_goal
             curgame['drag'] = []
             for i in range(mgame_goal):
@@ -2853,6 +2855,11 @@ init python:
                 }
             ]
         mgame_try = curgame['try']
+        # You can store other variables in taskq, not just location and part
+        # in this case we need to check the number of dishes to make sure
+        # the player dropped off all of them
+        # So we store the expected number of dishes in "ndishes"
+        taskq['dishes_chain']['ndishes'] = mgame_goal
 
 label task_c1_grabdishes:
     
@@ -2881,6 +2888,7 @@ init python:
     def dropdishes_init_py():
         global curgame
         global mgame_try
+        global mgame_goal
         curgame['try'] = [] # reset dishes every time, in case player gained or lost some
         curgame['drag'] = []
         for i in range(invCountNum('dish_dirty')):
@@ -2891,6 +2899,8 @@ init python:
                 'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
             })
         mgame_try = curgame['try']
+        # we can access "ndishes" again down here!
+        mgame_goal = store.taskq['dishes_chain']['ndishes']
         curgame['drop'] = [
             {
                 'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
@@ -2910,17 +2920,18 @@ label task_c1_dropdishes:
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
 
-    $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
+    # $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
     # TODO fix this - should be based on number of dishes from previous part of quest chain
-    if not levelInfo[curlevel]['ndishes']:
-        $ docurtask(True)
-    else:
-        $ docurtask(False, False)
+    $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
+    $ docurtask(not taskq['dishes_chain']['ndishes'])
+    if game_ret == 'done':
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
 
-    # NOTE: need to do this for any task that auto-kicks you out without being marked as "done"
+    # NOTE: need to do this for any task that can kick you out without even completing the task
+    # ie. in drop dishes, you get kicked when you drop off all dishes in your inventory,
+    # NOT when you've dropped off the expected total number of dishes
     $ hinttext = levelHints['default_idle']
 
     jump mini_main
