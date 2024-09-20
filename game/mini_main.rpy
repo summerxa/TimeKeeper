@@ -393,7 +393,6 @@ init python:
                     taskq[tn]['part'] = t['sequence'][0]
                 else:
                     setTaskButton(tn, t)
-                t['room'] = taskButtons[curlevel][taskq[tn]['btn']]['room']
             else:
                 taskq[tn]['btn'] = None
                 pass # TODO generate task starting time

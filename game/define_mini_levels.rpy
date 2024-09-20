@@ -28,8 +28,11 @@ default levelInfo = {
         'quests_done': set(),
         'bonus_remaining': 5,
         'room0': 'ballroom',
-        'floor0': 0
+        'floor0': 0,
         # TODO tutorial data... may or may not adjust
+        'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
+        
+{b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
     },
     1: {
         't0': 1080,
@@ -41,8 +44,11 @@ default levelInfo = {
         'quests_done': set(),
         'bonus_remaining': 5,
         'room0': 'ballroom',
-        'floor0': 0
+        'floor0': 0,
         # TODO this *might* be guestrooms if we use amelia sick cutscene as a transition
+        'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
+        
+{b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
     }
 }
 
@@ -559,12 +565,14 @@ default taskTemplates = {
     'fetchquest': {
         'tcost': 5,
         'type': 'none',
+        'title': "Guest Request",
         'attributes': [0,0,0],
         'tags': [Task.SPECIAL]
     },
     'fetchquest_end': {
         'tcost': 5,
         'type': 'medium',
+        'title': "Guest Request",
         'attributes': [1,1,3],
         'tags': [Task.SPECIAL]
     },
@@ -592,6 +600,7 @@ default taskTemplates = {
     },
     'dishes_chain': { # contains all the parts of the "quest chain"
         'type': 'medium',
+        'title': "Clean up dirty dishes",
         'sequence': ['grabdishes', 'dropdishes'],
         'desc': 'Clear the ballroom tables, drop off dirty dishes in the kitchen',
         'attributes': [3,1,1]
@@ -599,15 +608,17 @@ default taskTemplates = {
     'waterpour': {
         'tcost': 20,
         'type': 'large',
-        'desc': 'Pour drinks at the bar',
+        'title': "Help at the bar",
+        'desc': "Pour drinks at the ballroom's bar",
         'tlabel': 'task_c1_waterpour',
         'attributes': [1,3,6]
     },
     'sortlaundry': {
         'tcost': 20,
         'type': 'large',
+        'title': "Do the laundry",
         'tlabel': 'task_c1_sortlaundry',
-        'desc': 'Sort the laundry',
+        'desc': 'Sort the laundry into the washing machines',
         'attributes': [4,4,2]
     },
     'grabfood': {
@@ -637,6 +648,7 @@ default taskTemplates = {
     'food_chain': {
         'type': 'medium',
         'sequence': ['grabfood', 'dropfood'],
+        'title': "Serve the food",
         'desc': 'Pick up finished dishes in the kitchen, drop off dishes in ballroom',
         'tags': [Task.NO_FADE],
         'attributes': [1,2,2]
@@ -645,7 +657,8 @@ default taskTemplates = {
         'tcost': 1,
         'type': 'small',
         'tlabel': 'task_c1_lightcandle',
-        'desc': 'Light the candles',
+        'title': "Light candles",
+        'desc': 'Light the candles in the upstairs guestrooms',
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
         'tags': [Task.NO_FADE],

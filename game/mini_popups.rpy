@@ -63,6 +63,29 @@ screen popup_info(info_name, info_title):
             at highlight_hov(cur_hov, 'popup_close_btn_2')
             activate_sound audio.button_click_sfx
 
+screen task_display(t, t_part=None, t_blocked=False):
+    vbox:
+        anchor(0., 0.5) pos(0.05, 0.5)
+        text f"{t['title']}: {t['attributes'][0]} {t['attributes'][1]} {t['attributes'][2]}":
+            color '#906548'
+        if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
+            text f"Location: {taskButtons[curlevel][t['btn']]['room']}":
+                color '#906548'
+        else:
+            text f"Location: {taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']}":
+                color '#906548'
+        if t_part:
+            text f"Time: {t_part['tcost']}m":
+                color '#906548'
+        else:
+            text f"Time: {t['tcost']}m":
+                color '#906548'
+        text f"{t['desc']}":
+            color '#906548'
+        if t_blocked:
+            text "{i}Must complete previous guest request to unlock this task{/i}":
+                color '#906548'
+
 screen popup_notes():
     modal True
     zorder 200
@@ -84,52 +107,70 @@ screen popup_notes():
             align (0.5,0.)
             xminimum 1367
             vbox:
-                text f"◆ left page ◆":
+                spacing 23
+                xmaximum 650
+                text f"◆ Tasks ◆":
                     style 'fancy_font'
                     size 50
                     xalign 0.5
 
                 viewport:
-                    area (0, 20, 600, 800)
+                    area (0, 20, 600, 750)
                     
                     mousewheel True
                     draggable True
                     scrollbars "vertical"
                     vscrollbar_unscrollable "hide"
-                    text "this is filler text blahblah":
-                        color '#906548'
+
+                    vbox:
+                        spacing 23
+
+                        text levelInfo[curlevel]['task_popup_text']:
+                            color '#906548'
+
+                        text "{b}Priority Tasks{/b}":
+                            size 40
+                            color '#906548'
+
+                        # TODO add horizontal line
+
+                        if fetchq:
+                            vbox:
+                                spacing 23
+                                for fq in fetchq:
+                                    use task_display(tasks[curlevel]['single'][fq], t_blocked = (fq != fetchq[0]))
+                        else:
+                            text "None right now.":
+                                anchor(0., 0.5) pos(0.05, 0.5)
+                                color '#906548'
+            
             vbox:
-                text f"◆ right page ◆":
+                text f"◆ Tasks ◆":
                     style 'fancy_font'
                     size 50
                     xalign 0.5
+                
+                text "{b}Other Tasks{/b}":
+                    size 40
+                    color '#906548'
+                
+                # TODO add horizontal line
 
                 viewport:
-                    area (0, 20, 600, 800)
+                    area (0, 20, 600, 735)
                     
                     mousewheel True
                     draggable True
                     scrollbars "vertical"
                     vscrollbar_unscrollable "hide"
-                    text "there will be stuff here eventually":
-                        color '#906548'
-            # TODO change this to the new UI
-            # for tab in [['Tasks', notes_text], ['Completion', generateScore()]]:
-            #     vbox:
-            #         text f"◆ {tab[0]} ◆":
-            #             style 'fancy_font'
-            #             size 50
-            #             xalign 0.5
-
-            #         viewport:
-            #             area (0, 20, 600, 800)
-                        
-            #             mousewheel True
-            #             draggable True
-            #             scrollbars "vertical"
-            #             vscrollbar_unscrollable "hide"
-            #             text tab[1]:
-            #                 color '#906548'
+                    vbox:
+                        spacing 23
+                        for tn, tsk in taskq.items():
+                            if tsk['btn']:
+                                if 'sequence' in tasks[curlevel]['infinite'][tn]:
+                                    use task_display(tasks[curlevel]['infinite'][tn], taskTemplates[tsk['part']])
+                                else:
+                                    use task_display(tasks[curlevel]['infinite'][tn])
         
         button:
             anchor (0.,0.)
