@@ -126,7 +126,7 @@ init python:
             to_label = task['tlabel']
             bt['act'] += [SetVariable('curgame', {'type': task['tasktype']})]
         bt['act'] += [Return(to_label)]
-        if not Task.NO_FADE in task['tags']:
+        if 'tags' in task and not Task.NO_FADE in task['tags']:
             bt['act'] += [With(cfade)]
         
         bt['htext'] = fmtTask(task_name, task_part)
@@ -140,6 +140,7 @@ init python:
     # activates the fetch quest
     def activateFquest(task_name, t):
         bt = store.taskButtons[store.curlevel][t['btn']]
+        bt['curtask'] = t
         bt['htext'] = fmtTask(task_name, '', 'single')
         bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
     
@@ -180,7 +181,7 @@ init python:
     # goodjob = task was completed (instead of ditching)
     # task_type = either infinite or single
     def docurtask(tname=None, goodjob=True, task_type='infinite'):
-        if task_type == 'infinite' and 'sequence' in tasks[curlevel]['infinite'][tname]:
+        if task_type == 'infinite':
             t = taskTemplates[tname]
         else:
             t = store.tasks[store.curlevel][task_type][tname]
@@ -193,11 +194,11 @@ init python:
             if t['type'] == 'small' and levelInfo[curlevel]['bonus_remaining'] > 0:
                 levelInfo[curlevel]['bonus_remaining'] -= 1
                 pass # TODO generate next time for bonus task
-            if 'next' in tname:
-                store.taskq[t['parent']]['part'] = tname['next']
-                setTaskButton(t['parent'], tasks[t['parent']], tname['next'])
+            if 'next' in t:
+                store.taskq[t['parent']]['part'] = t['next']
+                setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
             else:
-                setTaskButton(tname, t)
+                setTaskButton(tname, tasks[curlevel]['infinite'][tname])
         else:
             if task_type == 'single':
                 del fetchq[0]

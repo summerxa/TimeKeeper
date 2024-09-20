@@ -44,7 +44,7 @@ default tolabel = ''
 default curlevel = 500
 default curtime = 0
 
-default productivity = 100
+default productivity = 100.0
 # cleanliness, coverage, service
 default player_attrs = [0, 0, 0]
 

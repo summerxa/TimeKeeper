@@ -383,8 +383,6 @@ init python:
                 h['item']['stack'] = 1
         for tn, t in tasks[curlevel]['infinite'].items():
             t['tasktype'] = tn
-            if not 'tags' in t:
-                t['tags'] = []
             taskq[tn] = {}
             for ttn, tt in taskTemplates[tn].items():
                 if not ttn in t:
@@ -396,6 +394,8 @@ init python:
                 else:
                     setTaskButton(tn, t)
                 t['room'] = taskButtons[curlevel][taskq[tn]['btn']]['room']
+            if not 'tags' in t:
+                t['tags'] = []
             else:
                 taskq[tn]['btn'] = None
                 pass # TODO generate task starting time
@@ -429,7 +429,7 @@ label mini_launch(startroom='main', startfloor=0):
 
         curtime = levelInfo[curlevel]['t0']
 
-        productivity = 100
+        productivity = 100.0
         player_attrs = [0, 0, 0]
 
         curroom = 'main'

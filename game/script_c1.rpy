@@ -2888,7 +2888,7 @@ label task_c1_dropdishes:
         $ game_ret = _return
 
     $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
-    $ docurtask(not taskq['dishes_chain']['ndishes'])
+    $ docurtask('dropdishes', not taskq['dishes_chain']['ndishes'])
     if game_ret == 'done':
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay

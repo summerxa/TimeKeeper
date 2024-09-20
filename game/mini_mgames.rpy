@@ -45,10 +45,8 @@ init python:
         return 'refresh' if failed else 'done'
 
     def waterpour_init():
-        i = 0
-        for c in curgame['cups']:
-            c = curgame['original'][i].copy()
-            i += 1
+        for i in range(4):
+            curgame['cups'][i] = curgame['original'][i].copy()
 
     def waterpour_act(sel, dest):
         color = store.curgame['cups'][sel].pop()

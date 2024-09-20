@@ -557,13 +557,13 @@ default taskTemplates = {
         'tags': [Task.OPTIONAL]
     },
     'fetchquest': {
-        'tcost': 10,
+        'tcost': 5,
         'type': 'none',
         'attributes': [0,0,0],
         'tags': [Task.SPECIAL]
     },
     'fetchquest_end': {
-        'tcost': 10,
+        'tcost': 5,
         'type': 'medium',
         'attributes': [1,1,3],
         'tags': [Task.SPECIAL]
@@ -619,7 +619,8 @@ default taskTemplates = {
         'fail_id': 'handsfull_fail',
         'item_req': ['air'],
         'attributes': [0,0,0],
-        'next': 'dropfood'
+        'next': 'dropfood',
+        'parent': 'food_chain'
     },
     'dropfood': {
         'tcost': 5,
@@ -630,12 +631,14 @@ default taskTemplates = {
         'fail_id': 'dropfood_fail',
         'item_req': ['food'],
         'attributes': [1,2,2],
-        'next': 'grabfood'
+        'next': 'grabfood',
+        'parent': 'food_chain'
     },
     'food_chain': {
         'type': 'medium',
         'sequence': ['grabfood', 'dropfood'],
         'desc': 'Pick up finished dishes in the kitchen, drop off dishes in ballroom',
+        'tags': [Task.NO_FADE],
         'attributes': [1,2,2]
     },
     'lightcandle': {
