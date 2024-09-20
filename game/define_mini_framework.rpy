@@ -8,7 +8,7 @@ init python:
         if not bt['curtask']:
             return False
         not_noble_req = (not fetchq or (bt['curtask']['tasktype'] == 'fetchquest' or bt['curtask']['tasktype'] == 'fetchquest_end'))
-        not_optional = (bt['curtask']['type'] != 'optional')
+        not_optional = (not Task.OPTIONAL in bt['curtask']['tags'])
         return not_noble_req and not_optional
 
     # returns True if last label was a room change (gotoroom) function
@@ -185,11 +185,13 @@ init python:
             t = taskTemplates[tname]
         else:
             t = store.tasks[store.curlevel][task_type][tname]
-        addTime(t['tcost'], goodjob, t['type'] == 'small')
         store.curtask_btn['curtask'] = None
         if goodjob:
             for i in range(len(player_attrs)):
                 player_attrs[i] += t['attributes'][i]
+            addTime(t['tcost'], goodjob, t['type'] == 'small')
+        else:
+            addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
         if task_type == 'infinite':
             if t['type'] == 'small' and levelInfo[curlevel]['bonus_remaining'] > 0:
                 levelInfo[curlevel]['bonus_remaining'] -= 1
@@ -357,7 +359,7 @@ label gotoroom_direct:
     jump mini_main
 
 # shows menu to give an item to an NPC in fetch quests
-label give_item_prompt(vb='Give', both_hands=False):
+label give_item_prompt(npc, msg, vb='Give', both_hands=False):
     $ showlh = (invitems[0] != 'air')
     if both_hands:
         $ showrh = (invitems[1] != 'air')
@@ -369,6 +371,8 @@ label give_item_prompt(vb='Give', both_hands=False):
 
     if both_hands:
         menu:
+            npc "[msg]"
+
             "[vb] [ltext] and [rtext]" if showlh and showrh:
                 $ ichoice = invitems
             "[vb] [ltext]" if showlh and not showrh:
@@ -379,6 +383,8 @@ label give_item_prompt(vb='Give', both_hands=False):
                 $ ichoice = None
     else:
         menu:
+            npc "[msg]"
+            
             "[vb] [ltext]" if showlh:
                 $ ichoice = invitems[0]
             "[vb] [rtext]" if showrh:

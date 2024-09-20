@@ -98,7 +98,7 @@ screen popup_notes():
                     vscrollbar_unscrollable "hide"
                     text "this is filler text blahblah":
                         color '#906548'
-                
+            vbox:
                 text f"◆ right page ◆":
                     style 'fancy_font'
                     size 50

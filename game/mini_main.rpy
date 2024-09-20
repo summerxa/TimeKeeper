@@ -356,8 +356,6 @@ label mini_main():
         $ tolabel = _return
 
         jump expression tolabel
-    else:
-        $ process_scorepenalty()
 
     return
 
@@ -387,6 +385,8 @@ init python:
             for ttn, tt in taskTemplates[tn].items():
                 if not ttn in t:
                     t[ttn] = tt
+            if not 'tags' in t:
+                t['tags'] = []
             if not t['type'] == 'small':
                 if 'sequence' in t:
                     setTaskButton(tn, t, t['sequence'][0])
@@ -394,8 +394,6 @@ init python:
                 else:
                     setTaskButton(tn, t)
                 t['room'] = taskButtons[curlevel][taskq[tn]['btn']]['room']
-            if not 'tags' in t:
-                t['tags'] = []
             else:
                 taskq[tn]['btn'] = None
                 pass # TODO generate task starting time

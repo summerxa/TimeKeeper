@@ -648,7 +648,7 @@ label c1_fetch1_end:
     
     #after item is obtained, interacting with nobleman again triggers this
 
-    call c1_give_item_prompt(n2, "wine_bottle") from _call_c1_give_item_prompt_1
+    call c1_give_item_prompt(n2, "Well? Do you have the wine?", "wine_bottle") from _call_c1_give_item_prompt_1
 
     if ichoice == 'wine_bottle':
         s 1b "Your wine, sir."
@@ -702,7 +702,7 @@ label c1_fetch2_end:
     show npc1 at l1_5
     show mc 1b at r1_5
 
-    call c1_give_item_prompt(n1, "jacket_red") from _call_c1_give_item_prompt_2
+    call c1_give_item_prompt(n1, "Remember, my jacket is the red one with the golden trim.", "jacket_red") from _call_c1_give_item_prompt_2
 
     if ichoice == 'jacket_red':
     
@@ -996,6 +996,10 @@ label c1_scene5:
     #TODO: replace ambience w/ better ambience later
 
     "Scene 5"
+
+    # TODO delete in release version
+    $ score = calculateFinalScore()
+    "Your score was [score]"
     
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})
@@ -2644,11 +2648,11 @@ label chap1_test_part2:
 
     return
 
-label c1_give_item_prompt(npc=None, goal_choice=''):
+label c1_give_item_prompt(npc, msg, goal_choice=''):
     $ ichoice = 'air'
 
     while True:
-        call give_item_prompt from _call_give_item_prompt
+        call give_item_prompt(npc, msg) from _call_give_item_prompt
         if not ichoice or ichoice == goal_choice:
             return
         if ichoice == 'dish_dirty':
@@ -2724,7 +2728,7 @@ label task_c1_donothing:
             "Anastasia decides to sit and do nothing for the remainder of the day."
 
             "This will be difficult to explain to Mother..."
-            $ docurtask('donothing', False, 'single')
+            $ docurtask('donothing', False, 'optional')
         "Leave for now":
             $ focus_on(['mc'])
             "Anastasia returns to her tasks."
