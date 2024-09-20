@@ -63,7 +63,7 @@ screen popup_info(info_name, info_title):
             at highlight_hov(cur_hov, 'popup_close_btn_2')
             activate_sound audio.button_click_sfx
 
-screen task_display(t, t_part=None, t_blocked=False):
+screen task_display(t, t_part=None, t_blocked=False, is_bonus=False):
     vbox:
         anchor(0., 0.5) pos(0.05, 0.5)
         text f"{t['title']}: {t['attributes'][0]} {t['attributes'][1]} {t['attributes'][2]}":
@@ -72,8 +72,12 @@ screen task_display(t, t_part=None, t_blocked=False):
             text f"Location: {taskButtons[curlevel][t['btn']]['room']}":
                 color '#906548'
         else:
-            text f"Location: {taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']}":
-                color '#906548'
+            if is_bonus:
+                text f"Location: {taskButtons[curlevel][bonusq[t['tasktype']]['btn']]['room']}":
+                    color '#906548'
+            else:
+                text f"Location: {taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']}":
+                    color '#906548'
         if t_part:
             text f"Time: {t_part['tcost']}m":
                 color '#906548'
@@ -165,12 +169,14 @@ screen popup_notes():
                     vscrollbar_unscrollable "hide"
                     vbox:
                         spacing 23
-                        for tn, tsk in taskq.items():
+                        for tn, tsk in bonusq.items():
                             if tsk['btn']:
-                                if 'sequence' in tasks[curlevel]['infinite'][tn]:
-                                    use task_display(tasks[curlevel]['infinite'][tn], taskTemplates[tsk['part']])
-                                else:
-                                    use task_display(tasks[curlevel]['infinite'][tn])
+                                use task_display(tasks[curlevel]['infinite'][tn], is_bonus=True)
+                        for tn, tsk in taskq.items():
+                            if 'sequence' in tasks[curlevel]['infinite'][tn]:
+                                use task_display(tasks[curlevel]['infinite'][tn], taskTemplates[tsk['part']])
+                            else:
+                                use task_display(tasks[curlevel]['infinite'][tn])
         
         button:
             anchor (0.,0.)
