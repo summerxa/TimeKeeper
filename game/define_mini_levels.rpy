@@ -661,7 +661,7 @@ default taskTemplates = {
         'desc': 'Light the candles in the upstairs guestrooms',
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
-        'tags': [Task.NO_FADE],
+        'tags': [Task.NO_FADE, Task.BONUS],
         'attributes': [0,0,1]
     }
 }

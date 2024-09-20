@@ -30,17 +30,18 @@ init python:
         global curtime
         global productivity
         curtime += mins
-        # TODO trigger bonus quest if applicable
         for tn, t in store.tasks[store.curlevel]['single'].items():
             if 't0' in t and t['t0'] <= curtime and not tn in fetchq and not tn in levelInfo[curlevel]['quests_done']:
                 addFquest(tn, t)
         for tn, t in store.tasks[store.curlevel]['optional'].items():
             if t['t0'] <= curtime and not tn in levelInfo[curlevel]['quests_done']:
                 taskButtons[curlevel][t['btn']]['curtask'] = t
+        for tn, t in store.bonusq.items():
+            if t['t0'] <= curtime and not bonusq[tn]['btn']:
+                setTaskButton(tn, tasks[curlevel]['infinite'][tn], task_part='', isBonus=True)
         if isBonusTask:
-            productivity += 5
+            productivity = min(100, productivity + 5)
         elif isProductive:
-            # TODO check w/ luna - is productivity an int or float?
             productivity += (100 - productivity) * 0.01 * mins
         else:
             productivity = max(0, productivity - mins)
@@ -106,14 +107,17 @@ init python:
     # task_name = ID of the task
     # task = the actual task itself
     # task_part = optional - for multi-part tasks, the ID of the specific part
-    def setTaskButton(task_name, task, task_part=''):
+    def setTaskButton(task_name, task, task_part='', isBonus=False):
         if 'sequence' in task:
             btn_list = task['btns'][task_part]
         else:
             btn_list = task['btns']
 
         bt_choice = getTaskButton(btn_list)
-        store.taskq[task_name]['btn'] = bt_choice
+        if isBonus:
+            bonusq[task_name]['btn'] = bt_choice
+        else:
+            taskq[task_name]['btn'] = bt_choice
         
         bt = store.taskButtons[store.curlevel][bt_choice]
         bt['curtask'] = task
@@ -131,6 +135,13 @@ init python:
         
         bt['htext'] = fmtTask(task_name, task_part)
     
+    # used to find the time that the next bonus task will trigger
+    # returns curtime + (random number between a and b)
+    # if curtime + b exceeds the time limit of the current level, instead
+    #   returns curtime + (random number between a and time remaining)
+    def getRandomTime(a, b):
+        return curtime + renpy.random.randint(1, min(20, levelInfo[curlevel]['tf'] - curtime))
+
     # adds a fetch quest to fetchq
     def addFquest(task_name, task):
         fetchq.append(task_name)
@@ -186,21 +197,20 @@ init python:
         else:
             t = store.tasks[store.curlevel][task_type][tname]
         store.curtask_btn['curtask'] = None
-        if goodjob:
-            for i in range(len(player_attrs)):
-                player_attrs[i] += t['attributes'][i]
-            addTime(t['tcost'], goodjob, t['type'] == 'small')
-        else:
-            addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
         if task_type == 'infinite':
-            if t['type'] == 'small' and levelInfo[curlevel]['bonus_remaining'] > 0:
-                levelInfo[curlevel]['bonus_remaining'] -= 1
-                pass # TODO generate next time for bonus task
-            if 'next' in t:
-                store.taskq[t['parent']]['part'] = t['next']
-                setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
+            if t['type'] == 'small':
+                store.bonusq[tname]['btn'] = None
+                if levelInfo[curlevel]['bonus_remaining'] > 0:
+                    levelInfo[curlevel]['bonus_remaining'] -= 1
+                    store.bonusq[tname]['t0'] = getRandomTime(1, 20)
+                else:
+                    store.bonusq[tname]['t0'] = 9999
             else:
-                setTaskButton(tname, tasks[curlevel]['infinite'][tname])
+                if 'next' in t:
+                    store.taskq[t['parent']]['part'] = t['next']
+                    setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
+                else:
+                    setTaskButton(tname, tasks[curlevel]['infinite'][tname])
         else:
             if task_type == 'single':
                 del fetchq[0]
@@ -209,6 +219,13 @@ init python:
                 if fetchq: # activate next quest in quest chain, if it is unlocked
                     activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
             levelInfo[curlevel]['quests_done'].add(tname)
+        
+        if goodjob:
+            for i in range(len(player_attrs)):
+                player_attrs[i] += t['attributes'][i]
+            addTime(t['tcost'], goodjob, t['type'] == 'small')
+        else:
+            addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
 
     # --- ITEM/INVENTORY STUFF ---
 

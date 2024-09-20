@@ -381,21 +381,22 @@ init python:
                 h['item']['stack'] = 1
         for tn, t in tasks[curlevel]['infinite'].items():
             t['tasktype'] = tn
-            taskq[tn] = {}
             for ttn, tt in taskTemplates[tn].items():
                 if not ttn in t:
                     t[ttn] = tt
             if not 'tags' in t:
                 t['tags'] = []
             if not t['type'] == 'small':
+                taskq[tn] = {}
                 if 'sequence' in t:
                     setTaskButton(tn, t, t['sequence'][0])
                     taskq[tn]['part'] = t['sequence'][0]
                 else:
                     setTaskButton(tn, t)
             else:
-                taskq[tn]['btn'] = None
-                pass # TODO generate task starting time
+                bonusq[tn] = {}
+                bonusq[tn]['btn'] = None
+                bonusq[tn]['t0'] = getRandomTime(1, 20)
         for tn, t in store.tasks[store.curlevel]['single'].items():
             for ttn, tt in taskTemplates[t['tasktype']].items():
                 if not ttn in t:
@@ -428,6 +429,10 @@ label mini_launch(startroom='main', startfloor=0):
 
         productivity = 100.0
         player_attrs = [0, 0, 0]
+
+        fetchq = []
+        taskq = {}
+        bonusq = {}
 
         curroom = 'main'
         prevroom = levelInfo[curlevel]['room0']

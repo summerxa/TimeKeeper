@@ -38,6 +38,7 @@ init python:
         SPECIAL = 0     # task is recommended
         OPTIONAL = 1    # for easter egg tasks
         NO_FADE = 2     # no fadein/fadeout animation
+        BONUS = 3       # bonus tasks that add fixed productivity
 
 default tolabel = ''
 
@@ -55,8 +56,19 @@ default curfloor = 0
 default curtask = None
 default curtask_btn = None
 default curgame = None
+
+# stores fetch quests as a string containing the quest ID
 default fetchq = []
+
+# stores infinite tasks as a dictionary entry formatted as:
+# 'task ID': {'btn': furniture ID, 'part': part ID (for multi-part tasks only)}
+#   can also contain more data depending on the task (like grab/drop dishes contains the
+#       total number of dishes the player must grab/drop off)
 default taskq = {}
+
+# stores bonus tasks as a dictionary entry formatted as:
+# 'task ID': {'btn': furniture ID - or None if task is inactive, 't0': start time}
+default bonusq = {}
 
 default curholder = None
 default curhand = -1
