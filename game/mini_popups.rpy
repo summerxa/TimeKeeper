@@ -69,14 +69,14 @@ screen task_display(t, t_part=None, t_blocked=False, is_bonus=False):
         text f"{t['title']}: {t['attributes'][0]} {t['attributes'][1]} {t['attributes'][2]}":
             color '#906548'
         if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
-            text f"Location: {taskButtons[curlevel][t['btn']]['room']}":
+            text f"Location: {roomButtons[curlevel][taskButtons[curlevel][t['btn']]['room']]['name']}":
                 color '#906548'
         else:
             if is_bonus:
-                text f"Location: {taskButtons[curlevel][bonusq[t['tasktype']]['btn']]['room']}":
+                text f"Location: {roomButtons[curlevel][taskButtons[curlevel][bonusq[t['tasktype']]['btn']]['room']]['name']}":
                     color '#906548'
             else:
-                text f"Location: {taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']}":
+                text f"Location: {roomButtons[curlevel][taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']]['name']}":
                     color '#906548'
         if t_part:
             text f"Time: {t_part['tcost']}m":

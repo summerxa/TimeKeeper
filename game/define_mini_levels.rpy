@@ -555,7 +555,6 @@ default taskButtons = {
 
 default taskTemplates = {
     'donothing': {
-        'desc': 'Optional: Sit in the corner and do nothing',
         'tcost': 9999,
         'tlabel': 'task_c1_donothing',
         'type': 'none',
@@ -658,7 +657,7 @@ default taskTemplates = {
         'type': 'small',
         'tlabel': 'task_c1_lightcandle',
         'title': "Light candles",
-        'desc': 'Light the candles in the upstairs guestrooms',
+        'desc': 'Bonus task: Light the candles in the upstairs guestrooms',
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
         'tags': [Task.NO_FADE, Task.BONUS],

@@ -158,7 +158,6 @@ init python:
     # activates the optional quest
     def activateOptquest(task_name, t):
         bt = store.taskButtons[store.curlevel][t['btn']]
-        bt['htext'] = fmtTask(task_name, '', 'optional')
         bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
     
 
@@ -376,7 +375,7 @@ label gotoroom_direct:
     jump mini_main
 
 # shows menu to give an item to an NPC in fetch quests
-label give_item_prompt(npc, msg, vb='Give', both_hands=False):
+label give_item_prompt(npc, npc_id, msg, vb='Give', both_hands=False):
     $ showlh = (invitems[0] != 'air')
     if both_hands:
         $ showrh = (invitems[1] != 'air')
@@ -385,6 +384,10 @@ label give_item_prompt(npc, msg, vb='Give', both_hands=False):
 
     $ ltext = fmtItemName(invitems[0], invstacks[0])
     $ rtext = fmtItemName(invitems[1], invstacks[1])
+
+    # make sure the speaking character is highlighted
+    $ clear_focus()
+    $ focus_on([npc_id])
 
     if both_hands:
         menu:
@@ -408,4 +411,5 @@ label give_item_prompt(npc, msg, vb='Give', both_hands=False):
                 $ ichoice = invitems[1]
             "Leave for now":
                 $ ichoice = None
+    $ clear_focus()
     return
