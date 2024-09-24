@@ -3,6 +3,7 @@ init python:
     # functions formatted as gamename_act, legal return values include:
     # 'refresh' to reload the game screen and show the new game state
     # 'done' to exit the game (done automatically once there's nothing left to do in the minigame)
+    #       OR if player chooses to quit manually
     #       IMPORTANT: 'done' =/= mark the task as completed; for some tasks you need to
     #           manually double check whether the task was done
     def dishes_act(drags, drop):

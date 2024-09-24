@@ -3,8 +3,6 @@ label c1_scene1:
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-
-    "Scene 1 (Memory)"
     
     $ mother_name = "???"
 
@@ -228,8 +226,6 @@ label c1_scene2:
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
-
-    "Scene 2 (Intro + tasks)"
 
     $ mother_name = "MOTHER"
     $ bella_name = "???"
@@ -551,8 +547,6 @@ label c1_scene3:
     scene black with dissolve
 
     stop ambience fadeout 2.0
-
-    "Scene 3 (amelia sick scene)"
 
     #shrug -jade
     "Anastasia walks to the guestrooms, lighting the candles one by one."
@@ -994,8 +988,6 @@ label c1_scene5:
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
-
-    "Scene 5"
 
     # TODO delete in release version
     $ score = calculateFinalScore()
@@ -2844,8 +2836,8 @@ label task_c1_grabdishes:
     while game_ret == 'refresh':
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
-    
-    $ docurtask('grabdishes', game_ret == 'done')
+
+    $ docurtask('grabdishes', not 0 in curgame['try'])
 
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
     if game_ret == 'done':

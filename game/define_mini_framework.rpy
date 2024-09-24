@@ -46,6 +46,12 @@ init python:
         else:
             productivity = max(0, productivity - mins)
 
+    def getTcost():
+        global curtask
+        if 'sequence' in curtask:
+            return taskTemplates[taskq[curtask['tasktype']]['part']]['tcost']
+        return curtask['tcost']
+
     # returns time in am/pm
     def getTimeDig(t):
         tx = ''
@@ -195,31 +201,31 @@ init python:
             t = taskTemplates[tname]
         else:
             t = store.tasks[store.curlevel][task_type][tname]
-        store.curtask_btn['curtask'] = None
-        if task_type == 'infinite':
-            if t['type'] == 'small':
-                store.bonusq[tname]['btn'] = None
-                if levelInfo[curlevel]['bonus_remaining'] > 0:
-                    levelInfo[curlevel]['bonus_remaining'] -= 1
-                    store.bonusq[tname]['t0'] = getRandomTime(1, 20)
-                else:
-                    store.bonusq[tname]['t0'] = 9999
-            else:
-                if 'next' in t:
-                    store.taskq[t['parent']]['part'] = t['next']
-                    setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
-                else:
-                    setTaskButton(tname, tasks[curlevel]['infinite'][tname])
-        else:
-            if task_type == 'single':
-                del fetchq[0]
-                if 'next' in t:
-                    fetchq.insert(0, t['next'])
-                if fetchq: # activate next quest in quest chain, if it is unlocked
-                    activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
-            levelInfo[curlevel]['quests_done'].add(tname)
-        
         if goodjob:
+            store.curtask_btn['curtask'] = None
+            if task_type == 'infinite':
+                if t['type'] == 'small':
+                    store.bonusq[tname]['btn'] = None
+                    if levelInfo[curlevel]['bonus_remaining'] > 0:
+                        levelInfo[curlevel]['bonus_remaining'] -= 1
+                        store.bonusq[tname]['t0'] = getRandomTime(1, 20)
+                    else:
+                        store.bonusq[tname]['t0'] = 9999
+                else:
+                    if 'next' in t:
+                        store.taskq[t['parent']]['part'] = t['next']
+                        setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
+                    else:
+                        setTaskButton(tname, tasks[curlevel]['infinite'][tname])
+            else:
+                if task_type == 'single':
+                    del fetchq[0]
+                    if 'next' in t:
+                        fetchq.insert(0, t['next'])
+                    if fetchq: # activate next quest in quest chain, if it is unlocked
+                        activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
+                levelInfo[curlevel]['quests_done'].add(tname)
+        
             for i in range(len(player_attrs)):
                 player_attrs[i] += t['attributes'][i]
             addTime(t['tcost'], goodjob, t['type'] == 'small')

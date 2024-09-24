@@ -331,7 +331,7 @@ screen popup_mgame_leave():
         yalign 0.5
         maximum (800, 500)
         vbox:
-            text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
+            text f"Do you want to leave?\n\nLeaving will cost:\n{getTcost()} minutes if the task is complete.\n{getTcost() // 2} minutes if the task is incomplete.":
                 xalign 0.5
                 yalign 0.2
             textbutton "Don't show this message again.":
