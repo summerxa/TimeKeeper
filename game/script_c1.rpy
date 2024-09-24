@@ -902,9 +902,11 @@ label c1_fetch4:
 
     $ docurtask('fetch4_end', task_type='single')
 
+    b 5a "...Hmmm?"
+
     menu:
 
-        b 5a "...Hmmm?"
+        b 5a "...Hmmm?{fast}"
 
         "Do nothing":
 
@@ -950,6 +952,8 @@ label c1_fetch4:
             hide bella
 
             menu:
+
+                "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch.{fast}"
 
                 "Leave it behind":
 
@@ -1068,6 +1072,9 @@ label c1_scene6:
     b 10a "Wait... Did you hear what we were talking about?"
 
     menu:
+
+        b 10a "Wait... Did you hear what we were talking about?{fast}"
+
         "Remain silent":
 
             s "..."
@@ -1140,15 +1147,17 @@ label c1_scene6:
     m 1a "Now, my dears, I’ve been inspecting the rooms and hallways, and almost everything seems to be in place."
 
     stop music fadeout 2.0
-    play music interrogation fadein 2.0 volume .37
+    play music interrogation fadein 2.0 volume .53
 
     m 5a "However, one of the guestrooms has not been properly cleaned."
 
     m 6a "In fact, it was this room that was not cleaned."
 
+    m "Anastasia, did you see any maids disobeying my orders?"
+
     menu:
 
-        m "Anastasia, did you see any maids disobeying my orders?"
+        m "Anastasia, did you see any maids disobeying my orders?{fast}"
 
         "Yes":
 
@@ -1207,11 +1216,12 @@ label c1_scene6:
 
                     $ focus_on(["mc","amelia"],{"amelia":2})
                     "Anastasia looks at Amelia, who’s terrified."
-                    #TODO: uh, having them highlighted with the choices up might not look right...
 
                     $ clear_focus() # added a function to remove highlights manually :3
                     # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
+                    
+                        "Anastasia looks at Amelia, who’s terrified.{fast}"
 
                         "Yes":
 
@@ -1278,6 +1288,8 @@ label c1_scene6:
             m "Anastasia? Who was it?"
 
             menu:
+                
+                m "Anastasia? Who was it?{fast}"
 
                 "Amelia":
                     call c1_amelia_ending from _call_c1_amelia_ending_5
@@ -1469,8 +1481,6 @@ label c1_amelia_ending(c1_justify_blame=True):
     show bella 8a at eout(2.2,1.4)
     "But she quickly steels herself and leaves as well."
 
-    stop music fadeout 1.0
-
     scene black with dissolve
 
     scene bg snowy
@@ -1483,7 +1493,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .8 volume .5
+    play ambience wind_howling_ambience fadein .8 volume .42
 
     show amelia 7a
     show snowfront zorder 10
@@ -1524,7 +1534,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6 volume .5
+    play ambience wind_howling_ambience fadein .6 volume .42
 
     $ npc3_name = "MAID 1"
     $ npc3_1_name = "MAID 2"
@@ -1547,6 +1557,9 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     n3_1 "W-what’s going on?"
 
+    #play music death fadein 2.0 volume .55
+    play music death_1 fadein 2.0 volume .55
+
     n3 "Oh my god!"
 
     show mc 5a
@@ -1565,7 +1578,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show cg amelia ending:
         subpixel True
         yalign 1.0
-        easeout 28.0 yalign 0.7
+        easeout 30.0 yalign 0.75
     
 
     "At first glance, it seems that the normally pure white snow is only marred by a few drops of blood." 
@@ -1574,12 +1587,17 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     "Those clumps of snow accumulate into large, bloody piles, and those piles of snow lead to…"
 
+    stop music fadeout 2.0
+    play music death_2 volume .55 fadein 1.0 noloop
+
     window hide dissolve
+
+    #pause 3.0
 
     show cg amelia ending at yal(0.0)
     with cfade
    
-    pause 5.0
+    pause 5.5
 
     scene black with dissolve
 
@@ -1944,6 +1962,8 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         menu:
 
+            b "Jesus christ, are you a robot?{fast}"
+
             "Clarify":
 
                 s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
@@ -2143,6 +2163,9 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
     return
 
 label c1_scene7:
+    
+    stop music fadeout 1.0
+    
     "Reached ending: [c1_ending]"
 
     show bg ballroom with cfade
@@ -2181,6 +2204,8 @@ label c1_scene7:
         # shrug- jade
 
         menu:
+
+            b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you.{fast}"
 
             "Respond Factually":
 
@@ -2715,6 +2740,9 @@ label task_c1_donothing:
     "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day."
 
     menu:
+
+        "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day.{fast}"
+        
         "Sit down":
             $ focus_on(['mc'], {'mc': 2})
             "Anastasia decides to sit and do nothing for the remainder of the day."
