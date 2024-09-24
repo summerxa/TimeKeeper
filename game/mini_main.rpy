@@ -24,7 +24,7 @@ screen btn_roomarrow(bt, hov_id):
             ypos 0.90
         xpos bt['xp']
         xanchor 0.5 yanchor 0.5
-        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), SetVariable('curtime', curtime+bt['tcost']), Return('gotoroom_direct')]
+        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), Function(addTime, mins=bt['tcost']), Return('gotoroom_direct')]
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
         activate_sound audio.button_click_sfx
@@ -50,47 +50,54 @@ screen btn_roomarrow(bt, hov_id):
                     xalign 0.5
 
 screen btn_tsk(bt, hov_id=None):
-    if bt['curtask'] or not 'hidden' in bt:
-        imagebutton:
-            pos bt['p']
-            xanchor 0.5 yanchor 0.5
-            if bt['curtask']:
-                auto bt['imtask_active']
-                if 'item_req' in bt['curtask']:
-                    if task_can_proceed(bt['curtask']['item_req']):
-                        action bt['act']
-                    else:
-                        action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
-                else:
+    imagebutton:
+        pos bt['p'] anchor (0.5, 0.5)
+        if can_show_task(bt):
+            # there is an active task, highlight this button
+            auto bt['imtask_active']
+            
+            if 'item_req' in bt['curtask']:
+                if task_can_proceed(bt['curtask']['item_req']):
                     action bt['act']
-                activate_sound audio.button_click_sfx
-            else:
-                auto bt['imtask_idle']
-                action bt['act']
-            if 'htext' in bt and not len(bt['htext']) == 0:
-                if bt['curtask']:
-                    if Task.SPECIAL in bt['curtask']['tags']:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtSpecialTask(bt['htext']))]
-                    else:
-                        hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
-                    
-                    unhovered SetVariable('cur_hov', None)
-            if bt['curtask']:
-                if 'rot' in bt:
-                    at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
                 else:
-                    at highlight_hov(cur_hov, hov_id)
+                    action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
             else:
-                if 'rot' in bt:
-                    at rot(bt['rot'])
-        if 'tx' in bt:
-            text bt['tx']['text']:
-                pos bt['p']
-                xanchor 0.5 yanchor 0.5
-                if 'style' in bt['tx']:
-                    style bt['tx']['style']
-                if bt['curtask']:
-                    at highlight_hov(cur_hov, hov_id)
+                action bt['act']
+
+            # highlight and change mc textbox when hovered
+            hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
+            activate_sound audio.button_click_sfx
+        else:
+            # don't highlight button
+            auto bt['imtask_idle']
+            if fetchq:
+                # noble has a request
+                action SetVariable('hinttext', levelHints['quest_taskless'])
+            else:
+                # use the button's default "task unavailable" text
+                action bt['act']
+
+        if fetchq:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+        # show highlights and rotation (if applicable)
+        if can_show_task(bt):
+            if 'rot' in bt:
+                at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
+            else:
+                at highlight_hov(cur_hov, hov_id)
+        else:
+            if 'rot' in bt:
+                at rot(bt['rot'])
+    # add text overlay on button
+    if 'tx' in bt:
+        text bt['tx']['text']:
+            pos bt['p'] anchor (0.5, 0.5)
+            if 'style' in bt['tx']:
+                style bt['tx']['style']
+            if can_show_task(bt):
+                at highlight_hov(cur_hov, hov_id)
 
 # item holder
 screen btn_item(bt, hov_id):
@@ -100,7 +107,11 @@ screen btn_item(bt, hov_id):
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
         action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
-        unhovered SetVariable('cur_hov', None)
+        if fetchq:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+        else:
+            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
 
@@ -179,8 +190,8 @@ screen mini_sidebar(curstate='main', gametype=None):
                 xalign 0.5
                 yalign 0.5
                 auto 'mini/ui/clock_%s.png'
-                action [SetVariable('hinttext', fmtTimeHinttext())]
-                hovered SetVariable('cur_hov', 'clock_btn')
+                action NullAction()
+                hovered [SetVariable('cur_hov', 'clock_btn'), SetVariable('hinttext', fmtTimeHinttext())]
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'clock_btn')
                 activate_sound audio.button_click_sfx
@@ -201,7 +212,7 @@ screen mini_sidebar(curstate='main', gametype=None):
 
 screen floor_sidebar(curstate='game', mapfloor=0):
     default act1 = [SetVariable('prevroom', None), SetVariable('curroom', 'main')]
-    default act2 = [SetVariable('curtime', curtime+levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
+    default act2 = [Function(addTime, mins=levelInfo[curlevel]['tstairs']), Return('gotoroom_direct')]
     if curfloor < levelInfo[curlevel]['nfloors']-1 or curstate == 'map':
         imagebutton:
             auto 'mini/ui/btn_floor_up_%s.png'
@@ -238,7 +249,10 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
-            unhovered SetVariable('cur_hov', None)
+            if fetchq:
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
+            else:
+                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 
@@ -315,26 +329,14 @@ screen mini_screen():
     
     use floor_sidebar('game')
 
-init python:
-    def process_scorepenalty():
-        global tasks
-        global curlevel
-        global curtime
-        global completion
-        for tname, t in tasks[curlevel].items():
-            if not t['done']:
-                completion -= t['scorepenalty']
-
 label mini_main():
-
-    $ update_taskq()
 
     # TODO stop skipping (if player is skipping fetch quests, it gets stuck when it returns to minigame)
 
     hide screen mgame_overlay
 
     # time is not up, still remaining tasks
-    if curtime < tlimit and (taskq or taskrq) and not (len(taskq) == 1 and not taskrq and Task.DONOTHING in taskq[0]['tags']):
+    if curtime < levelInfo[curlevel]['tf']:
         # TODO maybe hide quickmenu if its too obtrusive
 
         stop music fadeout 1.0
@@ -354,8 +356,6 @@ label mini_main():
         $ tolabel = _return
 
         jump expression tolabel
-    else:
-        $ process_scorepenalty()
 
     return
 
@@ -363,7 +363,6 @@ init python:
     def mini_launch_py():
         global taskButtons
         global itemHolders
-        global taskrq
         global tasks
         global curlevel
         global taskTemplates
@@ -371,32 +370,45 @@ init python:
 
         for bn, bt in taskButtons[curlevel].items():
             bt['curtask'] = None
-            if 'hidden' in bt:
-                bt['act'] = []
+            if 'taskless' in bt:
+                bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
             else:
-                if 'taskless' in bt:
-                    bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
-                else:
-                    bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             bt['imtask_active'] = f"mini/btn_task/btn_{bt['imtask']}_task_%s.png"
             bt['imtask_idle'] = f"mini/btn_task/btn_{bt['imtask']}_%s.png"
         for hn, h in itemHolders[curlevel].items():
             if not 'stack' in h['item']:
                 h['item']['stack'] = 1
-        taskrq = []
-        for tn, t in tasks[curlevel].items():
-            t['activated'] = False
-            t['done'] = False
-            t['room'] = taskButtons[curlevel][t['btn']]['room']
+        for tn, t in tasks[curlevel]['infinite'].items():
+            t['tasktype'] = tn
+            for ttn, tt in taskTemplates[tn].items():
+                if not ttn in t:
+                    t[ttn] = tt
             if not 'tags' in t:
                 t['tags'] = []
-            if 'game' in t and t['game']['type'] in taskTemplates:
-                for tn_, t_ in taskTemplates[t['game']['type']].items():
-                    if tn_ == 'dur':
-                        t['tf'] = t['t0'] + t_
-                    t[tn_] = t_
-            if not Task.NON_ROOT in t['tags']:
-                taskrq.append(tn)
+            if not t['type'] == 'small':
+                taskq[tn] = {}
+                if 'sequence' in t:
+                    setTaskButton(tn, t, t['sequence'][0])
+                    taskq[tn]['part'] = t['sequence'][0]
+                else:
+                    setTaskButton(tn, t)
+            else:
+                bonusq[tn] = {}
+                bonusq[tn]['btn'] = None
+                bonusq[tn]['t0'] = getRandomTime(1, 20)
+        for tn, t in store.tasks[store.curlevel]['single'].items():
+            for ttn, tt in taskTemplates[t['tasktype']].items():
+                if not ttn in t:
+                    t[ttn] = tt
+            if 't0' in t and t['t0'] <= curtime:
+                addFquest(tn, t)
+        for tn, t in store.tasks[store.curlevel]['optional'].items():
+            for ttn, tt in taskTemplates[t['tasktype']].items():
+                if not ttn in t:
+                    t[ttn] = tt
+            if 't0' in t and t['t0'] <= curtime:
+                activateOptquest(tn, t)
         for r, ra in roomArrows[curlevel].items():
             fromroom = r
             for ar in ra:
@@ -409,13 +421,18 @@ init python:
 
 label mini_launch(startroom='main', startfloor=0):
     python:
+        levelInfo[curlevel]['bonus_remaining'] = 5
+
         tolabel = ''
 
-        tstart = levelInfo[curlevel]['t0']
-        curtime = tstart
-        tlimit = levelInfo[curlevel]['tf']
-        completion = 0
-        completion_f = 0
+        curtime = levelInfo[curlevel]['t0']
+
+        productivity = 100.0
+        player_attrs = [0, 0, 0]
+
+        fetchq = []
+        taskq = {}
+        bonusq = {}
 
         curroom = 'main'
         prevroom = levelInfo[curlevel]['room0']
@@ -424,17 +441,12 @@ label mini_launch(startroom='main', startfloor=0):
         curtask = None
         curtask_btn = None
         curgame = None
-        taskq = []
-        taskrq = []
 
         curholder = None
         curhand = -1
         invitems = ['air', 'air']
         invstacks = [1, 1]
         ichoice = None
-
-        notes_text = ''
-        notes_text_s = ''
 
         mini_launch_py()
 

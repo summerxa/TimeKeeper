@@ -18,117 +18,56 @@ init python:
 
 
 default levelInfo = {
-    1: {
+    0: {
         't0': 1020,
+        'tf': 1080,
+        'tstairs': 2,
+        'nfloors': 2,
+        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
+        'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
+        'quests_done': set(),
+        'bonus_remaining': 5,
+        'room0': 'ballroom',
+        'floor0': 0,
+        # TODO tutorial data... may or may not adjust
+        'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
+        
+{b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
+    },
+    1: {
+        't0': 1080,
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
-        'ndishes': 29,
-        'threshold': [-20, 40],
-        'quests': {
-            'Fetch quest 1': False,
-            'Fetch quest 2': False,
-            'Fetch quest 3': False,
-            'Fetch quest 4': False
-        },
+        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
+        'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
+        'quests_done': set(),
+        'bonus_remaining': 5,
         'room0': 'ballroom',
-        'floor0': 0
+        'floor0': 0,
+        # TODO this *might* be guestrooms if we use amelia sick cutscene as a transition
+        'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
+        
+{b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
     }
 }
 
 default levelHints = {
     'default_start': "Welcome.",
     'default_idle': "...",
-    'default_taskless': "There's nothing here for me to do.",
-    'candle_taskless': "These candles are already lit.",
+    'quest_idle': "One of the guests requires assistance. I should go help.",
+    'quest_taskless': "I should help the nobles before working on other tasks.",
+    'default_taskless': "There aren't any tasks here right now.",
+    'candle_taskless': "These candles don't need to be lit right now.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
     'grabdishes_idle': "Drag the dishes to me :3",
     'dropdishes_fail': "I need to drop off dirty dishes here.",
-    'dropdishes_idle': "Dirty dish tower!!!!",
-    'waterpour_idle': "I need to sort the different colored drinks.",
+    'dropdishes_idle': "Drop the dishes off in the sink.",
+    'waterpour_idle': "Time to cook :3",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
     'laundry_idle': "Woahhh it's laundry :o",
     'dropfood_fail': "ur not even holding food smh",
     'lightcandle_fail': "i need matches to light the candle :("
-}
-
-default helpText = {
-    'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
-Manage your time wisely and complete tasks before time runs out!
-{b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
-{b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
-{b}Click{/b} on an item to pick it up, or a {b}hand icon{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
-{b}Hovering{/b} over a task or item will show {b}information{/b} about it.
-
-{size=40}{b}LEFT SIDEBAR{/b}{/size}
-{b}Clock{/b}: shows the {b}current time{/b} and how long you have left.
-{b}Notebook{/b}: shows your current {b}tasks{/b}.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
-'''{b}Map{/b}: previews every floor map.''',
-'''>{b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!''',
-'''{b}On-hand{/b}: shows the contents of your inventory.
-{b}Help{/b}: shows this popup!''',
-'''>Contents of this popup will change based on {b}current activity{/b}.
-If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how to complete the task in addition to this text.''',
-'''{b}Leave{/b}: {b}exits{/b} current game state.''',
-'''>If in a {b}main floor{/b} map, pauses the game and opens the save menu.
-If in a {b}room{/b} map, exits to the main floor map.
-If using the {b}preview{/b} map, closes the map and returns to normal gameplay.
-If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: leaving a task will take time even if not completed!''',
-'''{size=40}{b}COMPLETION{/b}{/size}
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''
-],
-    'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
-
-To complete the task, collect all dirty dishes from the table.'''],
-    'dropdishes': ['''Drag a dirty dish from the stack into the sink, which removes the dishes from inventory.
-
-Dirty dishes can be dropped off at any time, but the task will only be completed after every single dish is dropped off.'''],
-    'waterpour': ['''Click on a cup to select it, and click again to deselect it.
-
-Click on another cup to pour the topmost layer of water into it.
-
-You can only pour into a cup if it has at least one empty slot.
-
-Two or more cups cannot contain the same color.
-
-To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.'''],
-    'sortlaundry': ['''Drag each article of clothing into the {b}correct{/b} washing machine.
-Each {b}washing machine{/b} is set for a {b}certain{/b} amount of time.
-{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of time.
-{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of time.
-{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
-}
-
-default infoText = {
-    'notes': ['''Notebook shows all current tasks.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
-'''
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''],
-    'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
-
-You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!
-
-{b}Stackable items{/b}, like empty plates, will only count as 1 item once stacked.
-'''],
-    'trade': ['''Normally, grabbing or dropping an item will be done automatically when clicking on an item.
-    
-However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
-''']
 }
 
 # size/pos of room on main floor map
@@ -616,424 +555,202 @@ default taskButtons = {
 
 default taskTemplates = {
     'donothing': {
-        't0': -1,
-        'tf': 9999,
-        'desc': 'Optional: Sit in the corner and do nothing',
+        'tcost': 9999,
         'tlabel': 'task_c1_donothing',
-        'scorebonus': 0,
-        'scorepenalty': 0,
-        'tags': [Task.DONOTHING, Task.NON_ROOT]
+        'type': 'none',
+        'attributes': [0,0,0],
+        'tags': [Task.OPTIONAL]
+    },
+    'fetchquest': {
+        'tcost': 5,
+        'type': 'none',
+        'title': "Guest Request",
+        'attributes': [0,0,0],
+        'tags': [Task.SPECIAL]
+    },
+    'fetchquest_end': {
+        'tcost': 5,
+        'type': 'medium',
+        'title': "Guest Request",
+        'attributes': [1,1,3],
+        'tags': [Task.SPECIAL]
     },
     'grabdishes': {
-        'tcost': 10,
-        'dur': 20,
-        'scorebonus': 2,
-        'scorepenalty': 1,
+        'tcost': 5,
+        'type': 'none',
         'desc': 'Clear the table',
         'tlabel': 'task_c1_grabdishes',
         'fail_id': 'handsfull_fail',
-        'item_req': ['air', 'dish_dirty']
+        'item_req': ['air', 'dish_dirty'],
+        'attributes': [0,0,0],
+        'next': 'dropdishes',
+        'parent': 'dishes_chain'
     },
     'dropdishes': {
         'tcost': 5,
-        'scorebonus': 5,
-        'scorepenalty': 1,
+        'type': 'medium',
         'desc': 'Drop off dirty dishes',
         'tlabel': 'task_c1_dropdishes',
         'fail_id': 'dropdishes_fail',
-        'item_req': ['dish_dirty']
+        'item_req': ['dish_dirty'],
+        'attributes': [3,1,1],
+        'next': 'grabdishes',
+        'parent': 'dishes_chain'
+    },
+    'dishes_chain': { # contains all the parts of the "quest chain"
+        'type': 'medium',
+        'title': "Clean up dirty dishes",
+        'sequence': ['grabdishes', 'dropdishes'],
+        'desc': 'Clear the ballroom tables, drop off dirty dishes in the kitchen',
+        'attributes': [3,1,1]
     },
     'waterpour': {
         'tcost': 20,
-        'dur': 30,
-        'scorebonus': 4,
-        'scorepenalty': 0,
-        'desc': 'Bonus task: Help out at the bar',
-        'tlabel': 'task_c1_waterpour'
+        'type': 'large',
+        'title': "Help at the bar",
+        'desc': "Pour drinks at the ballroom's bar",
+        'tlabel': 'task_c1_waterpour',
+        'attributes': [1,3,6]
     },
     'sortlaundry': {
-        'tlabel': 'task_c1_sortlaundry',
-        'desc': 'Bonus task: Sort the laundry',
         'tcost': 20,
-        'dur': 30,
-        'scorebonus': 3,
-        'scorepenalty': 0
+        'type': 'large',
+        'title': "Do the laundry",
+        'tlabel': 'task_c1_sortlaundry',
+        'desc': 'Sort the laundry into the washing machines',
+        'attributes': [4,4,2]
     },
     'grabfood': {
+        'tcost': 5,
+        'type': 'none',
         'tlabel': 'task_c1_grabfood',
         'desc': 'Pick up finished dishes',
-        'tcost': 0,
-        'dur': 10,
-        'scorebonus': 0,
-        'scorepenalty': 0,
         'tags': [Task.NO_FADE],
         'fail_id': 'handsfull_fail',
-        'item_req': ['air']
+        'item_req': ['air'],
+        'attributes': [0,0,0],
+        'next': 'dropfood',
+        'parent': 'food_chain'
     },
     'dropfood': {
+        'tcost': 5,
+        'type': 'medium',
         'tlabel': 'task_c1_dropfood',
         'desc': 'Drop off finished dishes',
-        'tcost': 0,
-        'dur': 10,
-        'scorebonus': 2,
-        'scorepenalty': 2,
-        'tags': [Task.NO_FADE, Task.NON_ROOT],
+        'tags': [Task.NO_FADE],
         'fail_id': 'dropfood_fail',
-        'item_req': ['food']
+        'item_req': ['food'],
+        'attributes': [1,2,2],
+        'next': 'grabfood',
+        'parent': 'food_chain'
+    },
+    'food_chain': {
+        'type': 'medium',
+        'sequence': ['grabfood', 'dropfood'],
+        'title': "Serve the food",
+        'desc': 'Pick up finished dishes in the kitchen, drop off dishes in ballroom',
+        'tags': [Task.NO_FADE],
+        'attributes': [1,2,2]
     },
     'lightcandle': {
+        'tcost': 1,
+        'type': 'small',
         'tlabel': 'task_c1_lightcandle',
-        'desc': 'Light the candles',
-        'tcost': 0,
-        't0': -1,
-        'tf': 9999,
-        'scorebonus': 2,
-        'scorepenalty': 2,
+        'title': "Light candles",
+        'desc': 'Bonus task: Light the candles in the upstairs guestrooms',
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
-        'tags': [Task.NO_FADE]
+        'tags': [Task.NO_FADE, Task.BONUS],
+        'attributes': [0,0,1]
     }
 }
 
 default tasks = {
     1: {
-        'donothing': {
-            'btn': '4_1',
-            'tcost': 180,
-            'game': {'type': 'donothing'}
-        },
-        'fetch1': {
-            'desc': 'Talk to noble',
-            'btn': '4_5',
-            'tlabel': 'c1_fetch1',
-            'tcost': 0,
-            't0': -1,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL],
-            'nxt': ['fetch1_end']
-        },
-        'fetch1_end': {
-            'desc': 'Bring wine to noble',
-            'btn': '4_5',
-            'tlabel': 'c1_fetch1_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch2']
-        },
-        'fetch2': {
-            'desc': 'Talk to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch2',
-            'tcost': 0,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch2_end']
-        },
-        'fetch2_end': {
-            'desc': 'Bring jacket to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch2_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch3']
-        },
-        'fetch3': {
-            'desc': 'Talk to noble',
-            'btn': '6_5',
-            'tlabel': 'c1_fetch3',
-            'tcost': 0,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 0,
-            'scorepenalty': 0,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch3_end']
-        },
-        'fetch3_end': {
-            'desc': 'Ask the chefs for desserts',
-            'btn': 'kitchen_idk',
-            'tlabel': 'c1_fetch3_end',
-            'tcost': 5,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
-            'tags': [Task.SPECIAL, Task.NON_ROOT],
-            'nxt': ['fetch4']
-        },
-        'fetch4': {
-            'desc': 'Talk to noble',
-            'btn': 'long1',
-            'tlabel': 'c1_fetch4',
-            'tcost': 10,
-            't0': -2,
-            'tf': 9999,
-            'scorebonus': 10,
-            'scorepenalty': 5,
-            'tags': [Task.SPECIAL, Task.NON_ROOT]
-        },
-        'candles_l1': {
-            'btn': 'gr_l_candle1',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_l2': {
-            'btn': 'gr_l_candle2',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_l3': {
-            'btn': 'gr_l_candle3',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_r1': {
-            'btn': 'gr_r_candle1',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'candles_r2': {
-            'btn': 'gr_r_candle2',
-            'game': {
-                'type': 'lightcandle'
-            }
-        },
-        'grabdish_1030': {
-            'btn': '6_2',
-            't0': 1030,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 5
-            }
-        },
-        'grabfood 1030': {
-            'btn': 'pickuptable',
-            't0': 1030,
-            'game': {
-                'type': 'grabfood'
+        'optional': { # for easter egg quests
+            'donothing': {
+                't0': 1080,
+                'btn': '4_1',
+                'tasktype': 'donothing'
             },
-            'nxt': ['dropfood 1030']
         },
-        'dropfood 1030': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1040': {
-            'btn': '6_2',
-            't0': 1040,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'waterpour_1': {
-            'btn': 'bar',
-            't0': 1050,
-            'game': {
-                'type': 'waterpour',
-                'cups': [
-                    {
-                        'xp': 0.24,
-                        'colors': ['#920e0e']
-                    },
-                    {
-                        'xp': 0.38,
-                        'colors': ['#920e0e', '#a4f910', '#920e0e', '#eedfab']
-                    },
-                    {
-                        'xp': 0.52,
-                        'colors': ['#eedfab', '#a4f910', '#a4f910', '#920e0e']
-                    },
-                    {
-                        'xp': 0.66,
-                        'colors': ['#eedfab', '#eedfab', '#a4f910']
-                    }
-                ]
-            }
-        },
-        'grabdish_1075': {
-            'btn': '6_2',
-            't0': 1075,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 3
-            }
-        },
-        'grabfood 1080': {
-            'btn': 'pickuptable',
-            't0': 1080,
-            'game': {
-                'type': 'grabfood'
+        'single': { # for quests that only show up once
+            'fetch1': {
+                'desc': 'Talk to noble',
+                'btn': '4_5',
+                'tlabel': 'c1_fetch1',
+                't0': 1100,
+                'next': 'fetch1_end',
+                'tasktype': 'fetchquest'
             },
-            'nxt': ['dropfood 1080']
-        },
-        'dropfood 1080': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1095': {
-            'btn': '6_2',
-            't0': 1095,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'grabfood 1110': {
-            'btn': 'pickuptable',
-            't0': 1110,
-            'game': {
-                'type': 'grabfood'
+            'fetch1_end': {
+                'desc': 'Bring wine to noble',
+                'btn': '4_5',
+                'tlabel': 'c1_fetch1_end',
+                'tasktype': 'fetchquest_end'
             },
-            'nxt': ['dropfood 1110']
-        },
-        'dropfood 1110': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1115': {
-            'btn': '6_2',
-            't0': 1115,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 6
-            }
-        },
-        'grabfood 1120': {
-            'btn': 'pickuptable',
-            't0': 1120,
-            'game': {
-                'type': 'grabfood'
+            'fetch2': {
+                'desc': 'Talk to noble',
+                'btn': '6_5',
+                'tlabel': 'c1_fetch2',
+                't0': 1125,
+                'next': 'fetch2_end',
+                'tasktype': 'fetchquest'
             },
-            'nxt': ['dropfood 1120']
-        },
-        'dropfood 1120': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabdish_1135': {
-            'btn': '6_2',
-            't0': 1135,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 3
-            }
-        },
-        'grabfood 1140': {
-            'btn': 'pickuptable',
-            't0': 1140,
-            'game': {
-                'type': 'grabfood'
+            'fetch2_end': {
+                'desc': 'Bring jacket to noble',
+                'btn': '6_5',
+                'tlabel': 'c1_fetch2_end',
+                'tasktype': 'fetchquest_end'
             },
-            'nxt': ['dropfood 1140']
-        },
-        'dropfood 1140': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'laundry_1': {
-            'btn': 'laundry_1',
-            't0': 1020, # 1140
-            'game': {
-                'type': 'sortlaundry'
-            }
-        },
-        'grabdish_1160': {
-            'btn': '6_2',
-            't0': 1160,
-            'game': {
-                'type': 'grabdishes',
-                'goal': 4
-            }
-        },
-        'grabfood 1170': {
-            'btn': 'pickuptable',
-            't0': 1170,
-            'game': {
-                'type': 'grabfood'
+            'fetch3': {
+                'desc': 'Talk to noble',
+                'btn': '6_3',
+                'tlabel': 'c1_fetch3',
+                't0': 1150,
+                'next': 'fetch3_end',
+                'tasktype': 'fetchquest'
             },
-            'nxt': ['dropfood 1170']
-        },
-        'dropfood 1170': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
-            }
-        },
-        'grabfood 1180': {
-            'btn': 'pickuptable',
-            't0': 1180,
-            'game': {
-                'type': 'grabfood'
+            'fetch3_end': {
+                'desc': 'Ask the chefs for desserts',
+                'btn': 'kitchen_idk',
+                'tlabel': 'c1_fetch3_end',
+                'tasktype': 'fetchquest_end'
             },
-            'nxt': ['dropfood 1180']
-        },
-        'dropfood 1180': {
-            'btn': '4_3',
-            't0': -2,
-            'game': {
-                'type': 'dropfood'
+            'fetch4_end': {
+                'desc': 'Talk to noble',
+                'btn': 'long1',
+                'tlabel': 'c1_fetch4',
+                't0': 1170,
+                'tasktype': 'fetchquest_end'
             }
         },
-        'dropdish': {
-            'btn': 'sink',
-            't0': 1030,
-            'tf': 1190,
-            'game': {
-                'type': 'dropdishes',
-                'xp': 0.5,
-                'drop': [
-                    {
-                        'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
-                    }
-                ],
-                'in_sink': {
-                    'p': (778, 618), 'im': 'mini/tgame/grab_dropdishes/plate_clean.png'
-                },
-                'overlay': [
-                    {
-                        'p': (678, 413), 'im': 'mini/tgame/grab_dropdishes/dropdishes_faucet.png'
-                    }
-                ]
+        'infinite': { # tasks that are infinitely generated
+            'dishes_chain': {
+                'btns': {
+                    'grabdishes': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10'],
+                    'dropdishes': ['sink']
+                }
+            },
+            'waterpour': {
+                'btns': ['bar']
+            },
+            'sortlaundry': {
+                'btns': ['laundry_1']
+            },
+            'food_chain': {
+                'btns': {
+                    'grabfood': ['pickuptable'],
+                    'dropfood': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']
+                }
+            },
+            'lightcandle': {
+                'btns': ['gr_l_candle1', 'gr_l_candle2', 'gr_l_candle3', 'gr_r_candle1', 'gr_r_candle2']
             }
         }
     }
 }
 
-# normally "air" would be a transparent image but it's visible for testing purposes lol
 default itemsAll = {
     'air': {
         'name': 'empty',
@@ -1150,4 +867,84 @@ default itemHolders = {
             'room': 'guestroom l'
         }
     }
+}
+
+
+default helpText = {
+    'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
+Manage your time wisely and complete tasks before time runs out!
+{b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
+{b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
+{b}Click{/b} on an item to pick it up, or a {b}hand icon{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
+{b}Hovering{/b} over a task or item will show {b}information{/b} about it.
+
+{size=40}{b}LEFT SIDEBAR{/b}{/size}
+{b}Clock{/b}: shows the {b}current time{/b} and how long you have left.
+{b}Notebook{/b}: shows your current {b}tasks{/b}.''',
+'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
+Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
+'''{b}Map{/b}: previews every floor map.''',
+'''>{b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!''',
+'''{b}On-hand{/b}: shows the contents of your inventory.
+{b}Help{/b}: shows this popup!''',
+'''>Contents of this popup will change based on {b}current activity{/b}.
+If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how to complete the task in addition to this text.''',
+'''{b}Leave{/b}: {b}exits{/b} current game state.''',
+'''>If in a {b}main floor{/b} map, pauses the game and opens the save menu.
+If in a {b}room{/b} map, exits to the main floor map.
+If using the {b}preview{/b} map, closes the map and returns to normal gameplay.
+If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: leaving a task will take time even if not completed!''',
+'''{size=40}{b}COMPLETION{/b}{/size}
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
+'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
+'''The second one shows how many {b}major quests{/b} are completed.''',
+'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''
+],
+    'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
+
+To complete the task, collect all dirty dishes from the table.'''],
+    'dropdishes': ['''Drag a dirty dish from the stack into the sink, which removes the dishes from inventory.
+
+Dirty dishes can be dropped off at any time, but the task will only be completed after every single dish is dropped off.'''],
+    'waterpour': ['''Click on a cup to select it, and click again to deselect it.
+
+Click on another cup to pour the topmost layer of water into it.
+
+You can only pour into a cup if it has at least one empty slot.
+
+Two or more cups cannot contain the same color.
+
+To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.'''],
+    'sortlaundry': ['''Drag each article of clothing into the {b}correct{/b} washing machine.
+Each {b}washing machine{/b} is set for a {b}certain{/b} amount of time.
+{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of time.
+{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of time.
+{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
+}
+
+default infoText = {
+    'notes': ['''Notebook shows all current tasks.''',
+'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
+Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
+{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
+'''
+{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
+'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
+Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
+Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
+'''The second one shows how many {b}major quests{/b} are completed.''',
+'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''],
+    'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
+
+You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!
+
+{b}Stackable items{/b}, like empty plates, will only count as 1 item once stacked.
+'''],
+    'trade': ['''Normally, grabbing or dropping an item will be done automatically when clicking on an item.
+    
+However, if both of your hands are full, you will be prompted to choose which item you want to remove from your inventory.
+''']
 }

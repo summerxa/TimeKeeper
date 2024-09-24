@@ -2,10 +2,20 @@ init python:
     def getMainMap(lvl, floor):
         return f"mini/map/map_{lvl}_main_{floor}.png"
 
+    # returns True if there are no fetch quests active
+    # otherwise, returns True if this button has the currently active fetch quest; and False if it doesn't
+    def can_show_task(bt):
+        if not bt['curtask']:
+            return False
+        not_noble_req = (not fetchq or (bt['curtask']['tasktype'] == 'fetchquest' or bt['curtask']['tasktype'] == 'fetchquest_end'))
+        not_optional = (not Task.OPTIONAL in bt['curtask']['tags'])
+        return not_noble_req and not_optional
+
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
     
+    # whether you have the required items to do the task in your inventory
     def task_can_proceed(item_req=[]):
         if not len(item_req):
             return True
@@ -13,6 +23,34 @@ init python:
             if i in store.invitems:
                 return True
         return False
+
+    # increment the current time and adjust the player's productivity
+    # triggers any related events (such as new fetch quests or bonus tasks)
+    def addTime(mins, isProductive=False, isBonusTask=False):
+        global curtime
+        global productivity
+        curtime += mins
+        for tn, t in store.tasks[store.curlevel]['single'].items():
+            if 't0' in t and t['t0'] <= curtime and not tn in fetchq and not tn in levelInfo[curlevel]['quests_done']:
+                addFquest(tn, t)
+        for tn, t in store.tasks[store.curlevel]['optional'].items():
+            if t['t0'] <= curtime and not tn in levelInfo[curlevel]['quests_done']:
+                taskButtons[curlevel][t['btn']]['curtask'] = t
+        for tn, t in store.bonusq.items():
+            if t['t0'] <= curtime and not bonusq[tn]['btn']:
+                setTaskButton(tn, tasks[curlevel]['infinite'][tn], task_part='', isBonus=True)
+        if isBonusTask:
+            productivity = min(100, productivity + 10)
+        elif isProductive:
+            productivity += (100 - productivity) * 0.01 * mins
+        else:
+            productivity = max(0, productivity - mins)
+
+    def getTcost():
+        global curtask
+        if 'sequence' in curtask:
+            return taskTemplates[taskq[curtask['tasktype']]['part']]['tcost']
+        return curtask['tcost']
 
     # returns time in am/pm
     def getTimeDig(t):
@@ -31,8 +69,9 @@ init python:
             tx += 'pm'
         return tx
 
+    # formats the time in mc textbox when player hovers on the clock
     def fmtTimeHinttext():
-        mleft = store.tlimit - store.curtime
+        mleft = store.levelInfo[store.curlevel]['tf'] - store.curtime
         hleft = mleft // 60
         mleft %= 60
         sleft = ""
@@ -42,82 +81,95 @@ init python:
             sleft += f"{' and ' if hleft else ''}{mleft} {'minutes' if mleft > 1 else 'minute'}"
         return f"It's currently {getTimeDig(store.curtime)}. I have {sleft} left."
 
+    # calculates minigame score
+    def calculateFinalScore():
+        for i in range(3):
+            if store.player_attrs[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
+                return 0
+        return sum(store.player_attrs) * store.productivity * 0.01
+
     # --- TASK/TASKBUTTON FORMATTING ---
 
-    def setTlimit(t):
-        t['t0'] = store.curtime
-        if ('tf' in t and t['tf'] == 9999) or ('dur' in t and t['dur'] == 9999):
-            t['tf'] = store.tlimit
-        elif 'dur' in t:
-            t['tf'] = min(t['t0'] + t['dur'], store.tlimit)
+    def fmtTask(task_name, task_part='', task_type='infinite'):
+        d = store.tasks[store.curlevel][task_type][task_name]
+        if task_type == 'infinite' and 'sequence' in store.tasks[store.curlevel]['infinite'][task_name]:
+            d = store.taskTemplates[task_part]
+        # if cost of time is 9999 (skips entire minigame), show a smaller value for the time cost
+        return d['desc'] + " (" + str(min(levelInfo[curlevel]['tf'] - levelInfo[curlevel]['t0'], d['tcost'])) + " min)"
 
-    def fmtTsk(t):
-        tx = "("
-        if t['t0'] != -1:
-            tx += getTimeDig(t['t0'])
-        else:
-            tx += getTimeDig(tstart)
-        tx += '-'
-        if t['tf'] != 9999:
-            tx += getTimeDig(t['tf'])
-        else:
-            tx += getTimeDig(tlimit)
-        tx += ") " + t['desc']
-        return tx
-
-    # by default, checks if special highlight is enabled in settings
-    # passing forced=True forces the fn. to add special formatting regardless of settings
-    def fmtSpecialTask(t, forced=False):
-        if not persistent.showspecial and not forced:
-            return t
-        return "{i}" + t + "{/i}"
-
-    def fmtBaseTask(t):
-        return f"- {fmtTsk(t)} [[{roomButtons[curlevel][t['room']]['name']}]"
-
-    def fmtTskButton(t):
-        return f"{fmtTsk(t)} ({t['tcost']} min)"
-
-    # sorts tasks by tf, tiebreaking by t0 and then room name
-    def generateTodo():
-        if len(store.taskq) == 0:
-            store.notes_text = "No tasks right now."
-            store.notes_text_s = store.notes_text
-            return
-        tqs = []
-        for t in store.taskq:
-            tqs.append([t['tf'], t['t0'], not Task.SPECIAL in t['tags'], -t['scorebonus'], fmtBaseTask(t)])
-        tqs.sort()
-        tq = []
-        tq_s = []
-        for t in tqs:
-            tx = t[4]
-            tq.append(tx)
-            if not t[2]:
-                tx = fmtSpecialTask(tx, True)
-            tq_s.append(tx)
-        store.notes_text = '\n'.join(tq)
-        store.notes_text_s = '\n'.join(tq_s)
-    
-    def generateScore():
-        tx = "Approval rating: "
-        if store.completion < store.levelInfo[store.curlevel]['threshold'][0]:
-            tx += "Bad"
-        elif store.completion > store.levelInfo[store.curlevel]['threshold'][1]:
-            tx += "Good"
-        else:
-            tx += "Mid"
-        tx += f"\n\nQuests completed: {completion_f}/{len(store.levelInfo[store.curlevel]['quests'])}"
-        for qn, q_ in store.levelInfo[store.curlevel]['quests'].items():
-            tx += f"\n- {qn} "
-            if q_:
-                tx += "(done)"
+    # DON'T call this directly! helper method for setTaskButton
+    def getTaskButton(all_btns):
+        a = all_btns.copy()
+        while a:
+            bt = renpy.random.choice(a)
+            if not store.taskButtons[store.curlevel][bt]['curtask']:
+                return bt
             else:
-                tx += "(to-do)"
-        return tx
+                # ensures we don't keep drawing occupied buttons
+                a.remove(bt)
+        return None
+
+    # ONLY USE FOR INFINITE GENREATING TASKS
+    # task_name = ID of the task
+    # task = the actual task itself
+    # task_part = optional - for multi-part tasks, the ID of the specific part
+    def setTaskButton(task_name, task, task_part='', isBonus=False):
+        if 'sequence' in task:
+            btn_list = task['btns'][task_part]
+        else:
+            btn_list = task['btns']
+
+        bt_choice = getTaskButton(btn_list)
+        if isBonus:
+            bonusq[task_name]['btn'] = bt_choice
+        else:
+            taskq[task_name]['btn'] = bt_choice
+        
+        bt = store.taskButtons[store.curlevel][bt_choice]
+        bt['curtask'] = task
+
+        bt['act'] = [SetVariable('curtask', task), SetVariable('curtask_btn', bt)]
+        if 'sequence' in task:
+            to_label = store.taskTemplates[task_part]['tlabel']
+            bt['act'] += [SetVariable('curgame', {'type': task_part})]
+        else:
+            to_label = task['tlabel']
+            bt['act'] += [SetVariable('curgame', {'type': task['tasktype']})]
+        bt['act'] += [Return(to_label)]
+        if 'tags' in task and not Task.NO_FADE in task['tags']:
+            bt['act'] += [With(cfade)]
+        
+        bt['htext'] = fmtTask(task_name, task_part)
+    
+    # used to find the time that the next bonus task will trigger
+    # returns curtime + (random number between a and b)
+    # if curtime + b exceeds the time limit of the current level, instead
+    #   returns curtime + (random number between a and time remaining)
+    def getRandomTime(a, b):
+        return curtime + renpy.random.randint(1, min(20, levelInfo[curlevel]['tf'] - curtime))
+
+    # adds a fetch quest to fetchq
+    def addFquest(task_name, task):
+        fetchq.append(task_name)
+        if len(fetchq) == 1:
+            activateFquest(task_name, task)
+    
+    # activates the fetch quest
+    def activateFquest(task_name, t):
+        bt = store.taskButtons[store.curlevel][t['btn']]
+        bt['curtask'] = t
+        bt['htext'] = fmtTask(task_name, '', 'single')
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
+    
+    # activates the optional quest
+    def activateOptquest(task_name, t):
+        bt = store.taskButtons[store.curlevel][t['btn']]
+        bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
+    
 
     # --- ROOM/MAP STUFF ---
 
+    # formats room names in the large map
     def get_room_text(toRoom, is_map=False):
         if curroom == 'main' and not prevroom:
             return toRoom.upper()
@@ -141,100 +193,62 @@ init python:
 
     # --- TASK STUFF ---
 
-    # goodjob = task was done correctly
-    # punish = subtract from completion score if not goodjob
-    def docurtask(goodjob=True, punish=True, tsk=None, tname=None):
-        if not tsk:
-            tsk = store.curtask
-        if goodjob:
-            store.curtime += tsk['tcost']
-            tsk['done'] = True
-            store.completion += tsk['scorebonus']
-            if Task.SPECIAL in tsk['tags'] and tname:
-                store.completion_f += 1
-                store.levelInfo[store.curlevel]['quests'][tname] = True
+    # tname = name of task
+    # goodjob = task was completed (instead of ditching)
+    # task_type = either infinite or single
+    def docurtask(tname=None, goodjob=True, task_type='infinite'):
+        if task_type == 'infinite':
+            t = taskTemplates[tname]
         else:
-            store.curtime += tsk['tcost'] // 2
-            if Task.NO_REDO in tsk['tags']:
-                tsk['done'] = True
-                if punish:
-                    store.completion -= tsk['scorepenalty']
-        if tsk['done'] or store.curtime > tsk['tf']:
-            store.hinttext = store.levelHints['default_idle']
-        if tsk['done']:
-            # activate any follow-ups
-            if 'nxt' in tsk:
-                for tn in tsk['nxt']:
-                    t = store.tasks[curlevel][tn]
-                    if t['t0'] == -2:
-                        setTlimit(t)
-
-    # t0 = -1 -> starts when minigame starts
-    # t0 = -2 -> has one prerequisite task (that contains *this* task in its 'nxt')
-    # t0 = -3 -> has multiple prereqs (contained in *this* task's 'prq')
-    def update_taskq():
-        for tn, t in store.tasks[curlevel].items():
-            if t['t0'] == -3:
-                meet_prereq = True
-                for tn in t['prq']:
-                    if not store.tasks[curlevel][tn]['done']:
-                        meet_prereq = False
-                        break
-                if meet_prereq:
-                    setTlimit(t)
-
-            if t['done'] or t['t0'] < -1 or (store.curtime < t['t0'] or t['tf'] < store.curtime):
-                t['activated'] = False
-            elif not t['done'] and (t['t0'] <= store.curtime and store.curtime <= t['tf']):
-                t['activated'] = True
-
-            bt = store.taskButtons[curlevel][t['btn']]
-            if t in store.taskq:
-                if not t['activated']:
-                    store.taskq.remove(t)
-                    # if not t['done']:
-                    #     store.completion -= t['scorepenalty']
-                    try:
-                        store.taskrq.remove(tn)
-                    except:
-                        pass
-                    bt['curtask'] = None
-                    bt['htext'] = ''
-                    if 'hidden' in bt:
-                        bt['act'] = []
+            t = store.tasks[store.curlevel][task_type][tname]
+        if goodjob:
+            store.curtask_btn['curtask'] = None
+            if task_type == 'infinite':
+                if t['type'] == 'small':
+                    store.bonusq[tname]['btn'] = None
+                    if levelInfo[curlevel]['bonus_remaining'] > 0:
+                        levelInfo[curlevel]['bonus_remaining'] -= 1
+                        store.bonusq[tname]['t0'] = getRandomTime(1, 20)
                     else:
-                        if 'taskless' in bt:
-                            bt['act'] = SetVariable('hinttext', levelHints[bt['taskless']])
-                        else:
-                            bt['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+                        store.bonusq[tname]['t0'] = 9999
+                else:
+                    if 'next' in t:
+                        store.taskq[t['parent']]['part'] = t['next']
+                        setTaskButton(t['parent'], tasks[curlevel]['infinite'][t['parent']], t['next'])
+                    else:
+                        setTaskButton(tname, tasks[curlevel]['infinite'][tname])
             else:
-                if t['activated']:
-                    store.taskq.append(t)
-                    bt['curtask'] = t
-                    bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt)]
-                    if 'game' in t:
-                        bt['act'].append(SetVariable('curgame', t['game']))
-                    bt['act'] += [Return(t['tlabel'])]
-                    if not Task.NO_FADE in t['tags']:
-                        bt['act'] += [With(cfade)]
-                    bt['htext'] = fmtTskButton(bt['curtask'])
-        generateTodo()
-        return
+                if task_type == 'single':
+                    del fetchq[0]
+                    if 'next' in t:
+                        fetchq.insert(0, t['next'])
+                    if fetchq: # activate next quest in quest chain, if it is unlocked
+                        activateFquest(fetchq[0], tasks[curlevel]['single'][fetchq[0]])
+                levelInfo[curlevel]['quests_done'].add(tname)
+        
+            for i in range(len(player_attrs)):
+                player_attrs[i] += t['attributes'][i]
+            addTime(t['tcost'], goodjob, t['type'] == 'small')
+        else:
+            addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
 
     # --- ITEM/INVENTORY STUFF ---
 
+    # formats name of item when seen in inventory
     def fmtItemName(itm, stk=1):
         tx = itemsAll[itm]['name']
         if itemsAll[itm]['stackable']:
             tx += " (" + str(stk) + ")"
         return tx
 
+    # formats flavor text for items when moused over in map
     def fmtItemDesc(itm, stk=1):
         tx = itemsAll[itm]['desc']
         if itemsAll[itm]['stackable']:
             tx += " (" + str(stk) + ")"
         return tx
 
+    # sorry I forgot what this function does :'D
     def invGetStack(giveitem):
         nonestack = True
         for i in range(len(invitems)):
@@ -248,6 +262,7 @@ init python:
                 stackhand = i
         return stackhand
 
+    # counts how many instances of "itm" are in the player's inventory
     def invCountNum(itm):
         counter = 0
         for i in range(len(invitems)):
@@ -255,11 +270,23 @@ init python:
                 counter += invstacks[i]
         return counter
 
+    # helper method that verifies if player can pick up an item on the map
     def inventoryOk(item_id):
         oneHandEmpty = 'air' in invitems
         itemCanStack = (itemsAll[item_id]['stackable'] and invGetStack(item_id) >= 0)
         return oneHandEmpty or itemCanStack
 
+    '''
+    This implementation is absolutely awful spaghetti code, but it hasn't broken yet
+    (knock on wood). Don't worry about how it works until something goes horribly wrong.
+    USAGE:
+    holder = itemholder to drop the item into (this should always be None except when clicking an item button)
+    myitem = item in your inventory to remove
+    mystack = if myitem is stackable, how many stacks of it to remove
+    otheritem = item to place in your inventory
+    otherstack = if otheritem is stackable, how many stacks to place
+    useholder = if True, swaps the target item b/w your inventory and an itemholder (again, should always be False by default)
+    '''
     def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:
             if not holder:
@@ -339,7 +366,7 @@ init python:
         if prevroom and prevroom != 'main':
             i1 = roomButtons[curlevel][prevroom]['num']
             i2 = roomButtons[curlevel][curroom]['num']
-            curtime += roomProxim[curlevel][curfloor][i1][i2]
+            addTime(roomProxim[curlevel][curfloor][i1][i2])
             prevroom = 'main'
             if i1 != i2:
                 hinttext = levelHints['default_idle']
@@ -353,7 +380,8 @@ label gotoroom_direct:
     $ hinttext = levelHints['default_idle']
     jump mini_main
 
-label give_item_prompt(vb='Give', both_hands=False):
+# shows menu to give an item to an NPC in fetch quests
+label give_item_prompt(npc, npc_id, msg, vb='Give', both_hands=False):
     $ showlh = (invitems[0] != 'air')
     if both_hands:
         $ showrh = (invitems[1] != 'air')
@@ -363,8 +391,13 @@ label give_item_prompt(vb='Give', both_hands=False):
     $ ltext = fmtItemName(invitems[0], invstacks[0])
     $ rtext = fmtItemName(invitems[1], invstacks[1])
 
+    # make sure the speaking character is highlighted
+    $ clear_focus()
+    $ focus_on([npc_id])
+
     if both_hands:
         menu:
+            npc "[msg]"
 
             "[vb] [ltext] and [rtext]" if showlh and showrh:
                 $ ichoice = invitems
@@ -376,11 +409,13 @@ label give_item_prompt(vb='Give', both_hands=False):
                 $ ichoice = None
     else:
         menu:
-
+            npc "[msg]"
+            
             "[vb] [ltext]" if showlh:
                 $ ichoice = invitems[0]
             "[vb] [rtext]" if showrh:
                 $ ichoice = invitems[1]
             "Leave for now":
                 $ ichoice = None
+    $ clear_focus()
     return

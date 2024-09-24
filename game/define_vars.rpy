@@ -20,7 +20,6 @@ default current_speaker = None
 default focus_dict = {}
 
 # --- CUSTOM SETTINGS ---
-default persistent.showspecial = True # highlights recommended quests if True
 default persistent.namesaves = True # prompts user to name save files if True
 default persistent.showleavewarning = True # if True, confirm whether you'd like to leave a minigame
 default persistent.showresetwarning = True # same as above but for resetting minigame progress
@@ -37,19 +36,18 @@ init python:
     from enum import Enum
     class Task(Enum):
         SPECIAL = 0     # task is recommended
-        NO_REDO = 1     # can't retry task if failed
-        DONOTHING = 2   # special optional task used to skip the minigame (speedrunnn)
-        NO_FADE = 3     # no fadein/fadeout animation
-        NON_ROOT = 4    # cannot be completed w/o doing prereq quests
+        OPTIONAL = 1    # for easter egg tasks
+        NO_FADE = 2     # no fadein/fadeout animation
+        BONUS = 3       # bonus tasks that add fixed productivity
 
 default tolabel = ''
 
 default curlevel = 500
 default curtime = 0
-default tstart = 0
-default tlimit = 9999
-default completion = 0
-default completion_f = 0
+
+default productivity = 100.0
+# cleanliness, coverage, service
+default player_attrs = [0, 0, 0]
 
 default curroom = 'main'
 default prevroom = None
@@ -58,17 +56,25 @@ default curfloor = 0
 default curtask = None
 default curtask_btn = None
 default curgame = None
-default taskq = []
-default taskrq = []
+
+# stores fetch quests as a string containing the quest ID
+default fetchq = []
+
+# stores infinite tasks as a dictionary entry formatted as:
+# 'task ID': {'btn': furniture ID, 'part': part ID (for multi-part tasks only)}
+#   can also contain more data depending on the task (like grab/drop dishes contains the
+#       total number of dishes the player must grab/drop off)
+default taskq = {}
+
+# stores bonus tasks as a dictionary entry formatted as:
+# 'task ID': {'btn': furniture ID - or None if task is inactive, 't0': start time}
+default bonusq = {}
 
 default curholder = None
 default curhand = -1
 default invitems = ['air', 'air']
 default invstacks = [1, 1]
 default ichoice = None
-
-default notes_text = ''
-default notes_text_s = ''
 
 # (not using screen variable b/c will have to redeclare for every screen that uses a button)
 default cur_hov = None

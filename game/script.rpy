@@ -12,12 +12,15 @@ label start:
 
 label chapter1:
 
-    call c1_scene1 from _call_c1_scene1
-    #call c1_scene1_5 #only for testing
-    call c1_scene2 from _call_c1_scene2
+    # call c1_scene1 from _call_c1_scene1
+    # #call c1_scene1_5 #only for testing
+    # call c1_scene2 from _call_c1_scene2
 
-    # call the minigame, since amelia cutscene is after the tutorial level
-    call mini_placeholder([("Amelia sick scene", "c1_scene3")]) from _call_mini_placeholder
+    # # eventually this will be part of the tutorial minigame
+    # call c1_scene3 from _call_c1_scene3
+
+    show mc 1a
+    s "insert cutscene here that transitions to the minigame"
 
     # minigame
     $ node_unlock('c1_mgame')
@@ -70,13 +73,9 @@ label meet_all_chars:
 # simulates entering a fetch quest
 # however, tasks can be done repeatedly or in any order for testing convenience
 label mini_placeholder(quests):
-    $ completion = 0
     $ fquest = 'temp'
     while fquest != "leave":
         $ fquest = renpy.display_menu(quests + [("Leave minigame", "leave")])
         if fquest != "leave":
             call expression fquest from _call_expression
-            $ completion += 1
-    if not completion:
-        jump mini_failed
     return

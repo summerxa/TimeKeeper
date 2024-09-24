@@ -627,7 +627,7 @@ label c1_fetch1:
 
     stop ambience fadeout 1.0
 
-    $ docurtask()
+    $ docurtask('fetch1', task_type='single')
 
     jump mini_main
 
@@ -642,7 +642,7 @@ label c1_fetch1_end:
     
     #after item is obtained, interacting with nobleman again triggers this
 
-    call c1_give_item_prompt(n2, "wine_bottle") from _call_c1_give_item_prompt_1
+    call c1_give_item_prompt(n2, "npc2", "Well? Do you have the wine?", "wine_bottle") from _call_c1_give_item_prompt_1
 
     if ichoice == 'wine_bottle':
         s 1b "Your wine, sir."
@@ -650,7 +650,7 @@ label c1_fetch1_end:
         n2 "Ah, perfect. Just the type I was looking for."
 
         $ update_inv(myitem='wine_bottle')
-        $ docurtask(tname = "Fetch quest 1")
+        $ docurtask('fetch1_end', task_type='single')
         
         $ node_unlock('c1_fetch1')
 
@@ -681,7 +681,7 @@ label c1_fetch2:
 
     stop ambience fadeout 2.0
 
-    $ docurtask()
+    $ docurtask('fetch2', task_type='single')
 
     jump mini_main
 
@@ -696,7 +696,7 @@ label c1_fetch2_end:
     show npc1 at l1_5
     show mc 1b at r1_5
 
-    call c1_give_item_prompt(n1, "jacket_red") from _call_c1_give_item_prompt_2
+    call c1_give_item_prompt(n1, "npc1", "Remember, my jacket is the red one with the golden trim.", "jacket_red") from _call_c1_give_item_prompt_2
 
     if ichoice == 'jacket_red':
     
@@ -707,7 +707,7 @@ label c1_fetch2_end:
 
         stop ambience fadeout 2.0
 
-        $ docurtask(tname = "Fetch quest 2")
+        $ docurtask('fetch2_end', task_type='single')
         $ update_inv(myitem='jacket_red')
 
         scene bg ballroom with cfade
@@ -774,7 +774,7 @@ label c1_fetch3:
 
     stop ambience fadeout 2.0
 
-    $ docurtask()
+    $ docurtask('fetch3', task_type='single')
 
     jump mini_main
 
@@ -829,7 +829,7 @@ label c1_fetch3_end:
 
     stop ambience fadeout 2.0
 
-    $ docurtask(tname = "Fetch quest 3")
+    $ docurtask('fetch3_end', task_type='single')
 
     jump mini_main
 
@@ -900,7 +900,7 @@ label c1_fetch4:
 
     $ node_unlock('c1_fetch4')
 
-    $ docurtask(tname = "Fetch quest 4")
+    $ docurtask('fetch4_end', task_type='single')
 
     b 5a "...Hmmm?"
 
@@ -992,16 +992,11 @@ label c1_scene5:
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
-    
-    # TODO remember to delete this once scoring threshold is finalized
-    python:
-        score_min = 0
-        score_max = 0
-        for tn_, t_ in tasks[curlevel].items():
-            score_min -= t_['scorepenalty']
-            score_max += t_['scorebonus']
-    "your completion score is [completion] on a scale of [score_min] to [score_max], you did [completion_f]/4 fetch quest(s)"
 
+    # TODO delete in release version
+    $ score = calculateFinalScore()
+    "Your score was [score]"
+    
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})
     "Anastasia goes to the ballroom and looks out a window. There’s an intense blizzard outside."
@@ -1128,7 +1123,9 @@ label c1_scene6:
 
     m "Anastasia."
 
-    if completion >= levelInfo[curlevel]['threshold'][1]:
+    $ mgame_score = calculateFinalScore()
+
+    if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
 
         m 2a "Your work today was excellent."
 
@@ -1136,7 +1133,7 @@ label c1_scene6:
 
         m "This is what a good maid should be."
 
-    elif completion <= levelInfo[curlevel]['threshold'][0]:
+    elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
 
         m 6a "Your work today was… quite frankly, {i}dreadful{/i}." 
 
@@ -2668,11 +2665,11 @@ label chap1_test_part2:
 
     return
 
-label c1_give_item_prompt(npc=None, goal_choice=''):
+label c1_give_item_prompt(npc, npc_id, msg, goal_choice=''):
     $ ichoice = 'air'
 
     while True:
-        call give_item_prompt from _call_give_item_prompt
+        call give_item_prompt(npc, npc_id, msg) from _call_give_item_prompt
         if not ichoice or ichoice == goal_choice:
             return
         if ichoice == 'dish_dirty':
@@ -2751,7 +2748,7 @@ label task_c1_donothing:
             "Anastasia decides to sit and do nothing for the remainder of the day."
 
             "This will be difficult to explain to Mother..."
-            $ docurtask()
+            $ docurtask('donothing', False, 'optional')
         "Leave for now":
             $ focus_on(['mc'])
             "Anastasia returns to her tasks."
@@ -2829,12 +2826,126 @@ label chap1_test_t6:
     jump mini_main
 
 init python:
+    def grabdishes_init_py():
+        global curgame
+        global mgame_goal
+        global mgame_try
+        global taskq
+        if not 'try' in curgame:
+            # generate random number of dishes between 3 and 6 inclusive
+            mgame_goal = renpy.random.randint(3, 6)
+            curgame['try'] = [0] * mgame_goal
+            curgame['drag'] = []
+            for i in range(mgame_goal):
+                curgame['drag'].append({'p': (renpy.random.randint(340, 740), renpy.random.randint(130, 840))})
+                curgame['drag'][i]['n'] = str(i)
+                curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
+            curgame['drop'] = [
+                {
+                    'n': 'goal', 'p': (1450, 0), 'w': 600, 'h': 1080
+                }
+            ]
+        mgame_try = curgame['try']
+        # You can store other variables in taskq, not just location and part
+        # in this case we need to check the number of dishes to make sure
+        # the player dropped off all of them
+        # So we store the expected number of dishes in "ndishes"
+        taskq['dishes_chain']['ndishes'] = mgame_goal
+
+label task_c1_grabdishes:
+    
+    $ grabdishes_init_py()
+    
+    scene bg mgame_grabdishes
+
+    $ hinttext = levelHints['grabdishes_idle']
+
+    $ game_ret = 'refresh'
+    while game_ret == 'refresh':
+        call screen mgame_dragdrop_dishes
+        $ game_ret = _return
+
+    $ docurtask('grabdishes', not 0 in curgame['try'])
+
+    $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
+    if game_ret == 'done':
+        show screen mgame_dragdrop_dishes(shaded=False)
+        show screen mgame_overlay
+        hide screen mgame_dragdrop_dishes with dissolve
+
+    jump mini_main
+
+init python:
+    def dropdishes_init_py():
+        global curgame
+        global mgame_try
+        global mgame_goal
+        curgame['try'] = [] # reset dishes every time, in case player gained or lost some
+        curgame['drag'] = []
+        for i in range(invCountNum('dish_dirty')):
+            curgame['try'].append(0)
+            curgame['drag'].append({
+                'n': str(i),
+                'p': ((1200 + (i * 50)), 390),
+                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
+            })
+        mgame_try = curgame['try']
+        # we can access "ndishes" again because it was saved in taskq
+        mgame_goal = store.taskq['dishes_chain']['ndishes']
+        curgame['drop'] = [
+            {
+                'n': 'goal', 'p': (369, 356), 'w': 784, 'h': 525
+            }
+        ]
+
+label task_c1_dropdishes:
+
+    $ dropdishes_init_py()
+    
+    scene bg mgame_dropdishes
+
+    $ hinttext = levelHints['dropdishes_idle']
+
+    $ game_ret = 'refresh'
+    while game_ret == 'refresh':
+        call screen mgame_dragdrop_dishes
+        $ game_ret = _return
+
+    $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
+    $ docurtask('dropdishes', not taskq['dishes_chain']['ndishes'])
+    if game_ret == 'done':
+        show screen mgame_dragdrop_dishes(shaded=False)
+        show screen mgame_overlay
+        hide screen mgame_dragdrop_dishes with dissolve
+
+    # NOTE: need to do this for any task that can kick you out without even completing the task
+    # ie. in drop dishes, you get kicked when you drop off all dishes in your inventory,
+    # NOT when you've dropped off the expected total number of dishes
+    $ hinttext = levelHints['default_idle']
+
+    jump mini_main
+
+init python:
     def waterpour_init_py():
         global curgame
+        if not 'cups' in curgame:
+            curgame['cups'] = [[], [], [], []]
+            for i in ['#920e0e', '#a4f910', '#eedfab']:
+                candidate_pos = [0, 1, 2, 3]
+                for j in range(4):
+                    while True:
+                        p = renpy.random.choice(candidate_pos)
+                        if len(curgame['cups'][p]) == 4 or (len(curgame['cups'][p]) == 3 and curgame['cups'][p].count(i) == 3):
+                            candidate_pos.remove(p)
+                        else:
+                            curgame['cups'][p].append(i)
+                            break
+            for c in curgame['cups']:
+                renpy.random.shuffle(c)
         if not 'original' in curgame:
             curgame['original'] = []
             for c in curgame['cups']:
-                curgame['original'].append(c['colors'].copy())
+                curgame['original'].append(c.copy())
 
 label task_c1_waterpour:
 
@@ -2852,95 +2963,12 @@ label task_c1_waterpour:
             $ waterpour_init()
             $ hinttext = levelHints['waterpour_idle']
 
-    $ docurtask(game_ret == 'done')
+    $ docurtask('waterpour', game_ret == 'done')
+
     if game_ret == 'done':
         show screen mgame_waterpour(shaded=False)
         show screen mgame_overlay
         hide screen mgame_waterpour with dissolve
-
-    jump mini_main
-
-init python:
-    def grabdishes_init_py():
-        global curgame
-        global mgame_goal
-        global mgame_try
-        if not 'try' in curgame:
-            mgame_goal = curgame['goal']
-            curgame['try'] = [0] * mgame_goal
-            curgame['drag'] = []
-            for i in range(mgame_goal):
-                curgame['drag'].append({'p': (renpy.random.randint(340, 740), renpy.random.randint(130, 840))})
-                curgame['drag'][i]['n'] = str(i)
-                curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
-            curgame['drop'] = [
-                {
-                    'n': 'goal', 'p': (1450, 0), 'w': 600, 'h': 1080
-                }
-            ]
-        mgame_try = curgame['try']
-
-label task_c1_grabdishes:
-    
-    $ grabdishes_init_py()
-    
-    scene bg mgame_grabdishes
-
-    $ hinttext = levelHints['grabdishes_idle']
-
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes
-        $ game_ret = _return
-    
-    $ docurtask(game_ret == 'done')
-    $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
-    if game_ret == 'done':
-        show screen mgame_dragdrop_dishes(shaded=False)
-        show screen mgame_overlay
-        hide screen mgame_dragdrop_dishes with dissolve
-
-    jump mini_main
-
-init python:
-    def dropdishes_init_py():
-        global curgame
-        global mgame_try
-        curgame['try'] = [] # reset dishes every time, in case player gained or lost some
-        curgame['drag'] = []
-        for i in range(invCountNum('dish_dirty')):
-            curgame['try'].append(0)
-            curgame['drag'].append({
-                'n': str(i),
-                'p': ((1200 + (i * 50)), 390),
-                'im': 'mini/tgame/grab_dropdishes/plate_dirty.png'
-            })
-        mgame_try = curgame['try']
-
-label task_c1_dropdishes:
-
-    $ dropdishes_init_py()
-    
-    scene bg mgame_dropdishes
-
-    $ hinttext = levelHints['dropdishes_idle']
-
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
-        call screen mgame_dragdrop_dishes
-        $ game_ret = _return
-
-    $ levelInfo[curlevel]['ndishes'] -= mgame_try.count(1)
-    if not levelInfo[curlevel]['ndishes']:
-        $ docurtask(True)
-    else:
-        $ docurtask(False, False)
-        show screen mgame_dragdrop_dishes(shaded=False)
-        show screen mgame_overlay
-        hide screen mgame_dragdrop_dishes with dissolve
-
-    # NOTE: need to do this for any task that auto-kicks you out without being marked as "done"
-    $ hinttext = levelHints['default_idle']
 
     jump mini_main
 
@@ -3007,7 +3035,7 @@ label task_c1_sortlaundry:
         call screen mgame_laundry
         $ game_ret = _return
     
-    $ docurtask(game_ret == 'done')
+    $ docurtask('sortlaundry', game_ret == 'done')
 
     if game_ret == 'done':
         show screen mgame_laundry(shaded=False)
@@ -3019,20 +3047,20 @@ label task_c1_sortlaundry:
 label task_c1_grabfood:
 
     $ update_inv(otheritem='food')
-    $ docurtask()
+    $ docurtask('grabfood')
 
     jump mini_main
 
 label task_c1_dropfood:
 
     $ update_inv(myitem='food')
-    $ docurtask()
+    $ docurtask('dropfood')
 
     jump mini_main
 
 label task_c1_lightcandle:
 
     $ update_inv(myitem='matches', mystack=1)
-    $ docurtask()
+    $ docurtask('lightcandle')
 
     jump mini_main

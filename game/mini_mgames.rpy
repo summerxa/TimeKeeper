@@ -1,34 +1,18 @@
 init python:
-    def is_win_listeq():
-        for i in range(len(store.mgame_try)):
-            if store.mgame_try[i] != store.mgame_goal[i]:
-                return False
-        return True
-
-    def is_win_count(tocount):
-        return store.mgame_try.count(tocount) == store.mgame_goal
-
-
-    def toggle_act(i):
-        store.mgame_try[i] = not store.mgame_try[i]
-        return 'done' if is_win_listeq() else 'refresh'
-
-    def items_dragged(drags, drop):
-        dragnum = int(drags[0].drag_name)
-        store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
-        if not drop:
-            store.mgame_try[dragnum] = ''
-        else:
-            store.mgame_try[dragnum] = drop.drag_name
-        return 'done' if is_win_listeq() else 'refresh'
-    
+    # FOR MINIGAMES:
+    # functions formatted as gamename_act, legal return values include:
+    # 'refresh' to reload the game screen and show the new game state
+    # 'done' to exit the game (done automatically once there's nothing left to do in the minigame)
+    #       OR if player chooses to quit manually
+    #       IMPORTANT: 'done' =/= mark the task as completed; for some tasks you need to
+    #           manually double check whether the task was done
     def dishes_act(drags, drop):
         dragnum = int(drags[0].drag_name)
         store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'done' if not 0 in store.mgame_try else 'refresh'
-        return 'none'
+        return 'refresh'
 
     def dragged_grabdishes(drags, drop):
         ret = dishes_act(drags, drop)
@@ -48,11 +32,10 @@ init python:
         all_colors = []
         failed = False
         for cup in cups:
-            cup_colors = cup['colors']
-            if not len(cup_colors):
+            if not len(cup):
                 continue
-            curcolor = cup_colors[0]
-            for c in cup_colors:
+            curcolor = cup[0]
+            for c in cup:
                 if c in all_colors or c != curcolor:
                     failed = True
                     break
@@ -63,14 +46,12 @@ init python:
         return 'refresh' if failed else 'done'
 
     def waterpour_init():
-        i = 0
-        for c in curgame['cups']:
-            c['colors'] = curgame['original'][i].copy()
-            i += 1
+        for i in range(4):
+            curgame['cups'][i] = curgame['original'][i].copy()
 
     def waterpour_act(sel, dest):
-        color = store.curgame['cups'][sel]['colors'].pop()
-        store.curgame['cups'][dest]['colors'].append(color)
+        color = store.curgame['cups'][sel].pop()
+        store.curgame['cups'][dest].append(color)
         return waterpour_ok(curgame['cups'])
 
     def laundry_ok():
@@ -102,32 +83,11 @@ init python:
 screen mgame_overlay(shaded=True, has_mc=True):
     use mini_overlay('mgame', curgame['type'], shaded, has_mc)
 
-screen mgame_dragdrop():
-    draggroup:
-        # drop
-        for d in curgame['drop']:
-            drag:
-                drag_name d['n']
-                pos d['p']
-                draggable False
-                droppable True
-                child d['im']
-        
-        # drag
-        for d in curgame['drag']:
-            drag:
-                drag_name d['n']
-                pos d['p']
-                draggable True
-                droppable False
-                dragged items_dragged
-                drag_raise True
-                child d['im']
 
 screen mgame_dragdrop_dishes(shaded=True):
     if curgame['type'] == 'dropdishes' and 1 in mgame_try:
-        add curgame['in_sink']['im']:
-            pos curgame['in_sink']['p']
+        add 'mini/tgame/grab_dropdishes/plate_clean.png':
+            pos (778, 618)
             anchor (0.5,0.5)
     
     if curgame['type'] == 'grabdishes':
@@ -164,12 +124,10 @@ screen mgame_dragdrop_dishes(shaded=True):
     
     if curgame['type'] == 'dropdishes':
         use mgame_overlay(shaded=shaded)
-
-    if 'overlay' in curgame:
-        for overlay_itm in curgame['overlay']:
-            add overlay_itm['im']:
-                pos overlay_itm['p']
-                xanchor 0.5 yanchor 0.5
+        
+        add 'mini/tgame/grab_dropdishes/dropdishes_faucet.png':
+            pos (678, 413)
+            xanchor 0.5 yanchor 0.5
 
 screen mgame_toggle(shaded=True):
     for i in range(len(curgame['goal'])):
@@ -185,15 +143,16 @@ screen mgame_toggle(shaded=True):
 screen mgame_waterpour(shaded=True):
     default sel = -1
     default yp = 0.513
+    default xplist = [0.24, 0.38, 0.52, 0.66]
 
     for i, c in enumerate(curgame['cups']):
         if sel != i:
             add 'mini/tgame/waterpour/waterpour_reflection.png':
-                xpos c['xp']
+                xpos xplist[i]
                 ypos yp + 0.22
                 xanchor 0.5 yanchor 0.5
         imagebutton:
-            xpos c['xp']
+            xpos xplist[i]
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
             auto 'mini/tgame/waterpour/waterpour_cup_%s.png'
@@ -201,7 +160,7 @@ screen mgame_waterpour(shaded=True):
             action If(
                 sel < 0, true=SetScreenVariable('sel', i), false=If(
                     sel == i, true=SetScreenVariable('sel', -1), false=If(
-                        len(c['colors']) >= 4,
+                        len(c) >= 4,
                         true=SetVariable('hinttext', levelHints['waterpour_cup_full']),
                         false=[
                             Function(waterpour_act, sel=sel, dest=i),
@@ -211,14 +170,14 @@ screen mgame_waterpour(shaded=True):
                     )
                 )
             )
-        for j, curcolor in list(enumerate(c['colors'])):
+        for j, curcolor in list(enumerate(c)):
             add f'mini/tgame/waterpour/waterpour_{j}.png':
-                xpos c['xp']
+                xpos xplist[i]
                 ypos yp - (0.1 if sel == i else 0.)
                 xanchor 0.5 yanchor 0.5
                 at tint(curcolor)
         add 'mini/tgame/waterpour/waterpour_highlights.png':
-            xpos c['xp']
+            xpos xplist[i]
             ypos yp - (0.1 if sel == i else 0.)
             xanchor 0.5 yanchor 0.5
     textbutton "{b}RESET{/b}":

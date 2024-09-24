@@ -42,7 +42,16 @@ screen popup_info(info_name, info_title):
             draggable True
             scrollbars "vertical"
             vscrollbar_unscrollable "hide"
-            text infoText[info_name]
+            
+            vbox:
+                for t_ in infoText[info_name]:
+                    if t_[0] == ">":
+                        text t_[1:]:
+                            xanchor 0.
+                            xpos 0.05
+                    else:
+                        text t_:
+                            xalign 0.
         
         textbutton 'X':
             text_color gui.hover_color
@@ -54,6 +63,33 @@ screen popup_info(info_name, info_title):
             at highlight_hov(cur_hov, 'popup_close_btn_2')
             activate_sound audio.button_click_sfx
 
+screen task_display(t, t_part=None, t_blocked=False, is_bonus=False):
+    vbox:
+        anchor(0., 0.5) pos(0.05, 0.5)
+        text f"{t['title']}: {t['attributes'][0]} {t['attributes'][1]} {t['attributes'][2]}":
+            color '#906548'
+        if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
+            text f"Location: {roomButtons[curlevel][taskButtons[curlevel][t['btn']]['room']]['name']}":
+                color '#906548'
+        else:
+            if is_bonus:
+                text f"Location: {roomButtons[curlevel][taskButtons[curlevel][bonusq[t['tasktype']]['btn']]['room']]['name']}":
+                    color '#906548'
+            else:
+                text f"Location: {roomButtons[curlevel][taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']]['name']}":
+                    color '#906548'
+        if t_part:
+            text f"Time: {t_part['tcost']}m":
+                color '#906548'
+        else:
+            text f"Time: {t['tcost']}m":
+                color '#906548'
+        text f"{t['desc']}":
+            color '#906548'
+        if t_blocked:
+            text "{i}Must complete previous guest request to unlock this task{/i}":
+                color '#906548'
+
 screen popup_notes():
     modal True
     zorder 200
@@ -62,7 +98,6 @@ screen popup_notes():
     style_prefix "confirm"
 
     default notes_tab = 'tasks'
-    default tx = notes_text_s if persistent.showspecial else notes_text
 
     frame:
         xalign 0.5
@@ -75,23 +110,73 @@ screen popup_notes():
             spacing 23
             align (0.5,0.)
             xminimum 1367
-            for tab in [['Tasks', notes_text_s if persistent.showspecial else notes_text], ['Completion', generateScore()]]:
-                vbox:
-                    text f"◆ {tab[0]} ◆":
-                        style 'fancy_font'
-                        size 50
-                        xalign 0.5
+            vbox:
+                spacing 23
+                xmaximum 650
+                text f"◆ Tasks ◆":
+                    style 'fancy_font'
+                    size 50
+                    xalign 0.5
 
-                    viewport:
-                        area (0, 20, 600, 800)
-                        
-                        mousewheel True
-                        draggable True
-                        scrollbars "vertical"
-                        vscrollbar_unscrollable "hide"
-                        # text 'whee\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwhee':
-                        text tab[1]:
+                viewport:
+                    area (0, 20, 600, 750)
+                    
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+
+                    vbox:
+                        spacing 23
+
+                        text levelInfo[curlevel]['task_popup_text']:
                             color '#906548'
+
+                        text "{b}Priority Tasks{/b}":
+                            size 40
+                            color '#906548'
+
+                        # TODO add horizontal line
+
+                        if fetchq:
+                            vbox:
+                                spacing 23
+                                for fq in fetchq:
+                                    use task_display(tasks[curlevel]['single'][fq], t_blocked = (fq != fetchq[0]))
+                        else:
+                            text "None right now.":
+                                anchor(0., 0.5) pos(0.05, 0.5)
+                                color '#906548'
+            
+            vbox:
+                text f"◆ Tasks ◆":
+                    style 'fancy_font'
+                    size 50
+                    xalign 0.5
+                
+                text "{b}Other Tasks{/b}":
+                    size 40
+                    color '#906548'
+                
+                # TODO add horizontal line
+
+                viewport:
+                    area (0, 20, 600, 735)
+                    
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    vscrollbar_unscrollable "hide"
+                    vbox:
+                        spacing 23
+                        for tn, tsk in bonusq.items():
+                            if tsk['btn']:
+                                use task_display(tasks[curlevel]['infinite'][tn], is_bonus=True)
+                        for tn, tsk in taskq.items():
+                            if 'sequence' in tasks[curlevel]['infinite'][tn]:
+                                use task_display(tasks[curlevel]['infinite'][tn], taskTemplates[tsk['part']])
+                            else:
+                                use task_display(tasks[curlevel]['infinite'][tn])
         
         button:
             anchor (0.,0.)
@@ -246,7 +331,7 @@ screen popup_mgame_leave():
         yalign 0.5
         maximum (800, 500)
         vbox:
-            text f"Do you want to leave?\n\nLeaving will cost:\n{curtask['tcost']} minutes if the task is complete.\n{curtask['tcost'] // 2} minutes if the task is incomplete.":
+            text f"Do you want to leave?\n\nLeaving will cost:\n{getTcost()} minutes if the task is complete.\n{getTcost() // 2} minutes if the task is incomplete.":
                 xalign 0.5
                 yalign 0.2
             textbutton "Don't show this message again.":
