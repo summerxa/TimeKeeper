@@ -2918,11 +2918,6 @@ label task_c1_dropdishes:
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
 
-    # NOTE: need to do this for any task that can kick you out without even completing the task
-    # ie. in drop dishes, you get kicked when you drop off all dishes in your inventory,
-    # NOT when you've dropped off the expected total number of dishes
-    $ hinttext = levelHints['default_idle']
-
     jump mini_main
 
 init python:

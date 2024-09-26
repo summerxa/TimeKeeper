@@ -251,13 +251,13 @@ screen popup_trade():
                 textbutton ltext:
                     align (0.,0.6)
                     text_align 0.5
-                    action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+                    action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
 
                 textbutton rtext:
                     align(1.,0.6)
                     text_align 0.5
-                    action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])]
+                    action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
     
         use popup_button_close('popup_trade')
@@ -350,7 +350,7 @@ screen popup_mgame_leave():
                 spacing 150
                 textbutton "Yes":
                     text_align 0.5
-                    action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('leave'), With(cfade)]
+                    action close_leave + [Function(setIdle), Return('leave'), With(cfade)]
                     activate_sound audio.button_click_sfx
                 textbutton "No":
                     text_align 0.5
@@ -390,7 +390,7 @@ screen popup_mgame_reset():
                 spacing 150
                 textbutton "Yes":
                     text_align 0.5
-                    action close_leave + [SetVariable('hinttext', levelHints['default_idle']), Return('reset'), With(cfade)]
+                    action close_leave + [Function(setIdle), Return('reset'), With(cfade)]
                     activate_sound audio.button_click_sfx
                 textbutton "No":
                     text_align 0.5

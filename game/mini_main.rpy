@@ -77,10 +77,7 @@ screen btn_tsk(bt, hov_id=None):
                 # use the button's default "task unavailable" text
                 action bt['act']
 
-        if fetchq:
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
-        else:
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+        unhovered [SetVariable('cur_hov', None), Function(setIdle)]
         # show highlights and rotation (if applicable)
         if can_show_task(bt):
             if 'rot' in bt:
@@ -105,12 +102,9 @@ screen btn_item(bt, hov_id):
         pos bt['p']
         anchor(0.5,0.5)
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
-        action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True), SetVariable('hinttext', levelHints['default_idle'])], false=Show('popup_trade'))]
+        action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
-        if fetchq:
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
-        else:
-            unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+        unhovered [SetVariable('cur_hov', None), Function(setIdle)]
 
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
@@ -249,10 +243,7 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             else:
                 action act1 + [SetVariable('curfloor', curfloor-1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
-            if fetchq:
-                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['quest_idle'])]
-            else:
-                unhovered [SetVariable('cur_hov', None), SetVariable('hinttext', levelHints['default_idle'])]
+            unhovered [SetVariable('cur_hov', None), Function(setIdle)]
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 

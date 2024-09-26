@@ -231,6 +231,15 @@ init python:
             addTime(t['tcost'], goodjob, t['type'] == 'small')
         else:
             addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
+        setIdle()
+
+    # sets mc textbox to idle message
+    # quest_idle if a fetchquest is active, otherwise default_idle
+    def setIdle():
+        if fetchq:
+            store.hinttext = levelHints['quest_idle']
+        else:
+            store.hinttext = levelHints['default_idle']
 
     # --- ITEM/INVENTORY STUFF ---
 
@@ -369,7 +378,7 @@ init python:
             addTime(roomProxim[curlevel][curfloor][i1][i2])
             prevroom = 'main'
             if i1 != i2:
-                hinttext = levelHints['default_idle']
+                setIdle()
 
 label gotoroom_indirect:
     $ gotoroom_indirect_py()
@@ -377,7 +386,7 @@ label gotoroom_indirect:
 
 # just refreshes mini_main to check if time limit was reached...
 label gotoroom_direct:
-    $ hinttext = levelHints['default_idle']
+    $ setIdle()
     jump mini_main
 
 # shows menu to give an item to an NPC in fetch quests
