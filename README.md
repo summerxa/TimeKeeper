@@ -1,4 +1,2 @@
-# game-whatever
-what's the game's name :3
-
-branch testing lkdsfldjfkjshdkjfsfkjdshf
+# Time Keeper
+the game has a name now :3
