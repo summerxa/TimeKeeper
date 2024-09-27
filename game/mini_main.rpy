@@ -250,18 +250,18 @@ screen floor_sidebar(curstate='game', mapfloor=0):
 screen mc_hintbox(shaded=True):
     if shaded:
         add 'mc minigame':
-            zoom 1.05
-            xalign 1.07
-            yalign 0.
+            zoom 0.95
+            anchor(1.,1.)
+            pos(1.04,0.99)
             matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
     add 'mc minigame':
-        zoom 1.05
-        xalign 1.1
-        yalign 0.5
+        zoom 0.95
+        anchor(1.,1.)
+        pos(1.05,1.)
 
     frame:
-        xalign 0.9
-        yalign 0.85
+        anchor(0.5,0.5)
+        pos(1600,900)
         minimum (482, 288)
         style 'hintbox_frame'
         fixed:
@@ -269,6 +269,34 @@ screen mc_hintbox(shaded=True):
             text hinttext:
                 xalign 0.5 yalign 0.5
                 text_align 0.5
+    
+    vbox:
+        anchor(1.,0.)
+        pos(1880, 20)
+        spacing 10
+        for idx, txt in [[0, 'cleanliness'], [1, 'coverage'], [2, 'service']]:
+            hbox:
+                xalign 1.
+                spacing 10
+                fixed:
+                    maximum(45, 45)
+                    align(0.5,0.5)
+                    add 'mini/ui/[txt]Icon.png':
+                        zoom 1.1
+                        matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
+                    add 'mini/ui/[txt]Icon.png'
+                fixed:
+                    maximum(310, 40)
+                    add 'gui/bar/right.png':
+                        xysize(310, 40)
+                        matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
+                    bar value StaticValue(min(player_attrs[idx], levelInfo[curlevel]['level_threshold'][idx]), levelInfo[curlevel]['level_threshold'][idx]):
+                        align(0.5,0.5)
+                        style 'bar'
+                        # left_bar Frame("gui/bar/left.png", Borders(10, 10, 10, 10), tile=gui.bar_tile)
+                        # right_bar Frame("gui/bar/left.png", Borders(6, 6, 6, 6), tile=gui.bar_tile)
+                        xmaximum 300
+                        ymaximum 10
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
     use mini_sidebar(curstate, gametype)
