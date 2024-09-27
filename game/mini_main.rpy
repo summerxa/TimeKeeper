@@ -350,8 +350,14 @@ screen mc_hintbox(pos_, txt_):
         pos pos_
         minimum (482, 288)
         style 'hintbox_frame'
-        fixed:
-            area (30, 30, 400, 228)
+        viewport:
+            area (30, 30, 420, 228)
+
+            mousewheel True
+            draggable True
+            scrollbars "vertical"
+            vscrollbar_unscrollable "hide"
+
             text txt_:
                 xalign 0.5 yalign 0.5
                 text_align 0.
@@ -369,7 +375,8 @@ screen mc_overlay(shaded=True):
         anchor(1.,1.)
         pos(1.05,1.)
     
-    use mc_hintbox((1350,750), hinttext)
+    if not isTutorial or (isTutorial and tutorialText[tutStep]['btn'] == 'gameplay'):
+        use mc_hintbox((1350,750), hinttext)
     
     vbox:
         anchor(1.,0.)

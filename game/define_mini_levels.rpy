@@ -19,7 +19,7 @@ init python:
 
 default levelInfo = {
     1: {
-        't0': 1080,
+        't0': 1020,
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
