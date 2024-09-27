@@ -260,8 +260,8 @@ screen mc_hintbox(shaded=True):
         pos(1.05,1.)
 
     frame:
-        anchor(0.5,0.5)
-        pos(1600,900)
+        anchor(0.,0.)
+        pos(1350,750)
         minimum (482, 288)
         style 'hintbox_frame'
         fixed:
@@ -279,16 +279,19 @@ screen mc_hintbox(shaded=True):
                 xalign 1.
                 spacing 10
                 fixed:
-                    maximum(45, 45)
+                    xysize(50, 50)
                     align(0.5,0.5)
                     add 'mini/ui/[txt]Icon.png':
-                        zoom 1.1
+                        align(1.,1.)
                         matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
-                    add 'mini/ui/[txt]Icon.png'
+                    add 'mini/ui/[txt]Icon.png':
+                        align(0.5,0.5)
                 fixed:
-                    maximum(310, 40)
+                    xysize(310, 48)
                     add 'gui/bar/right.png':
-                        xysize(310, 40)
+                        align(1.,1.)
+                        # xysize(310, 40)
+                        xysize(300,38)
                         matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
                     bar value StaticValue(min(player_attrs[idx], levelInfo[curlevel]['level_threshold'][idx]), levelInfo[curlevel]['level_threshold'][idx]):
                         align(0.5,0.5)
@@ -296,7 +299,7 @@ screen mc_hintbox(shaded=True):
                         # left_bar Frame("gui/bar/left.png", Borders(10, 10, 10, 10), tile=gui.bar_tile)
                         # right_bar Frame("gui/bar/left.png", Borders(6, 6, 6, 6), tile=gui.bar_tile)
                         xmaximum 300
-                        ymaximum 10
+                        ymaximum 38
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
     use mini_sidebar(curstate, gametype)
@@ -415,7 +418,11 @@ init python:
             else:
                 bonusq[tn] = {}
                 bonusq[tn]['btn'] = None
-                bonusq[tn]['t0'] = getRandomTime(1, 20)
+                if curlevel == 1:
+                    # Make sure bonus candle quest doesn't trigger during tutorial
+                    bonusq[tn]['t0'] = 31
+                else:
+                    bonusq[tn]['t0'] = getRandomTime(1, 20)
         for tn, t in store.tasks[store.curlevel]['single'].items():
             for ttn, tt in taskTemplates[t['tasktype']].items():
                 if not ttn in t:

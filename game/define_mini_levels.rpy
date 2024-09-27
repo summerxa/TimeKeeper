@@ -18,22 +18,6 @@ init python:
 
 
 default levelInfo = {
-    0: {
-        't0': 1020,
-        'tf': 1080,
-        'tstairs': 2,
-        'nfloors': 2,
-        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
-        'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
-        'quests_done': set(),
-        'bonus_remaining': 5,
-        'room0': 'ballroom',
-        'floor0': 0,
-        # TODO tutorial data... may or may not adjust
-        'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
-        
-{b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
-    },
     1: {
         't0': 1080,
         'tf': 1200,
@@ -45,7 +29,6 @@ default levelInfo = {
         'bonus_remaining': 5,
         'room0': 'ballroom',
         'floor0': 0,
-        # TODO this *might* be guestrooms if we use amelia sick cutscene as a transition
         'task_popup_text': """Mother has instructed that your assignment this time should maintain a good balance between cleanliness and coverage, with an emphasis on exceptional service.
         
 {b}Should any guest have a request, it is imperative to immediately fulfill it.{/b}"""
@@ -869,6 +852,13 @@ default itemHolders = {
     }
 }
 
+default tutorialText = [
+    {
+        'text': 'Blah blah click on the map',
+        'btn': 'notes_btn',
+        'pos': (100, 100),
+    }
+]
 
 default helpText = {
     'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}

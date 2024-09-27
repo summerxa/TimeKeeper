@@ -57,6 +57,9 @@ default curtask = None
 default curtask_btn = None
 default curgame = None
 
+# if true, the minigame is in tutorial mode and player must click on indicated buttons
+default isTutorial = False
+
 # stores fetch quests as a string containing the quest ID
 default fetchq = []
 

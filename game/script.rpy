@@ -24,6 +24,7 @@ label chapter1:
 
     # minigame
     $ node_unlock('c1_mgame')
+    $ isTutorial = True
     $ curlevel = 1
     call mini_launch from _call_mini_launch_1
 
