@@ -854,9 +854,19 @@ default itemHolders = {
 
 default tutorialText = [
     {
-        'text': 'Blah blah click on the map',
-        'btn': 'notes_btn',
-        'pos': (100, 100),
+        'text': "Hi, open up the map",
+        'btn': 'map_btn',
+        'pos': (1000, 500),
+    },
+    {
+        'text': "This info isn't related to any button",
+        'btn': 'none',
+        'pos': (800, 500)
+    },
+    {
+        'text': "Now close the map",
+        'btn': 'leave_btn',
+        'pos': (800, 500)
     }
 ]
 

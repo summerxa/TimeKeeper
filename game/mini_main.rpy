@@ -7,7 +7,13 @@ screen btn_room(bt, b_id):
         xpos xp
         ypos yp
         xanchor 0.5 yanchor 0.5
-        action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
+        if isTutorial:
+            if tutorialText[tutStep]['btn'] == b_id:
+                action [Function(progressTutorial), SetVariable('curroom', b_id), Return('gotoroom_indirect')]
+            else:
+                action NullAction()
+        else:
+            action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
         text_style 'fancy_font'
         text_align 0.5
         text_size 60
@@ -24,7 +30,13 @@ screen btn_roomarrow(bt, hov_id):
             ypos 0.90
         xpos bt['xp']
         xanchor 0.5 yanchor 0.5
-        action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), Function(addTime, mins=bt['tcost']), Return('gotoroom_direct')]
+        if isTutorial:
+            if tutorialText[tutStep]['btn'] == hov_id:
+                action [Function(progressTutorial), SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), Function(addTime, mins=bt['tcost']), Return('gotoroom_direct')]
+            else:
+                action NullAction()
+        else:
+            action [SetVariable('prevroom', curroom), SetVariable('curroom', bt['toroom']), Function(addTime, mins=bt['tcost']), Return('gotoroom_direct')]
         hovered SetVariable('cur_hov', hov_id)
         unhovered SetVariable('cur_hov', None)
         activate_sound audio.button_click_sfx
@@ -56,13 +68,16 @@ screen btn_tsk(bt, hov_id=None):
             # there is an active task, highlight this button
             auto bt['imtask_active']
             
-            if 'item_req' in bt['curtask']:
-                if task_can_proceed(bt['curtask']['item_req']):
-                    action bt['act']
-                else:
-                    action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
+            if isTutorial:
+                action [Function(progressTutorial)] + bt['act']
             else:
-                action bt['act']
+                if 'item_req' in bt['curtask']:
+                    if task_can_proceed(bt['curtask']['item_req']):
+                        action bt['act']
+                    else:
+                        action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
+                else:
+                    action bt['act']
 
             # highlight and change mc textbox when hovered
             hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]
@@ -109,6 +124,22 @@ screen btn_item(bt, hov_id):
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
 
+# invisible button covering full screen
+# only used to detect user "click to continue" during tutorial
+screen btn_fullscreen():
+    button:
+        add 'mini/mini_rect.png':
+            xysize(1920,1080)
+            align(0.5,0.5)
+            matrixcolor OpacityMatrix(0.)
+        action If(isTutorial and tutorialText[tutStep]['btn'] == 'none', true=Function(progressTutorial), false=NullAction())
+
+screen tut_overlay():
+    if isTutorial:
+        use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
+        if tutorialText[tutStep]['btn'] == 'none':
+            use btn_fullscreen
+
 screen mini_sidebar(curstate='main', gametype=None):
     default baseButtons = [
         {
@@ -148,7 +179,13 @@ screen mini_sidebar(curstate='main', gametype=None):
                     hovered SetVariable('cur_hov', bt['hov_id'])
                     unhovered SetVariable('cur_hov', None)
                     at highlight_hov(cur_hov, bt['hov_id'])
-                    action bt['act']
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == bt['hov_id']:
+                            action [Function(progressTutorial)] + [bt['act']]
+                        else:
+                            action NullAction()
+                    else:
+                        action [bt['act']]
                     activate_sound audio.button_click_sfx
             imagebutton:
                 xalign 0.5
@@ -158,9 +195,21 @@ screen mini_sidebar(curstate='main', gametype=None):
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'help_btn')
                 if curstate == 'main' or curstate == 'inroom' or curstate == 'map':
-                    action Show('popup_help', curstate='main')
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'help_btn':
+                            action [Function(progressTutorial), Show('popup_help', curstate='main')]
+                        else:
+                            action NullAction()
+                    else:
+                        action Show('popup_help', curstate='main')
                 elif curstate == 'mgame':
-                    action Show('popup_help', curstate=gametype)
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'help_btn':
+                            action [Function(progressTutorial), Show('popup_help', curstate=gametype)]
+                        else:
+                            action NullAction()
+                    else:
+                        action Show('popup_help', curstate=gametype)
                 activate_sound audio.button_click_sfx
             imagebutton:
                 xalign 0.5
@@ -170,13 +219,37 @@ screen mini_sidebar(curstate='main', gametype=None):
                 unhovered SetVariable('cur_hov', None)
                 at highlight_hov(cur_hov, 'leave_btn')
                 if curstate == 'main':
-                    action [ShowMenu('save')]
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'leave_btn':
+                            action [Function(progressTutorial), ShowMenu('save')]
+                        else:
+                            action NullAction()
+                    else:
+                        action ShowMenu('save')
                 elif curstate == 'inroom':
-                    action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'leave_btn':
+                            action [Function(progressTutorial), SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
+                        else:
+                            action NullAction()
+                    else:
+                        action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
                 elif curstate == 'mgame':
-                    action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'leave_btn':
+                            action [Function(progressTutorial), If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])]
+                        else:
+                            action NullAction()
+                    else:
+                        action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
                 elif curstate == 'map':
-                    action Hide('popup_map')
+                    if isTutorial:
+                        if tutorialText[tutStep]['btn'] == 'leave_btn':
+                            action [Function(progressTutorial), Hide('popup_map')]
+                        else:
+                            action NullAction()
+                    else:
+                        action Hide('popup_map')
                 activate_sound audio.button_click_sfx
         fixed:
             maximum(240, 303) # resolution of clock background image
@@ -215,10 +288,22 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             xanchor 0.5
             yanchor 0.5
             if curstate == 'map':
-                action SetScreenVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
+                if isTutorial:
+                    if tutorialText[tutStep]['btn'] == 'floor_up_btn':
+                        action [Function(progressTutorial), SetScreenVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])]
+                    else:
+                        action NullAction()
+                else:
+                    action SetScreenVariable('mapfloor', (mapfloor + 1) % levelInfo[curlevel]['nfloors'])
                 hovered SetVariable('cur_hov', 'floor_up_btn')
             else:
-                action act1 + [SetVariable('curfloor', curfloor+1)] + act2
+                if isTutorial:
+                    if tutorialText[tutStep]['btn'] == 'floor_up_btn':
+                        action [Function(progressTutorial)] + act1 + [SetVariable('curfloor', curfloor+1)] + act2
+                    else:
+                        action NullAction()
+                else:
+                    action act1 + [SetVariable('curfloor', curfloor+1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_up_btn'), SetVariable('hinttext', f"Go upstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_up_btn')
@@ -238,16 +323,41 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             xanchor 0.5
             yanchor 0.5
             if curstate == 'map':
-                action SetScreenVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
+                if isTutorial:
+                    if tutorialText[tutStep]['btn'] == 'floor_down_btn':
+                        action [Function(progressTutorial), SetScreenVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])]
+                    else:
+                        action NullAction()
+                else:
+                    action SetScreenVariable('mapfloor', (mapfloor + levelInfo[curlevel]['nfloors'] - 1) % levelInfo[curlevel]['nfloors'])
                 hovered SetVariable('cur_hov', 'floor_down_btn')
             else:
-                action act1 + [SetVariable('curfloor', curfloor-1)] + act2
+                if isTutorial:
+                    if tutorialText[tutStep]['btn'] == 'floor_down_btn':
+                        action [Function(progressTutorial)] + act1 + [SetVariable('curfloor', curfloor-1)] + act2
+                    else:
+                        action NullAction()
+                else:
+                    action act1 + [SetVariable('curfloor', curfloor-1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_down_btn'), SetVariable('hinttext', f"Go downstairs ({levelInfo[curlevel]['tstairs']} min)")]
             unhovered [SetVariable('cur_hov', None), Function(setIdle)]
             at highlight_hov(cur_hov, 'floor_down_btn'), rot(180)
             activate_sound audio.button_click_sfx
 
-screen mc_hintbox(shaded=True):
+screen mc_hintbox(pos_, txt_):
+    frame:
+        anchor(0.,0.)
+        pos pos_
+        minimum (482, 288)
+        style 'hintbox_frame'
+        fixed:
+            area (30, 30, 400, 228)
+            text txt_:
+                xalign 0.5 yalign 0.5
+                text_align 0.
+    zorder 10
+
+screen mc_overlay(shaded=True):
     if shaded:
         add 'mc minigame':
             zoom 0.95
@@ -258,17 +368,8 @@ screen mc_hintbox(shaded=True):
         zoom 0.95
         anchor(1.,1.)
         pos(1.05,1.)
-
-    frame:
-        anchor(0.,0.)
-        pos(1350,750)
-        minimum (482, 288)
-        style 'hintbox_frame'
-        fixed:
-            area (30, 30, 400, 228)
-            text hinttext:
-                xalign 0.5 yalign 0.5
-                text_align 0.5
+    
+    use mc_hintbox((1350,750), hinttext)
     
     vbox:
         anchor(1.,0.)
@@ -304,7 +405,7 @@ screen mc_hintbox(shaded=True):
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
     use mini_sidebar(curstate, gametype)
     if has_mc:
-        use mc_hintbox(shaded)
+        use mc_overlay(shaded)
 
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():
@@ -350,6 +451,8 @@ screen mini_screen():
                 use btn_roomarrow(ar, f"to_{ar['toroom']}_btn")
     
     use floor_sidebar('game')
+
+    use tut_overlay()
 
 label mini_main():
 

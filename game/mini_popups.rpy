@@ -187,6 +187,8 @@ screen popup_notes():
             at opac(0.)
             activate_sound audio.button_click_sfx
         use popup_button_info('notes', 'About the Notebook')
+    
+    use tut_overlay()
 
 screen popup_onhand():
     modal True
@@ -219,6 +221,7 @@ screen popup_onhand():
     
         use popup_button_close('popup_onhand')
         use popup_button_info('onhand', 'About On-hand')
+    use tut_overlay()
 
 screen popup_trade():
     modal True
@@ -262,6 +265,7 @@ screen popup_trade():
     
         use popup_button_close('popup_trade')
         use popup_button_info('trade', 'Both hands full')
+    use tut_overlay()
 
 screen popup_help(curstate='main'):
     modal True
@@ -316,6 +320,7 @@ screen popup_help(curstate='main'):
                                 xalign 0.
         
         use popup_button_close('popup_help')
+    use tut_overlay()
 
 screen popup_mgame_leave():
     modal True
@@ -435,3 +440,4 @@ screen popup_map():
         if bt['floor'] != mapfloor:
             continue
         use tx_room(bt, bn)
+    use tut_overlay()

@@ -128,6 +128,8 @@ screen mgame_dragdrop_dishes(shaded=True):
         add 'mini/tgame/grab_dropdishes/dropdishes_faucet.png':
             pos (678, 413)
             xanchor 0.5 yanchor 0.5
+    
+    use tut_overlay()
 
 screen mgame_toggle(shaded=True):
     for i in range(len(curgame['goal'])):

@@ -166,6 +166,12 @@ init python:
         bt = store.taskButtons[store.curlevel][t['btn']]
         bt['act'] = [SetVariable('curtask', t), SetVariable('curtask_btn', bt), SetVariable('curgame', {}), Return(t['tlabel'])]
     
+    # increments the current step in the tutorial, exits tutorial mode when all steps done
+    def progressTutorial():
+        store.tutStep += 1
+        if store.tutStep == len(store.tutorialText):
+            store.isTutorial = False
+
 
     # --- ROOM/MAP STUFF ---
 
