@@ -658,6 +658,13 @@ default tasks = {
             },
         },
         'single': { # for quests that only show up once
+            'scene3_end': {
+                'desc': 'Provide room service to guests',
+                'btn': '4_5',
+                'tlabel': 'c1_scene3',
+                't0': 1040, # TODO adjust this time
+                'tasktype': 'fetchquest_end'
+            },
             'fetch1': {
                 'desc': 'Talk to noble',
                 'btn': '4_5',

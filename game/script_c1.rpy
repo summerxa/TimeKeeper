@@ -618,8 +618,6 @@ label c1_fetch1:
     # :i_cri_evry_tiem: -snail
     #sadge -jade
 
-    "Fetch quest 1"
-
     show npc2 at l1_5
     show mc 1b at r1_5
 
@@ -664,7 +662,6 @@ label c1_fetch2:
     
     play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
-    "Fetch quest 2"
 
     show npc1 at l1_5
     show mc 1b at r1_5
@@ -751,7 +748,6 @@ label c1_fetch3:
     play music ballroom_ost
     play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
-    "Fetch quest 3"
 
     show npc2 at l1_5
     show npc3 at r1_5
@@ -841,8 +837,6 @@ label c1_fetch4:
 
     play ambience ballroom_ambience_2 fadein 1.0
     #we really need better ambience, don't we...
-
-    "Fetch quest 4"
 
     show npc4 at l1_5
     show mc 1b at r1_5
