@@ -308,13 +308,22 @@ screen floor_sidebar(curstate='game', mapfloor=0):
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'floor_up_btn')
             activate_sound audio.button_click_sfx
-    text f'{curfloor+1}F':
-        xpos 0.14
-        ypos 0.5
-        xanchor 0.5
-        yanchor 0.5
-        size 50
-        style 'fancy_font'
+    if curstate == 'game':
+        text f'{curfloor+1}F':
+            xpos 0.14
+            ypos 0.5
+            xanchor 0.5
+            yanchor 0.5
+            size 50
+            style 'fancy_font'
+    else:
+        text f'{mapfloor+1}F':
+            xpos 0.14
+            ypos 0.5
+            xanchor 0.5
+            yanchor 0.5
+            size 50
+            style 'fancy_font'
     if curfloor > 0 or curstate == 'map':
         imagebutton:
             auto 'mini/ui/btn_floor_up_%s.png'
