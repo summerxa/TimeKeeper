@@ -384,8 +384,7 @@ screen mc_overlay(shaded=True):
         anchor(1.,1.)
         pos(1.05,1.)
     
-    if not isTutorial or (isTutorial and tutorialText[tutStep]['btn'] == 'gameplay'):
-        use mc_hintbox((1350,750), hinttext)
+    use mc_hintbox((1350,750), hinttext)
     
     vbox:
         anchor(1.,0.)

@@ -23,7 +23,7 @@ default levelInfo = {
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
-        'level_threshold': [10, 10, 25], # cleanliness, coverage, service
+        'level_threshold': [15, 15, 38], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
         'quests_done': set(),
         'bonus_remaining': 5,
@@ -576,7 +576,7 @@ default taskTemplates = {
         'tlabel': 'task_c1_dropdishes',
         'fail_id': 'dropdishes_fail',
         'item_req': ['dish_dirty'],
-        'attributes': [3,1,1],
+        'attributes': [3,3,1],
         'next': 'grabdishes',
         'parent': 'dishes_chain'
     },
@@ -585,7 +585,7 @@ default taskTemplates = {
         'title': "Clean up dirty dishes",
         'sequence': ['grabdishes', 'dropdishes'],
         'desc': 'Clear the ballroom tables, drop off dirty dishes in the kitchen',
-        'attributes': [3,1,1]
+        'attributes': [3,3,1]
     },
     'waterpour': {
         'tcost': 20,
@@ -601,7 +601,7 @@ default taskTemplates = {
         'title': "Do the laundry",
         'tlabel': 'task_c1_sortlaundry',
         'desc': 'Sort the laundry into the washing machines',
-        'attributes': [4,4,2]
+        'attributes': [5,3,2]
     },
     'grabfood': {
         'tcost': 5,
@@ -623,7 +623,7 @@ default taskTemplates = {
         'tags': [Task.NO_FADE],
         'fail_id': 'dropfood_fail',
         'item_req': ['food'],
-        'attributes': [1,2,2],
+        'attributes': [1,3,3],
         'next': 'grabfood',
         'parent': 'food_chain'
     },
@@ -633,7 +633,7 @@ default taskTemplates = {
         'title': "Serve the food",
         'desc': 'Pick up finished dishes in the kitchen, drop off dishes in ballroom',
         'tags': [Task.NO_FADE],
-        'attributes': [1,2,2]
+        'attributes': [1,3,3]
     },
     'lightcandle': {
         'tcost': 1,
@@ -660,9 +660,9 @@ default tasks = {
         'single': { # for quests that only show up once
             'scene3_end': {
                 'desc': 'Provide room service to guests',
-                'btn': '4_5',
+                'btn': 'gr_22',
                 'tlabel': 'c1_scene3',
-                't0': 1040, # TODO adjust this time
+                't0': 1034,
                 'tasktype': 'fetchquest_end'
             },
             'fetch1': {

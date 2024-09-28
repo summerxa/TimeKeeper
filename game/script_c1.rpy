@@ -605,7 +605,9 @@ label c1_scene3:
     $ node_unlock('c1_scene3')
     $ cg_unlock('c1_scene3')
 
-    return
+    $ docurtask('scene3_end', task_type='single')
+
+    jump mini_main
 
 label c1_fetch1:
     
