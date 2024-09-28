@@ -43,14 +43,14 @@ default levelHints = {
     'default_taskless': "There aren't any tasks here right now.",
     'candle_taskless': "These candles don't need to be lit right now.",
     'handsfull_fail': "My hands are full; I can't pick up any more items.",
-    'grabdishes_idle': "Drag the dishes to me :3",
+    'grabdishes_idle': "Drag the dishes to me.",
     'dropdishes_fail': "I need to drop off dirty dishes here.",
     'dropdishes_idle': "Drop the dishes off in the sink.",
-    'waterpour_idle': "Time to cook :3",
+    'waterpour_idle': "The drinks must be sorted according to color.",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
-    'laundry_idle': "Woahhh it's laundry :o",
-    'dropfood_fail': "ur not even holding food smh",
-    'lightcandle_fail': "i need matches to light the candle :("
+    'laundry_idle': "Sort the laundry into separate batches and start the machines.",
+    'dropfood_fail': "I need to drop off a meal here.",
+    'lightcandle_fail': "I need to find matches before I can light the candle."
 }
 
 # size/pos of room on main floor map
