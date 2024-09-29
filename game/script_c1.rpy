@@ -2868,6 +2868,9 @@ label task_c1_grabdishes:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
+    
+    if isTutorial:
+        $ progressTutorial()
 
     jump mini_main
 
@@ -2908,11 +2911,14 @@ label task_c1_dropdishes:
         $ game_ret = _return
 
     $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
-    $ docurtask('dropdishes', not taskq['dishes_chain']['ndishes'])
+    $ docurtask('dropdishes', taskq['dishes_chain']['ndishes'] <= 0)
     if game_ret == 'done':
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
+
+    if isTutorial:
+        $ progressTutorial()
 
     jump mini_main
 

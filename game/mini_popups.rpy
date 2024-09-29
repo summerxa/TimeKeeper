@@ -3,7 +3,13 @@ screen popup_button_close(screenname):
         text_color gui.hover_color
         text_size 60
         align (1.,0.)
-        action Hide(screenname)
+        if isTutorial:
+            if tutorialText[tutStep]['btn'] == 'popup_button_close':
+                action [Function(progressTutorial), Hide(screenname)]
+            else:
+                action NullAction()
+        else:
+            action Hide(screenname)
         hovered SetVariable('cur_hov', 'popup_close_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, 'popup_close_btn')
@@ -13,7 +19,13 @@ screen popup_button_info(info_name, info_title):
     imagebutton:
         auto 'mini/ui/icon_popup_info_%s.png'
         align (0.,1.)
-        action Show('popup_info', info_name=info_name, info_title=info_title)
+        if isTutorial:
+            if tutorialText[tutStep]['btn'] == 'popup_button_info':
+                action [Function(progressTutorial), Show('popup_info', info_name=info_name, info_title=info_title)]
+            else:
+                action NullAction()
+        else:
+            action Show('popup_info', info_name=info_name, info_title=info_title)
         hovered SetVariable('cur_hov', 'popup_info_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, 'popup_info_btn')
@@ -57,7 +69,13 @@ screen popup_info(info_name, info_title):
             text_color gui.hover_color
             text_size 60
             align (1.,0.)
-            action Hide('popup_info')
+            if isTutorial:
+                if tutorialText[tutStep]['btn'] == 'popup_button_close':
+                    action [Function(progressTutorial), Hide('popup_info')]
+                else:
+                    action NullAction()
+            else:
+                action Hide('popup_info')
             hovered SetVariable('cur_hov', 'popup_close_btn_2')
             unhovered SetVariable('cur_hov', None)
             at highlight_hov(cur_hov, 'popup_close_btn_2')
@@ -183,7 +201,13 @@ screen popup_notes():
             pos (1360,7)
             add 'mini/mini_rect.png':
                 xysize(55,60)
-            action Hide('popup_notes')
+            if isTutorial:
+                if tutorialText[tutStep]['btn'] == 'popup_button_close':
+                    action [Function(progressTutorial), Hide('popup_notes')]
+                else:
+                    action NullAction()
+            else:
+                action Hide('popup_notes')
             at opac(0.)
             activate_sound audio.button_click_sfx
         use popup_button_info('notes', 'About the Notebook')
@@ -254,13 +278,19 @@ screen popup_trade():
                 textbutton ltext:
                     align (0.,0.6)
                     text_align 0.5
-                    action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
+                    if isTutorial:
+                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
+                    else:
+                        action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
 
                 textbutton rtext:
                     align(1.,0.6)
                     text_align 0.5
-                    action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
+                    if isTutorial:
+                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
+                    else:
+                        action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
     
         use popup_button_close('popup_trade')

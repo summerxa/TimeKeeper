@@ -545,14 +545,12 @@ default taskTemplates = {
         'tags': [Task.OPTIONAL]
     },
     'fetchquest': {
-        'tcost': 5,
         'type': 'none',
         'title': "Guest Request",
         'attributes': [0,0,0],
         'tags': [Task.SPECIAL]
     },
     'fetchquest_end': {
-        'tcost': 5,
         'type': 'medium',
         'title': "Guest Request",
         'attributes': [1,1,3],
@@ -652,20 +650,22 @@ default tasks = {
     1: {
         'optional': { # for easter egg quests
             'donothing': {
-                't0': 1080,
+                't0': 1020,
                 'btn': '4_1',
                 'tasktype': 'donothing'
             },
         },
         'single': { # for quests that only show up once
             'scene3_end': {
+                'tcost': 14,
                 'desc': 'Provide room service to guests',
                 'btn': 'gr_22',
                 'tlabel': 'c1_scene3',
-                't0': 1034,
+                't0': 1034, # TODO change this back to 1034 later
                 'tasktype': 'fetchquest_end'
             },
             'fetch1': {
+                'tcost': 5,
                 'desc': 'Talk to noble',
                 'btn': '4_5',
                 'tlabel': 'c1_fetch1',
@@ -674,12 +674,14 @@ default tasks = {
                 'tasktype': 'fetchquest'
             },
             'fetch1_end': {
+                'tcost': 5,
                 'desc': 'Bring wine to noble',
                 'btn': '4_5',
                 'tlabel': 'c1_fetch1_end',
                 'tasktype': 'fetchquest_end'
             },
             'fetch2': {
+                'tcost': 5,
                 'desc': 'Talk to noble',
                 'btn': '6_5',
                 'tlabel': 'c1_fetch2',
@@ -688,12 +690,14 @@ default tasks = {
                 'tasktype': 'fetchquest'
             },
             'fetch2_end': {
+                'tcost': 5,
                 'desc': 'Bring jacket to noble',
                 'btn': '6_5',
                 'tlabel': 'c1_fetch2_end',
                 'tasktype': 'fetchquest_end'
             },
             'fetch3': {
+                'tcost': 5,
                 'desc': 'Talk to noble',
                 'btn': '6_3',
                 'tlabel': 'c1_fetch3',
@@ -702,12 +706,14 @@ default tasks = {
                 'tasktype': 'fetchquest'
             },
             'fetch3_end': {
+                'tcost': 5,
                 'desc': 'Ask the chefs for desserts',
                 'btn': 'kitchen_idk',
                 'tlabel': 'c1_fetch3_end',
                 'tasktype': 'fetchquest_end'
             },
             'fetch4_end': {
+                'tcost': 5,
                 'desc': 'Talk to noble',
                 'btn': 'long1',
                 'tlabel': 'c1_fetch4',
@@ -861,19 +867,298 @@ default itemHolders = {
 
 default tutorialText = [
     {
-        'text': "Hi, open up the map",
-        'btn': 'map_btn',
-        'pos': (1000, 500),
-    },
-    {
-        'text': "This info isn't related to any button",
+        'text': "A good maid must fulfill the expectations of her clients, or else risk failure.",
         'btn': 'none',
-        'pos': (800, 500)
+        'mask': (0,0,0,0),
+        'pos': (719, 396) # CENTER OF SCREEN
     },
     {
-        'text': "Now close the map",
+        'text': "By the end of the day, I must reach the three attribute goals listed here.",
+        'btn': 'none',
+        'mask': (1510,16,1891,192),
+        'pos': (961, 37)
+    },
+    {
+        'text': "These attributes all begin at 0.",
+        'btn': 'none',
+        'mask': (1510,16,1891,192),
+        'pos': (961, 37)
+    },
+    {
+        'text': "First, check the notebook.",
+        'btn': 'notes_btn',
+        'pos': (246, 286)
+    },
+    {
+        'text': "Doing the tasks listed in the notebook can help me reach the goals.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (719, 396)
+    },
+    {
+        'text': "I’ll start by gathering the dirty dishes. This task is located in the ballroom.",
+        'btn': 'none',
+        'mask': (998,205,1575,432),
+        'pos': (468, 175)
+    },
+    {
+        'text': "Now close the notebook.",
+        'btn': 'popup_button_close',
+        'pos': (1138, 86)
+    },
+    {
+        'text': "I can use the map to navigate the building.",
+        'btn': 'map_btn',
+        'pos': (273, 398)
+    },
+    {
+        'text': "This map will show the general location of rooms and tasks.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (719, 30) # CENTER TOP
+    },
+    {
+        'text': "Use these buttons to navigate to other floors of the building. This building has a second floor that we can view using the map.",
+        'btn': 'floor_up_btn',
+        'pos': (312, 277)
+    },
+    {
+        'text': "To continue doing tasks, exit the map.",
         'btn': 'leave_btn',
-        'pos': (800, 500)
+        'pos': (260, 771)
+    },
+    {
+        'text': "Click on the name of a room to enter it. We are going to the ballroom.",
+        'btn': 'ballroom',
+        'pos': (719, 402)
+    },
+    {
+        'text': "Start a task by clicking on a highlighted piece of furniture.",
+        'btn': 'none',
+        'mask': (1054,273,1306,833),
+        'pos': (719, 30)
+    },
+    {
+        'text': "Drag a room left and right to see more of it.",
+        'btn': 'none',
+        'mask': (0,0,0,0),
+        'pos': (719, 30)
+    },
+    {
+        'text': "Hovering over certain buttons will show a brief description.",
+        'btn': 'none',
+        'mask': (1335,740,1859,1040),
+        'pos': (1350, 438)
+    },
+    {
+        'text': "Now find a table that needs to be cleared.",
+        'btn': '6_1',
+        'pos': (719, 30)
+    },
+    {
+        'text': "Instructions on how to complete a task can be found here.",
+        'btn': 'help_btn',
+        'pos': (257, 681)
+    },
+    {
+        'text': "After reading the rules, exit the help menu to continue doing the task.",
+        'btn': 'popup_button_close',
+        'pos': (828, 20)
+    },
+    {
+        'btn': 'gameplay'
+    },
+    {
+        'text': "Hover over the clock to see the current time.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (275, 58)
+    },
+    {
+        'text': "Doing tasks will take up time. I must manage my time wisely to reach clients’ expectations.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (275, 58)
+    },
+    {
+        'text': "Now open the notebook again.",
+        'btn': 'notes_btn',
+        'pos': (246, 286)
+    },
+    {
+        'text': "After collecting all the dirty dishes, I must now bring them to the kitchen.",
+        'btn': 'none',
+        'mask': (998,205,1575,432),
+        'pos': (468, 175)
+    },
+    {
+        'text': "Close the notebook to continue working.",
+        'btn': 'popup_button_close',
+        'pos': (1138, 86)
+    },
+    {
+        'text': "First, we must go to the kitchen.",
+        'btn': 'to_kitchen_btn',
+        'pos': (886, 620)
+    },
+    {
+        'text': "Make sure to always keep an eye on the clock. Even walking to a different room takes time.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (275, 58)
+    },
+    {
+        'text': "Drop off the dirty dishes from the ballroom.",
+        'btn': 'sink',
+        'pos': (719, 30)
+    },
+    {
+        'btn': 'gameplay'
+    },
+    {
+        'text': "After completing the task, I have made progress towards my target attributes.",
+        'btn': 'none',
+        'mask': (1510,16,1891,192),
+        'pos': (961, 37)
+    },
+    {
+        'text': "Sometimes, a task will require me to use certain items, such as this bottle of wine on the counter.",
+        'btn': 'none',
+        'mask': (1326,210,1393,321),
+        'pos': (787, 143)
+    },
+    {
+        'text': "Hovering over an item will explain what it is. Try picking up the bottle of wine.",
+        'btn': 'kitchen2',
+        'pos': (787, 143)
+    },
+    {
+        'text': "Click here to check what I’m holding.",
+        'btn': 'onhand_btn',
+        'pos': (245, 556)
+    },
+    {
+        'text': "I’m holding the bottle of wine that I just picked up.",
+        'btn': 'none',
+        'mask': (961,518,1230,617),
+        'pos': (873, 217)
+    },
+    {
+        'text': "Now, click here to exit.",
+        'btn': 'popup_button_close',
+        'pos': (1315, 230)
+    },
+    {
+        'text': "Select an empty spot to place down items.",
+        'btn': 'kitchen2',
+        'pos': (787, 143)
+    },
+    {
+        'text': "Check what I’m holding again.",
+        'btn': 'onhand_btn',
+        'pos': (245, 556)
+    },
+    {
+        'text': "After dropping off items, both my hands are empty.",
+        'btn': 'popup_button_close',
+        'pos': (1315, 230)
+    },
+    {
+        'text': "Next, let’s go to the laundry room and check the clothes.",
+        'btn': 'to_laundry_btn',
+        'pos': (322, 122)
+    },
+    {
+        'text': "Pick up this jacket.",
+        'btn': 'laundry3',
+        'pos': (599, 300)
+    },
+    {
+        'text': "And this one.",
+        'btn': 'laundry4',
+        'pos': (599, 49)
+    },
+    {
+        'text': "Try placing down one jacket.",
+        'btn': 'laundry4',
+        'pos': (599, 49)
+    },
+    {
+        'text': "If I’m holding items on both hands, I’ll have to choose which item I want to place down.",
+        'btn': 'none',
+        'mask': (529,237,1405,844),
+        'pos': (719, 30)
+    },
+    {
+        'text': "Choose either jacket to place down.",
+        'btn': 'idk',
+        'pos': (719, 30)
+    },
+    {
+        'text': "I should complete more tasks now.",
+        'btn': 'to_ballroom_btn',
+        'pos': (306, 118)
+    },
+    {
+        'text': "But it looks there’s nothing to do in the ballroom.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (719, 30)
+    },
+    {
+        'text': "I can check the notebook to find other tasks.",
+        'btn': 'notes_btn',
+        'pos': (246, 286)
+    },
+    {
+        'text': "Occasionally, clients will have specific requests which take priority over other tasks.",
+        'btn': 'none',
+        'mask': (290,587,853,855),
+        'pos': (232, 295)
+    },
+    {
+        'text': "I cannot start other tasks until I assist the guests.",
+        'btn': 'none',
+        'mask': (290,587,853,855),
+        'pos': (232, 295)
+    },
+    {
+        'text': "This time, I am providing room service in the guestrooms.",
+        'btn': 'none',
+        'mask': (290,587,853,855),
+        'pos': (232, 295)
+    },
+    {
+        'text': "Now exit the notebook to complete the task.",
+        'btn': 'popup_button_close',
+        'pos': (1138, 86)
+    },
+    {
+        'text': "We should go upstairs to the guestrooms.",
+        'btn': 'floor_up_btn',
+        'pos': (312, 277)
+    },
+    {
+        'text': "This task is in the right guestrooms.",
+        'btn': 'guestroom r',
+        'pos': (953, 161)
+    },
+    {
+        'text': "The room we’re looking for is highlighted.",
+        'btn': 'gr_22',
+        'pos': (719, 30)
+    },
+    {
+        'text': "There are still many tasks to do before eight o’clock.",
+        'btn': 'none',
+        'mask': (0,0,0,0),
+        'pos': (719, 396)
+    },
+    {
+        'text': "I should manage my time wisely to meet the goals assigned by Mother.",
+        'btn': 'none',
+        'mask': (0,0,0,0),
+        'pos': (719, 396)
     }
 ]
 

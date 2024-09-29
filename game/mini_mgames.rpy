@@ -113,7 +113,7 @@ screen mgame_dragdrop_dishes(shaded=True):
                     drag_name d['n']
                     pos d['p']
                     anchor (0.,0.)
-                    draggable True
+                    draggable (not isTutorial or (isTutorial and tutorialText[tutStep]['btn'] == 'gameplay'))
                     droppable False
                     if curgame['type'] == 'grabdishes':
                         dragged dragged_grabdishes

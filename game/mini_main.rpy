@@ -69,7 +69,10 @@ screen btn_tsk(bt, hov_id=None):
             auto bt['imtask_active']
             
             if isTutorial:
-                action [Function(progressTutorial)] + bt['act']
+                if tutorialText[tutStep]['btn'] == hov_id:
+                    action [Function(progressTutorial)] + bt['act']
+                else:
+                    action NullAction()
             else:
                 if 'item_req' in bt['curtask']:
                     if task_can_proceed(bt['curtask']['item_req']):
@@ -117,7 +120,13 @@ screen btn_item(bt, hov_id):
         pos bt['p']
         anchor(0.5,0.5)
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
-        action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
+        if isTutorial:
+            if tutorialText[tutStep]['btn'] == hov_id:
+                action [Function(progressTutorial), SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
+            else:
+                action NullAction()
+        else:
+            action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered [SetVariable('cur_hov', None), Function(setIdle)]
 
@@ -126,19 +135,68 @@ screen btn_item(bt, hov_id):
 
 # invisible button covering full screen
 # only used to detect user "click to continue" during tutorial
-screen btn_fullscreen():
-    button:
+# TODO make a cutout to highlight specific area on screen?
+screen btn_fullscreen(masksize=(0,0,1920,1080)):
+    button: 
         add 'mini/mini_rect.png':
-            xysize(1920,1080)
-            align(0.5,0.5)
+            anchor(0.,0.)
+            pos(0,0)
+            xysize(tutorialText[tutStep]['mask'][0], 1080)
             matrixcolor OpacityMatrix(0.)
+        add 'mini/mini_rect.png':
+            anchor(0.,0.)
+            pos(tutorialText[tutStep]['mask'][0],0)
+            xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], tutorialText[tutStep]['mask'][1])
+            matrixcolor OpacityMatrix(0.)
+        add 'mini/mini_rect.png':
+            anchor(0.,0.)
+            pos(tutorialText[tutStep]['mask'][0],tutorialText[tutStep]['mask'][3])
+            xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], 1080)
+            matrixcolor OpacityMatrix(0.)
+        add 'mini/mini_rect.png':
+            anchor(0.,0.)
+            pos(tutorialText[tutStep]['mask'][2],0)
+            xysize(1920, 1080)
+            matrixcolor OpacityMatrix(0.)
+
         action If(isTutorial and tutorialText[tutStep]['btn'] == 'none', true=Function(progressTutorial), false=NullAction())
 
-screen tut_overlay():
-    if isTutorial:
-        use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
+screen tut_lower():
+    if isTutorial and tutorialText[tutStep]['btn'] == 'none':
+        use btn_fullscreen(tutorialText[tutStep]['mask'])
+
+screen tut_upper(isnotes=False):
+    if isTutorial and not tutorialText[tutStep]['btn'] == 'gameplay':
         if tutorialText[tutStep]['btn'] == 'none':
-            use btn_fullscreen
+            # mask: TLx TLy BRx BRy
+            add "gui/overlay/confirm.png":
+                anchor(0.,0.)
+                pos(0,0)
+                xysize(tutorialText[tutStep]['mask'][0], 1080)
+            add "gui/overlay/confirm.png":
+                anchor(0.,0.)
+                pos(tutorialText[tutStep]['mask'][0],0)
+                xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], tutorialText[tutStep]['mask'][1])
+            add "gui/overlay/confirm.png":
+                anchor(0.,0.)
+                pos(tutorialText[tutStep]['mask'][0],tutorialText[tutStep]['mask'][3])
+                xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], 1080)
+            add "gui/overlay/confirm.png":
+                anchor(0.,0.)
+                pos(tutorialText[tutStep]['mask'][2],0)
+                xysize(1920, 1080)
+            
+            if not isnotes:
+                frame:
+                    align (0.5,0.9)
+                    xysize(600,100)
+                    text "Click anywhere to continue":
+                        align(0.5,0.5)
+        use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
+
+screen tut_overlay(isnotes=False):
+    use tut_lower()
+    use tut_upper(isnotes)
 
 screen mini_sidebar(curstate='main', gametype=None):
     default baseButtons = [
@@ -305,7 +363,7 @@ screen floor_sidebar(curstate='game', mapfloor=0):
                 else:
                     action act1 + [SetVariable('curfloor', curfloor+1)] + act2
                 hovered [SetVariable('cur_hov', 'floor_up_btn'), SetVariable('hinttext', f"Go upstairs ({levelInfo[curlevel]['tstairs']} min)")]
-            unhovered SetVariable('cur_hov', None)
+            unhovered [SetVariable('cur_hov', None), Function(setIdle)]
             at highlight_hov(cur_hov, 'floor_up_btn')
             activate_sound audio.button_click_sfx
     if curstate == 'game':
@@ -418,6 +476,8 @@ screen mc_overlay(shaded=True):
                         ymaximum 38
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
+    if curstate != 'map':
+        use tut_lower()
     use mini_sidebar(curstate, gametype)
     if has_mc:
         use mc_overlay(shaded)
@@ -460,14 +520,14 @@ screen mini_screen():
                     for hn, ht in itemHolders[curlevel].items():
                         if curroom == ht['room']:
                             use btn_item(ht, hn)
-        use mini_overlay('inroom')
         if curroom in roomArrows[curlevel]:
             for ar in roomArrows[curlevel][curroom]:
                 use btn_roomarrow(ar, f"to_{ar['toroom']}_btn")
+        use mini_overlay('inroom')
     
     use floor_sidebar('game')
 
-    use tut_overlay()
+    use tut_upper()
 
 label mini_main():
 
@@ -528,11 +588,16 @@ init python:
                 t['tags'] = []
             if not t['type'] == 'small':
                 taskq[tn] = {}
-                if 'sequence' in t:
-                    setTaskButton(tn, t, t['sequence'][0])
+                if curlevel == 1 and tn == 'dishes_chain':
+                    setTaskButton(tn, t, t['sequence'][0], bt_choice='6_1')
                     taskq[tn]['part'] = t['sequence'][0]
                 else:
-                    setTaskButton(tn, t)
+                    taskq[tn] = {}
+                    if 'sequence' in t:
+                        setTaskButton(tn, t, t['sequence'][0])
+                        taskq[tn]['part'] = t['sequence'][0]
+                    else:
+                        setTaskButton(tn, t)
             else:
                 bonusq[tn] = {}
                 bonusq[tn]['btn'] = None

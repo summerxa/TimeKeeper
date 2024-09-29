@@ -113,13 +113,14 @@ init python:
     # task_name = ID of the task
     # task = the actual task itself
     # task_part = optional - for multi-part tasks, the ID of the specific part
-    def setTaskButton(task_name, task, task_part='', isBonus=False):
+    def setTaskButton(task_name, task, task_part='', isBonus=False, bt_choice=None):
         if 'sequence' in task:
             btn_list = task['btns'][task_part]
         else:
             btn_list = task['btns']
 
-        bt_choice = getTaskButton(btn_list)
+        if not bt_choice:
+            bt_choice = getTaskButton(btn_list)
         if isBonus:
             bonusq[task_name]['btn'] = bt_choice
         else:
