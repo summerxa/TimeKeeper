@@ -135,7 +135,6 @@ screen btn_item(bt, hov_id):
 
 # invisible button covering full screen
 # only used to detect user "click to continue" during tutorial
-# TODO make a cutout to highlight specific area on screen?
 screen btn_fullscreen(masksize=(0,0,1920,1080)):
     button: 
         add 'mini/mini_rect.png':

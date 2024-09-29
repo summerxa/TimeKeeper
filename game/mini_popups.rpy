@@ -42,9 +42,9 @@ screen popup_info(info_name, info_title):
         yalign 0.5
         maximum (800, 600)
 
-        text f"◆ {info_title} ◆":
-            style 'fancy_font'
-            size 50
+        label f"◆ {info_title} ◆":
+            text_color gui.hover_color
+            text_size 50
             xalign 0.5
 
         viewport:
@@ -84,29 +84,45 @@ screen popup_info(info_name, info_title):
 screen task_display(t, t_part=None, t_blocked=False, is_bonus=False):
     vbox:
         anchor(0., 0.5) pos(0.05, 0.5)
-        text f"{t['title']}: {t['attributes'][0]} {t['attributes'][1]} {t['attributes'][2]}":
-            color '#906548'
+        xmaximum 520
+        hbox:
+            xminimum 520
+            text f"{t['title']}":
+                xalign 0.
+                yalign 0.5
+                style 'tasks_font'
+                bold True
+                kerning -1.5
+            hbox:
+                xalign 1.
+                for idx, txt in [[0, 'cleanliness'], [1, 'coverage'], [2, 'service']]:
+                    add 'mini/ui/[txt]Icon.png':
+                        yalign 0.5
+                    text f"{t['attributes'][idx]}":
+                        yalign 0.5
+                        style 'tasks_font'
+                        bold True
         if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
             text f"Location: {roomButtons[curlevel][taskButtons[curlevel][t['btn']]['room']]['name']}":
-                color '#906548'
+                style 'tasks_font'
         else:
             if is_bonus:
                 text f"Location: {roomButtons[curlevel][taskButtons[curlevel][bonusq[t['tasktype']]['btn']]['room']]['name']}":
-                    color '#906548'
+                    style 'tasks_font'
             else:
                 text f"Location: {roomButtons[curlevel][taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']]['name']}":
-                    color '#906548'
+                    style 'tasks_font'
         if t_part:
             text f"Time: {t_part['tcost']}m":
-                color '#906548'
+                style 'tasks_font'
         else:
             text f"Time: {t['tcost']}m":
-                color '#906548'
+                style 'tasks_font'
         text f"{t['desc']}":
-            color '#906548'
+            style 'tasks_font'
         if t_blocked:
             text "{i}Must complete previous guest request to unlock this task{/i}":
-                color '#906548'
+                style 'tasks_font'
 
 screen popup_notes():
     modal True
@@ -148,13 +164,17 @@ screen popup_notes():
                         spacing 23
 
                         text levelInfo[curlevel]['task_popup_text']:
+                            size 30
                             color '#906548'
 
                         text "{b}Priority Tasks{/b}":
-                            size 40
+                            size 30
                             color '#906548'
 
-                        # TODO add horizontal line
+                        add 'mini/mini_rect.png':
+                            yalign 0.5
+                            xysize(600, 5)
+                            matrixcolor TintMatrix('#906548')
 
                         if fetchq:
                             vbox:
@@ -173,10 +193,13 @@ screen popup_notes():
                     xalign 0.5
                 
                 text "{b}Other Tasks{/b}":
-                    size 40
+                    size 30
                     color '#906548'
                 
-                # TODO add horizontal line
+                add 'mini/mini_rect.png':
+                    yalign 0.5
+                    xysize(550, 5)
+                    matrixcolor TintMatrix('#906548')
 
                 viewport:
                     area (0, 20, 600, 735)
@@ -312,6 +335,7 @@ screen popup_help(curstate='main'):
         maximum (1000, 800)
 
         label "◆ Help ◆":
+            text_color gui.hover_color
             xalign 0.5
 
         vbox:
@@ -343,10 +367,12 @@ screen popup_help(curstate='main'):
                     for t_ in helpText[h_tab]:
                         if t_[0] == ">":
                             text t_[1:]:
+                                size 30
                                 xanchor 0.
                                 xpos 0.05
                         else:
                             text t_:
+                                size 30
                                 xalign 0.
         
         use popup_button_close('popup_help')

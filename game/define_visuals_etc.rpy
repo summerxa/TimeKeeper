@@ -236,6 +236,12 @@ style fancy_font:
     font 'Maitree-Regular.ttf'
     textalign 0.5
 
+style tasks_font:
+    color '#906548'
+    font "Merriweather-Regular.ttf"
+    size 25
+    # line_spacing -10
+
 style plaque1_font:
     color '#000000'
     font 'Maitree-Regular.ttf'

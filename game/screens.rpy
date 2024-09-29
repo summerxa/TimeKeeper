@@ -1035,7 +1035,7 @@ screen node_desc(n_, n_id, zfact):
         anchor (0.5,1.)
         pos (zf(n_['p'][0], zfact), zf(n_['p'][1] - 100, zfact))
         padding (10,10,10,10)
-        text (f"* Encountered in current playthrough\n\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
+        text (f"* Encountered in current playthrough\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
             align (0.5,0.5)
             size zf(30, zfact)
 

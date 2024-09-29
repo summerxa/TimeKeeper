@@ -661,7 +661,7 @@ default tasks = {
                 'desc': 'Provide room service to guests',
                 'btn': 'gr_22',
                 'tlabel': 'c1_scene3',
-                't0': 1034, # TODO change this back to 1034 later
+                't0': 1034,
                 'tasktype': 'fetchquest_end'
             },
             'fetch1': {
