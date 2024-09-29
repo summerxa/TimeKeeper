@@ -120,7 +120,11 @@ screen mgame_dragdrop_dishes(shaded=True):
                     else:
                         dragged dragged_dropdishes
                     drag_raise True
-                    child 'mini/tgame/grab_dropdishes/plate_dirty.png'
+                    add 'mini/tgame/grab_dropdishes/plate_dirty.png':
+                        if curgame['type'] == 'grabdishes':
+                            zoom 0.5
+                        else:
+                            zoom 1.
     
     if curgame['type'] == 'dropdishes':
         use mgame_overlay(shaded=shaded)

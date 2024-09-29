@@ -826,19 +826,19 @@ default itemHolders = {
             'p': (1355, 269),
             'room': 'kitchen'
         },
-        'laundry1': {
+        'jacketred': {
             'item': {
                 'id': 'jacket_red'
             },
-            'p': (803,889),
-            'room': 'laundry'
+            'p': (793,263),
+            'room': 'guestroom r'
         },
-        'laundry2': {
+        'jacketblue': {
             'item': {
                 'id': 'jacket_darkblue'
             },
-            'p': (902,731),
-            'room': 'laundry'
+            'p': (1314,264),
+            'room': 'guestroom l'
         },
         'laundry3': {
             'item': {
@@ -1163,19 +1163,16 @@ default tutorialText = [
 ]
 
 default helpText = {
-    'main': ['''{size=40}{b}BASIC GAMEPLAY{/b}{/size}
+    'main': ['''{size=30}{b}BASIC GAMEPLAY{/b}{/size}
 Manage your time wisely and complete tasks before time runs out!
 {b}Click{/b} on the name of a room to go to it, or the {b}up/down arrows{/b} on the left to go up/down stairs.
 {b}Highlighted{/b} furniture means there's a {b}task{/b} you need to complete.
 {b}Click{/b} on an item to pick it up, or a {b}hand icon{/b} to place one down. Only {b}one{/b} item can be carried in {b}each{/b} hand, so you may need to {b}drop{/b} an item before picking up another.
 {b}Hovering{/b} over a task or item will show {b}information{/b} about it.
 
-{size=40}{b}LEFT SIDEBAR{/b}{/size}
+{size=30}{b}LEFT SIDEBAR{/b}{/size}
 {b}Clock{/b}: shows the {b}current time{/b} and how long you have left.
 {b}Notebook{/b}: shows your current {b}tasks{/b}.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
 '''{b}Map{/b}: previews every floor map.''',
 '''>{b}Locates{/b} a task without physically moving to another room to {b}save time{/b}!''',
 '''{b}On-hand{/b}: shows the contents of your inventory.
@@ -1187,13 +1184,10 @@ If currently in a {b}task minigame{/b}, it will show {b}instructions{/b} on how 
 If in a {b}room{/b} map, exits to the main floor map.
 If using the {b}preview{/b} map, closes the map and returns to normal gameplay.
 If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: leaving a task will take time even if not completed!''',
-'''{size=40}{b}COMPLETION{/b}{/size}
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''
+'''
+{size=30}{b}COMPLETION{/b}{/size}
+{b}Completing{/b} a task grants a certain amount of {b}points{/b} for each of the {b}three attributes{/b}.
+The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Not reaching these goals results in {b}instant failure{/b}.'''
 ],
     'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
 
@@ -1210,25 +1204,17 @@ You can only pour into a cup if it has at least one empty slot.
 Two or more cups cannot contain the same color.
 
 To complete the task, {b}sort{/b} the drinks until {b}each{/b} cup is either {b}empty{/b} or contains {b}all{/b} of one color.'''],
-    'sortlaundry': ['''Drag each article of clothing into the {b}correct{/b} washing machine.
-Each {b}washing machine{/b} is set for a {b}certain{/b} amount of time.
-{b}Light{/b} clothing needs to be washed for the {b}least{/b} amount of time.
-{b}Heavy{/b} clothing needs to be washed for the {b}most{/b} amount of time.
-{b}Medium{/b} clothing {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
+    'sortlaundry': ['''Drag {b}each{/b} article of clothing into the {b}correct{/b} washing machine.
+Click the {b}start{/b} button to {b}set the time{/b} for each machine.
+{b}Light{/b} clothing (undergarment, gloves, tie) needs to be washed for the {b}least{/b} amount of time.
+{b}Heavy{/b} clothing (coat, suit, gown) needs to be washed for the {b}most{/b} amount of time.
+{b}Medium{/b} clothing (shirt, blouse, pants) {b}cannot{/b} be washed for {b}too long{/b} or {b}too short{/b}.''']
 }
 
 default infoText = {
     'notes': ['''Notebook shows all current tasks.''',
-'''>{b}Check{/b} this tab often, as {b}new tasks{/b} could appear at any time.
-Some {b}tasks{/b} are related to the {b}story{/b} and will be written in {i}italics{/i}.
-{b}Remove{/b} this feature by {b}unchecking{/b} "highlight recommended tasks" in {b}settings{/b}.''',
-'''
-{b}Notebook{/b} will show {b}completion progress{/b} using two separate displays.''',
-'''>First one is an {b}approval rating{/b}. Pay attention to this, as your {b}final approval rating{/b} may {b}affect the actions{/b} of other characters!
-Failing to complete certain tasks will {b}lower approval rating{/b}, while succeeding {b}raises{/b} it.
-Certain tasks will be labeled as {b}"bonus tasks"{/b}. Completing these tasks will {b}award approval points{/b}, but {b}will not subtract points{/b} if left undone.''',
-'''The second one shows how many {b}major quests{/b} are completed.''',
-'''>These quests are related to the {b}story{/b}, and completing them is {b}recommended{/b} for the {b}best story experience{/b}.'''],
+'''{b}Completing{/b} a task grants a certain amount of {b}points{/b} for each of the {b}three attributes{/b}.''',
+'''The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Not reaching these goals results in {b}instant failure{/b}.'''],
     'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
 
 You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!

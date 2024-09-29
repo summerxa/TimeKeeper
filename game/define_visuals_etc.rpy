@@ -412,7 +412,7 @@ image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 # ok, lol
 
 define narrator = Character(callback=functools.partial(set_cur_speaker, ch=None))
-define s = Character('ANASTASIA', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
+define s = Character('◆ ANASTASIA ◆', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
 define m = Character('mother_name', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'), dynamic=True)
 define a = Character('amelia_name', image='amelia', callback=functools.partial(set_cur_speaker, ch='amelia'), dynamic=True)
 define b = Character('bella_name', image='bella', callback=functools.partial(set_cur_speaker, ch='bella'), dynamic=True)
@@ -434,12 +434,12 @@ define n4 = Character('npc4_name', image='npc4', callback=functools.partial(set_
 # old noble f
 define n5 = Character('npc5_name', image='npc5', callback=functools.partial(set_cur_speaker, ch='npc5'), dynamic=True)
 
-default npc1_name = 'NOBLE'
-default npc2_name = 'NOBLE'
-default npc3_name = 'MAID'
-default npc3_1_name = 'MAID'
-default npc4_name = 'NOBLE'
-default npc5_name = 'NOBLE'
+default npc1_name = '◆ NOBLE ◆'
+default npc2_name = '◆ NOBLE ◆'
+default npc3_name = '◆ MAID ◆'
+default npc3_1_name = '◆ MAID ◆'
+default npc4_name = '◆ NOBLE ◆'
+default npc5_name = '◆ NOBLE ◆'
 
 # --- POSITION STUFF ---
 

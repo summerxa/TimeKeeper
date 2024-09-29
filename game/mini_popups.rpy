@@ -48,7 +48,7 @@ screen popup_info(info_name, info_title):
             xalign 0.5
 
         viewport:
-            area (10, 75, 900, 400)
+            area (10, 85, 900, 400)
             
             mousewheel True
             draggable True
@@ -56,13 +56,16 @@ screen popup_info(info_name, info_title):
             vscrollbar_unscrollable "hide"
             
             vbox:
+                spacing 10
                 for t_ in infoText[info_name]:
                     if t_[0] == ">":
                         text t_[1:]:
+                            size 25
                             xanchor 0.
                             xpos 0.05
                     else:
                         text t_:
+                            size 25
                             xalign 0.
         
         textbutton 'X':
@@ -368,12 +371,12 @@ screen popup_help(curstate='main'):
                     for t_ in helpText[h_tab]:
                         if t_[0] == ">":
                             text t_[1:]:
-                                size 30
+                                size 25
                                 xanchor 0.
                                 xpos 0.05
                         else:
                             text t_:
-                                size 30
+                                size 25
                                 xalign 0.
         
         use popup_button_close('popup_help')
@@ -470,7 +473,7 @@ screen tx_room(bt, b_id):
         xanchor 0.5 yanchor 0.5
         style 'fancy_font'
         textalign 0.5
-        size 60
+        size 50
 
 # doesn't follow the same code as the other popups but idk where else to put this lol
 screen popup_map():
@@ -491,7 +494,7 @@ screen popup_map():
         ypos 45 yanchor 0.5
         textalign 0.5
         style 'fancy_font'
-        size 50
+        size 30
 
     for bn, bt in roomButtons[curlevel].items():
         if bt['floor'] != mapfloor:

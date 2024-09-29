@@ -16,11 +16,8 @@ label chapter1:
     # #call c1_scene1_5 #only for testing
     # call c1_scene2 from _call_c1_scene2
 
-    # # eventually this will be part of the tutorial minigame
-    # call c1_scene3 from _call_c1_scene3
-
     show mc 1a
-    s "Hello, before you start make sure to open {a=https://www.youtube.com/watch?v=dQw4w9WgXcQ}this form{/a} and fill it in as you play"
+    s "Hello, before you start make sure to open {a=https://docs.google.com/forms/d/18IWUeyxlcJo-F39iIARI_0WhPy09zP5CDdH7Gc5k8jU/edit}this form{/a} and fill it in as you play"
 
     # minigame
     $ node_unlock('c1_mgame')

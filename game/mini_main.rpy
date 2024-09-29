@@ -16,7 +16,7 @@ screen btn_room(bt, b_id):
             action [SetVariable('curroom', b_id), Return('gotoroom_indirect')]
         text_style 'fancy_font'
         text_align 0.5
-        text_size 60
+        text_size 50
         hovered SetVariable('cur_hov', f'{b_id}_room_btn')
         unhovered SetVariable('cur_hov', None)
         at highlight_hov(cur_hov, f'{b_id}_room_btn')
@@ -41,7 +41,7 @@ screen btn_roomarrow(bt, hov_id):
         unhovered SetVariable('cur_hov', None)
         activate_sound audio.button_click_sfx
         vbox:
-            spacing -75
+            spacing -50
             if bt['dir'] == 'up':
                 add 'mini/ui/btn_room_down_idle.png':
                     at highlight_hov(cur_hov, hov_id), rot(180), zm(0.5)
@@ -49,13 +49,13 @@ screen btn_roomarrow(bt, hov_id):
                 text bt['btext']:
                     xalign 0.5 text_align 0.5
                     style 'fancy_font'
-                    size 40
+                    size 30
                     at highlight_hov(cur_hov, hov_id)
             else:
                 text bt['btext']:
                     xalign 0.5 text_align 0.5
                     style 'fancy_font'
-                    size 40
+                    size 30
                     at highlight_hov(cur_hov, hov_id)
                 add 'mini/ui/btn_room_down_idle.png':
                     at highlight_hov(cur_hov, hov_id), rot(0), zm(0.5)
@@ -427,6 +427,7 @@ screen mc_hintbox(pos_, txt_):
             text txt_:
                 xalign 0.5 yalign 0.5
                 text_align 0.
+                size 30
     zorder 10
 
 screen mc_overlay(shaded=True):

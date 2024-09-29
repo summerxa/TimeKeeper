@@ -1,5 +1,4 @@
-﻿ 
-label c1_scene1:
+﻿label c1_scene1:
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
@@ -227,7 +226,7 @@ label c1_scene2:
     # sound design is pain -snail
     # ;-; -jade
 
-    $ mother_name = "MOTHER"
+    $ mother_name = "◆ MOTHER ◆"
     $ bella_name = "???"
     $ amelia_name = "???"
 
@@ -309,7 +308,7 @@ label c1_scene2:
 
     m "It seems I need to {i}reeducate{/i} you, Bella."
 
-    $ bella_name = "BELLA"
+    $ bella_name = "◆ BELLA ◆"
    
     b 6a "No! I-"
 
@@ -416,7 +415,7 @@ label c1_scene2:
 
     show bella 1a
 
-    $ amelia_name = "AMELIA"
+    $ amelia_name = "◆ AMELIA ◆"
 
     pause 0.5
     b "Oh. Thanks, Amelia…"
@@ -548,6 +547,12 @@ label c1_scene3:
 
     stop ambience fadeout 2.0
 
+    "Insert cutscene here"
+
+    $ docurtask('scene3_end', task_type='single')
+
+    jump mini_main
+
     #shrug -jade
     "Anastasia walks to the guestrooms, lighting the candles one by one."
 
@@ -668,17 +673,19 @@ label c1_fetch2:
     show npc1 at l1_5
     show mc 1b at r1_5
 
-    n1 "Are you the head maid?"
+    n1 "I need you to go to the guestrooms and bring my jacket to me. It is the red one with the golden trim."
 
-    s "Yes, I am."
+    # n1 "Are you the head maid?"
 
-    n1 "Excellent. I need you to go to the laundry room and bring my jacket to me." 
+    # s "Yes, I am."
 
-    n1 "It is the red one with the golden trim."
+    # n1 "Excellent. I need you to go to the guestrooms and bring my jacket to me." 
 
-    s "Affirmative, sir."
+    # n1 "It is the red one with the golden trim."
 
-    stop ambience fadeout 2.0
+    # s "Affirmative, sir."
+
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch2', task_type='single')
 
@@ -709,35 +716,33 @@ label c1_fetch2_end:
         $ docurtask('fetch2_end', task_type='single')
         $ update_inv(myitem='jacket_red')
 
-        scene bg ballroom with cfade
+        # scene bg ballroom with cfade
 
-        play ambience ballroom_ambience_2 fadein .6
-        show bella 8a at center
-        b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
+        # play ambience ballroom_ambience_2 fadein .6
+        # show bella 8a at center
+        # b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
 
-        show bella 8a at ein(.6,.2)
-        show mother 1a at offscreenright
-        show mother at ein(.8,.8)
-        m "Bella?"
+        # show bella 8a at ein(.6,.2)
+        # show mother 1a at offscreenright
+        # show mother at ein(.8,.8)
+        # m "Bella?"
 
-        show bella 9a
-        b "Y-yes, Mother?"
+        # show bella 9a
+        # b "Y-yes, Mother?"
 
-        $ focus_on(['mother'])
-        show mother 5a
-        pause .8
-        show mother 6a
-        m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
+        # $ focus_on(['mother'])
+        # show mother 5a
+        # pause .8
+        # show mother 6a
+        # m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
 
-        m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
+        # m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
 
-        b 8a "..."
+        # b 8a "..."
 
-        m 6a "Make sure you finish the rest of your tasks." 
+        # m 6a "Make sure you finish the rest of your tasks." 
 
-        b 5a "...Yes, Mother."
-        #is this the right expression? -jade
-        # it looks good :D -snail
+        # b 5a "...Yes, Mother."
 
     stop ambience fadeout 2.0
 
@@ -754,23 +759,25 @@ label c1_fetch3:
     show npc2 at l1_5
     show npc3 at r1_5
 
-    n3 "Sir, did you need something?"
+    n2 "Go to the kitchen and click on the highlighted task"
 
-    n2 "Are you the head maid? I only want service from the best around here."
+    # n3 "Sir, did you need something?"
 
-    n3 "No, sir."
+    # n2 "Are you the head maid? I only want service from the best around here."
 
-    n2 "Then what are you standing there for? Hurry up and find them!"
+    # n3 "No, sir."
 
-    show mc 1b at r1_5
-    hide npc3
-    with dissolve
+    # n2 "Then what are you standing there for? Hurry up and find them!"
 
-    s "That would be me."
+    # show mc 1b at r1_5
+    # hide npc3
+    # with dissolve
 
-    n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
+    # s "That would be me."
 
-    stop ambience fadeout 2.0
+    # n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
+
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch3', task_type='single')
 
@@ -788,44 +795,53 @@ label c1_fetch3_end:
 
     #TODO: replace ballroom ambience w/ kitchen sounds
 
-    show mc 1b at center
-    "fetch quest gameplay in kitchen; ask the chefs around the place to compile a list of the best desserts; After the tray is completed, scene triggers"
+    "insert cutscene here"
 
-    show mc 1b at ea(.8,.2)
-    show bella 4a at eaf(1.2,.8,.8)
-    b "So, these are the desserts? I’ll be taking it."
+    # show npc3 at r1_5
+    # show mc 1b at l1_5
 
-    show bella 4a at eout(.8,1.4)
-    s 4a "???"
-    hide bella
+    # s "There was a request for the best desserts available."
 
-    #when mc returns to ballroom, next scene triggers"
+    # n3 "Here they are."
 
-    stop ambience fadeout 2.0
+    # # "fetch quest gameplay in kitchen; ask the chefs around the place to compile a list of the best desserts; After the tray is completed, scene triggers"
 
-    scene bg ballroom with cfade
+    # show mc 1b at ea(.8,.2)
+    # show bella 4a at eaf(1.2,.8,.8)
+    # hide npc3 with dissolve
+    # b "So, these are the desserts? I’ll be taking it."
 
-    play ambience ballroom_ambience_2 fadein .6
-    show bella 1a at r1_5
-    show npc2 at center
+    # show bella 4a at eout(.8,1.4)
+    # s 4a "???"
+    # hide bella
 
-    show bella 1a zorder 1.0
-    b "Here’s your cake, sir."
+    # #when mc returns to ballroom, next scene triggers"
 
-    show npc2 zorder 2.0
-    n2 "Perfect."
+    # stop ambience fadeout 2.0
 
-    show bella zorder 3.0
-    show bella at eout(.8,1.4)
-    b "Call me if you have any other requests, sir."
+    # scene bg ballroom with cfade
 
-    n2 "Yeah, yeah."
+    # play ambience ballroom_ambience_2 fadein .6
+    # show bella 1a at r1_5
+    # show npc2 at center
+
+    # show bella 1a zorder 1.0
+    # b "Here’s your cake, sir."
+
+    # show npc2 zorder 2.0
+    # n2 "Perfect."
+
+    # show bella zorder 3.0
+    # show bella at eout(.8,1.4)
+    # b "Call me if you have any other requests, sir."
+
+    # n2 "Yeah, yeah."
     
-    hide bella
+    # hide bella
 
-    n2 "Wait, did the maid always look like that?"
+    # n2 "Wait, did the maid always look like that?"
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch3_end', task_type='single')
 
@@ -843,131 +859,131 @@ label c1_fetch4:
     show npc4 at l1_5
     show mc 1b at r1_5
 
-    n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
+    n4 "insert cutscene here"
 
-    s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
+    # n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
+
+    # s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
     
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
-    #TODO: add kitchen ambience
+    # #TODO: add kitchen ambience
 
-    scene bg kitchen with cfade
-    #placeholder: not in actual game
+    # scene bg kitchen with cfade
+    # #placeholder: not in actual game
 
-    show npc3_1 at r1_5
-    show mc 1b at l1_5
-    #TODO: replace maid w/ chef, and insert luna part in actual game
+    # show npc3_1 at r1_5
+    # show mc 1b at l1_5
+    # #TODO: replace maid w/ chef, and insert luna part in actual game
 
-    n3_1 "I’ll make the food for you."
+    # n3_1 "I’ll make the food for you."
 
-    n3_1 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
+    # n3_1 "Can you wash the dishes while you wait? Mother won’t be happy if she finds out that the dishes aren’t done."
 
-    s "Yes, I can wash them."
+    # s "Yes, I can wash them."
 
-    "some time later..."
+    # "Some time later..."
 
-    s "Is the food finished?"
+    # s "Is the food finished?"
 
-    n3_1 "Oh, I gave it to Bella."
+    # n3_1 "Oh, I gave it to Bella."
 
-    s 4b "...Bella?"
+    # s 4b "...Bella?"
 
-    n3_1 "Yeah, she said that she would take the food for you."
+    # n3_1 "Yeah, she said that she would take the food for you."
 
-    s "I see. Thank you for telling me."
+    # s "I see. Thank you for telling me."
     
-    scene bg ballroom with cfade
+    # scene bg ballroom with cfade
 
-    play ambience ballroom_ambience_2 fadein .6
-    show npc4 at l1_5
-    show bella 1a at r1_5
+    # play ambience ballroom_ambience_2 fadein .6
+    # show npc4 at l1_5
+    # show bella 1a at r1_5
 
-    n4 "So there is the possibility of good food. Tell your master to add Bertrose food on the menu next time, or else I’m not attending."
+    # n4 "So there is the possibility of good food. Tell your master to add Bertrose food on the menu next time, or else I’m not attending."
 
-    show npc4 at eout(.8,-1.0)
+    # show npc4 at eout(.8,-1.0)
 
-    b "Of course, ma’am."
+    # b "Of course, ma’am."
 
-    hide npc4
-    show bella 1a at ein(1.2,.2)
-    show mc 1b at einf(1.2,.9,.8)
+    # hide npc4
+    # show bella 1a at ein(1.2,.2)
+    # show mc 1b at einf(1.2,.9,.8)
 
-    pause 1.2
+    # pause 1.2
 
-    $ node_unlock('c1_fetch4')
+    # $ node_unlock('c1_fetch4')
 
     $ docurtask('fetch4_end', task_type='single')
 
-    b 5a "...Hmmm?"
+    # b 5a "...Hmmm?"
 
-    menu:
+    # menu:
 
-        b 5a "...Hmmm?{fast}"
+    #     b 5a "...Hmmm?{fast}"
 
-        "Do nothing":
+    #     "Do nothing":
 
-            b 10a "What are you staring at? Don’t you have work to do as the head maid?"
+    #         b 10a "What are you staring at? Don’t you have work to do as the head maid?"
 
-            show bella 10a at eout(1.2,1.4)
+    #         show bella 10a at eout(1.2,1.4)
 
-            $ focus_on(['bella'])
+    #         $ focus_on(['bella'])
 
-            "Bella leaves to complete more tasks."
+    #         "Bella leaves to complete more tasks."
 
-            $ node_unlock('c1_fetch4_n')
+    #         $ node_unlock('c1_fetch4_n')
 
-            hide bella
+    #         hide bella
 
-        "Confront Bella":
+    #     "Confront Bella":
 
-            s 1b "Why have you been taking my tasks?"
+    #         s 1b "Why have you been taking my tasks?"
 
-            b 1a "Oh, it’s you." 
+    #         b 1a "Oh, it’s you." 
 
-            b 5a "You already have enough errands to do as a head maid, why shouldn’t {i}I{/i} be able to take up a few of them?"
+    #         b 5a "You already have enough errands to do as a head maid, why shouldn’t {i}I{/i} be able to take up a few of them?"
 
-            b 6a "You must be proud, huh?"
+    #         b 6a "You must be proud, huh?"
 
-            b "Finding every little nitpick to report others on just because you’re the head maid. Why don’t you go do that while I do the real tasks?"
+    #         b "Finding every little nitpick to report others on just because you’re the head maid. Why don’t you go do that while I do the real tasks?"
 
-            b "You don’t even understand what it means to be punished."
+    #         b "You don’t even understand what it means to be punished."
 
-            show bella 5a at eout(.8,1.4)
-            pause 0.4
-            show mc at mc_gets_bonked
-            play sound chain_clink_2 volume 1.0
+    #         show bella 5a at eout(.8,1.4)
+    #         pause 0.4
+    #         show mc at mc_gets_bonked
+    #         play sound chain_clink_2 volume 1.0
 
-            $ focus_on(['bella'])
+    #         $ focus_on(['bella'])
 
-            $ c1_saw_bella_watch = True
+    #         $ c1_saw_bella_watch = True
 
-            "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
+    #         "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
             
-            $ node_unlock('c1_fetch4_c')
+    #         $ node_unlock('c1_fetch4_c')
 
-            hide bella
+    #         hide bella
 
-            menu:
+    #         menu:
 
-                "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch.{fast}"
+    #             "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch.{fast}"
 
-                "Leave it behind":
+    #             "(Leave it behind)":
 
-                    "skill issue lmao"
+    #                 $ node_unlock('c1_fetch4_c_leave')
 
-                    $ node_unlock('c1_fetch4_c_leave')
+    #                 pass # This ends the scene
 
-                    pass # This ends the scene
+    #             "(Pick it up)":
 
-                "Pick it up":
-
-                    #play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
-                    "you got Bella's pocket watch! yippee!"
-                    #TODO: should prolly change this text for official version LMAO
+    #                 #play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
+    #                 "Anastasia picks up Bella's pocketwatch."
+    #                 #TODO: should prolly change this text for official version LMAO
                     
-                    $ node_unlock('c1_fetch4_c_pickup')
+    #                 $ node_unlock('c1_fetch4_c_pickup')
 
-                    $ c1_has_bella_watch = True
+    #                 $ c1_has_bella_watch = True
 
     stop ambience fadeout 2.0
 
@@ -1067,7 +1083,7 @@ label c1_scene6:
 
         b 10a "Wait... Did you hear what we were talking about?{fast}"
 
-        "Remain silent":
+        "(Remain silent)":
 
             s "..."
 
@@ -1079,7 +1095,7 @@ label c1_scene6:
             show amelia at eout(.8,-.8)
             show bella 5a at eout(.8,-.8)
 
-        "Yes":
+        "(Speak the truth)":
 
             s "I did. You two were talking pretty loudly."
 
@@ -1528,8 +1544,8 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     play ambience wind_howling_ambience fadein .6 volume .42
 
-    $ npc3_name = "MAID 1"
-    $ npc3_1_name = "MAID 2"
+    $ npc3_name = "◆ MAID 1 ◆"
+    $ npc3_1_name = "◆ MAID 2 ◆"
 
     n3 "It’s s-so cold out here..."
 
@@ -1539,7 +1555,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     # btw u dont have to show a character's sprite in order to make them talk :D -snail
     #ohh, i didnt know that :0 -jade 
-    $ npc4_name = "MAID 3"
+    $ npc4_name = "◆ MAID 3 ◆"
 
     show bg snowy at vshake
     show npc3 at vshake
@@ -1559,7 +1575,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show npc3 at ein(.5,.95)
     s "Step aside."
 
-    $ npc4_name = "NOBLE" # resetting npc's name here before we forget lol -snail
+    $ npc4_name = "◆ NOBLE ◆" # resetting npc's name here before we forget lol -snail
 
     stop ambience fadeout 2.0
     scene black with dissolve
@@ -1678,8 +1694,8 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     show cg bella ending 1 with cfade
     #TODO: swap w/ official one if discord destroyed quality
 
-    $ npc3_name = "MAID 1"
-    $ npc3_1_name = "MAID 2"
+    $ npc3_name = "◆ MAID 1 ◆"
+    $ npc3_1_name = "◆ MAID 2 ◆"
     
     n3 "Huh? Why are you here? Isn’t Bella supposed to be in charge of the morning shift?"
 
@@ -1702,13 +1718,13 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     a "Are you guys the morning shift?"
 
-    $ amelia_name = "AMELIA"
+    $ amelia_name = "◆ AMELIA ◆"
 
-    $ npc1_name = "MAID 1 & MAID 2"
+    $ npc1_name = "◆ MAID 1 & MAID 2 ◆"
 
     n1 "Ah!"
 
-    $ npc1_name = "NOBLE"
+    $ npc1_name = "◆ NOBLE ◆"
 
     n3 "Oh, uh, hi, Amelia."
 
@@ -2157,8 +2173,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 label c1_scene7:
     
     stop music fadeout 1.0
-    
-    "Reached ending: [c1_ending]"
 
     show bg ballroom with cfade
 
