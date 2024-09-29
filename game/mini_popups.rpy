@@ -183,6 +183,7 @@ screen popup_notes():
                                     use task_display(tasks[curlevel]['single'][fq], t_blocked = (fq != fetchq[0]))
                         else:
                             text "None right now.":
+                                size 30
                                 anchor(0., 0.5) pos(0.05, 0.5)
                                 color '#906548'
             

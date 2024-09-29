@@ -898,7 +898,7 @@ default tutorialText = [
     {
         'text': "I’ll start by gathering the dirty dishes. This task is located in the ballroom.",
         'btn': 'none',
-        'mask': (998,205,1575,432),
+        'mask': (998,205,1553,395),
         'pos': (468, 175)
     },
     {
@@ -988,7 +988,7 @@ default tutorialText = [
     {
         'text': "After collecting all the dirty dishes, I must now bring them to the kitchen.",
         'btn': 'none',
-        'mask': (998,205,1575,432),
+        'mask': (998,205,1553,395),
         'pos': (468, 175)
     },
     {
@@ -1008,7 +1008,7 @@ default tutorialText = [
         'pos': (275, 58)
     },
     {
-        'text': "Drop off the dirty dishes from the ballroom.",
+        'text': "Now drop off the dirty dishes from the ballroom in the sink.",
         'btn': 'sink',
         'pos': (719, 30)
     },
@@ -1040,7 +1040,7 @@ default tutorialText = [
     {
         'text': "I’m holding the bottle of wine that I just picked up.",
         'btn': 'none',
-        'mask': (961,518,1230,617),
+        'mask': (0,0,1920,1080),
         'pos': (873, 217)
     },
     {
@@ -1086,7 +1086,7 @@ default tutorialText = [
     {
         'text': "If I’m holding items on both hands, I’ll have to choose which item I want to place down.",
         'btn': 'none',
-        'mask': (529,237,1405,844),
+        'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
@@ -1113,20 +1113,20 @@ default tutorialText = [
     {
         'text': "Occasionally, clients will have specific requests which take priority over other tasks.",
         'btn': 'none',
-        'mask': (290,587,853,855),
-        'pos': (232, 295)
+        'mask': (290,542,913,818),
+        'pos': (232, 249)
     },
     {
         'text': "I cannot start other tasks until I assist the guests.",
         'btn': 'none',
-        'mask': (290,587,853,855),
-        'pos': (232, 295)
+        'mask': (290,542,913,818),
+        'pos': (232, 249)
     },
     {
         'text': "This time, I am providing room service in the guestrooms.",
         'btn': 'none',
-        'mask': (290,587,853,855),
-        'pos': (232, 295)
+        'mask': (290,542,913,818),
+        'pos': (232, 249)
     },
     {
         'text': "Now exit the notebook to complete the task.",

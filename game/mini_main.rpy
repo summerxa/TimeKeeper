@@ -74,13 +74,13 @@ screen btn_tsk(bt, hov_id=None):
                 else:
                     action NullAction()
             else:
-                if 'item_req' in bt['curtask']:
-                    if task_can_proceed(bt['curtask']['item_req']):
-                        action bt['act']
+                if task_can_proceed(bt['curtask']):
+                    action bt['act']
+                else:
+                    if 'sequence' in bt['curtask']:
+                        action SetVariable('hinttext', levelHints[taskTemplates[taskq[bt['curtask']['tasktype']]['part']]['fail_id']])
                     else:
                         action SetVariable('hinttext', levelHints[bt['curtask']['fail_id']])
-                else:
-                    action bt['act']
 
             # highlight and change mc textbox when hovered
             hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', bt['htext'])]

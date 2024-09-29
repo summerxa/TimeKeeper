@@ -988,10 +988,6 @@ label c1_scene5:
     
     play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
-
-    # TODO delete in release version
-    $ score = calculateFinalScore()
-    "Your score was [score]"
     
     show mc 1a at center
     $ focus_on(['mc'], {'mc': 3})

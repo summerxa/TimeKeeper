@@ -14,9 +14,16 @@ init python:
     # returns True if last label was a room change (gotoroom) function
     def was_from_roomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
-    
+
     # whether you have the required items to do the task in your inventory
-    def task_can_proceed(item_req=[]):
+    # returns true by default if the task doesn't require any items
+    # if this is a multi-step task, only looks at the current step
+    def task_can_proceed(tsk):
+        if 'sequence' in tsk:
+            tsk = taskTemplates[taskq[tsk['tasktype']]['part']]
+        if not 'item_req' in tsk:
+            return True
+        item_req = tsk['item_req']
         if not len(item_req):
             return True
         for i in item_req:

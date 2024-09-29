@@ -20,7 +20,7 @@ label chapter1:
     # call c1_scene3 from _call_c1_scene3
 
     show mc 1a
-    s "insert cutscene here that transitions to the minigame"
+    s "Hello, before you start make sure to open {a=https://www.youtube.com/watch?v=dQw4w9WgXcQ}this form{/a} and fill it in as you play"
 
     # minigame
     $ node_unlock('c1_mgame')
@@ -28,9 +28,14 @@ label chapter1:
     $ curlevel = 1
     call mini_launch from _call_mini_launch_1
 
-    call c1_scene5 from _call_c1_scene5
-    call c1_scene6 from _call_c1_scene6
-    call c1_scene7 from _call_c1_scene7
+    show mc 1a
+
+    $ score = calculateFinalScore()
+    s "Your score was [score]\nStay on this screen, as you will need to record this score in the feedback form."
+
+    # call c1_scene5 from _call_c1_scene5
+    # call c1_scene6 from _call_c1_scene6
+    # call c1_scene7 from _call_c1_scene7
 
     # TODO could del chapter 1 minigame data to free up space...?
     # code: del myDict[key]
