@@ -29,7 +29,48 @@ define config.version = "1.0"
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
-define gui.about = _p("""
+define gui.about1 = _p("""
+{b}Producer{/b}
+
+Annabel Luo
+
+
+{b}Writers{/b}
+
+Annabel Luo
+
+Jacey Shuieh
+
+
+{b}Programmers{/b}
+
+Anne Xia
+
+Jacey Shuieh
+
+
+{b}Sound designer{/b}
+
+Matthew Liu
+""")
+
+define gui.about2 = _p("""
+{b}Game designers{/b}
+
+Annabel Luo
+
+Anne Xia
+
+
+{b}Artists{/b}
+
+Annabel Luo (UI/Character/Cutscene)
+
+Yuwen Zhang (Character/Cutscene)
+
+Joyce Wang (Environment)
+
+Naomi Tsang (UI/Character)
 """)
 
 

@@ -17,7 +17,9 @@ label chapter1:
     # call c1_scene2 from _call_c1_scene2
 
     show mc 1a
-    s "Hello, before you start make sure to open {a=https://docs.google.com/forms/d/18IWUeyxlcJo-F39iIARI_0WhPy09zP5CDdH7Gc5k8jU/edit}this form{/a} and fill it in as you play"
+    s "Hello, before you start make sure to open {a=https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley}this form{/a} and fill it in as you play"
+
+    s "Whoops wrong link. I meant {a=https://docs.google.com/forms/d/18IWUeyxlcJo-F39iIARI_0WhPy09zP5CDdH7Gc5k8jU/edit}this one{/a}"
 
     # minigame
     $ node_unlock('c1_mgame')
@@ -28,7 +30,8 @@ label chapter1:
     show mc 1a
 
     $ score = calculateFinalScore()
-    s "Your score was [score]\nStay on this screen, as you will need to record this score in the feedback form."
+    $ renpy.say(s,f"Your score was {score:.2f}\nStay on this screen, as you will need to record this score in the feedback form.")
+
 
     # call c1_scene5 from _call_c1_scene5
     # call c1_scene6 from _call_c1_scene6

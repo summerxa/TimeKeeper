@@ -268,7 +268,8 @@ screen quick_menu():
 init python:
     config.overlay_screens.append("quick_menu")
 
-default quick_menu = True
+# TODO only false for beta testing version
+default quick_menu = False
 
 style quick_button is default
 style quick_button_text is button_text
@@ -289,6 +290,7 @@ style quick_button_text:
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
 
+# TODO revert in full game
 screen navigation():
 
     vbox:
@@ -299,13 +301,13 @@ screen navigation():
 
         spacing gui.navigation_spacing
 
-        if not main_menu:
+        # if not main_menu:
 
-            textbutton _("History") action ShowMenu("history")
+        #     textbutton _("History") action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+        #     textbutton _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        # textbutton _("Load") action ShowMenu("load")
 
         if _in_replay:
 
@@ -315,7 +317,7 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("Progress") action ShowMenu("progress")
+        # textbutton _("Progress") action ShowMenu("progress")
 
         if main_menu:
 
@@ -340,11 +342,12 @@ screen btn_startmenu(xp, yp, b_id, act, hov):
         at zoom_hov(hov, b_id)
         activate_sound audio.button_click_sfx
 
+# TODO revert as well
 screen start_navigation(hov):
 
-    use btn_startmenu(349, 196, 'load', ShowMenu("load"), hov)
+    # use btn_startmenu(349, 196, 'load', ShowMenu("load"), hov)
     
-    use btn_startmenu(317, 389, 'progress', ShowMenu("progress"), hov)
+    # use btn_startmenu(317, 389, 'progress', ShowMenu("progress"), hov)
     
     use btn_startmenu(288, 572, 'start', Start(), hov)
     
@@ -582,9 +585,14 @@ screen about():
             label "[config.name!t]"
             text _("Version [config.version!t]\n")
 
-            ## gui.about is usually set in options.rpy.
-            if gui.about:
-                text "[gui.about!t]\n"
+            hbox:
+                xminimum 1000
+                text "[gui.about1!t]\n\n":
+                    xalign 0.
+                    line_spacing -20
+                text "[gui.about2!t]\n":
+                    xalign 1.
+                    line_spacing -20
 
             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
 
@@ -1160,7 +1168,11 @@ screen save():
 
     tag menu
 
-    use file_slots(_("Save"))
+    # use file_slots(_("Save"))
+    # TODO revert in full game
+    use game_menu("Save"):
+    
+        text "sorry no save option available :("
 
 
 screen load():
