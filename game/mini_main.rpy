@@ -166,24 +166,30 @@ screen tut_lower():
 
 screen tut_upper(isnotes=False):
     if isTutorial and not tutorialText[tutStep]['btn'] == 'gameplay':
-        if tutorialText[tutStep]['btn'] == 'none':
-            # mask: TLx TLy BRx BRy
+        # TODO remove this if statement
+        if 'mask' in tutorialText[tutStep]:
             add "gui/overlay/confirm.png":
+                matrixcolor OpacityMatrix(0.5)
                 anchor(0.,0.)
                 pos(0,0)
                 xysize(tutorialText[tutStep]['mask'][0], 1080)
             add "gui/overlay/confirm.png":
+                matrixcolor OpacityMatrix(0.5)
                 anchor(0.,0.)
                 pos(tutorialText[tutStep]['mask'][0],0)
                 xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], tutorialText[tutStep]['mask'][1])
             add "gui/overlay/confirm.png":
+                matrixcolor OpacityMatrix(0.5)
                 anchor(0.,0.)
                 pos(tutorialText[tutStep]['mask'][0],tutorialText[tutStep]['mask'][3])
                 xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], 1080)
             add "gui/overlay/confirm.png":
+                matrixcolor OpacityMatrix(0.5)
                 anchor(0.,0.)
                 pos(tutorialText[tutStep]['mask'][2],0)
                 xysize(1920, 1080)
+        
+        if tutorialText[tutStep]['btn'] == 'none':
             
             if not isnotes:
                 frame:
@@ -603,7 +609,7 @@ init python:
                 bonusq[tn]['btn'] = None
                 if curlevel == 1:
                     # Make sure bonus candle quest doesn't trigger during tutorial
-                    bonusq[tn]['t0'] = 31
+                    bonusq[tn]['t0'] = curtime + 31
                 else:
                     bonusq[tn]['t0'] = getRandomTime(1, 20)
         for tn, t in store.tasks[store.curlevel]['single'].items():

@@ -867,19 +867,19 @@ default itemHolders = {
 
 default tutorialText = [
     {
-        'text': "A good maid must fulfill the expectations of her clients, or else risk failure.",
+        'text': "A good maid must fulfill the expectations of her clients.",
         'btn': 'none',
         'mask': (0,0,0,0),
         'pos': (719, 396) # CENTER OF SCREEN
     },
     {
-        'text': "By the end of the day, I must reach the three attribute goals listed here.",
+        'text': "By the end of the day, I {b}MUST{/b} reach the {b}three attribute goals{/b} listed here.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
     },
     {
-        'text': "These attributes all begin at 0.",
+        'text': "These attributes all begin at 0. If I do not fill up the bar and reach these goals by the deadline, I will {b}INSTANTLY FAIL{/b}.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
@@ -887,6 +887,7 @@ default tutorialText = [
     {
         'text': "First, check the notebook.",
         'btn': 'notes_btn',
+        'mask': (75,344,197,465),
         'pos': (246, 286)
     },
     {
@@ -896,7 +897,25 @@ default tutorialText = [
         'pos': (719, 396)
     },
     {
-        'text': "I’ll start by gathering the dirty dishes. This task is located in the ballroom.",
+        'text': "Each task gives a different amount of points toward the 3 attributes, so I must choose a selection of different tasks to achieve the 3 goals.",
+        'btn': 'none',
+        'mask': (0,0,1920,1080),
+        'pos': (719, 396)
+    },
+    {
+        'text': "For example, the laundry task gives a lot of cleanliness and coverage points...",
+        'btn': 'none',
+        'mask': (1345,561,1475,612),
+        'pos': (468, 555)
+    },
+    {
+        'text': "...while the bar task gives a lot of service points.",
+        'btn': 'none',
+        'mask': (1468,402,1538,450),
+        'pos': (468, 394)
+    },
+    {
+        'text': "I’ll start by gathering the dirty dishes. This task is located in the ballroom and takes 5 minutes to complete.",
         'btn': 'none',
         'mask': (998,205,1553,395),
         'pos': (468, 175)
@@ -904,11 +923,13 @@ default tutorialText = [
     {
         'text': "Now close the notebook.",
         'btn': 'popup_button_close',
+        'mask': (1636,65,1709,138),
         'pos': (1138, 86)
     },
     {
         'text': "I can use the map to navigate the building.",
         'btn': 'map_btn',
+        'mask': (75,489,197,603),
         'pos': (273, 398)
     },
     {
@@ -918,18 +939,21 @@ default tutorialText = [
         'pos': (719, 30) # CENTER TOP
     },
     {
-        'text': "Use these buttons to navigate to other floors of the building. This building has a second floor that we can view using the map.",
+        'text': "Use these buttons to navigate to other floors of the building.",
         'btn': 'floor_up_btn',
+        'mask': (245,464,292,509),
         'pos': (312, 277)
     },
     {
         'text': "To continue doing tasks, exit the map.",
         'btn': 'leave_btn',
+        'mask': (75,957,197,1060),
         'pos': (260, 771)
     },
     {
         'text': "Click on the name of a room to enter it. We are going to the ballroom.",
         'btn': 'ballroom',
+        'mask': (778,244,1165,418),
         'pos': (719, 402)
     },
     {
@@ -953,16 +977,19 @@ default tutorialText = [
     {
         'text': "Now find a table that needs to be cleared.",
         'btn': '6_1',
+        'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
-        'text': "Instructions on how to complete a task can be found here.",
+        'text': "Instructions on how to complete a task can be found here. Be sure to check the instructions whenever you see an unfamiliar task.",
         'btn': 'help_btn',
+        'mask': (75,788,197,898),
         'pos': (257, 681)
     },
     {
         'text': "After reading the rules, exit the help menu to continue doing the task.",
         'btn': 'popup_button_close',
+        'mask': (1346,207,1402,275),
         'pos': (828, 20)
     },
     {
@@ -983,6 +1010,7 @@ default tutorialText = [
     {
         'text': "Now open the notebook again.",
         'btn': 'notes_btn',
+        'mask': (75,344,197,465),
         'pos': (246, 286)
     },
     {
@@ -994,11 +1022,13 @@ default tutorialText = [
     {
         'text': "Close the notebook to continue working.",
         'btn': 'popup_button_close',
+        'mask': (1636,65,1709,138),
         'pos': (1138, 86)
     },
     {
         'text': "First, we must go to the kitchen.",
         'btn': 'to_kitchen_btn',
+        'mask': (1042,912,1261,1036),
         'pos': (886, 620)
     },
     {
@@ -1010,13 +1040,14 @@ default tutorialText = [
     {
         'text': "Now drop off the dirty dishes from the ballroom in the sink.",
         'btn': 'sink',
+        'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
         'btn': 'gameplay'
     },
     {
-        'text': "After completing the task, I have made progress towards my target attributes.",
+        'text': "After completing the task, I have made progress towards my target attributes. Remember that all of these goals {b}MUST{/b} be achieved before the end of the day.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
@@ -1024,17 +1055,19 @@ default tutorialText = [
     {
         'text': "Sometimes, a task will require me to use certain items, such as this bottle of wine on the counter.",
         'btn': 'none',
-        'mask': (1326,210,1393,321),
+        'mask': (1315,214,1392,319),
         'pos': (787, 143)
     },
     {
         'text': "Hovering over an item will explain what it is. Try picking up the bottle of wine.",
         'btn': 'kitchen2',
+        'mask': (0,0,1920,1080),
         'pos': (787, 143)
     },
     {
         'text': "Click here to check what I’m holding.",
         'btn': 'onhand_btn',
+        'mask': (75,625,197,764),
         'pos': (245, 556)
     },
     {
@@ -1046,41 +1079,49 @@ default tutorialText = [
     {
         'text': "Now, click here to exit.",
         'btn': 'popup_button_close',
+        'mask': (1238,354,1308,427),
         'pos': (1315, 230)
     },
     {
         'text': "Select an empty spot to place down items.",
         'btn': 'kitchen2',
+        'mask': (1315,214,1392,319),
         'pos': (787, 143)
     },
     {
         'text': "Check what I’m holding again.",
         'btn': 'onhand_btn',
+        'mask': (75,625,197,764),
         'pos': (245, 556)
     },
     {
-        'text': "After dropping off items, both my hands are empty.",
+        'text': "After dropping off items, both my hands are empty. Close this window to return to the game.",
         'btn': 'popup_button_close',
+        'mask': (0,0,1920,1080),
         'pos': (1315, 230)
     },
     {
-        'text': "Next, let’s go to the laundry room and check the clothes.",
+        'text': "Next, let’s go to the laundry room.",
         'btn': 'to_laundry_btn',
+        'mask': (466,17,694,131),
         'pos': (322, 122)
     },
     {
         'text': "Pick up this jacket.",
         'btn': 'laundry3',
+        'mask': (517,372,605,463),
         'pos': (599, 300)
     },
     {
         'text': "And this one.",
         'btn': 'laundry4',
+        'mask': (517,136,611,229),
         'pos': (599, 49)
     },
     {
         'text': "Try placing down one jacket.",
         'btn': 'laundry4',
+        'mask': (517,136,611,229),
         'pos': (599, 49)
     },
     {
@@ -1092,15 +1133,17 @@ default tutorialText = [
     {
         'text': "Choose either jacket to place down.",
         'btn': 'idk',
+        'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
         'text': "I should complete more tasks now.",
         'btn': 'to_ballroom_btn',
-        'pos': (306, 118)
+        'mask': (459,4,693,131),
+        'pos': (306, 138)
     },
     {
-        'text': "But it looks there’s nothing to do in the ballroom.",
+        'text': "But it looks like there’s nothing to do in the ballroom.",
         'btn': 'none',
         'mask': (0,0,1920,1080),
         'pos': (719, 30)
@@ -1108,6 +1151,7 @@ default tutorialText = [
     {
         'text': "I can check the notebook to find other tasks.",
         'btn': 'notes_btn',
+        'mask': (75,344,197,465),
         'pos': (246, 286)
     },
     {
@@ -1131,21 +1175,25 @@ default tutorialText = [
     {
         'text': "Now exit the notebook to complete the task.",
         'btn': 'popup_button_close',
+        'mask': (1636,65,1709,138),
         'pos': (1138, 86)
     },
     {
         'text': "We should go upstairs to the guestrooms.",
         'btn': 'floor_up_btn',
+        'mask': (245,464,292,509),
         'pos': (312, 277)
     },
     {
         'text': "This task is in the right guestrooms.",
         'btn': 'guestroom r',
+        'mask': (936,471,1477,549),
         'pos': (953, 161)
     },
     {
         'text': "The room we’re looking for is highlighted.",
         'btn': 'gr_22',
+        'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
@@ -1156,6 +1204,18 @@ default tutorialText = [
     },
     {
         'text': "I should manage my time wisely to meet the goals assigned by Mother.",
+        'btn': 'none',
+        'mask': (0,0,0,0),
+        'pos': (719, 396)
+    },
+    {
+        'text': "The notebook lists the attribute points that different tasks give so it is wise to constantly check it.",
+        'btn': 'none',
+        'mask': (0,0,0,0),
+        'pos': (719, 396)
+    },
+    {
+        'text': "Remember, if I DO NOT reach the 3 attribute goals before the end of the day, it will be considered {b}INSTANT FAILURE{/b}.",
         'btn': 'none',
         'mask': (0,0,0,0),
         'pos': (719, 396)

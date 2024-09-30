@@ -186,9 +186,9 @@ init python:
     # formats room names in the large map
     def get_room_text(toRoom, is_map=False):
         if curroom == 'main' and not prevroom:
-            return toRoom.upper()
+            return roomButtons[curlevel][toRoom]['name'].upper()
 
-        tx = toRoom.upper()
+        tx = roomButtons[curlevel][toRoom]['name'].upper()
 
         froRoom = (prevroom if curroom == 'main' else curroom)
         froRoom_id = roomButtons[curlevel][froRoom]['num']
