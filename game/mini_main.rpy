@@ -202,7 +202,7 @@ screen tut_overlay(isnotes=False):
     use tut_lower()
     use tut_upper(isnotes)
 
-screen mini_sidebar(curstate='main', gametype=None):
+screen mini_sidebar(curstate='main', gametype=None, idle_txt=None):
     # any screen that uses the minigame sidebar cannot be hidden with middle click
     key "hide_windows" action []
 
@@ -211,21 +211,25 @@ screen mini_sidebar(curstate='main', gametype=None):
             'y': 0.15,
             'act': Show('popup_notes'),
             'im': 'mini/ui/icon_notebook_%s.png',
-            'hov_id': 'notes_btn'
+            'hov_id': 'notes_btn',
+            'hov_txt': 'Shows the current tasks.'
         },
         {
             'y': 0.35,
             'act': Show('popup_map'),
             'im': 'mini/ui/icon_map_%s.png',
-            'hov_id': 'map_btn'
+            'hov_id': 'map_btn',
+            'hov_txt': 'Shows all the rooms.'
         },
         {
             'y': 0.55,
             'act': Show('popup_onhand'),
             'im': 'mini/ui/icon_onhand_%s.png',
-            'hov_id': 'onhand_btn'
+            'hov_id': 'onhand_btn',
+            'hov_txt': "Shows what items I'm holding."
         }
     ]
+    default leave_hov = [SetVariable('cur_hov', 'leave_btn')]
 
     fixed:
         xalign 0.01
@@ -241,8 +245,8 @@ screen mini_sidebar(curstate='main', gametype=None):
                     xalign 0.5
                     yalign bt['y']
                     auto bt['im']
-                    hovered SetVariable('cur_hov', bt['hov_id'])
-                    unhovered SetVariable('cur_hov', None)
+                    hovered [SetVariable('cur_hov', bt['hov_id']), SetVariable('hinttext', bt['hov_txt'])]
+                    unhovered [SetVariable('cur_hov', None), Function(setIdle, idle_txt)]
                     at highlight_hov(cur_hov, bt['hov_id'])
                     if isTutorial:
                         if tutorialText[tutStep]['btn'] == bt['hov_id']:
@@ -256,8 +260,8 @@ screen mini_sidebar(curstate='main', gametype=None):
                 xalign 0.5
                 yalign 0.75
                 auto 'mini/ui/icon_help_%s.png'
-                hovered SetVariable('cur_hov', 'help_btn')
-                unhovered SetVariable('cur_hov', None)
+                hovered [SetVariable('cur_hov', 'help_btn'), SetVariable('hinttext', 'Shows information on how to complete tasks.')]
+                unhovered [SetVariable('cur_hov', None), Function(setIdle, idle_txt)]
                 at highlight_hov(cur_hov, 'help_btn')
                 if curstate == 'main' or curstate == 'inroom' or curstate == 'map':
                     if isTutorial:
@@ -280,10 +284,10 @@ screen mini_sidebar(curstate='main', gametype=None):
                 xalign 0.5
                 yalign 0.95
                 auto 'mini/ui/icon_leave_%s.png'
-                hovered SetVariable('cur_hov', 'leave_btn')
-                unhovered SetVariable('cur_hov', None)
+                unhovered [SetVariable('cur_hov', None), Function(setIdle, idle_txt)]
                 at highlight_hov(cur_hov, 'leave_btn')
                 if curstate == 'main':
+                    hovered leave_hov + [SetVariable('hinttext', 'Pauses the game.')]
                     if isTutorial:
                         if tutorialText[tutStep]['btn'] == 'leave_btn':
                             action [Function(progressTutorial), ShowMenu('save')]
@@ -292,6 +296,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     else:
                         action ShowMenu('save')
                 elif curstate == 'inroom':
+                    hovered leave_hov + [SetVariable('hinttext', 'Exits the current room.')]
                     if isTutorial:
                         if tutorialText[tutStep]['btn'] == 'leave_btn':
                             action [Function(progressTutorial), SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
@@ -300,6 +305,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     else:
                         action [SetVariable('prevroom', curroom), SetVariable('curroom', 'main')]
                 elif curstate == 'mgame':
+                    hovered leave_hov + [SetVariable('hinttext', 'Exits the current task. Note that quitting a task will still take up time.')]
                     if isTutorial:
                         if tutorialText[tutStep]['btn'] == 'leave_btn':
                             action [Function(progressTutorial), If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])]
@@ -308,6 +314,7 @@ screen mini_sidebar(curstate='main', gametype=None):
                     else:
                         action If(persistent.showleavewarning, true=[Show('popup_mgame_leave')], false=[Return(), With(cfade)])
                 elif curstate == 'map':
+                    hovered leave_hov + [SetVariable('hinttext', 'Exits the map.')]
                     if isTutorial:
                         if tutorialText[tutStep]['btn'] == 'leave_btn':
                             action [Function(progressTutorial), Hide('popup_map')]
@@ -483,10 +490,10 @@ screen mc_overlay(shaded=True):
                         xmaximum 300
                         ymaximum 38
 
-screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True):
+screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True, idle_txt=None):
     if curstate != 'map':
         use tut_lower()
-    use mini_sidebar(curstate, gametype)
+    use mini_sidebar(curstate, gametype, idle_txt)
     if has_mc:
         use mc_overlay(shaded)
 

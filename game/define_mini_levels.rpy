@@ -565,7 +565,8 @@ default taskTemplates = {
         'item_req': ['air', 'dish_dirty'],
         'attributes': [0,0,0],
         'next': 'dropdishes',
-        'parent': 'dishes_chain'
+        'parent': 'dishes_chain',
+        'idle': 'grabdishes_idle'
     },
     'dropdishes': {
         'tcost': 5,
@@ -576,7 +577,8 @@ default taskTemplates = {
         'item_req': ['dish_dirty'],
         'attributes': [3,3,1],
         'next': 'grabdishes',
-        'parent': 'dishes_chain'
+        'parent': 'dishes_chain',
+        'idle': 'dropdishes_idle'
     },
     'dishes_chain': { # contains all the parts of the "quest chain"
         'type': 'medium',
@@ -591,7 +593,8 @@ default taskTemplates = {
         'title': "Help at the bar",
         'desc': "Pour drinks at the ballroom's bar",
         'tlabel': 'task_c1_waterpour',
-        'attributes': [1,3,6]
+        'attributes': [1,3,6],
+        'idle': 'waterpour_idle'
     },
     'sortlaundry': {
         'tcost': 20,
@@ -599,7 +602,8 @@ default taskTemplates = {
         'title': "Do the laundry",
         'tlabel': 'task_c1_sortlaundry',
         'desc': 'Sort the laundry into the washing machines',
-        'attributes': [5,3,2]
+        'attributes': [5,3,2],
+        'idle': 'sortlaundry_idle'
     },
     'grabfood': {
         'tcost': 5,

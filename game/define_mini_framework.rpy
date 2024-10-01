@@ -249,11 +249,14 @@ init python:
 
     # sets mc textbox to idle message
     # quest_idle if a fetchquest is active, otherwise default_idle
-    def setIdle():
-        if fetchq:
-            store.hinttext = levelHints['quest_idle']
+    def setIdle(custom_idle=None):
+        if custom_idle:
+            store.hinttext = custom_idle
         else:
-            store.hinttext = levelHints['default_idle']
+            if fetchq:
+                store.hinttext = levelHints['quest_idle']
+            else:
+                store.hinttext = levelHints['default_idle']
 
     # --- ITEM/INVENTORY STUFF ---
 

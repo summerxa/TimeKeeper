@@ -54,7 +54,13 @@ init python:
 
     def waterpour_act(sel, dest):
         color = store.curgame['cups'][sel].pop()
-        store.curgame['cups'][dest].append(color)
+        counter = 1
+        while curgame['cups'][sel] and curgame['cups'][sel][-1] == color and counter + len(curgame['cups'][dest]) < 4:
+            curgame['cups'][sel].pop()
+            counter += 1
+        while counter:
+            store.curgame['cups'][dest].append(color)
+            counter -= 1
         return waterpour_ok(curgame['cups'])
 
     def laundry_ok():
@@ -84,7 +90,13 @@ init python:
         return 'done' if laundry_ok() else 'refresh'
 
 screen mgame_overlay(shaded=True, has_mc=True):
-    use mini_overlay('mgame', curgame['type'], shaded, has_mc)
+    use mini_overlay(
+        'mgame',
+        curgame['type'],
+        shaded,
+        has_mc,
+        levelHints[taskTemplates[curgame['type']]['idle']] if 'idle' in taskTemplates[curgame['type']] else None
+    )
 
 
 screen mgame_dragdrop_dishes(shaded=True):
