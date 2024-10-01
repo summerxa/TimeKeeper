@@ -203,6 +203,9 @@ screen tut_overlay(isnotes=False):
     use tut_upper(isnotes)
 
 screen mini_sidebar(curstate='main', gametype=None):
+    # any screen that uses the minigame sidebar cannot be hidden with middle click
+    key "hide_windows" action []
+
     default baseButtons = [
         {
             'y': 0.15,

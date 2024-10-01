@@ -1172,7 +1172,7 @@ screen save():
     # TODO revert in full game
     use game_menu("Save"):
     
-        text "sorry no save option available :("
+        text "there will be a save option in the full game but it's disabled for testing purposes, pls dont report this as a bug thank you :)"
 
 
 screen load():

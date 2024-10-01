@@ -6,13 +6,16 @@ init python:
     #       OR if player chooses to quit manually
     #       IMPORTANT: 'done' =/= mark the task as completed; for some tasks you need to
     #           manually double check whether the task was done
+
+    # dishes_act has a special return state, 'none' = screen needs to be refreshed
+    #   but no dishes were dragged (shouldn't update inventory in this case)
     def dishes_act(drags, drop):
         dragnum = int(drags[0].drag_name)
         store.curgame['drag'][dragnum]['p'] = (drags[0].x, drags[0].y)
         if drop and not store.mgame_try[dragnum]:
             store.mgame_try[dragnum] = 1
             return 'done' if not 0 in store.mgame_try else 'refresh'
-        return 'refresh'
+        return 'none'
 
     def dragged_grabdishes(drags, drop):
         ret = dishes_act(drags, drop)

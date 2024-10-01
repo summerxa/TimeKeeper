@@ -1119,7 +1119,7 @@ default tutorialText = [
         'pos': (599, 49)
     },
     {
-        'text': "Try placing down one jacket.",
+        'text': "Try placing down one jacket in this empty spot.",
         'btn': 'laundry4',
         'mask': (517,136,611,229),
         'pos': (599, 49)
