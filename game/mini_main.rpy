@@ -667,6 +667,25 @@ label mini_launch(startroom='main', startfloor=0):
 
         mini_launch_py()
 
+    if isTutorial:
+        window hide
+        call screen confirm_noexit(
+            "About to start tutorial.\nWould you like to skip?",
+            Show(
+                'confirm_noexit',
+                message="Are you sure you would like to skip?\nThe tutorial contains important information on how to complete the game.",
+                yes_action=[SetVariable('isTutorial', False), Return(), With(dissolve)],
+                no_action=[Return(), With(dissolve)]),
+            [Return(), With(dissolve)]) with dissolve
+        # show screen confirm_noexit(
+        #     "About to start tutorial.\nWould you like to skip?",
+        #     Show(
+        #         'confirm_noexit',
+        #         message="Are you sure you would like to skip?\nThe tutorial contains important information on how to complete the game.",
+        #         yes_action=[SetVariable('isTutorial', False), Hide('confirm_noexit')],
+        #         no_action=Hide('confirm_noexit')),
+        #     Hide('confirm_noexit')) with dissolve
+
     jump mini_main
 
 label mini_failed:

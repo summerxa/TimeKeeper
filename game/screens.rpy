@@ -1172,7 +1172,7 @@ screen save():
     # TODO revert in full game
     use game_menu("Save"):
     
-        text "there will be a save option in the full game but it's disabled for testing purposes, pls dont report this as a bug thank you :)"
+        text "there will be a save option in the full game but it's disabled for testing purposes\nthis isn't a bug :)"
 
 
 screen load():
@@ -1842,6 +1842,35 @@ screen confirm(message, yes_action, no_action):
 
     ## Right-click and escape answer "no".
     key "game_menu" action no_action
+
+screen confirm_noexit(message, yes_action, no_action):
+
+    ## Ensure other screens do not get input while this screen is displayed.
+    modal True
+
+    zorder 200
+
+    style_prefix "confirm"
+
+    add "gui/overlay/confirm.png"
+
+    frame:
+
+        vbox:
+            xalign .5
+            yalign .5
+            spacing 45
+
+            label _(message):
+                style "confirm_prompt"
+                xalign 0.5
+
+            hbox:
+                xalign 0.5
+                spacing 150
+
+                textbutton _("Yes") action yes_action
+                textbutton _("No") action no_action
 
 
 style confirm_frame is gui_frame
