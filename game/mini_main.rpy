@@ -133,39 +133,11 @@ screen btn_item(bt, hov_id):
         at highlight_hov(cur_hov, hov_id)
         activate_sound audio.button_click_sfx
 
-# invisible button covering full screen
-# only used to detect user "click to continue" during tutorial
-screen btn_fullscreen(masksize=(0,0,1920,1080)):
-    button: 
-        add 'mini/mini_rect.png':
-            anchor(0.,0.)
-            pos(0,0)
-            xysize(tutorialText[tutStep]['mask'][0], 1080)
-            matrixcolor OpacityMatrix(0.)
-        add 'mini/mini_rect.png':
-            anchor(0.,0.)
-            pos(tutorialText[tutStep]['mask'][0],0)
-            xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], tutorialText[tutStep]['mask'][1])
-            matrixcolor OpacityMatrix(0.)
-        add 'mini/mini_rect.png':
-            anchor(0.,0.)
-            pos(tutorialText[tutStep]['mask'][0],tutorialText[tutStep]['mask'][3])
-            xysize(tutorialText[tutStep]['mask'][2] - tutorialText[tutStep]['mask'][0], 1080)
-            matrixcolor OpacityMatrix(0.)
-        add 'mini/mini_rect.png':
-            anchor(0.,0.)
-            pos(tutorialText[tutStep]['mask'][2],0)
-            xysize(1920, 1080)
-            matrixcolor OpacityMatrix(0.)
-
-        action If(isTutorial and tutorialText[tutStep]['btn'] == 'none', true=Function(progressTutorial), false=NullAction())
-
-screen tut_lower():
-    if isTutorial and tutorialText[tutStep]['btn'] == 'none':
-        use btn_fullscreen(tutorialText[tutStep]['mask'])
-
-screen tut_upper(isnotes=False):
+screen tut_overlay():
     default opac_ = 0.75
+    if isTutorial and tutorialText[tutStep]['btn'] == 'none':
+        key "mouseup_1" action Function(progressTutorial)
+    # key "mouseup_1" action If(isTutorial and tutorialText[tutStep]['btn'] == 'none', true=Function(progressTutorial), false=NullAction())    
     if isTutorial and not tutorialText[tutStep]['btn'] == 'gameplay':
         add "gui/overlay/confirm.png":
             at opac(opac_)
@@ -190,17 +162,12 @@ screen tut_upper(isnotes=False):
         
         if tutorialText[tutStep]['btn'] == 'none':
             
-            if not isnotes:
-                frame:
-                    align (0.5,0.9)
-                    xysize(600,100)
-                    text "Click anywhere to continue":
-                        align(0.5,0.5)
+            frame:
+                align (0.5,0.9)
+                xysize(600,100)
+                text "Click anywhere to continue":
+                    align(0.5,0.5)
         use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
-
-screen tut_overlay(isnotes=False):
-    use tut_lower()
-    use tut_upper(isnotes)
 
 screen mini_sidebar(curstate='main', gametype=None, idle_txt=None):
     # any screen that uses the minigame sidebar cannot be hidden with middle click
@@ -491,11 +458,11 @@ screen mc_overlay(shaded=True):
                         ymaximum 38
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True, idle_txt=None):
-    if curstate != 'map':
-        use tut_lower()
+    use tut_overlay()
     use mini_sidebar(curstate, gametype, idle_txt)
     if has_mc:
         use mc_overlay(shaded)
+    
 
 screen mini_mapbase(floor=curfloor):
     for rname, rm in roomRects[curlevel][floor].items():
@@ -542,7 +509,7 @@ screen mini_screen():
     
     use floor_sidebar('game')
 
-    use tut_upper()
+    use tut_overlay()
 
 label mini_main():
 
