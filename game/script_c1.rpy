@@ -3033,7 +3033,7 @@ label task_c1_sortlaundry:
 
     $ sortlaundry_init_py()
 
-    $ hinttext = levelHints['laundry_idle']
+    $ hinttext = levelHints['sortlaundry_idle']
 
     $ game_ret = 'refresh'
     while game_ret == 'refresh':

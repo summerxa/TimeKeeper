@@ -48,7 +48,7 @@ default levelHints = {
     'dropdishes_idle': "Drop the dishes off in the sink.",
     'waterpour_idle': "The drinks must be sorted according to color.",
     'waterpour_cup_full': "This glass is full; I can't pour into it.",
-    'laundry_idle': "Sort the laundry into separate batches and start the machines.",
+    'sortlaundry_idle': "Sort the laundry into separate batches and start the machines.",
     'dropfood_fail': "I need to drop off a meal here.",
     'lightcandle_fail': "I need to find matches before I can light the candle."
 }
