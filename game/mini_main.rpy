@@ -487,7 +487,7 @@ screen mini_screen():
             
             mousewheel "horizontal"
             xinitial 480
-            draggable True
+            draggable (not isTutorial or isTutorial and tutorialText[tutStep]['btn'] != 'none')
             fixed:
                 minimum(2880, 1080)
                 fixed:
