@@ -49,7 +49,7 @@ init python:
         if isBonusTask:
             productivity = min(100, productivity + 10)
         elif isProductive:
-            productivity += (100 - productivity) * 0.01 * mins
+            productivity += min(100, (100 - productivity) * 0.01 * mins)
         else:
             productivity = max(0, productivity - mins)
 
