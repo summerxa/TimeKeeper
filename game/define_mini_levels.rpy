@@ -661,11 +661,11 @@ default tasks = {
         },
         'single': { # for quests that only show up once
             'scene3_end': {
-                'tcost': 14,
+                'tcost': 14, # 17
                 'desc': 'Provide room service to guests',
                 'btn': 'gr_22',
                 'tlabel': 'c1_scene3',
-                't0': 1034,
+                't0': 1034, # 1031
                 'tasktype': 'fetchquest_end'
             },
             'fetch1': {
@@ -777,25 +777,25 @@ default itemsAll = {
         'stackable': False
     },
     'jacket_red': {
-        'name': 'red jacket',
+        'name': 'red jacket with gold trim',
         'desc': 'A red jacket with golden trim.',
         'im': 'shirt',
         'stackable': False
     },
     'jacket_darkblue': {
-        'name': 'dark blue jacket',
+        'name': 'dark blue jacket with silver trim',
         'desc': 'A dark blue jacket with silver trim.',
         'im': 'shirt',
         'stackable': False
     },
     'jacket_black': {
-        'name': 'black jacket',
+        'name': 'black jacket with light gold trim',
         'desc': 'A black jacket with light gold trim.',
         'im': 'shirt',
         'stackable': False
     },
     'jacket_darkgreen': {
-        'name': 'dark green jacket',
+        'name': 'dark green jacket with three pockets',
         'desc': 'A dark green jacket with three pockets.',
         'im': 'shirt',
         'stackable': False
