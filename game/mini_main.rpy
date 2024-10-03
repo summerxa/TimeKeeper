@@ -485,7 +485,10 @@ screen mini_screen():
         viewport:
             area (0, 0, 1920, 1080)
             
-            mousewheel "horizontal"
+            if not isTutorial or isTutorial and tutorialText[tutStep]['btn'] != 'none':
+                mousewheel "horizontal"
+            else:
+                mousewheel False
             xinitial 480
             draggable (not isTutorial or isTutorial and tutorialText[tutStep]['btn'] != 'none')
             fixed:

@@ -967,7 +967,7 @@ default tutorialText = [
         'pos': (719, 30)
     },
     {
-        'text': "Drag a room left and right to see more of it.",
+        'text': "To see more of a room, drag or scroll to move it left and right.",
         'btn': 'none',
         'mask': (0,0,0,0),
         'pos': (719, 30)
