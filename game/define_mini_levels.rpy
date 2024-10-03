@@ -593,7 +593,7 @@ default taskTemplates = {
         'title': "Help at the bar",
         'desc': "Pour drinks at the ballroom's bar",
         'tlabel': 'task_c1_waterpour',
-        'attributes': [1,3,6],
+        'attributes': [2,2,6],
         'idle': 'waterpour_idle'
     },
     'sortlaundry': {
@@ -602,7 +602,7 @@ default taskTemplates = {
         'title': "Do the laundry",
         'tlabel': 'task_c1_sortlaundry',
         'desc': 'Sort the laundry into the washing machines',
-        'attributes': [5,3,2],
+        'attributes': [6,2,2],
         'idle': 'sortlaundry_idle'
     },
     'grabfood': {
