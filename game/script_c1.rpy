@@ -547,7 +547,7 @@ label c1_scene3:
 
     stop ambience fadeout 2.0
 
-    "Insert cutscene here"
+    "Insert cutscene here; this task autocompletes after the cutscene"
 
     $ docurtask('scene3_end', task_type='single')
 
@@ -795,7 +795,7 @@ label c1_fetch3_end:
 
     #TODO: replace ballroom ambience w/ kitchen sounds
 
-    "insert cutscene here"
+    "Insert cutscene here; this task autocompletes after the cutscene"
 
     # show npc3 at r1_5
     # show mc 1b at l1_5
@@ -859,7 +859,7 @@ label c1_fetch4:
     show npc4 at l1_5
     show mc 1b at r1_5
 
-    n4 "insert cutscene here"
+    n4 "Insert cutscene here; this task autocompletes after the cutscene"
 
     # n4 "The food here is rather lacking. I prefer the cuisine from Bertrose much more."
 
@@ -2841,7 +2841,7 @@ init python:
             curgame['try'] = [0] * mgame_goal
             curgame['drag'] = []
             for i in range(mgame_goal):
-                curgame['drag'].append({'p': (renpy.random.randint(340, 740), renpy.random.randint(130, 840))})
+                curgame['drag'].append({'p': (renpy.random.randint(720, 1210), renpy.random.randint(305, 755))})
                 curgame['drag'][i]['n'] = str(i)
                 curgame['drag'][i]['im'] = 'mini/tgame/grab_dropdishes/plate_dirty.png'
             curgame['drop'] = [
