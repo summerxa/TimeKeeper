@@ -217,6 +217,10 @@ init python:
             t = store.tasks[store.curlevel][task_type][tname]
         if goodjob:
             store.curtask_btn['curtask'] = None
+            if 'taskless' in curtask_btn:
+                curtask_btn['act'] = SetVariable('hinttext', levelHints[curtask_btn['taskless']])
+            else:
+                curtask_btn['act'] = SetVariable('hinttext', levelHints['default_taskless'])
             if task_type == 'infinite':
                 if t['type'] == 'small':
                     store.bonusq[tname]['btn'] = None
