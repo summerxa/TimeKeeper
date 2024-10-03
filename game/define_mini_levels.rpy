@@ -661,11 +661,11 @@ default tasks = {
         },
         'single': { # for quests that only show up once
             'scene3_end': {
-                'tcost': 14, # 17
+                'tcost': 17,
                 'desc': 'Provide room service to guests',
                 'btn': 'gr_22',
                 'tlabel': 'c1_scene3',
-                't0': 1034, # 1031
+                't0': 1031,
                 'tasktype': 'fetchquest_end'
             },
             'fetch1': {
@@ -818,7 +818,8 @@ default itemHolders = {
     1: {
         'kitchen1': {
             'item': {
-                'id': 'air'       
+                'id': 'matches',
+                'stack': 2
             },
             'p': (392, 266),
             'room': 'kitchen'
@@ -861,7 +862,7 @@ default itemHolders = {
         'gr_l1': {
             'item': {
                 'id': 'matches',
-                'stack': 5
+                'stack': 3
             },
             'p': (795, 275),
             'room': 'guestroom l'
@@ -925,7 +926,6 @@ default tutorialText = [
         'pos': (468, 175)
     },
     {
-        'text': "Now close the notebook.",
         'btn': 'popup_button_close',
         'mask': (1636,65,1709,138),
         'pos': (1138, 86)
@@ -982,7 +982,8 @@ default tutorialText = [
         'text': "Now find a table that needs to be cleared.",
         'btn': '6_1',
         'mask': (0,0,1920,1080),
-        'pos': (719, 30)
+        'pos': (719, 30),
+        'draggable': True
     },
     {
         'text': "Instructions on how to complete a task can be found here. Be sure to check the instructions whenever you see an unfamiliar task.",
@@ -1024,7 +1025,6 @@ default tutorialText = [
         'pos': (468, 175)
     },
     {
-        'text': "Close the notebook to continue working.",
         'btn': 'popup_button_close',
         'mask': (1636,65,1709,138),
         'pos': (1138, 86)
@@ -1045,7 +1045,8 @@ default tutorialText = [
         'text': "Now drop off the dirty dishes from the ballroom in the sink.",
         'btn': 'sink',
         'mask': (0,0,1920,1080),
-        'pos': (719, 30)
+        'pos': (719, 30),
+        'draggable': True
     },
     {
         'btn': 'gameplay'
@@ -1081,7 +1082,6 @@ default tutorialText = [
         'pos': (873, 217)
     },
     {
-        'text': "Now, click here to exit.",
         'btn': 'popup_button_close',
         'mask': (1238,354,1308,427),
         'pos': (1315, 230)
@@ -1093,40 +1093,22 @@ default tutorialText = [
         'pos': (787, 143)
     },
     {
-        'text': "Check what I’m holding again.",
-        'btn': 'onhand_btn',
-        'mask': (75,625,197,764),
-        'pos': (245, 556)
+        'text': "Let's pick up the wine again.",
+        'btn': 'kitchen2',
+        'mask': (1315,214,1392,319),
+        'pos': (787, 143)
     },
     {
-        'text': "After dropping off items, both my hands are empty. Close this window to return to the game.",
-        'btn': 'popup_button_close',
-        'mask': (0,0,1920,1080),
-        'pos': (1315, 230)
+        'text': "And the matches.",
+        'btn': 'kitchen1',
+        'mask': (355,229,431,300),
+        'pos': (468, 300)
     },
     {
-        'text': "Next, let’s go to the laundry room.",
-        'btn': 'to_laundry_btn',
-        'mask': (466,17,694,131),
-        'pos': (322, 122)
-    },
-    {
-        'text': "Pick up this jacket.",
-        'btn': 'laundry3',
-        'mask': (517,372,605,463),
-        'pos': (599, 300)
-    },
-    {
-        'text': "And this one.",
-        'btn': 'laundry4',
-        'mask': (517,136,611,229),
-        'pos': (599, 49)
-    },
-    {
-        'text': "Try placing down one jacket in this empty spot.",
-        'btn': 'laundry4',
-        'mask': (517,136,611,229),
-        'pos': (599, 49)
+        'text': "Try placing down one item in this empty spot.",
+        'btn': 'kitchen2',
+        'mask': (1315,214,1392,319),
+        'pos': (787, 143)
     },
     {
         'text': "If I’m holding items on both hands, I’ll have to choose which item I want to place down.",
@@ -1135,19 +1117,13 @@ default tutorialText = [
         'pos': (719, 30)
     },
     {
-        'text': "Choose either jacket to place down.",
+        'text': "Choose either item to place down.",
         'btn': 'idk',
         'mask': (0,0,1920,1080),
         'pos': (719, 30)
     },
     {
-        'text': "I should complete more tasks now.",
-        'btn': 'to_ballroom_btn',
-        'mask': (459,4,693,131),
-        'pos': (306, 138)
-    },
-    {
-        'text': "But it looks like there’s nothing to do in the ballroom.",
+        'text': "I should complete more tasks now, but it looks like there's nothing to do.",
         'btn': 'none',
         'mask': (0,0,1920,1080),
         'pos': (719, 30)
@@ -1165,19 +1141,12 @@ default tutorialText = [
         'pos': (232, 249)
     },
     {
-        'text': "I cannot start other tasks until I assist the guests.",
+        'text': "I cannot start other tasks until I assist the guests. This time, I am providing room service in the guestrooms.",
         'btn': 'none',
         'mask': (290,542,913,818),
         'pos': (232, 249)
     },
     {
-        'text': "This time, I am providing room service in the guestrooms.",
-        'btn': 'none',
-        'mask': (290,542,913,818),
-        'pos': (232, 249)
-    },
-    {
-        'text': "Now exit the notebook to complete the task.",
         'btn': 'popup_button_close',
         'mask': (1636,65,1709,138),
         'pos': (1138, 86)
@@ -1191,14 +1160,15 @@ default tutorialText = [
     {
         'text': "This task is in the right guestrooms.",
         'btn': 'guestroom r',
-        'mask': (936,471,1477,549),
-        'pos': (953, 161)
+        'mask': (0,0,1920,1080),
+        'pos': (719, 30)
     },
     {
         'text': "The room we’re looking for is highlighted.",
         'btn': 'gr_22',
         'mask': (0,0,1920,1080),
-        'pos': (719, 30)
+        'pos': (719, 30),
+        'draggable': True
     },
     {
         'text': "There are still many tasks to do before eight o’clock.",

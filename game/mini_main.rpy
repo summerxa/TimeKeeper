@@ -167,7 +167,10 @@ screen tut_overlay():
                 xysize(600,100)
                 text "Click anywhere to continue":
                     align(0.5,0.5)
-        use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
+        
+        # don't need to show text box if no dialogue available
+        if 'text' in tutorialText[tutStep]:
+            use mc_hintbox(tutorialText[tutStep]['pos'], tutorialText[tutStep]['text'])
 
 screen mini_sidebar(curstate='main', gametype=None, idle_txt=None):
     # any screen that uses the minigame sidebar cannot be hidden with middle click
@@ -485,12 +488,12 @@ screen mini_screen():
         viewport:
             area (0, 0, 1920, 1080)
             
-            if not isTutorial or isTutorial and tutorialText[tutStep]['btn'] != 'none':
+            if not isTutorial or (isTutorial and 'draggable' in tutorialText[tutStep]):
                 mousewheel "horizontal"
             else:
                 mousewheel False
             xinitial 480
-            draggable (not isTutorial or isTutorial and tutorialText[tutStep]['btn'] != 'none')
+            draggable (not isTutorial or (isTutorial and 'draggable' in tutorialText[tutStep]))
             fixed:
                 minimum(2880, 1080)
                 fixed:
