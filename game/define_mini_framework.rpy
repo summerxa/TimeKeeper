@@ -47,9 +47,11 @@ init python:
             if t['t0'] <= curtime and not bonusq[tn]['btn']:
                 setTaskButton(tn, tasks[curlevel]['infinite'][tn], task_part='', isBonus=True)
         if isBonusTask:
-            productivity = min(100, productivity + 10)
+            if productivity < 100:
+                productivity += 10
         elif isProductive:
-            productivity = min(100, productivity + ((100 - productivity) * 0.01 * mins))
+            if productivity < 100:
+                productivity += (100 - productivity) * 0.01 * mins
         else:
             productivity = max(0, productivity - mins)
 
