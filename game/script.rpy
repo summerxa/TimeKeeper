@@ -40,6 +40,7 @@ label chapter1:
     $ curlevel = 1
     call mini_launch from _call_mini_launch_1
 
+    scene hallway with cfade
     show mc 1a
 
     $ score = calculateFinalScore()
