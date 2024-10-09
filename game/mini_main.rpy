@@ -2,7 +2,7 @@ screen btn_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]
     default xp = (cords[2] + cords[0]) // 2
     default yp = (cords[3] + cords[1]) // 2
-    default tx = get_room_text(b_id)
+    default tx = getRoomText(b_id)
     textbutton tx:
         xpos xp
         ypos yp
@@ -64,7 +64,7 @@ screen btn_roomarrow(bt, hov_id):
 screen btn_tsk(bt, hov_id=None):
     imagebutton:
         pos bt['p'] anchor (0.5, 0.5)
-        if can_show_task(bt):
+        if canShowTask(bt):
             # there is an active task, highlight this button
             auto bt['imtask_active']
             
@@ -97,7 +97,7 @@ screen btn_tsk(bt, hov_id=None):
 
         unhovered [SetVariable('cur_hov', None), Function(setIdle)]
         # show highlights and rotation (if applicable)
-        if can_show_task(bt):
+        if canShowTask(bt):
             if 'rot' in bt:
                 at highlight_hov(cur_hov, hov_id), rot(bt['rot'])
             else:
@@ -111,7 +111,7 @@ screen btn_tsk(bt, hov_id=None):
             pos bt['p'] anchor (0.5, 0.5)
             if 'style' in bt['tx']:
                 style bt['tx']['style']
-            if can_show_task(bt):
+            if canShowTask(bt):
                 at highlight_hov(cur_hov, hov_id)
 
 # item holder
@@ -122,11 +122,11 @@ screen btn_item(bt, hov_id):
         auto f"mini/btn_item/item_{itemsAll[bt['item']['id']]['im']}_%s.png"
         if isTutorial:
             if tutorialText[tutStep]['btn'] == hov_id:
-                action [Function(progressTutorial), SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
+                action [Function(progressTutorial), SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(updateInv, useholder=True)], false=Show('popup_trade'))]
             else:
                 action NullAction()
         else:
-            action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(update_inv, useholder=True)], false=Show('popup_trade'))]
+            action [SetVariable('curholder', bt), If(inventoryOk(bt['item']['id']), true=[Function(updateInv, useholder=True)], false=Show('popup_trade'))]
         hovered [SetVariable('cur_hov', hov_id), SetVariable('hinttext', fmtItemDesc(bt['item']['id'], bt['item']['stack']))]
         unhovered [SetVariable('cur_hov', None), Function(setIdle)]
 
@@ -536,7 +536,7 @@ label mini_main():
 
         scene bg mgame_main
 
-        if was_from_roomchange() or (curtask and Task.NO_FADE in curtask['tags']):
+        if wasFromRoomchange() or (curtask and Task.NO_FADE in curtask['tags']):
             call screen mini_screen
         else:
             call screen mini_screen with cfade

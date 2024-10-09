@@ -306,18 +306,18 @@ screen popup_trade():
                     align (0.,0.6)
                     text_align 0.5
                     if isTutorial:
-                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
+                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 0), Function(updateInv, useholder=True), Function(setIdle)]
                     else:
-                        action [Hide('popup_trade'), SetVariable('curhand', 0), Function(update_inv, useholder=True), Function(setIdle)]
+                        action [Hide('popup_trade'), SetVariable('curhand', 0), Function(updateInv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
 
                 textbutton rtext:
                     align(1.,0.6)
                     text_align 0.5
                     if isTutorial:
-                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
+                        action [Function(progressTutorial), Hide('popup_trade'), SetVariable('curhand', 1), Function(updateInv, useholder=True), Function(setIdle)]
                     else:
-                        action [Hide('popup_trade'), SetVariable('curhand', 1), Function(update_inv, useholder=True), Function(setIdle)]
+                        action [Hide('popup_trade'), SetVariable('curhand', 1), Function(updateInv, useholder=True), Function(setIdle)]
                     activate_sound audio.button_click_sfx
     
         use popup_button_close('popup_trade')
@@ -466,7 +466,7 @@ screen tx_room(bt, b_id):
     default cords = roomRects[curlevel][bt['floor']][b_id]
     default xp = (cords[2] + cords[0]) // 2
     default yp = (cords[3] + cords[1]) // 2
-    default tx = get_room_text(b_id, True)
+    default tx = getRoomText(b_id, True)
     text tx:
         xpos xp
         ypos yp

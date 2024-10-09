@@ -675,123 +675,123 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
 
     default node_data = [
         {
-        'c1_scene1': {
-            'tx': 'Memory',
-            'c': 'mc',
-            'p': (265,621),
-            'desc': "Anastasia's memory."
-        },
-        'c1_scene2_tasks': {
-            'tx': 'intro and tasks',
-            'c': 'mother',
-            'p': (1073,621),
-            'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
-        },
-        'c1_scene3': {
-            'tx': 'Amelia Sick',
-            'cg': 'cg amelia tired v1',
-            'p': (1848,621),
-            'desc': "Amelia doesn't want anyone to know she's sick."
-        },
-        'c1_mgame': {
-            'tx': 'Minigame',
-            'c': 'mc',
-            'p': (2596,297),
-            'desc': "Anastasia completes her tasks."
-        },
-        'c1_fetch1': {
-            'tx': 'Fetch Quest 1',
-            'c': 'mc',
-            'p': (2263,793),
-            'desc': "A noble makes a request."
-        },
-        'c1_fetch4': {
-            'tx': 'Fetch Quest 4',
-            'c': 'bella',
-            'p': (2847,793),
-            'desc': "A noble makes a request. Bella interferes."
-        },
-        'c1_fetch4_n': {
-            'tx': 'Do Nothing',
-            'c': 'mc',
-            'p': (3357,604),
-            'desc': "Anastasia does nothing to confront Bella."
-        },
-        'c1_fetch4_c': {
-            'tx': 'Confront Bella',
-            'c': 'bella',
-            'p': (3357,1010),
-            'desc': "Anastasia confronts Bella for taking her tasks. Bella accidentally leaves her pocketwatch behind."
-        },
-        'c1_fetch4_c_pickup': {
-            'tx': 'Pick up',
-            'c': 'mc',
-            'p': (3728,886),
-            'desc': "Anastasia picks up Bella's pocketwatch. It might be useful later."
-        },
-        'c1_fetch4_c_leave': {
-            'tx': 'Leave',
-            'c': 'mc',
-            'p': (3728,1154),
-            'desc': "Anastasia leaves Bella's pocketwatch where it is. Better to let Bella find it herself."
-        },
-        'c1_scene5': {
-            'tx': 'End of minigame',
-            'c': 'mc',
-            'p': (4013,604),
-            'desc': "Mother calls all the maids for a meeting."
-        },
-        'c1_scene6': {
-            'tx': 'Mother inspection',
-            'c': 'mother',
-            'p': (4621,604),
-            'desc': "One of the rooms has not been cleaned. Whose fault was it?"
-        },
-        'c1_amelia_blame': {
-            'tx': 'Blame Amelia',
-            'c': 'amelia',
-            'p': (5019,371),
-            'desc': "Amelia's fault."
-        },
-        'c1_amelia_end': {
-            'tx': 'Amelia Dies',
-            'cg': 'cg amelia ending_cropped',
-            'p': (5536,371),
-            'desc': "Amelia fails to complete all her tasks."
-        },
-        'c1_bella_blame': {
-            'tx': 'Blame Bella',
-            'c': 'bella',
-            'p': (5019,611),
-            'desc': "Bella's fault."
-        },
-        'c1_bella_end': {
-            'tx': 'Bella Dies',
-            'cg_list': ['c1_bella_end 1', 'c1_bella_end 2'],
-            'cg_dict': {'c1_bella_end 1': 'cg bella ending 1', 'c1_bella_end 2': 'cg bella ending 2'},
-            'p': (5536,611),
-            'desc': "Bella is punished by Mother."
-        },
-        'c1_mc_blame': {
-            'tx': 'Blame Anastasia',
-            'c': 'mc',
-            'p': (5019,837),
-            'desc': "Anastasia's fault."
-        },
-        'c1_mc_end': {
-            'tx': 'Amelia and Bella Talk',
-            'cg_list': ['c1_mc_end 1', 'c1_mc_end 2'],
-            'cg_dict': {'c1_mc_end 1': 'cg mc ending 1', 'c1_mc_end 2': 'cg mc ending 2'},
-            'p': (5536,837),
-            'desc': "Anastasia protects Amelia and Bella from punishment."
-        },
-        'c1_scene7': {
-            'tx': 'End of Chapter 1',
-            'c': 'mother',
-            'p': (6049,611),
-            'desc': "Anastasia receives her next assignment. To be continued..."
+            'c1_scene1': {
+                'tx': 'Memory',
+                'c': 'mc',
+                'p': (265,621),
+                'desc': "Anastasia's memory."
+            },
+            'c1_scene2_tasks': {
+                'tx': 'intro and tasks',
+                'c': 'mother',
+                'p': (1073,621),
+                'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
+            },
+            'c1_scene3': {
+                'tx': 'Amelia Sick',
+                'cg': 'cg amelia tired v1',
+                'p': (1848,621),
+                'desc': "Amelia doesn't want anyone to know she's sick."
+            },
+            'c1_mgame': {
+                'tx': 'Minigame',
+                'c': 'mc',
+                'p': (2596,297),
+                'desc': "Anastasia completes her tasks."
+            },
+            'c1_fetch1': {
+                'tx': 'Fetch Quest 1',
+                'c': 'mc',
+                'p': (2263,793),
+                'desc': "A noble makes a request."
+            },
+            'c1_fetch4': {
+                'tx': 'Fetch Quest 4',
+                'c': 'bella',
+                'p': (2847,793),
+                'desc': "A noble makes a request. Bella interferes."
+            },
+            'c1_fetch4_n': {
+                'tx': 'Do Nothing',
+                'c': 'mc',
+                'p': (3357,604),
+                'desc': "Anastasia does nothing to confront Bella."
+            },
+            'c1_fetch4_c': {
+                'tx': 'Confront Bella',
+                'c': 'bella',
+                'p': (3357,1010),
+                'desc': "Anastasia confronts Bella for taking her tasks. Bella accidentally leaves her pocketwatch behind."
+            },
+            'c1_fetch4_c_pickup': {
+                'tx': 'Pick up',
+                'c': 'mc',
+                'p': (3728,886),
+                'desc': "Anastasia picks up Bella's pocketwatch. It might be useful later."
+            },
+            'c1_fetch4_c_leave': {
+                'tx': 'Leave',
+                'c': 'mc',
+                'p': (3728,1154),
+                'desc': "Anastasia leaves Bella's pocketwatch where it is. Better to let Bella find it herself."
+            },
+            'c1_scene5': {
+                'tx': 'End of minigame',
+                'c': 'mc',
+                'p': (4013,604),
+                'desc': "Mother calls all the maids for a meeting."
+            },
+            'c1_scene6': {
+                'tx': 'Mother inspection',
+                'c': 'mother',
+                'p': (4621,604),
+                'desc': "One of the rooms has not been cleaned. Whose fault was it?"
+            },
+            'c1_amelia_blame': {
+                'tx': 'Blame Amelia',
+                'c': 'amelia',
+                'p': (5019,371),
+                'desc': "Amelia's fault."
+            },
+            'c1_amelia_end': {
+                'tx': 'Amelia Dies',
+                'cg': 'cg amelia ending_cropped',
+                'p': (5536,371),
+                'desc': "Amelia fails to complete all her tasks."
+            },
+            'c1_bella_blame': {
+                'tx': 'Blame Bella',
+                'c': 'bella',
+                'p': (5019,611),
+                'desc': "Bella's fault."
+            },
+            'c1_bella_end': {
+                'tx': 'Bella Dies',
+                'cg_list': ['c1_bella_end 1', 'c1_bella_end 2'],
+                'cg_dict': {'c1_bella_end 1': 'cg bella ending 1', 'c1_bella_end 2': 'cg bella ending 2'},
+                'p': (5536,611),
+                'desc': "Bella is punished by Mother."
+            },
+            'c1_mc_blame': {
+                'tx': 'Blame Anastasia',
+                'c': 'mc',
+                'p': (5019,837),
+                'desc': "Anastasia's fault."
+            },
+            'c1_mc_end': {
+                'tx': 'Amelia and Bella Talk',
+                'cg_list': ['c1_mc_end 1', 'c1_mc_end 2'],
+                'cg_dict': {'c1_mc_end 1': 'cg mc ending 1', 'c1_mc_end 2': 'cg mc ending 2'},
+                'p': (5536,837),
+                'desc': "Anastasia protects Amelia and Bella from punishment."
+            },
+            'c1_scene7': {
+                'tx': 'End of Chapter 1',
+                'c': 'mother',
+                'p': (6049,611),
+                'desc': "Anastasia receives her next assignment. To be continued..."
+            }
         }
-    }
     ]
 
     default zfact_bar = 0.6

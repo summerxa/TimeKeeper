@@ -4,7 +4,7 @@ init python:
 
     # returns True if there are no fetch quests active
     # otherwise, returns True if this button has the currently active fetch quest; and False if it doesn't
-    def can_show_task(bt):
+    def canShowTask(bt):
         if not bt['curtask']:
             return False
         not_noble_req = (not fetchq or (bt['curtask']['tasktype'] == 'fetchquest' or bt['curtask']['tasktype'] == 'fetchquest_end'))
@@ -12,7 +12,7 @@ init python:
         return not_noble_req and not_optional
 
     # returns True if last label was a room change (gotoroom) function
-    def was_from_roomchange():
+    def wasFromRoomchange():
         return (len(store.tolabel) >= 8 and store.tolabel[:8] == 'gotoroom')
 
     # whether you have the required items to do the task in your inventory
@@ -186,7 +186,7 @@ init python:
     # --- ROOM/MAP STUFF ---
 
     # formats room names in the large map
-    def get_room_text(toRoom, is_map=False):
+    def getRoomText(toRoom, is_map=False):
         if curroom == 'main' and not prevroom:
             return roomButtons[curlevel][toRoom]['name'].upper()
 
@@ -319,7 +319,7 @@ init python:
     otherstack = if otheritem is stackable, how many stacks to place
     useholder = if True, swaps the target item b/w your inventory and an itemholder (again, should always be False by default)
     '''
-    def update_inv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
+    def updateInv(holder=None, myitem=None, mystack=-1, otheritem='air', otherstack=1, useholder=False):
         if useholder:
             if not holder:
                 holder = store.curholder
@@ -384,7 +384,7 @@ init python:
         store.curhand = -1
     
     # check if an item is of a certain type
-    def item_is_of_type(itm, typ):
+    def isOfType(itm, typ):
         itm_split = itm.split("_")
         return itm_split[0] == typ
 

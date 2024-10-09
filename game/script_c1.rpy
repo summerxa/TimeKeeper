@@ -654,7 +654,7 @@ label c1_fetch1_end:
 
         n2 "Ah, perfect. Just the type I was looking for."
 
-        $ update_inv(myitem='wine_bottle')
+        $ updateInv(myitem='wine_bottle')
         $ docurtask('fetch1_end', task_type='single')
         
         $ node_unlock('c1_fetch1')
@@ -714,7 +714,7 @@ label c1_fetch2_end:
         stop ambience fadeout 2.0
 
         $ docurtask('fetch2_end', task_type='single')
-        $ update_inv(myitem='jacket_red')
+        $ updateInv(myitem='jacket_red')
 
         # scene bg ballroom with cfade
 
@@ -2682,7 +2682,7 @@ label c1_give_item_prompt(npc, npc_id, msg, goal_choice=''):
             s "I am extremely sorry; I’ll go get what you wanted."
 
             npc "These maids, honestly."
-        elif item_is_of_type(ichoice, 'food'):
+        elif isOfType(ichoice, 'food'):
             npc "This… this is {i}not{/i} what I wanted."
 
             s "My apologies, I’ll go retrieve what you wanted."
@@ -2700,7 +2700,7 @@ label c1_give_item_prompt(npc, npc_id, msg, goal_choice=''):
             npc "I. Don’t. Need. It!"
 
             s "Understood."
-        elif item_is_of_type(ichoice, 'jacket'):
+        elif isOfType(ichoice, 'jacket'):
             npc "This isn’t what I asked for, and it’s not even my jacket!"
 
             s "Are you quite sure you don’t want it?"
@@ -2788,7 +2788,7 @@ label chap1_test_t1_end:
 
     if ichoice == 'test_3':
         n2 'good job, you chose the right item'
-        $ update_inv(myitem='test_3')
+        $ updateInv(myitem='test_3')
         $ docurtask(tname='Fetch quest 1')
 
     jump mini_main
@@ -2864,15 +2864,15 @@ label task_c1_grabdishes:
 
     $ hinttext = levelHints['grabdishes_idle']
 
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
+    $ game_ret = Game.REFRESH
+    while game_ret == Game.REFRESH:
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
 
     $ docurtask('grabdishes', not 0 in curgame['try'])
 
     $ curgame['try'] = [2 if x == 1 else x for x in curgame['try']]
-    if game_ret == 'done':
+    if game_ret == Game.DONE:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
@@ -2913,14 +2913,14 @@ label task_c1_dropdishes:
 
     $ hinttext = levelHints['dropdishes_idle']
 
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
+    $ game_ret = Game.REFRESH
+    while game_ret == Game.REFRESH:
         call screen mgame_dragdrop_dishes
         $ game_ret = _return
 
     $ taskq['dishes_chain']['ndishes'] -= mgame_try.count(1)
     $ docurtask('dropdishes', taskq['dishes_chain']['ndishes'] <= 0)
-    if game_ret == 'done':
+    if game_ret == Game.DONE:
         show screen mgame_dragdrop_dishes(shaded=False)
         show screen mgame_overlay
         hide screen mgame_dragdrop_dishes with dissolve
@@ -2960,17 +2960,17 @@ label task_c1_waterpour:
 
     $ hinttext = levelHints['waterpour_idle']
 
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh' or game_ret == 'reset':
+    $ game_ret = Game.REFRESH
+    while game_ret == Game.REFRESH or game_ret == 'reset':
         call screen mgame_waterpour
         $ game_ret = _return
         if game_ret == 'reset':
             $ waterpour_init()
             $ hinttext = levelHints['waterpour_idle']
 
-    $ docurtask('waterpour', game_ret == 'done')
+    $ docurtask('waterpour', game_ret == Game.DONE)
 
-    if game_ret == 'done':
+    if game_ret == Game.DONE:
         show screen mgame_waterpour(shaded=False)
         show screen mgame_overlay
         hide screen mgame_waterpour with dissolve
@@ -3035,14 +3035,14 @@ label task_c1_sortlaundry:
 
     $ hinttext = levelHints['sortlaundry_idle']
 
-    $ game_ret = 'refresh'
-    while game_ret == 'refresh':
+    $ game_ret = Game.REFRESH
+    while game_ret == Game.REFRESH:
         call screen mgame_laundry
         $ game_ret = _return
     
-    $ docurtask('sortlaundry', game_ret == 'done')
+    $ docurtask('sortlaundry', game_ret == Game.DONE)
 
-    if game_ret == 'done':
+    if game_ret == Game.DONE:
         show screen mgame_laundry(shaded=False)
         show screen mgame_overlay(has_mc=False)
         hide screen mgame_laundry with dissolve
@@ -3051,21 +3051,21 @@ label task_c1_sortlaundry:
 
 label task_c1_grabfood:
 
-    $ update_inv(otheritem='food')
+    $ updateInv(otheritem='food')
     $ docurtask('grabfood')
 
     jump mini_main
 
 label task_c1_dropfood:
 
-    $ update_inv(myitem='food')
+    $ updateInv(myitem='food')
     $ docurtask('dropfood')
 
     jump mini_main
 
 label task_c1_lightcandle:
 
-    $ update_inv(myitem='matches', mystack=1)
+    $ updateInv(myitem='matches', mystack=1)
     $ docurtask('lightcandle')
 
     jump mini_main

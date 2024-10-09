@@ -39,6 +39,10 @@ init python:
         OPTIONAL = 1    # for easter egg tasks
         NO_FADE = 2     # no fadein/fadeout animation
         BONUS = 3       # bonus tasks that add fixed productivity
+    
+    class Game(Enum):
+        DONE = 0        # minigame final goal was achieved
+        REFRESH = 1     # game state was updated, need to relaunch window
 
 default tolabel = ''
 
