@@ -576,6 +576,8 @@ init python:
                 t['tags'] = []
             if not t['type'] == 'small':
                 taskq[tn] = {}
+                if 'cd' in t:
+                    taskq[tn]['t0'] = getNextTime(0)
                 if curlevel == 1 and tn == 'dishes_chain':
                     setTaskButton(tn, t, t['sequence'][0], bt_choice='6_1')
                     taskq[tn]['part'] = t['sequence'][0]
@@ -587,13 +589,13 @@ init python:
                     else:
                         setTaskButton(tn, t)
             else:
-                bonusq[tn] = {}
-                bonusq[tn]['btn'] = None
+                taskq[tn] = {}
+                taskq[tn]['btn'] = None
                 if curlevel == 1:
                     # Make sure bonus candle quest doesn't trigger during tutorial
-                    bonusq[tn]['t0'] = curtime + 31
+                    taskq[tn]['t0'] = getNextTime(31)
                 else:
-                    bonusq[tn]['t0'] = getRandomTime(1, 20)
+                    taskq[tn]['t0'] = getNextTime(renpy.random.randint(1, min(taskTemplates[tn]['max_cd'], levelInfo[curlevel]['tf'] - curtime)))
         for tn, t in store.tasks[store.curlevel]['single'].items():
             for ttn, tt in taskTemplates[t['tasktype']].items():
                 if not ttn in t:
@@ -629,7 +631,6 @@ label mini_launch(startroom='main', startfloor=0):
 
         fetchq = []
         taskq = {}
-        bonusq = {}
 
         curroom = 'main'
         prevroom = levelInfo[curlevel]['room0']

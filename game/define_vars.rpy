@@ -69,14 +69,10 @@ default tutStep = 0
 default fetchq = []
 
 # stores infinite tasks as a dictionary entry formatted as:
-# 'task ID': {'btn': furniture ID, 'part': part ID (for multi-part tasks only)}
+# 'task ID': {'btn': furniture ID, 'part': part ID (for multi-part tasks only), 't0': start time (for tasks w/ cooldown)}
 #   can also contain more data depending on the task (like grab/drop dishes contains the
 #       total number of dishes the player must grab/drop off)
 default taskq = {}
-
-# stores bonus tasks as a dictionary entry formatted as:
-# 'task ID': {'btn': furniture ID - or None if task is inactive, 't0': start time}
-default bonusq = {}
 
 default curholder = None
 default curhand = -1

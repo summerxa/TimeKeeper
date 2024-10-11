@@ -43,9 +43,9 @@ init python:
         for tn, t in store.tasks[store.curlevel]['optional'].items():
             if t['t0'] <= curtime and not tn in levelInfo[curlevel]['quests_done']:
                 taskButtons[curlevel][t['btn']]['curtask'] = t
-        for tn, t in store.bonusq.items():
-            if t['t0'] <= curtime and not bonusq[tn]['btn']:
-                setTaskButton(tn, tasks[curlevel]['infinite'][tn], task_part='', isBonus=True)
+        for tn, t in store.taskq.items():
+            if 't0' in t and t['t0'] <= curtime and not store.taskq[tn]['btn']:
+                setTaskButton(tn, tasks[curlevel]['infinite'][tn], task_part='')
         if isBonusTask:
             if productivity < 100:
                 productivity += 10
@@ -122,7 +122,7 @@ init python:
     # task_name = ID of the task
     # task = the actual task itself
     # task_part = optional - for multi-part tasks, the ID of the specific part
-    def setTaskButton(task_name, task, task_part='', isBonus=False, bt_choice=None):
+    def setTaskButton(task_name, task, task_part='', bt_choice=None):
         if 'sequence' in task:
             btn_list = task['btns'][task_part]
         else:
@@ -130,10 +130,7 @@ init python:
 
         if not bt_choice:
             bt_choice = getTaskButton(btn_list)
-        if isBonus:
-            bonusq[task_name]['btn'] = bt_choice
-        else:
-            taskq[task_name]['btn'] = bt_choice
+        taskq[task_name]['btn'] = bt_choice
         
         bt = store.taskButtons[store.curlevel][bt_choice]
         bt['curtask'] = task
@@ -152,11 +149,11 @@ init python:
         bt['htext'] = fmtTask(task_name, task_part)
     
     # used to find the time that the next bonus task will trigger
-    # returns curtime + (random number between a and b)
-    # if curtime + b exceeds the time limit of the current level, instead
+    # returns curtime + t
+    # if curtime + t exceeds the time limit of the current level, instead
     #   returns curtime + (random number between a and time remaining)
-    def getRandomTime(a, b):
-        return curtime + renpy.random.randint(1, min(20, levelInfo[curlevel]['tf'] - curtime))
+    def getNextTime(t):
+        return curtime + t
 
     # adds a fetch quest to fetchq
     def addFquest(task_name, task):
@@ -218,19 +215,25 @@ init python:
         else:
             t = store.tasks[store.curlevel][task_type][tname]
         if goodjob:
+            addTime(t['tcost'], goodjob, t['type'] == 'small')
+
             store.curtask_btn['curtask'] = None
             if 'taskless' in curtask_btn:
                 curtask_btn['act'] = SetVariable('hinttext', levelHints[curtask_btn['taskless']])
             else:
                 curtask_btn['act'] = SetVariable('hinttext', levelHints['default_taskless'])
+            
             if task_type == 'infinite':
                 if t['type'] == 'small':
-                    store.bonusq[tname]['btn'] = None
+                    store.taskq[tname]['btn'] = None
                     if levelInfo[curlevel]['bonus_remaining'] > 0:
                         levelInfo[curlevel]['bonus_remaining'] -= 1
-                        store.bonusq[tname]['t0'] = getRandomTime(1, 20)
+                        store.taskq[tname]['t0'] = getNextTime(renpy.random.randint(1, min(taskTemplates[tn]['max_cd'], levelInfo[curlevel]['tf'] - curtime)))
                     else:
-                        store.bonusq[tname]['t0'] = 9999
+                        store.taskq[tname]['t0'] = 9999
+                elif 'cd' in t:
+                    store.taskq[tname]['btn'] = None
+                    store.taskq[tname]['t0'] = getNextTime(t['cd'])
                 else:
                     if 'next' in t:
                         store.taskq[t['parent']]['part'] = t['next']
@@ -248,7 +251,6 @@ init python:
         
             for i in range(len(player_attrs)):
                 player_attrs[i] += t['attributes'][i]
-            addTime(t['tcost'], goodjob, t['type'] == 'small')
         else:
             addTime(t['tcost'] // 2, goodjob, t['type'] == 'small')
         setIdle()

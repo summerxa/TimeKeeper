@@ -23,7 +23,7 @@ default levelInfo = {
         'tf': 1200,
         'tstairs': 2,
         'nfloors': 2,
-        'level_threshold': [15, 15, 38], # cleanliness, coverage, service
+        'level_threshold': [25, 25, 25], # cleanliness, coverage, service
         'mother_threshold': [20, 40], # below first value is bad, above second is good, between is mid
         'quests_done': set(),
         'bonus_remaining': 5,
@@ -553,7 +553,7 @@ default taskTemplates = {
     'fetchquest_end': {
         'type': 'medium',
         'title': "Guest Request",
-        'attributes': [1,1,3],
+        'attributes': [1,3,1],
         'tags': [Task.SPECIAL]
     },
     'grabdishes': {
@@ -594,7 +594,8 @@ default taskTemplates = {
         'desc': "Pour drinks at the ballroom's bar",
         'tlabel': 'task_c1_waterpour',
         'attributes': [2,2,6],
-        'idle': 'waterpour_idle'
+        'idle': 'waterpour_idle',
+        'cd': 10
     },
     'sortlaundry': {
         'tcost': 20,
@@ -603,7 +604,8 @@ default taskTemplates = {
         'tlabel': 'task_c1_sortlaundry',
         'desc': 'Sort the laundry into the washing machines',
         'attributes': [6,2,2],
-        'idle': 'sortlaundry_idle'
+        'idle': 'sortlaundry_idle',
+        'cd': 10
     },
     'grabfood': {
         'tcost': 5,
@@ -646,7 +648,8 @@ default taskTemplates = {
         'item_req': ['matches'],
         'fail_id': 'lightcandle_fail',
         'tags': [Task.NO_FADE, Task.BONUS],
-        'attributes': [0,0,1]
+        'attributes': [0,1,0],
+        'max_cd': 20
     }
 }
 
