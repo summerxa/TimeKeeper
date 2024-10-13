@@ -25,6 +25,12 @@ default levelInfo = {
         'nfloors': 2,
         'level_threshold': [25, 25, 25], # cleanliness, coverage, service
         'mother_threshold': [50, 80], # below first value is bad, above second is good, between is mid
+        'start_options': {
+            'list': ['AMELIA', 'BELLA', 'HARD MODE'],
+            'AMELIA': {'add': [10, 1, 1], 'desc': "Gain a large amount of cleanliness points and a little service and coverage."},
+            'BELLA': {'add': [1, 1, 10], 'desc': "Gain a large amount of service points and a little cleanliness and coverage."},
+            'HARD MODE': {'threshold': [30, 30, 30], 'desc': "Increase the attribute requirements and start at 0 points for each category."}
+        },
         'quests_done': set(),
         'bonus_remaining': 5,
         'room0': 'ballroom',
@@ -911,7 +917,7 @@ default tutorialText = [
         'pos': (719, 396)
     },
     {
-        'text': "For example, the laundry task gives a lot of cleanliness and coverage points...",
+        'text': "For example, the laundry task gives a lot of cleanliness points...",
         'btn': 'none',
         'mask': (1345,561,1475,612),
         'pos': (468, 555)

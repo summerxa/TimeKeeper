@@ -449,16 +449,16 @@ screen mc_overlay(shaded=True):
                     xysize(310, 48)
                     add 'gui/bar/right.png':
                         align(1.,1.)
-                        # xysize(310, 40)
                         xysize(300,38)
                         matrixcolor TintMatrix('#000000') * OpacityMatrix(0.5)
                     bar value StaticValue(min(player_attrs[idx], levelInfo[curlevel]['level_threshold'][idx]), levelInfo[curlevel]['level_threshold'][idx]):
                         align(0.5,0.5)
                         style 'bar'
-                        # left_bar Frame("gui/bar/left.png", Borders(10, 10, 10, 10), tile=gui.bar_tile)
-                        # right_bar Frame("gui/bar/left.png", Borders(6, 6, 6, 6), tile=gui.bar_tile)
                         xmaximum 300
                         ymaximum 38
+                    text "{b}" + f'  {txt}'.upper() + "{/b}":
+                        align(0.,0.5)
+                        style 'fancy_font'
 
 screen mini_overlay(curstate='main', gametype=None, shaded=True, has_mc=True, idle_txt=None):
     use tut_overlay()

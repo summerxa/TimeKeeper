@@ -106,10 +106,10 @@ screen task_display(t, t_part=None, t_blocked=False):
                         style 'tasks_font'
                         bold True
         if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
-            text f"Location: {roomButtons[curlevel][taskButtons[curlevel][t['btn']]['room']]['name']}":
+            text "Location:"+f" {roomButtons[curlevel][taskButtons[curlevel][t['btn']]['room']]['name']}".title():
                 style 'tasks_font'
         else:
-            text f"Location: {roomButtons[curlevel][taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']]['name']}":
+            text "Location:"+f" {roomButtons[curlevel][taskButtons[curlevel][taskq[t['tasktype']]['btn']]['room']]['name']}".title():
                 style 'tasks_font'
         if t_part:
             text f"Time: {t_part['tcost']}m":
