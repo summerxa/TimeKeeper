@@ -3069,3 +3069,51 @@ label task_c1_lightcandle:
     $ docurtask('lightcandle')
 
     jump mini_main
+
+label do_your_work:
+    scene ballroom
+
+    $ focus_on(['amelia'])
+
+    show amelia 3a zorder 2 at r1_4
+    pause
+
+    $ clear_focus()
+    $ focus_on(['bella'])
+
+    show bella 7a zorder 2 at l1_3 with dissolve
+
+    $ amelia_name = "◆ AMELIA ◆"
+    $ bella_name = "◆ BELLA ◆"
+    $ mother_name = "◆ MOTHER ◆"
+
+    b "amelia,"
+
+    b "i know what you are"
+
+    a "..."
+
+    b 2a "i cant believe amelia is from lebanon"
+
+    show mc 2a zorder 2 at einf(-1.2, 0.8, 0.)
+    show bella 1a
+
+    s "what is lebanon"
+
+    s "is that a chore"
+
+    a 2a "for the last time bella, it's le-"
+
+    $ focus_on(['mc', 'bella', 'amelia'], {'mc': 2, 'bella': 2, 'amelia': 2})
+
+    show mother 7a zorder 0:
+        xalign 0.67
+        matrixcolor TintMatrix('#888')
+    show mc 3b
+    show bella 9a
+    show amelia 6a
+    with dissolve
+
+    m "..."
+
+    m "do your work"
