@@ -92,10 +92,10 @@ init python:
 
     # calculates minigame score
     def calculateFinalScore():
+        goals_count = 0
         for i in range(3):
-            if store.player_attrs[i] < store.levelInfo[store.curlevel]['level_threshold'][i]:
-                return 0
-        return sum(store.player_attrs) * store.productivity * 0.01
+            goals_count += (1 if store.player_attrs[i] >= store.levelInfo[store.curlevel]['level_threshold'][i] else 0)
+        return sum(store.player_attrs) * store.productivity * 0.01 * (0.25 * (goals_count+1))
 
     # --- TASK/TASKBUTTON FORMATTING ---
 
