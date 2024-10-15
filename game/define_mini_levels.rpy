@@ -887,13 +887,13 @@ default tutorialText = [
         'pos': (719, 396) # CENTER OF SCREEN
     },
     {
-        'text': "By the end of the day, I {b}MUST{/b} reach the {b}three attribute goals{/b} listed here.",
+        'text': "Each day, I will have {b}three attribute goals{/b} listed here.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
     },
     {
-        'text': "These attributes all begin at 0. If I do not fill up the bar and reach these goals by the deadline, I will {b}INSTANTLY FAIL{/b}.",
+        'text': "These attributes all begin at 0. It is {b}ideal{/b} to {b}fill up all three bars{/b} and reach these goals by the deadline.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
@@ -1061,7 +1061,7 @@ default tutorialText = [
         'btn': 'gameplay'
     },
     {
-        'text': "After completing the task, I have made progress towards my target attributes. Remember that all of these goals {b}MUST{/b} be achieved before the end of the day.",
+        'text': "After completing the task, I have made progress towards my target attributes. Remember, try to {b}achieve these goals{/b} before the end of the day.",
         'btn': 'none',
         'mask': (1510,16,1891,192),
         'pos': (961, 37)
@@ -1192,13 +1192,13 @@ default tutorialText = [
         'pos': (719, 396)
     },
     {
-        'text': "The notebook lists the attribute points that different tasks give so it is wise to constantly check it.",
+        'text': "The notebook lists the attribute points that different tasks give so it is wise to constantly check it. Do a {b}variety of tasks{/b} to gain points towards all three attributes.",
         'btn': 'none',
         'mask': (0,0,0,0),
         'pos': (719, 396)
     },
     {
-        'text': "Remember, if I DO NOT reach the 3 attribute goals before the end of the day, it will be considered {b}INSTANT FAILURE{/b}.",
+        'text': "Remember, I must try to {b}reach the 3 attribute goals{/b} before the end of the day.",
         'btn': 'none',
         'mask': (0,0,0,0),
         'pos': (719, 396)
@@ -1230,7 +1230,7 @@ If in a {b}task minigame{/b}, causes you to leave the task. {b}Be careful{/b}: l
 '''
 {size=30}{b}COMPLETION{/b}{/size}
 {b}Completing{/b} a task grants a certain amount of {b}points{/b} for each of the {b}three attributes{/b}.
-The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Not reaching these goals results in {b}instant failure{/b}.'''
+The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Try to {b}fill up all 3 bars{/b} before the deadline.'''
 ],
     'grabdishes': ['''Drag a dirty dish from table to pick it up and place into inventory.
 
@@ -1257,7 +1257,7 @@ Click the {b}start{/b} button to {b}set the time{/b} for each machine.
 default infoText = {
     'notes': ['''Notebook shows all current tasks.''',
 '''{b}Completing{/b} a task grants a certain amount of {b}points{/b} for each of the {b}three attributes{/b}.''',
-'''The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Not reaching these goals results in {b}instant failure{/b}.'''],
+'''The {b}top right corner{/b} shows your {b}progress{/b} towards the attribute goals. Try to {b}fill up all 3 bars{/b} before the deadline.'''],
     'onhand': ['''{b}Pick up items{/b} by finding them around the map or by completing certain tasks.
 
 You can only hold {b}two items{/b} at a time, so use {b}hand icon{/b} around the map to keep track of all your items!
