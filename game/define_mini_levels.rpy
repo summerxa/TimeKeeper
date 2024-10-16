@@ -29,7 +29,7 @@ default levelInfo = {
             'list': ['AMELIA', 'BELLA', 'HARD MODE'],
             'AMELIA': {'add': [10, 1, 1], 'desc': "Gain a large amount of cleanliness points and a little service and coverage."},
             'BELLA': {'add': [1, 1, 10], 'desc': "Gain a large amount of service points and a little cleanliness and coverage."},
-            'HARD MODE': {'threshold': [30, 30, 30], 'desc': "Increase the attribute requirements and start at 0 points for each category."}
+            'HARD MODE': {'threshold': [30, 30, 30], 'desc': "Increase the attribute requirements for each category."}
         },
         'quests_done': set(),
         'bonus_remaining': 5,

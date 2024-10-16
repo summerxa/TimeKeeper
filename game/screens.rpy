@@ -268,8 +268,8 @@ screen quick_menu():
 init python:
     config.overlay_screens.append("quick_menu")
 
-# TODO only false for beta testing version
-default quick_menu = False
+# TODO only false for minigame beta testing
+default quick_menu = config.developer
 
 style quick_button is default
 style quick_button_text is button_text

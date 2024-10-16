@@ -376,6 +376,70 @@ screen popup_help(curstate='main'):
         use popup_button_close('popup_help')
     use tut_overlay()
 
+screen popup_assist():
+    tag assist
+    
+    modal True
+    zorder 200
+    add 'gui/overlay/confirm.png'
+
+    style_prefix "confirm"
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        maximum (1200, 550)
+
+        vbox:
+            xalign 0.5 yalign 0.5
+
+            text f"Select an assistant:":
+                xalign 0.5
+                textalign 0.5
+
+            hbox:
+                xalign 0.5
+                ypos 0.85 yanchor 0.5
+                spacing 50
+                # xmaximum 1200
+
+                for opt in levelInfo[curlevel]['start_options']['list']:
+                    fixed:
+                        xmaximum 300
+                        textbutton "{size=30}" + f"{opt}" + "{/size}{size=25}" + f"\n{levelInfo[curlevel]['start_options'][opt]['desc']}" + "{/size}":
+                            text_align 0.5
+                            action [Hide('popup_assist'), Function(chooseAssist, opt)]
+                            activate_sound audio.button_click_sfx
+
+    use tut_overlay()
+    # modal True
+    # zorder 200
+    # add 'gui/overlay/confirm.png'
+
+    # style_prefix "confirm"
+
+    # default ltext = f"Left hand:\n{fmtItemName(invitems[0], invstacks[0])}"
+    # default rtext = f"Right hand:\n{fmtItemName(invitems[1], invstacks[1])}"
+
+    # frame:
+    #     xalign 0.5
+    #     yalign 0.5
+    #     maximum (800, 500)
+
+    #     label "◆ On-hand ◆":
+    #         xalign 0.5
+
+    #     hbox:
+    #         xalign 0.5
+    #         yalign 0.6
+    #         spacing 100
+    #         for opt in levelInfo[curlevel]['start_options']['list']:
+    #             textbutton f"{opt}\n{levelInfo[curlevel][opt]['desc']}"
+    
+    #     use popup_button_close('popup_onhand')
+    #     use popup_button_info('onhand', 'About On-hand')
+    # use tut_overlay()
+
 screen popup_mgame_leave():
     modal True
     zorder 200

@@ -90,6 +90,14 @@ init python:
             sleft += f"{' and ' if hleft else ''}{mleft} {'minutes' if mleft > 1 else 'minute'}"
         return f"It's currently {getTimeDig(store.curtime)}. I have {sleft} left."
 
+    def chooseAssist(aname):
+        global levelInfo
+        asst = levelInfo[curlevel]['start_options'][aname]
+        if 'add' in asst:
+            store.player_attrs = [(player_attrs[i] + asst['add'][i]) for i in range(3)]
+        if 'threshold' in asst:
+            store.levelInfo[curlevel]['level_threshold'] = asst['threshold'].copy()
+
     # calculates minigame score
     def calculateFinalScore():
         goals_count = 0

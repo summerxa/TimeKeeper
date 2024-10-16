@@ -136,8 +136,10 @@ screen btn_item(bt, hov_id):
 screen tut_overlay():
     default opac_ = 0.75
     if isTutorial and tutorialText[tutStep]['btn'] == 'none':
-        key "mouseup_1" action Function(progressTutorial)
-    # key "mouseup_1" action If(isTutorial and tutorialText[tutStep]['btn'] == 'none', true=Function(progressTutorial), false=NullAction())    
+        if tutStep+1 == len(tutorialText):
+            key "mouseup_1" action [Function(progressTutorial), Show("popup_assist"), With(dissolve)]
+        else:
+            key "mouseup_1" action Function(progressTutorial)
     if isTutorial and not tutorialText[tutStep]['btn'] == 'gameplay':
         add "gui/overlay/confirm.png":
             at opac(opac_)
@@ -646,6 +648,8 @@ label mini_launch(startroom='main', startfloor=0):
         invstacks = [1, 1]
         ichoice = None
 
+        showAssist = False
+
         mini_launch_py()
 
     if isTutorial:
@@ -655,7 +659,7 @@ label mini_launch(startroom='main', startfloor=0):
             Show(
                 'confirm_noexit',
                 message="Are you sure you would like to skip?\nThe tutorial contains important information on how to complete the game.",
-                yes_action=[SetVariable('isTutorial', False), Return(), With(dissolve)],
+                yes_action=[SetVariable('isTutorial', False), Show('popup_assist', True), Return(), With(dissolve)],
                 no_action=[Return(), With(dissolve)]),
             [Return(), With(dissolve)]) with dissolve
         # show screen confirm_noexit(

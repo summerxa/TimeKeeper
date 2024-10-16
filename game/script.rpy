@@ -3,9 +3,8 @@ label start:
 
     $ all_init_and_load()
 
-    # TODO Disable the "back" button in release version
-    # you can comment this out for testing purposes
-    $ config.rollback_enabled = False
+    # Back button should only be available for developers
+    $ config.rollback_enabled = config.developer
 
     call chapter1 from _call_chapter1
 

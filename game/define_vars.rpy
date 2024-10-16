@@ -85,6 +85,9 @@ default cur_hov = None
 
 default hinttext = 'Welcome.'
 
+# idk how else to implement this lol (only used to show the assist popup)
+default showAssist = False
+
 # --- MINIGAME TASK STUFF ---
 
 default mgame_try = None
