@@ -737,7 +737,7 @@ default tasks = {
         'infinite': { # tasks that are infinitely generated
             'dishes_chain': {
                 'btns': {
-                    'grabdishes': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10'],
+                    'grabdishes': ['4_2', '4_3', '4_4', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10'],
                     'dropdishes': ['sink']
                 }
             },
@@ -750,7 +750,7 @@ default tasks = {
             'food_chain': {
                 'btns': {
                     'grabfood': ['pickuptable'],
-                    'dropfood': ['4_2', '4_3', '4_4', '4_5', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']
+                    'dropfood': ['4_2', '4_3', '4_4', '4_6', 'long2', '6_1', '6_2', '6_4', '6_6', '6_7', '6_9', '6_10']
                 }
             },
             'lightcandle': {
