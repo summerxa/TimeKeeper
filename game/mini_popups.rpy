@@ -140,12 +140,11 @@ screen popup_notes():
         padding(75,20,20,60)
 
         hbox:
-            spacing 23
+            spacing 73
             align (0.5,0.)
             xminimum 1367
             vbox:
-                spacing 23
-                xmaximum 650
+                xmaximum 600
                 text f"◆ Tasks ◆":
                     style 'fancy_font'
                     size 50
@@ -172,7 +171,7 @@ screen popup_notes():
 
                         add 'mini/mini_rect.png':
                             yalign 0.5
-                            xysize(600, 5)
+                            xysize(550, 5)
                             matrixcolor TintMatrix('#906548')
 
                         if fetchq:
@@ -410,6 +409,12 @@ screen popup_assist():
                             text_align 0.5
                             action [Hide('popup_assist'), Function(chooseAssist, opt)]
                             activate_sound audio.button_click_sfx
+            
+            textbutton "NO ASSISTANT":
+                text_align 0.5
+                xalign 0.5
+                action [Hide('popup_assist')]
+                activate_sound audio.button_click_sfx
 
     use tut_overlay()
     # modal True
