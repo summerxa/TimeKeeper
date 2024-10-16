@@ -648,8 +648,6 @@ label mini_launch(startroom='main', startfloor=0):
         invstacks = [1, 1]
         ichoice = None
 
-        showAssist = False
-
         mini_launch_py()
 
     if isTutorial:
@@ -659,7 +657,7 @@ label mini_launch(startroom='main', startfloor=0):
             Show(
                 'confirm_noexit',
                 message="Are you sure you would like to skip?\nThe tutorial contains important information on how to complete the game.",
-                yes_action=[SetVariable('isTutorial', False), Show('popup_assist', True), Return(), With(dissolve)],
+                yes_action=[SetVariable('isTutorial', False), Show('popup_assist'), Return(), With(dissolve)],
                 no_action=[Return(), With(dissolve)]),
             [Return(), With(dissolve)]) with dissolve
         # show screen confirm_noexit(
