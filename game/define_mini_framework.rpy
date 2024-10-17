@@ -236,7 +236,7 @@ init python:
                     store.taskq[tname]['btn'] = None
                     if levelInfo[curlevel]['bonus_remaining'] > 0:
                         levelInfo[curlevel]['bonus_remaining'] -= 1
-                        store.taskq[tname]['t0'] = getNextTime(renpy.random.randint(1, min(taskTemplates[tn]['max_cd'], levelInfo[curlevel]['tf'] - curtime)))
+                        store.taskq[tname]['t0'] = getNextTime(renpy.random.randint(1, min(taskTemplates[tname]['max_cd'], levelInfo[curlevel]['tf'] - curtime)))
                     else:
                         store.taskq[tname]['t0'] = 9999
                 elif 'cd' in t:
