@@ -2610,6 +2610,30 @@ label chap1_test_namechange:
 
     return
 
+label chap1_test_timed:
+    scene hallway
+    show mc 1a
+
+    s "..."
+
+    show screen countdown("chap1_test_skillissue")
+
+    menu:
+        s "Think fast!"
+
+        "choice a":
+            hide screen countdown
+            s "good job :3"
+        "choice b":
+            hide screen countdown
+            s "this is choice b :D"
+    return
+
+label chap1_test_skillissue:
+    s "hmmmm, skill issue"
+
+    return
+
 label chap1_test_audio:
     play music boowomp
 

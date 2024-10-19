@@ -216,6 +216,16 @@ screen choice(items):
         for i in items:
             textbutton i.caption action i.action
 
+transform alpha_dissolve:
+    alpha 0.0
+    linear 0.5 alpha 1.0
+    on hide:
+        linear 0.5 alpha 0
+
+screen countdown(timer_jump, time=5):
+    timer time repeat False action [ Hide('countdown'), Jump(timer_jump) ]
+    bar value AnimatedValue(0, time, time, time) at alpha_dissolve
+
 
 style choice_vbox is vbox
 style choice_button is button
