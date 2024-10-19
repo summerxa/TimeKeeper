@@ -13,7 +13,7 @@ init python:
     def char_kill(c):
         store.chars_current[c]['alive'] = False
     
-    def char_points(c, n):
+    def char_addpoints(c, n):
         store.chars_current[c]['points'] += n
         if n < 0:
             renpy.notify(f"{c.title()} is sad :(")
