@@ -6,49 +6,21 @@ label start:
     # Back button should only be available for developers
     $ config.rollback_enabled = config.developer
 
+    call chap1_test_charpoints
+
     call chapter1 from _call_chapter1
 
     return
 
 label chapter1:
 
-    # call c1_scene1 from _call_c1_scene1
+    call c1_scene1 from _call_c1_scene1
     # #call c1_scene1_5 #only for testing
-    # call c1_scene2 from _call_c1_scene2
+    call c1_scene2 from _call_c1_scene2
 
-    scene hallway
-
-    show mc 1a
-    s "Hello, before you start make sure to open {a=https://docs.google.com/forms/d/18IWUeyxlcJo-F39iIARI_0WhPy09zP5CDdH7Gc5k8jU/edit}this form{/a} and fill it in as you play"
-
-    $ linkLoop = True
-
-    while linkLoop:
-        menu:
-            s "Did you open {a=https://docs.google.com/forms/d/18IWUeyxlcJo-F39iIARI_0WhPy09zP5CDdH7Gc5k8jU/edit}the form{/a}?"
-
-            "Yes and I will fill it out":
-                s "Ok good :)"
-                $ linkLoop = False
-            "No :(":
-                s "I'm not mad I'm disappointed"
-
-    # minigame
-    $ node_unlock('c1_mgame')
-    $ isTutorial = True
-    $ curlevel = 1
-    call mini_launch from _call_mini_launch_1
-
-    scene hallway with cfade
-    show mc 1a
-
-    $ score = calculateFinalScore()
-    $ renpy.say(s,f"Your score was {score:.2f}\nStay on this screen, as you will need to record this score in the feedback form.")
-
-
-    # call c1_scene5 from _call_c1_scene5
-    # call c1_scene6 from _call_c1_scene6
-    # call c1_scene7 from _call_c1_scene7
+    call c1_scene5 from _call_c1_scene5
+    call c1_scene6 from _call_c1_scene6
+    call c1_scene7 from _call_c1_scene7
 
     # TODO could del chapter 1 minigame data to free up space...?
     # code: del myDict[key]

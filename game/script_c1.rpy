@@ -2,8 +2,6 @@
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-    
-    $ mother_name = "???"
 
     m "You will be perfect, won’t you?"
     
@@ -226,7 +224,6 @@ label c1_scene2:
     # sound design is pain -snail
     # ;-; -jade
 
-    $ mother_name = "◆ MOTHER ◆"
     $ bella_name = "???"
     $ amelia_name = "???"
 
@@ -2527,6 +2524,85 @@ label chap1_test_charmenu:
 
     return
 
+label chap1_test_charpoints:
+    scene ballroom
+
+    show mc 1a at l1_4
+    show amelia 1a at r1_4
+
+    $ amelia_name = "◆ AMELIA ◆"
+
+    while True:
+        a "Hi I'm amelia"
+
+        # renpy doesn't update the highlights when the next dialogue is in a menu
+        $ clear_focus()
+        $ focus_on(['mc'])
+
+        menu:
+            s "(What should I do?)"
+
+            "good +1":
+                s "ur cool"
+
+                # RIGHT BEFORE the line of dialogue that shows the character's reaction
+                $ char_points('amelia', 1)
+
+                a "oh thanks!"
+            "bad -2":
+                s "ur bad"
+
+                $ char_points('amelia', -2)
+                
+                a "that's mean :("
+            "say nothing":
+                s "..."
+
+                a "..."
+            "(quit)":
+                return
+        
+        a "Well...?"
+        
+        $ clear_focus()
+        $ focus_on(['mc'])
+
+        menu:
+            s "(What should I do?)"
+            
+            "do a cat impression +2":
+                s "meow"
+
+                $ char_points('amelia', 2)
+
+                a "omg cat mc!!!"
+            "preserve your dignity -1":
+                s "no, i'm NOT doing my cat impression"
+
+                $ char_points('amelia', -1)
+                
+                a "w-what? but i didn't even ask you to..."
+            "say nothing, again":
+                s "..."
+
+                a "..."
+            "(quit)":
+                return
+
+        # we should never have to access points directly like this; this is just for testing
+        $ temp = store.chars_current['amelia']['points']
+        "Final score w/ amelia is [temp]"
+
+        $ rel = char_relation('amelia')
+        if rel == 'good':
+            "This is good"
+        elif rel == 'bad':
+            "This is bad"
+        else:
+            "This is neutral"
+
+    return
+
 label chap1_test_snow:
     show bg seal room
 
@@ -3109,7 +3185,6 @@ label do_your_work:
 
     $ amelia_name = "◆ AMELIA ◆"
     $ bella_name = "◆ BELLA ◆"
-    $ mother_name = "◆ MOTHER ◆"
 
     b "amelia,"
 

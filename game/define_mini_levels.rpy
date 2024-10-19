@@ -8,8 +8,7 @@ init python:
             if not c in store.chars_current:
                 store.chars_current[c] = {
                     'alive': True,
-                    'friend': False,
-                    'friendlvl': 0
+                    'points': 0
                 }
 
     

@@ -413,11 +413,10 @@ image npc5 = CS_('npc5', 'sprites/npc/n5.png')
 
 define narrator = Character(callback=functools.partial(set_cur_speaker, ch=None))
 define s = Character('◆ ANASTASIA ◆', image='mc', callback=functools.partial(set_cur_speaker, ch='mc'))
-define m = Character('mother_name', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'), dynamic=True)
+define m = Character('◆ MOTHER ◆', image='mother', callback=functools.partial(set_cur_speaker, ch='mother'))
 define a = Character('amelia_name', image='amelia', callback=functools.partial(set_cur_speaker, ch='amelia'), dynamic=True)
 define b = Character('bella_name', image='bella', callback=functools.partial(set_cur_speaker, ch='bella'), dynamic=True)
 
-default mother_name = '???'
 default amelia_name = '???'
 default bella_name = '???'
 
