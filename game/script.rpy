@@ -3,10 +3,8 @@ label start:
 
     $ all_init_and_load()
 
-    # Back button should only be available for developers
+    # Back button only available for developers
     $ config.rollback_enabled = config.developer
-
-    call chap1_test_charpoints
 
     call chapter1 from _call_chapter1
 
@@ -15,8 +13,13 @@ label start:
 label chapter1:
 
     call c1_scene1 from _call_c1_scene1
-    # #call c1_scene1_5 #only for testing
     call c1_scene2 from _call_c1_scene2
+
+    # minigame
+    $ node_unlock('c1_mgame')
+    $ isTutorial = True
+    $ curlevel = 1
+    call mini_launch from _call_mini_launch_1
 
     call c1_scene5 from _call_c1_scene5
     call c1_scene6 from _call_c1_scene6

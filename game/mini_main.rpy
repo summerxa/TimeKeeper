@@ -521,7 +521,8 @@ screen mini_screen():
 
 label mini_main():
 
-    # TODO stop skipping (if player is skipping fetch quests, it gets stuck when it returns to minigame)
+    # TODO this only works if "skip after choices" in settings is disabled
+    $ renpy.choice_for_skipping()
 
     hide screen mgame_overlay
 

@@ -279,8 +279,7 @@ screen quick_menu():
 init python:
     config.overlay_screens.append("quick_menu")
 
-# TODO only false for minigame beta testing
-default quick_menu = config.developer
+default quick_menu = True
 
 style quick_button is default
 style quick_button_text is button_text
@@ -301,7 +300,6 @@ style quick_button_text:
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
 
-# TODO revert in full game
 screen navigation():
 
     vbox:
@@ -312,13 +310,13 @@ screen navigation():
 
         spacing gui.navigation_spacing
 
-        # if not main_menu:
+        if not main_menu:
 
-        #     textbutton _("History") action ShowMenu("history")
+            textbutton _("History") action ShowMenu("history")
 
-        #     textbutton _("Save") action ShowMenu("save")
+            textbutton _("Save") action ShowMenu("save")
 
-        # textbutton _("Load") action ShowMenu("load")
+        textbutton _("Load") action ShowMenu("load")
 
         if _in_replay:
 
@@ -328,7 +326,7 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        # textbutton _("Progress") action ShowMenu("progress")
+        textbutton _("Progress") action ShowMenu("progress")
 
         if main_menu:
 
@@ -353,12 +351,11 @@ screen btn_startmenu(xp, yp, b_id, act, hov):
         at zoom_hov(hov, b_id)
         activate_sound audio.button_click_sfx
 
-# TODO revert as well
 screen start_navigation(hov):
 
-    # use btn_startmenu(349, 196, 'load', ShowMenu("load"), hov)
+    use btn_startmenu(349, 196, 'load', ShowMenu("load"), hov)
     
-    # use btn_startmenu(317, 389, 'progress', ShowMenu("progress"), hov)
+    use btn_startmenu(317, 389, 'progress', ShowMenu("progress"), hov)
     
     use btn_startmenu(288, 572, 'start', Start(), hov)
     
@@ -1054,7 +1051,7 @@ screen node_desc(n_, n_id, zfact):
         anchor (0.5,1.)
         pos (zf(n_['p'][0], zfact), zf(n_['p'][1] - 100, zfact))
         padding (10,10,10,10)
-        text (f"* Encountered in current playthrough\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
+        text ("{i}* Encountered in current playthrough{/i}" + f"\n{n_['desc']}" if not main_menu and n_id in nodes_current else n_['desc']):
             align (0.5,0.5)
             size zf(30, zfact)
 
@@ -1179,12 +1176,8 @@ screen save():
 
     tag menu
 
-    # use file_slots(_("Save"))
-    # TODO revert in full game
-    use game_menu("Save"):
+    use file_slots(_("Save"))
     
-        text "there will be a save option in the full game but it's disabled for testing purposes\nthis isn't a bug :)"
-
 
 screen load():
 
