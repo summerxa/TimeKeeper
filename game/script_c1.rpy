@@ -812,7 +812,7 @@ label c1_fetch3_end:
     # s 4a "???"
     # hide bella
 
-    # #when mc returns to ballroom, next scene triggers"
+    # #when mc returns to ballroom, next scene triggers
 
     # stop ambience fadeout 2.0
 
