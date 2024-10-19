@@ -407,13 +407,21 @@ screen popup_assist():
                         xmaximum 300
                         textbutton "{size=30}" + f"{opt}" + "{/size}{size=25}" + f"\n{levelInfo[curlevel]['start_options'][opt]['desc']}" + "{/size}":
                             text_align 0.5
-                            action [Hide('popup_assist'), Function(chooseAssist, opt)]
+                            action [
+                                Hide('popup_assist'),
+                                Function(chooseAssist, opt),
+                                Function(
+                                    char_addpoints,
+                                    c=levelInfo[curlevel]['start_options'][opt]['points'][0],
+                                    n=levelInfo[curlevel]['start_options'][opt]['points'][1]
+                                )
+                            ]
                             activate_sound audio.button_click_sfx
             
             textbutton "NO ASSISTANT":
                 text_align 0.5
                 xalign 0.5
-                action [Hide('popup_assist')]
+                action [Hide('popup_assist'), Function(char_addpoints, c='mother', n=1)]
                 activate_sound audio.button_click_sfx
 
     use tut_overlay()

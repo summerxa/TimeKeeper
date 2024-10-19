@@ -651,6 +651,8 @@ label mini_launch(startroom='main', startfloor=0):
 
         mini_launch_py()
 
+    $ renpy.choice_for_skipping()
+
     if isTutorial:
         window hide
         call screen confirm_noexit(
