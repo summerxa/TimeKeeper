@@ -1590,6 +1590,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     n3_1 "W-what’s going on?"
 
     #play music death fadein 2.0 volume .55
+    stop music fadeout 1.0
     play music death_1 fadein 2.0 volume .55
 
     n3 "Oh my god!"
@@ -1629,7 +1630,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     show cg amelia ending at yal(0.0)
     with cfade
    
-    pause 5.5
+    $ renpy.pause(5.5, hard=True)
 
     scene black with dissolve
 
@@ -2213,7 +2214,7 @@ label c1_scene7:
     #TODO: add ballroom music if needed
     play ambience ballroom_ambience_2 fadein .8
 
-    $ focus_on(["mc","npc3"])
+    $ focus_on(["npc3"])
 
     show mc 3b at r1_5 with dissolve
     show npc3 at einf(-.8,1.2,.2)
