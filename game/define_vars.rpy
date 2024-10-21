@@ -44,6 +44,10 @@ default persistent.showversionwarning = True # if True, warns user when they loa
 default c1_ending = None
 default c1_saw_bella_watch = False
 default c1_has_bella_watch = False
+default c1_late = False
+default c1_amelia_help = False
+default c1_amelia_mean = False
+
 
 # --- MINIGAME STUFF ---
 init python:
