@@ -521,8 +521,9 @@ screen mini_screen():
 
 label mini_main():
 
-    # TODO this only works if "skip after choices" in settings is disabled
     $ renpy.choice_for_skipping()
+    $ _skipping = False
+    $ config.skipping = False
 
     hide screen mgame_overlay
 
@@ -546,8 +547,10 @@ label mini_main():
     
         $ tolabel = _return
 
+        $ _skipping = True
         jump expression tolabel
 
+    $ _skipping = True
     return
 
 init python:
@@ -652,6 +655,8 @@ label mini_launch(startroom='main', startfloor=0):
         mini_launch_py()
 
     $ renpy.choice_for_skipping()
+    $ _skipping = False
+    $ config.skipping = False
 
     if isTutorial:
         window hide
@@ -673,9 +678,3 @@ label mini_launch(startroom='main', startfloor=0):
         #     Hide('confirm_noexit')) with dissolve
 
     jump mini_main
-
-label mini_failed:
-    # TODO make this actually look good
-    # also check w/ others: does the game kick you out or progress story as normal?
-    "Minigame failed, skill issue"
-    return
