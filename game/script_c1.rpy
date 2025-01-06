@@ -540,6 +540,12 @@ label c1_scene2:
 
     return
 
+label c1_scene2_5:
+
+    "insert scene 2.5"
+
+    return
+
 label c1_scene3:
     scene black with dissolve
 
