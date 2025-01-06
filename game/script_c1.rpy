@@ -1072,11 +1072,9 @@ label c1_fetch4:
 
     $ docurtask('fetch4_end', task_type='single')
 
-    b 5a "...Hmmm?"
-
     menu:
 
-        b 5a "...Hmmm?{fast}"
+        b 5a "...Hmmm?"
 
         "Do nothing":
 
@@ -1115,15 +1113,13 @@ label c1_fetch4:
 
             $ c1_saw_bella_watch = True
 
-            "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch." 
+            "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch."
             
             $ node_unlock('c1_fetch4_c')
 
             hide bella
 
             menu:
-
-                "Bella strides off to complete more tasks and accidentally leaves behind her pocket watch.{fast}"
 
                 "(Leave it behind)":
 
@@ -1235,11 +1231,9 @@ label c1_scene6:
 
     b 5a "Fine."
 
-    b 10a "Wait... Did you hear what we were talking about?"
-
     menu:
 
-        b 10a "Wait... Did you hear what we were talking about?{fast}"
+        b 10a "Wait... Did you hear what we were talking about?"
 
         "(Remain silent)":
 
@@ -1323,27 +1317,18 @@ label c1_scene6:
 
     m 6a "In fact, it was this room that was not cleaned."
 
-    m "Anastasia, did you see any maids disobeying my orders?"
-
     menu:
 
-        m "Anastasia, did you see any maids disobeying my orders?{fast}"
+        m "Anastasia, did you see any maids disobeying my orders?"
 
         "Yes":
 
             s "Yes, I did see a disobedient maid."
 
-            m "Who was it?"
-
             menu:
 
-                m "Who was it?{fast}"
-                # {fast} makes the dialogue show up without a scrolling animation
-                # only noticeable if player has text scroll speed set to a low value in settings -snail
+                m "Who was it?"
 
-                # its a bit too wonky to explain but idt we need extra code here to
-                # set the variables to true- the labels take care of that :3 -snail
-                #oki -jade
                 "Amelia":
 
                     call c1_amelia_ending from _call_c1_amelia_ending
@@ -1360,20 +1345,18 @@ label c1_scene6:
 
             "Anastasia shakes her head." 
 
-            m "Are you sure you did not?"
-
             menu:
 
-                m "Are you sure you did not?{fast}"
+                m "Are you sure you did not?"
 
                 "Not sure":
 
                     s "No, I think I did see one maid disobeying your orders."
 
-                    m 6a "Who was that maid?"
-
                     menu:
-                        m 6a "Who was that maid?{fast}"
+
+                        m 6a "Who was that maid?"
+
                         "Amelia":
                             call c1_amelia_ending from _call_c1_amelia_ending_1
                         "Bella" if c1_has_bella_watch:
@@ -1384,23 +1367,20 @@ label c1_scene6:
 
                     m "Were there any idle maids?"
 
-                    $ focus_on(["mc","amelia"],{"amelia":2})
+                    $ focus_on(["mc","amelia"])
+
                     "Anastasia looks at Amelia, who’s terrified."
 
                     $ clear_focus() # added a function to remove highlights manually :3
                     # i didnt know what to name it tho- lmk if u got any name suggestions lol -snail
                     menu:
-                    
-                        "Anastasia looks at Amelia, who’s terrified.{fast}"
 
                         "Yes":
 
                             s "There was one maid."
 
-                            m "Who was that maid?"
-
                             menu:
-                                m "Who was that maid?{fast}"
+                                m "Who was that maid?"
                                 "Amelia":
                                     call c1_amelia_ending from _call_c1_amelia_ending_2
                                 "Bella" if c1_has_bella_watch:
@@ -1412,21 +1392,18 @@ label c1_scene6:
                             s "No, there was not."
 
                             m 5a "Hmm..."
-                            
-                            m 1a "Did you see anything unusual or out of the ordinary when you were doing your tasks?"
 
                             menu:
-                                m "Did you see anything unusual or out of the ordinary when you were doing your tasks?{fast}"
+                                m "Did you see anything unusual or out of the ordinary when you were doing your tasks?"
 
                                 "Yes":
 
                                     s "I did."
 
-                                    m "What was that?"
 
                                     menu:
 
-                                        m "What was that?{fast}"
+                                        m "What was that?"
 
                                         "Amelia":
                                             call c1_amelia_ending from _call_c1_amelia_ending_3
@@ -1446,7 +1423,6 @@ label c1_scene6:
                                     $ clear_focus()
 
                                     menu:
-                                        "Anastasia glances at Amelia, then at Bella, then finally at Mother.{fast}"
                                         "Amelia":
                                             call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
                                         "Bella" if c1_has_bella_watch:
@@ -1455,11 +1431,9 @@ label c1_scene6:
                                             call c1_mc_ending from _call_c1_mc_ending_2
         "Say nothing":
 
-            m "Anastasia? Who was it?"
-
             menu:
                 
-                m "Anastasia? Who was it?{fast}"
+                m "Anastasia? Who was it?"
 
                 "Amelia":
                     call c1_amelia_ending from _call_c1_amelia_ending_5
@@ -1486,11 +1460,9 @@ label c1_scene6:
 
                     b "Since she couldn’t get to all her tasks, she probably didn’t clean this room either."
 
-                    m "Anastasia, is this true?"
-
                     menu:
 
-                        m "Anastasia, is this true?{fast}"
+                        m "Anastasia, is this true?"
 
                         "Bella" if c1_has_bella_watch:
                             
@@ -2137,11 +2109,9 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
         s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
 
-        b "Jesus christ, are you a robot?"
-
         menu:
 
-            b "Jesus christ, are you a robot?{fast}"
+            b "Jesus christ, are you a robot?"
 
             "Clarify":
 
@@ -2383,12 +2353,10 @@ label c1_scene7:
 
         s 1b "...?"
 
-        b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you. "
-        # shrug- jade
-
         menu:
 
-            b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you.{fast}"
+            b 4a "I see now. That sweet approval is all you care about, huh. Lives mean nothing to you."
+            # shrug- jade
 
             "Respond Factually":
 
