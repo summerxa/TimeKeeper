@@ -693,7 +693,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 'tx': 'intro and tasks',
                 'c': 'mother',
                 'p': (1073,621),
-                'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
+                'desc': "Amelia makes a mistake. Mother gives Anastasia her tasks for the day."
             },
             'c1_scene3': {
                 'tx': 'Amelia Sick',
