@@ -421,7 +421,7 @@ label c1_scene2:
 
                     show bella 6a
 
-                    b "And, {i}’she won’t go overboard’{/i}? Do you even know what the hell you’re saying?"
+                    b "And, {i}‘she won’t go overboard’{/i}? Do you even know what the hell you’re saying?"
 
                 "(Admonish)": 
 
@@ -521,17 +521,17 @@ label c1_scene2:
 
     b "One of nobles wanted wine that’s not even on the fucking menu!"
 
-    show n3 at r1_5 with dissolve
+    show npc3 at r1_5 with dissolve
 
     n3 "..."
 
-    hide n3
+    hide npc3
 
-    show n3_1 at r1_5 with dissolve
+    show npc3_1 at r1_5 with dissolve
 
     n3_1 "..."
 
-    hide n3_1
+    hide npc3_1
 
     show amelia 1a at r1_5 with dissolve
 
@@ -541,7 +541,7 @@ label c1_scene2:
 
     hide amelia
 
-    show n3 at r1_5
+    show npc3 at r1_5
 
     n3 "Shhh- Bella, you really shouldn’t be talking about this-"
 
@@ -551,23 +551,28 @@ label c1_scene2:
 
     b "Why not? Because you’re a sheep who’s okay with getting bullied?"
 
-    hide n3
+    hide npc3
 
-    show n3_1 at r1_5 with dissolve
+    show npc3_1 at r1_5 with dissolve
 
     n3_1 "Do you {i}not{/i} remember how mad Mother got last time?!"
 
-    show n3 at r1_3 with dissolve
+    show npc3 at r1_3 with dissolve
 
     n3 "J-just get back to work, guys…"
 
     show amelia 5a at center with dissolve    
+
+    $ clear_focus()
+    $ focus_on(['amelia'])
 
     menu:
     
         a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?"
 
         "(Question)":
+
+            $ clear_focus()
 
             hide bella
 
@@ -590,8 +595,8 @@ label c1_scene2:
             show bella 5a
             
             hide amelia
-            hide n3
-            hide n3_1
+            hide npc3
+            hide npc3_1
 
             show mc 6b at r1_5
 
@@ -604,6 +609,8 @@ label c1_scene2:
             s "Everyone, get back to work. There shouldn’t be a need to talk."
 
         "Stay silent":
+
+            $ clear_focus()
 
             $ char_addpoints("amelia", -1)
 
