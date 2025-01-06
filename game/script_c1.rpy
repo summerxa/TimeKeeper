@@ -2,21 +2,38 @@
     
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-
-    m "You will be perfect, won’t you?"
+    play ambience ballroom_ambience_2 fadein 1.0
+    scene bg ballroom with cfade
+    show mc 1a at center
+    show n3 at einf(0, 0.8, 0.2)
     
-    $ focus_on('[mc]') 
-    show mc 3b with Dissolve(.5,alpha=True) 
-    #i think normal dissolve is ..5 automatically?
+    n3 "Mother called for you. She’s waiting in the ballroom."
     
-    s "Yes."
+    show n3_1 at r1_5 with dissolve
 
-    m "My perfect little doll."
+    n3_1 "Um, excuse me? I’m really sorry, there’s a large stack of dirty plates in the kitchen, do you mind helping me wash them? I’ve already got my hands full and y-you know mother…"
+    
+    n3 "Mother won’t like it if you’re late."
 
-    s 1b "Yes, Mother."
+    $ focus_on(['mc'])
+
+    menu:
+
+        "(Help maid)":
+
+            s "I can help with the dishes."
+
+            n3_1 "Thank you so much!"
+
+            $ c1_late = True
+
+        "(Follow instructions)":
+
+            n3 "Let’s go then."
+
+            $ c1_late = False
     
     $ char_unlock("mc") 
-    $ char_unlock("mother")
 
     $ node_unlock('c1_scene1')
 
@@ -223,6 +240,124 @@ label c1_scene2:
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
+
+    $ bella_name = "???"
+    $ amelia_name = "MAID"
+    show npc2 at center
+    show mother 2a at l1_5
+
+    $ focus_on(['mc', 'mother'])
+
+    show mother 2a at ein(0.8, 0.15)
+
+    show npc2 at ein(.8, .95)
+
+    show mc 1b at center
+
+    if c1_late:
+
+        show mother 6a
+
+        m "Why did you take so long?"
+
+        m "I expected better from you, my dear. Do {i}not{/i} embarrass us again."
+
+    show mother 2a
+
+    m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
+
+    n2 "I see."
+
+    show mc 1b zorder 2.0
+
+    m "Sir, I ensure you that my maids are—"
+
+    play sound glass_break_sfx volume 0.15
+
+    show mother 5a
+
+    a "Ah!"
+
+    "A maid carrying a tray of glasses drops it onto the floor."
+
+    show mother 6a at lin(0.8, 0.4)
+
+    show mc 4b at lin(0.8, 0.7)
+
+    show npc2 at lin(0.8, 1.1)
+    pause 0.7
+    show amelia 8a at ein(0.7, 0.0)
+
+    pause 2.5
+
+    m "...Ah."
+
+    m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
+
+    hide npc2 with Dissolve(.4,alpha=True)
+    
+    show mother 6a
+
+    show amelia 6a
+
+    a "Mother, I—"
+
+    $ focus_on(['mother', 'amelia'])
+
+    show mother 7a at ein(0.6, 0.31)
+
+    "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
+
+    hide npc2
+
+    show bella 9a at r1_5 with dissolve
+
+    $ focus_on(['bella'])
+
+    "Another maid looks on in horror and covers her mouth with her hand."
+
+    m "What happened to being part of the family, Amelia?"
+
+    $ amelia_name = "◆ AMELIA ◆"
+
+    a "No! I-"
+
+    hide bella
+
+    menu: 
+    
+        m "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
+
+        "(Intervene)":
+
+            s "Mother, with all due respect, perhaps it would be best if Amelia isn’t punished, as the guests are here." 
+
+            $ char_addpoints("amelia", +1)
+
+            m "Ah, you are right, Anastasia."
+
+            s "I’ll hold the punishment elsewhere instead."
+
+            $ char_addpoints("mother", +1)
+
+            m "Amelia, let us go somewhere where you can’t embarrass yourself."
+
+        "(Distract)":
+
+            s "Lord Layton, we deeply apologize for this. Is there anyway we could make up for this mistake?" 
+
+            n2 "I expect a full set of wine glasses of equal or better quality sent to this estate immediately."
+
+            m "Of course sir, I’ll get to it immediately. Amelia, you’re coming with me."
+
+            m "Anastasia, don’t forget your place. You speak when I allow it."
+
+            $ char_addpoints("mother", -1)
+
+        "(Stay silent)":
+
+            pass
+
 
     $ bella_name = "???"
     $ amelia_name = "???"
@@ -535,6 +670,7 @@ label c1_scene2:
     #hopefully luna will provide us with a scared/worried expression soon T_T
     b 8a "If you say so..."
 
+    $ char_unlock("mother")
     $ char_unlock("amelia")
     $ char_unlock("bella")
 
