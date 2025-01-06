@@ -64,7 +64,7 @@ init python:
 
 default tolabel = ''
 
-default curlevel = 500
+default curlevel = 1
 default curtime = 0
 
 default productivity = 100.0
