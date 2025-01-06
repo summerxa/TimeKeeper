@@ -1476,12 +1476,12 @@ label c1_scene6:
 
                 "Amelia":
 
-                    #call c1_amelia_interrogation from _call_c1_amelia_interrogation
-                    call c1_amelia_ending from _call_c1_amelia_ending
+                    call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue
+                    #call c1_amelia_ending from _call_c1_amelia_ending
 
                 "Bella" if c1_has_bella_watch:
 
-                    call c1_bella_ending from _call_c1_bella_ending
+                    call c1_interrogation_continue("bella") from _call_interrogation_bella_continue
                 "Anastasia":
 
                     call c1_mc_ending from _call_c1_mc_ending
@@ -1504,9 +1504,9 @@ label c1_scene6:
                         m 6a "Who was that maid?"
 
                         "Amelia":
-                            call c1_amelia_ending from _call_c1_amelia_ending_1
+                            call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_1
                         "Bella" if c1_has_bella_watch:
-                            call c1_bella_ending from _call_c1_bella_ending_1
+                            call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_1
                 "Yes":
 
                     s "Yes, I’m sure Mother."
@@ -1528,9 +1528,9 @@ label c1_scene6:
                             menu:
                                 m "Who was that maid?"
                                 "Amelia":
-                                    call c1_amelia_ending from _call_c1_amelia_ending_2
+                                    call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_2
                                 "Bella" if c1_has_bella_watch:
-                                    call c1_bella_ending from _call_c1_bella_ending_2
+                                    call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_2
                                 "Anastasia":
                                     call c1_mc_ending from _call_c1_mc_ending_1
                         "No":
@@ -1552,9 +1552,9 @@ label c1_scene6:
                                         m "What was that?"
 
                                         "Amelia":
-                                            call c1_amelia_ending from _call_c1_amelia_ending_3
+                                            call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_3
                                         "Bella" if c1_has_bella_watch:
-                                            call c1_bella_ending from _call_c1_bella_ending_3
+                                            call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_3
                                 "No":
                                     
                                     s "No, I did not."
@@ -1570,9 +1570,11 @@ label c1_scene6:
 
                                     menu:
                                         "Amelia":
-                                            call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
+                                            call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_4
+                                            #call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
                                         "Bella" if c1_has_bella_watch:
-                                            call c1_bella_ending(c1_justify_blame=False) from _call_c1_bella_ending_4
+                                            call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_4
+                                            #call c1_bella_ending(c1_justify_blame=False) from _call_c1_bella_ending_4
                                         "Anastasia":
                                             call c1_mc_ending from _call_c1_mc_ending_2
         "Say nothing":
@@ -1582,9 +1584,9 @@ label c1_scene6:
                 m "Anastasia? Who was it?"
 
                 "Amelia":
-                    call c1_amelia_ending from _call_c1_amelia_ending_5
+                    call c1_interrogation_continue("bella") from _call_interrogation_amelia_continue_5
                 "Bella" if c1_has_bella_watch:
-                    call c1_bella_ending from _call_c1_bella_ending_5
+                    call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_5
                 "Anastasia":
                     call c1_mc_ending from _call_c1_mc_ending_3
                 
@@ -1618,22 +1620,140 @@ label c1_scene6:
 
                             s "However, Bella did not."
 
-                            call c1_bella_ending(c1_blame_bella_dialogue=False) from _call_c1_bella_ending_6
+                            call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_6
+                            #call c1_bella_ending(c1_blame_bella_dialogue=False) from _call_c1_bella_ending_6
 
                         "Say nothing":
 
                             call c1_mc_ending("gets_accused") from _call_c1_mc_ending_4
     return
 
-#label c1_amelia_interrogation
+label c1_interrogation_continue(c1_interrogation="amelia"):
+
+    if c1_interrogation == "amelia":
+        show amelia 7a zorder .001
+        
+        a "!!!"
+            
+        show bella 9a zorder .002
+        b "!!!"
+
+        m "Ah. And do you have evidence for this?"
+
+        menu:
+
+            "Amelia messing up earlier":
+                    
+                s "Earlier, Amelia dropped the glasses in front of the guests."
+
+                s "I would not be surprised if she were the one behind this, as well."
+
+            "Encounter in the guestroom":
+
+                s "Earlier, while I was lighting the candles, I saw Amelia."
+
+                s "She had not been working on her tasks and was instead resting in this room."
+
+        #if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
+
+        menu:
+
+            #TODO: fix for relationship
+
+            "Bad relationship w/ amelia & bella":
+                a "W-wait! But can we really trust her word?"
+
+                b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
+
+                show bella 5a
+                a 6a "Huh? Oh, yeah."
+
+                m 5a "I see."
+
+                if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
+                        
+                    show amelia 7a
+                    show bella 9a
+                    m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+
+                elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
+
+                    s "That is not true, Mother."
+
+                    m "Anastasia…"
+
+                    m 6a "I find it difficult to believe your words when your performance today was quite terrible."
+
+                    m 7a "I am more inclined to believe that you are blaming others to keep your own position."
+
+                    call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
+
+            "Good relationship w/ either":
+
+                $ focus_on(['mother'])
+                "Mother looks at Amelia."
+
+                m 5a "Amelia…"
+
+                show amelia 8a zorder .003
+                a "N-no, Mother! I—"
+
+                m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
+
+                m 1a "Is this true?" 
+
+                a "M-Mother, I—"
+
+                m 5a "Amelia, my dear… just calm down and answer the question."
+
+                a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
+
+                call c1_amelia_ending from _call_c1_amelia_ending_6
+
+
+    elif c1_interrogation == "bella":
+
+
+        show bg guestroom at vshake
+        show bella 9a at vshake
+        # ^ seemed to be some lag between her saying "what" and her changing expressions -snail
+        show mother at vshake
+        show amelia 8a at vshake
+        show mc at vshake
+
+        #play sound "audio/random/vineboom.mp3" volume .3
+        #NOO NOT THE VINEBOOM
+        #IT'S JOEOVER T_T
+
+        b "{size=50}WHAT!?{/size}"
+        m "Ah. I see."
+
+        m 1a "Do you have evidence for this?"
+
+        menu:
+
+            m "Do you have evidence for this?{fast}"
+            
+            "Pocketwatch":
+
+                s "Bella was taking my tasks earlier."
+
+                s "She interrupted me while I was assisting some nobles, and she hastily dropped her pocket watch when I confronted her about it."
+
+            "Bella’s recent performance":
+
+                "filler text"
+
+        "filler text for now"
+
+        #also filler end
+        call c1_bella_ending from _call_c1_bella_ending_7
+    
+    return
 
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
 
-    #if c1_justify_blame:
-        #s "That would be Amelia. She had not been working on her tasks and was instead resting in this room."
-    #else:
-        #s "That would be Amelia."
 
     $ node_unlock('c1_amelia_blame')
 
@@ -1643,81 +1763,6 @@ label c1_amelia_ending(c1_justify_blame=True):
     # so 8a has more dramatic effect once its finally used -snail
     #gotcha -jade
 
-    show amelia 7a zorder .001
-    a "!!!"
-    
-    show bella 9a zorder .002
-    b "!!!"
-
-    m "Ah. And do you have evidence for this?"
-
-    menu:
-
-        "Amelia messing up earlier":
-            
-            s "Earlier, Amelia dropped the glasses in front of the guests."
-
-            s "I would not be surprised if she were the one behind this, as well."
-
-        "Encounter in the guestroom":
-
-            s "Earlier, while I was lighting the candles, I saw Amelia."
-
-            s "She had not been working on her tasks and was instead resting in this room."
-
-    #if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
-
-    menu:
-
-        #TODO: fix for relationship
-
-        "Bad relationship w/ amelia & bella":
-            a "W-wait! But can we really trust her word?"
-
-            b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
-
-            show bella 5a
-            a 6a "Huh? Oh, yeah."
-
-            m 5a "I see."
-
-            if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
-                
-                show amelia 7a
-                show bella 9a
-                m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
-
-            elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
-
-                s "That is not true, Mother."
-
-                m "Anastasia…"
-
-                m 6a "I find it difficult to believe your words when your performance today was quite terrible."
-
-                m 7a "I am more inclined to believe that you are blaming others to keep your own position."
-
-                call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
-
-        "Good relationship w/ either":
-
-            $ focus_on(['mother'])
-            "Mother looks at Amelia."
-
-            m 5a "Amelia…"
-
-            show amelia 8a zorder .003
-            a "N-no, Mother! I—"
-
-            m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
-
-            m 1a "Is this true?" 
-
-            a "M-Mother, I—"
-
-            m 5a "Amelia, my dear… just calm down and answer the question."
-
-            a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
 
     m 1a "Oh, Amelia…"
 
@@ -1960,36 +2005,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     $ c1_ending = "bella"
 
     stop music fadeout 1.0
-
-    if c1_blame_bella_dialogue:
-        if c1_justify_blame:
-
-            s "That would be Bella."
-
-            show amelia 8a
-
-            show bg guestroom at vshake
-            show bella 9a at vshake
-            # ^ seemed to be some lag between her saying "what" and her changing expressions -snail
-            show mother at vshake
-            show amelia at vshake
-            show mc at vshake
-
-            play sound "audio/random/vineboom.mp3" volume .3
-
-            b "{size=50}WHAT!?{/size}"
-
-            s "Bella was taking my tasks earlier."
-
-            s "She interrupted me while I was assisting some nobles, and she hastily dropped her pocket watch when I confronted her about it."
-
-        else:
-            
-            s "That would be Bella."
-
-            show amelia 8a
-
-            b 9a "{size=50}WHAT!?{/size}"
+    
 
     $ node_unlock('c1_bella_blame')
 
