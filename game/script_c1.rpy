@@ -1,16 +1,4 @@
 ﻿label c1_scene1:
-    
-    "text"
-
-    $ char_addpoints("bella", -2)
-    $ char_addpoints("amelia", -1)
-
-    "notifications!!"
-
-    
-    $ char_addpoints("mother", 1)
-
-    "notifications!! again!"
 
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
