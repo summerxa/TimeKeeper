@@ -735,11 +735,11 @@ label c1_scene3:
 
     a "You would remember, right? I-I have never messed up before this! And it won’t ever happen again! I promise!"
 
-    a "Please… don’t tell her."
-
     menu:
 
-        a "Please… don’t tell her.{fast}"
+        a "Please… don’t tell her."
+        # btw i asked luna and i think we might be removing the {fast} stuff for menus -snail
+        # less typing for us at least :D
 
         "Remain silent":
 
@@ -1340,9 +1340,7 @@ label c1_scene6:
 
             if c1_amelia_mean:
             
-                menu: 
-
-                    s "Oh, it’s you.{fast}"
+                menu:
 
                     "(Reprimand)":
 
@@ -3139,8 +3137,6 @@ label task_c1_donothing:
     "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day."
 
     menu:
-
-        "The chair is so comfortable that, if she were to sit down now, she would likely not have the motivation to get up and keep working the rest of the day.{fast}"
         
         "Sit down":
             $ focus_on(['mc'], {'mc': 2})
