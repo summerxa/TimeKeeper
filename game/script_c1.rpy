@@ -643,134 +643,63 @@ label c1_scene2_5:
     b "Ugh... Where is it? The cloth was here just a second ago!"
 
     show amelia 2a at einf(-0.2, 1.0 ,0.25)
-    a "Here, take this."
+    a "Bella, it’s over here."
 
     $ focus_on(['bella'])
 
     show bella 1a
-
-    $ amelia_name = "◆ AMELIA ◆"
 
     pause 0.5
-    b "Oh. Thanks, Amelia…"
 
-    a 3a "No problem, Bella."
+    b "Oh. Thanks…"
 
-    $ focus_on(['bella'])
+    show amelia 3a
 
-    show bella 8a
-    "Bella holds her hand to her face."
-
-    b "Tch."
-
-    a 6a "Are you okay, Bella?"
-
-    $ focus_on(['bella'])
-
-    show bella 5a
-    pause .5
-    show bella 8a
-    pause 1.0
-    b "I…"
-    pause 1.0
-    show bella 7a
-    pause 1.0
-    show bella 1a
-    #you can adjust times and order if it feels weird bc i give up bro ;-;
-
-    b "I just feel tired. That’s all. I’ll probably be fine after a while."
-
-    a 1a "If you say so…" 
+    a "No problem."
 
     $ focus_on(['amelia'], {'amelia': 2})
 
     show amelia 1a at eout(1.0, 0.2)
+
     "Amelia starts to walk away, but—"
 
-    # i made an animation maybe...? -snail
-
     show amelia 8a
-    # amelia falls immediately (more jarring/shocking effect)
-    # if text plays too fast, waits until 0.5 secs have passed until making amelia fall
     $ wtime = 0.5 if (not preferences.text_cps or preferences.text_cps < 6) else 0.5 - (3 / preferences.text_cps)
     "!!!{w=[wtime]}{nw}"
 
-    # falling animation
     show amelia:
-        yanchor 0.5
-        ypos 0.5
-        easeout 0.1 ypos 0.55
-
-    #play sound metal_pipe volume .23
-    #hehe :3
-
+            yanchor 0.5
+            ypos 0.5
+            easeout 0.1 ypos 0.55
     play sound falling_sound
 
     pause 0.8
 
     show amelia:
-        yanchor 0.5
-        ypos 0.55
-        easein 0.5 ypos 0.5
-
-    # screen shake (might be a bit too intense?) -snail
-    # hide amelia with vpunch
-
-    #not sure if this expression quite matches up... but oh well
-    #might need a pause here bc otherwise might feel too fast
-    # is this too long...? -snail
-    #it should be fine :) -jade
-    # hooray :D -snail
+            yanchor 0.5
+            ypos 0.55
+            easein 0.5 ypos 0.5
     pause 0.6
-    b 9a "Amelia, are you alright?!"
 
+
+    b 9a "You alright?"
     show amelia 1a at l1_5
-    #flip
+
     a "I-I’m okay..."
 
-    b 5a "Are you sure? Maybe you should take a break."
+    b 5a "Are you sure? Maybe you should take a break. You were working the whole time and after what happened earlier with mother…"
 
     a 5a "No— I’m okay! It’s probably nothing."
 
     b "I can finish your tasks if you need me to…"
 
-    a 6a "N-no, I can do them!"
+    a 6a "I-I’m not useless!"
 
-    a 1a "I-I mean, you were already punished...the cuts are still there. Should I get more medicine? I can always make some more if you need me to…"
-
-    $ focus_on(['bella'])
-
-    show bella 1a
-    pause 0.5
-    show bella 7a
-    pause 0.5
-
-    b "Nah, it's..."
-    
-    show bella 2a
-    pause 1.5
-    show bella 7a
-    pause 0.5
-    show bella 1a
-    #again, you can adjust these times and the order stuff is in if it feels wack :P
-
-    b "...It’s fine. Won’t open up unless I get punished again or something, though I’ll be doing everything I can to avoid that."
-
-    b 5a "But Amelia, you've been worried about me... all this time."
-    
-    b "If you feel tired... {i}please{/i}, tell me."
-    
-    #this line... doesn't flow quite smoothly...
-    # maybe remove the first "I know"- feels kinda redundant(?) idk how to word it... -snail
-    # or break into two lines "...all this time" -> "But if you..." for a thoughtful pause effect :D
+    b 9a "What? Wait, that wasn’t what I—"
 
     a 5a "Don’t worry Bella, I’ll be alright."
 
-    #WHY IS THERE NO CONCERNED/WORRIED EXPRESSION FOR BELLA AHHHH
-    # maybe try 7a? it makes her look in amelia's general direction :D -snail
-    #hopefully luna will provide us with a scared/worried expression soon T_T
-    b 8a "If you say so..."
-
+    b 8a "If you say so…"
 
     return
 
