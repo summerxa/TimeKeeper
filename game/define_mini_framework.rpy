@@ -105,6 +105,17 @@ init python:
             goals_count += (1 if store.player_attrs[i] >= store.levelInfo[store.curlevel]['level_threshold'][i] else 0)
         return sum(store.player_attrs) * store.productivity * 0.01 * (0.25 * (goals_count+1))
 
+    def getMgameRating(lv):
+        if not lv in store.levelScores or not lv in store.levelInfo:
+            # avoid key not found exception
+            return 'mid'
+
+        if store.levelScores[lv] < store.levelInfo[lv]['mother_threshold'][0]:
+            return 'bad'
+        elif store.levelScores[lv] > store.levelInfo[lv]['mother_threshold'][1]:
+            return 'good'
+        return 'mid'
+
     # --- TASK/TASKBUTTON FORMATTING ---
 
     def fmtTask(task_name, task_part='', task_type='infinite'):

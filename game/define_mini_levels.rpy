@@ -16,6 +16,8 @@ init python:
         chars_init_and_load()
 
 
+default levelScores = {}
+
 default levelInfo = {
     1: {
         't0': 1020,

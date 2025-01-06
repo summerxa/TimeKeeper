@@ -1448,9 +1448,9 @@ label c1_scene6:
 
     m "Anastasia."
 
-    $ mgame_score = calculateFinalScore()
+    $ levelScores[1] = calculateFinalScore()
 
-    if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
+    if getMgameRating(1) == 'good':
 
         $ char_addpoints("mother", 1)
         
@@ -1460,7 +1460,7 @@ label c1_scene6:
 
         m "This is what a good maid should be."
 
-    elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
+    elif getMgameRating(1) == 'bad':
 
         $ char_addpoints("mother", -1)
 
@@ -1690,13 +1690,13 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 m 5a "I see."
 
-                if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
+                if getMgameRating(1) == 'good':
                         
                     show amelia 7a
                     show bella 9a
                     m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
 
-                elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
+                elif getMgameRating(1) == 'bad':
 
                     s "That is not true, Mother."
 
