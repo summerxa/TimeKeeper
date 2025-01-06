@@ -47,11 +47,13 @@
     #use -.8 to out offscreen left, 1.5 for offscreem right
     #to display snow: show black with dissolve, scene bg xyz, show snowback, show black, pause x time, hide black with dissolve, show sprite, show snowfront
     #highlight: $ focus_on(['bella'], {'bella': 2})
+    #highlight 2: $ focus_on(['bella','amelia'], {'bella': 2, 'amelia': 2})
     #$ mother_name = "xyz"
     #"window hide dissolve" to hide text box w/ dissolve
     #"xyz{fast}" to make text fast w/o being affected by text speed
     #"{size=50}xyz{/size}" to change text size
     #almost forgot about this one: with Dissolve(1.0,alpha=True)
+    # $ clear_focus()
 
 label c1_scene1_5: 
    
@@ -576,7 +578,7 @@ label c1_scene3:
 
     a "Please... "
 
-    a "I- You… you know what she does to those who break the rules! P-please... I don’t want to be punished..."
+    a "I- You… you know what she does to those who break the rules! P-please... I’m a part of the family..."
 
     a "I’m not trying to slack off! I really am trying to live up to Mother’s expectations! I—"
 
@@ -593,7 +595,49 @@ label c1_scene3:
 
     a "Please… don’t tell her."
 
-    s "..."
+    menu:
+
+        a "Please… don’t tell her.{fast}"
+
+        "Remain silent":
+
+            s "..."
+
+            a "Uh… hello?"
+
+            a "I’ll just leave t-then…"
+
+            $ char_addpoints("amelia", -1)
+
+        "Won’t tell her":
+
+            s "I won’t tell her."
+
+            $ char_addpoints("amelia", 1)
+
+            a "R-really? I- Thank you." 
+
+            $ c1_amelia_help = True
+
+        "Will tell her":
+
+            s "I will tell her."
+
+            $ char_addpoints("amelia", -1)
+
+            a "W-what? No, no, please don’t! I’ll do anything!" 
+
+            s "You should go back to work."
+
+            a "Of course!"
+
+            $ c1_amelia_mean = True
+
+        "Can’t promise":
+
+            s "I can’t promise anything."
+
+            a "Oh, okay…"
 
     "Amelia struggles to stand up and return to work."
 
@@ -728,23 +772,24 @@ label c1_fetch2_end:
         play ambience ballroom_ambience_2 fadein .6
         $ focus_on(['bella'])
         show bella 8a at center with dissolve
-        b "Shit… So goddamn tired, but I still need to help these stupid nobles. Damn it…"
+        b "Shit… still need to help these stupid nobles. Damn it…"
 
         show bella 8a at ein(.6,.2)
         show mother 1a at offscreenright
         show mother at ein(.8,.8)
+
         m "Bella?"
 
-        show bella 9a
-        b "Y-yes, Mother?"
+        b 9a "Y-yes, Mother?"
 
         $ focus_on(['mother'])
         show mother 5a
         pause .8
         show mother 6a
-        m "I was hoping you were going to improve your performance today, especially after your little incident, but it seems that I expected too much from you."
 
-        m 1a "Perhaps you should learn from Anastasia's example. After all, Anastasia has done an excellent job today."
+        m "I was hoping you were going to improve your performance today, especially after all those complaints from the other maids, but it seems that I expected too much from you."
+
+        m 1a "Perhaps you should learn from Anastasia’s example. After all, Anastasia has done an {i}excellent{/i} job today."
 
         b 8a "..."
 
@@ -898,7 +943,14 @@ label c1_fetch4:
 
     s "Yes, I can wash them."
 
+    scene black with dissolve
+
     "Some time later..."
+
+    scene bg kitchen with cfade
+    show npc3_1 at r1_5
+    show mc 1b at l1_5
+    with dissolve
 
     s "Is the food finished?"
 
@@ -946,6 +998,8 @@ label c1_fetch4:
 
             b 10a "What are you staring at? Don’t you have work to do as the head maid?"
 
+            $ char_addpoints("bella", -1)
+
             show bella 10a at eout(1.2,1.4)
 
             $ focus_on(['bella'])
@@ -967,6 +1021,8 @@ label c1_fetch4:
             b 6a "You must be proud, huh?"
 
             b "Finding every little nitpick to report others on just because you’re the head maid. Why don’t you go do that while I do the real tasks?"
+
+            $ char_addpoints("bella", -2)
 
             b "You don’t even understand what it means to be punished."
 
@@ -1079,7 +1135,8 @@ label c1_scene6:
     b "Of course I would worry!"
 
     show bella 5a
-    a "Bella, I… I also didn’t want you to have to make up my tasks, especially since you were already so tired from doing so many…"
+
+    a "Bella, I… I also didn’t want you to have to make up my tasks, especially since Mother was already mad with you…"
 
     a "I—"
 
@@ -1125,8 +1182,8 @@ label c1_scene6:
             
             b 4a "Ha, I knew you were good for nothing!"
 
-            #TODO: relationship value falls
-
+            $ char_addpoints("bella", -1)
+            show bella 5a
             a 1a "Let's just go, Bella."
 
             show amelia at eout(.8,.1)
@@ -1139,6 +1196,86 @@ label c1_scene6:
             a "Um, I-I'm really sorry about that, just pretend nothing happened, {i}please{/i}."
 
             show amelia at eout(.8,-.8)
+
+            
+        "(Recognize Amelia)":
+
+            s "Oh, it’s you."
+
+            if c1_amelia_mean:
+            
+                menu: 
+
+                    s "Oh, it’s you.{fast}"
+
+                    "(Reprimand)":
+
+                        s 5b "Mother will not be pleased with either of you today."
+
+                        b 6a "What the {i}fuck{/i} are you talking about?"
+
+                        show amelia 7a
+                        s 6b "Repeatedly slacking off? Idling around and not completing any tasks?"
+                    
+                        b 10a "YOU—"
+
+                        a "Please don’t tell her! Bella was j-just worried about me!"
+
+                        $ char_addpoints("amelia", -1)
+                        show amelia 8a
+
+                        s "Her personal attachment to you caused her to stop doing her work. Why should you receive any assistance if you have not been at the level of performance you should be?"
+
+                        $ char_addpoints("bella", -2)
+
+                        b 4a "Hah!"
+
+                        b 10a "Listen here, {i}Anastasia{/i}—"
+
+                        a 7a "Bella, please! Let’s just go!"
+
+                        show mc 1b
+                        b 5a "But she!—"
+
+                        a 1a "Mother will be angry at us for being late…"
+
+                        b 8a "..."
+
+                        b 5a "Fine."
+
+                        b 10a "But don’t you fucking {i}dare{/i} say anything to Mother, Anastasia."
+
+                        show mc 5b
+
+                        a 1a "Let’s go…"
+
+                        s "..."
+
+                    "(Say nothing)":
+
+                        a 1a "Let’s just go, Bella."
+
+                show amelia at eout(.8,-.8)
+                show bella 5a at eout(.8,-.8)
+
+            else:
+
+                    show bella 5a
+                    a 2a "Right. We saw each other earlier."
+
+                    if c1_amelia_help:
+
+                        $ char_addpoints("bella", +1)
+                        
+                        show bella 7a
+                        a 4a "Thanks back there, by the way." 
+
+                    show bella 1a
+                    a 2a "I guess we should get going."
+
+                    show amelia 3a at eout(.8,-.8)
+                    show bella at eout(.8,-.8)
+
 
 
     scene black with dissolve
@@ -1161,6 +1298,8 @@ label c1_scene6:
 
     if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
 
+        $ char_addpoints("mother", 1)
+        
         m 2a "Your work today was excellent."
 
         m "Everyone should follow Anastasia’s example."
@@ -1169,7 +1308,9 @@ label c1_scene6:
 
     elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
 
-        m 6a "Your work today was… quite frankly, {i}dreadful{/i}." 
+        $ char_addpoints("mother", -1)
+
+        m 6a "Your work today was… quite frankly, {i}dreadful{/i}."
 
         m 1a "I am rather stunned that you managed to stoop this {i}low{/i}, considering the fact that you were always the highest performing maid."
 

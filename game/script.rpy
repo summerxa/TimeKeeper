@@ -15,7 +15,6 @@ label chapter1:
     call c1_scene1 from _call_c1_scene1
     call c1_scene2 from _call_c1_scene2
     call c1_scene2_5 from _call_c1_scene2_5
-
     # minigame
     $ node_unlock('c1_mgame')
     $ isTutorial = True
