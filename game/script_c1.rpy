@@ -294,7 +294,7 @@ label c1_scene2:
 
     show npc2 at lin(0.8, 1.1)
     pause 0.7
-    show amelia 8a at ein(0.7, 0.0)
+    show amelia 8a at einf(-.8,1.1, 0.0)
 
     pause 2.5
 
@@ -1476,6 +1476,7 @@ label c1_scene6:
 
                 "Amelia":
 
+                    #call c1_amelia_interrogation from _call_c1_amelia_interrogation
                     call c1_amelia_ending from _call_c1_amelia_ending
 
                 "Bella" if c1_has_bella_watch:
@@ -1624,13 +1625,15 @@ label c1_scene6:
                             call c1_mc_ending("gets_accused") from _call_c1_mc_ending_4
     return
 
+#label c1_amelia_interrogation
+
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
 
-    if c1_justify_blame:
-        s "That would be Amelia. She had not been working on her tasks and was instead resting in this room."
-    else:
-        s "That would be Amelia."
+    #if c1_justify_blame:
+        #s "That would be Amelia. She had not been working on her tasks and was instead resting in this room."
+    #else:
+        #s "That would be Amelia."
 
     $ node_unlock('c1_amelia_blame')
 
@@ -1646,25 +1649,75 @@ label c1_amelia_ending(c1_justify_blame=True):
     show bella 9a zorder .002
     b "!!!"
 
-    m 1a "Ah."
+    m "Ah. And do you have evidence for this?"
 
-    $ focus_on(['mother'])
-    "Mother looks at Amelia."
+    menu:
 
-    m 5a "Amelia…"
+        "Amelia messing up earlier":
+            
+            s "Earlier, Amelia dropped the glasses in front of the guests."
 
-    show amelia 8a zorder .003
-    a "N-no, Mother! I—"
+            s "I would not be surprised if she were the one behind this, as well."
 
-    m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
+        "Encounter in the guestroom":
 
-    m 1a "Is this true?" 
+            s "Earlier, while I was lighting the candles, I saw Amelia."
 
-    a "M-Mother, I—"
+            s "She had not been working on her tasks and was instead resting in this room."
 
-    m 5a "Amelia, my dear… just calm down and answer the question."
+    #if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
 
-    a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
+    menu:
+
+        #TODO: fix for relationship
+
+        "Bad relationship w/ amelia & bella":
+            a "W-wait! But can we really trust her word?"
+
+            b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
+
+            show bella 5a
+            a 6a "Huh? Oh, yeah."
+
+            m 5a "I see."
+
+            if mgame_score >= levelInfo[curlevel]['mother_threshold'][1]:
+                
+                show amelia 7a
+                show bella 9a
+                m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+
+            elif mgame_score <= levelInfo[curlevel]['mother_threshold'][0]:
+
+                s "That is not true, Mother."
+
+                m "Anastasia…"
+
+                m 6a "I find it difficult to believe your words when your performance today was quite terrible."
+
+                m 7a "I am more inclined to believe that you are blaming others to keep your own position."
+
+                call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
+
+        "Good relationship w/ either":
+
+            $ focus_on(['mother'])
+            "Mother looks at Amelia."
+
+            m 5a "Amelia…"
+
+            show amelia 8a zorder .003
+            a "N-no, Mother! I—"
+
+            m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
+
+            m 1a "Is this true?" 
+
+            a "M-Mother, I—"
+
+            m 5a "Amelia, my dear… just calm down and answer the question."
+
+            a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
 
     m 1a "Oh, Amelia…"
 
@@ -2050,7 +2103,11 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
         s "That would be me, Mother."
 
         m 5a "...You were the disobedient maid. I see."
-    
+
+    elif c1_mc_type == "mother_blame":
+
+        pass
+
     else:
 
         m 5a "I see…"
