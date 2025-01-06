@@ -5,11 +5,15 @@
     play ambience ballroom_ambience_2 fadein 1.0
     scene bg ballroom with cfade
     show mc 1a at center
-    show n3 at einf(0, 0.8, 0.2)
+    show npc3 at einf(0, 0.8, 0.2)
     
+    $ npc3_name = '◆ MAID 1 ◆'
+    $ npc3_1_name = '◆ MAID 2 ◆'
+
+
     n3 "Mother called for you. She’s waiting in the ballroom."
     
-    show n3_1 at r1_5 with dissolve
+    show npc3_1 at r1_5 with dissolve
 
     n3_1 "Um, excuse me? I’m really sorry, there’s a large stack of dirty plates in the kitchen, do you mind helping me wash them? I’ve already got my hands full and y-you know mother…"
     
@@ -242,7 +246,7 @@ label c1_scene2:
     # ;-; -jade
 
     $ bella_name = "???"
-    $ amelia_name = "MAID"
+    $ amelia_name = "◆ MAID ◆"
     show npc2 at center
     show mother 2a at l1_5
 
@@ -277,6 +281,8 @@ label c1_scene2:
     show mother 5a
 
     a "Ah!"
+
+    $ focus_on(['amelia'])
 
     "A maid carrying a tray of glasses drops it onto the floor."
 
