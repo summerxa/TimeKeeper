@@ -16,9 +16,11 @@ init python:
     def char_addpoints(c, n):
         store.chars_current[c]['points'] += n
         if n < 0:
-            renpy.notify(f"{c.title()} is sad :(")
+            # renpy.notify(f"{c.title()} is sad :(")
+            renpy.show_screen('notify', message=f"{c.title()} is sad :(", _tag=f"{c.title()}")
         elif n > 0:
-            renpy.notify(f"{c.title()} is happy :D")
+            # renpy.notify(f"{c.title()} is happy :D")
+            renpy.show_screen('notify', message=f"{c.title()} is happy :D", _tag=f"{c.title()}")
     
     def char_getpoints(c):
         return store.chars_current[c]['points']
@@ -29,9 +31,11 @@ init python:
 
 default save_version = None
 
-# --- SPRITE HIGHLIGHTING/CONDITION SWITCH ---
+# --- SPRITE HIGHLIGHTING/CONDITION SWITCH/INTERNAL STUFF ---
 default current_speaker = None
 default focus_dict = {}
+
+default notify_count = 0
 
 # --- CUSTOM SETTINGS ---
 default persistent.namesaves = True # prompts user to name save files if True
@@ -64,7 +68,7 @@ init python:
 
 default tolabel = ''
 
-default curlevel = 500
+default curlevel = 1
 default curtime = 0
 
 default productivity = 100.0

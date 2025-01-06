@@ -693,7 +693,7 @@ Bella's softer side comes out when it comes to Amelia, but her failing track rec
                 'tx': 'intro and tasks',
                 'c': 'mother',
                 'p': (1073,621),
-                'desc': "Bella makes a mistake. Mother gives Anastasia her tasks for the day."
+                'desc': "Amelia makes a mistake. Mother gives Anastasia her tasks for the day."
             },
             'c1_scene3': {
                 'tx': 'Amelia Sick',
@@ -2009,11 +2009,23 @@ style skip_triangle:
 ## https://www.renpy.org/doc/html/screen_special.html#notify-screen
 
 screen notify(message):
+    
+    default yp = notify_count
+
+    on "show":
+        action [SetVariable('notify_count', notify_count+1), SetVariable('yp', notify_count)]
+    on "hide":
+        # 2 screens showing -> notify count only goes down by 1 if they hide simultaneously
+        # i think this is a weird multithreading issue w/ renpy's internal code
+        # (cs major voice) I'VE PLAYED THESE GAMES BEFOREEEEEE
+        action [SetVariable('notify_count', 0)]
+
 
     zorder 100
     style_prefix "notify"
 
     frame at notify_appear:
+        ypos 10+50*yp
         text "[message!tq]"
 
     timer 3.25 action Hide('notify')
