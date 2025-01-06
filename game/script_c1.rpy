@@ -352,13 +352,21 @@ label c1_scene2:
 
         "(Distract)":
 
+            show npc2 at xal(0.99) with dissolve
+            
             s "Lord Layton, we deeply apologize for this. Is there anyway we could make up for this mistake?" 
 
             n2 "I expect a full set of wine glasses of equal or better quality sent to this estate immediately."
 
+            show mother 2a
+
             m "Of course sir, I’ll get to it immediately. Amelia, you’re coming with me."
 
+            show mother 6a
+
             m "Anastasia, don’t forget your place. You speak when I allow it."
+
+            hide npc2 with dissolve
 
             $ char_addpoints("mother", -1)
 
@@ -366,117 +374,89 @@ label c1_scene2:
 
             pass
 
+    show mother 1a
 
-    $ bella_name = "???"
-    $ amelia_name = "???"
-
-    $ focus_on(['npc2'])
-    show npc2 at center with dissolve
-    
-    n2 "These are the most proficient of your maids, madam?"
-
-    show mother 2a at l1_5
-        
-    m "Yes, Lord Layton."
-    
-    $ focus_on(['mc', 'mother'])
-
-    show mother 2a at ein(0.8, 0.15)
-
-    show npc2 at ein(.8, .95) 
-    #magic number .95
-
-    show mc 1b at center
-
-    m "This is Anastasia, my best maid. She’ll do anything you say and won’t tell a soul."
-
-    n2 "I see."
-
-    n2 "I suppose I might hire one of your maids in the near future."
-
-    show mc 1b zorder 2.0
-    m 3a "I am thoroughly pleased to hear that, sir. I ensure you that my maids are—"
-
-    play sound glass_break_sfx volume 0.15
-    #you can change whichever glass sound to be, just reference the video times from https://www.youtube.com/watch?v=0aaPMzWYL2A
-    #MAKE SURE TO MAKE VOLUME VERY QUIET BECAUSE IT'S LOUD AS HELL
-
-    show mother 5a
-    
-    show bella 8a at offscreenleft
-    b "Ah!"
-    
-    show mother 6a at lin(0.8, 0.4)
-
-    show mc 4b at lin(0.8, 0.7)
-
-    show npc2 at lin(0.8, 1.1)
-    pause 0.7
-    show bella 8a at ein(0.7, 0.0)
-
-    pause 2.5
-    m 7a "...Ah."
-
-    show mother 8a #at flip
-    m "My deepest apologies, Lord Layton. I’ll have this sorted out immediately."
-
-    #play sound metal_pipe volume .23
-    #delete line above for public beta... well acutally, you dont really need to ig, bc i commented it out :P -jade
-
-    hide npc2 with Dissolve(.4,alpha=True)
-    
-    show mother 6a
-
-    show bella 6a
-    b "Mother, I—"
-
-    $ focus_on(['mother', 'bella'])
-
-    show mother 7a at ein(0.6, 0.31)
-
-    show bella 8a
-    "Mother grips the maid’s shoulder with one hand and grips her chin with the other to force the maid to look at her."
-    
-    hide npc2 # hiding sprites saves a teeny bit of processing power #really? i didn't know that -jade
-    # well, that's what renpy wiki told me lol -snail
-
-    show amelia 6a at eaf(1.2, 0.8, 1.0)
-    a "!!!"
-
-    $ focus_on(['amelia'])
-
-    "Another maid looks on in horror and covers her mouth with her hand."
-
-    m "It seems I need to {i}reeducate{/i} you, Bella."
-
-    $ bella_name = "◆ BELLA ◆"
-   
-    b 6a "No! I-"
-
-    m 7a "Now, now. You wouldn’t want to cause a ruckus for the guests, {i}would you?{/i}"
-
-    show mother 1a 
     m "Could you clean this up, my dears?"
 
-    $ focus_on(['mother', 'bella'])
+    $ focus_on(['mother', 'amelia'])
 
     show mother 7a at ea(1.2, -1.0)
-    #flip
 
     pause 0.5
-    show bella 8a at ea(1.0, -1.0)
-    #flip
-    
-    "Mother grips Bella’s arm tightly and drags her out of the ballroom."
+    show amelia 8a at ea(1.0, -1.0)
+
+    "Mother grips Amelia’s arm tightly and drags her out of the ballroom."
 
     hide mother
-    hide bella
+    hide amelia
 
-    $ focus_on(['amelia'])
+    $ focus_on(['bella'])
 
-    #TODO: figure out what to do here LMAO; amelia's expression does NOT match 
-    pause 1.0
-    show amelia 1a
+    show mc 1b at ea(0.8, 0.5)
+
+    show bella 9a at r1_4 with dissolve
+
+    "Anastasia starts to sweep up the broken glass on the floor, but sees the same horrified maid now full of worry."
+
+    menu:
+        "(Ignore)":
+
+            pass
+
+        "(Approach her)":
+        
+            show bella 1a
+
+            menu:
+
+                b "?"
+
+                "(Console)":
+
+                    s "Mother will not go overboard with her punishment. The other maid will likely be fine."
+
+                    show bella 5a
+
+                    b "As if that’ll make me feel any better."
+
+                    show bella 6a
+
+                    b "And, {i}’she won’t go overboard’{/i}? Do you even know what the hell you’re saying?"
+
+                "(Admonish)": 
+
+                    show mc 5b
+
+                    s "Why do you care about Amelia? She made a mistake and will now pay for the consequences."
+
+                    s "Shouldn’t you be glad that Mother is teaching her how to be a better maid?"
+
+                    $ char_addpoints("bella", -1)
+
+                    show bella 8a
+
+                    b "Hmph, as if {i}you{/i} would ever understand, Mother’s {i}‘pet’{/i}."
+
+                    show mc 2b
+
+                    s "...?"
+
+                "(Stay silent)":
+
+                    show bella 5a
+
+                    b "What the fuck do you want?"
+
+                    s "..."
+
+                    show bella 7a
+
+                    b "What the hell is her problem…"
+
+    hide bella with dissolve
+
+    show mc 1b
+
     "Anastasia and the other maids pull themselves together and clean up the mess."
 
     stop ambience fadeout 2.0
@@ -508,17 +488,7 @@ label c1_scene2:
 
     m "Anastasia, dear."
 
-    m "There are some tasks that I would like you to complete tonight."
-
-    m "Firstly, the candles and fireplaces in the guest rooms must be lit up, and make sure to tidy any cluttered rooms that you come across."
-
-    m "On the off chance that a few of the nobles might wish to rest or converse in private, it is best that we prepare the rooms ahead of time."
-
-    m "Then, you must go to the kitchens and bring the trays of food to the ballroom. Our guests will surely still be hungry, so that would hopefully keep them satisfied." 
-
-    m "Lastly, empty trays must be taken to the kitchen and washed lest the ball room appears disorganized."
-
-    m 5a "Please finish all these tasks by eight o’clock."
+    m 5a "I’m sure you remember to complete all your tasks by eight o’clock."
 
     s 3b "Yes, Mother."
 
@@ -540,6 +510,129 @@ label c1_scene2:
     $ node_unlock('c1_scene2_tasks')
 
     stop ambience fadeout 2.0
+
+    scene bg kitchen with cfade
+
+    show bella 5a at l1_5
+
+    b "Ugh, these stupid nobles are {i}so{/i} annoying with their drink requests."
+
+    show bella 6a
+
+    b "One of nobles wanted wine that’s not even on the fucking menu!"
+
+    show n3 at r1_5 with dissolve
+
+    n3 "..."
+
+    hide n3
+
+    show n3_1 at r1_5 with dissolve
+
+    n3_1 "..."
+
+    hide n3_1
+
+    show amelia 1a at r1_5 with dissolve
+
+    a "Well, maybe they didn’t know…"
+
+    b "But they could’ve just asked instead of throwing their goddamn drink at me!"
+
+    hide amelia
+
+    show n3 at r1_5
+
+    n3 "Shhh- Bella, you really shouldn’t be talking about this-"
+
+    $ bella_name = "◆ BELLA ◆"
+
+    show bella 4a
+
+    b "Why not? Because you’re a sheep who’s okay with getting bullied?"
+
+    hide n3
+
+    show n3_1 at r1_5 with dissolve
+
+    n3_1 "Do you {i}not{/i} remember how mad Mother got last time?!"
+
+    show n3 at r1_3 with dissolve
+
+    n3 "J-just get back to work, guys…"
+
+    show amelia 5a at center with dissolve    
+
+    menu:
+    
+        a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?"
+
+        "(Question)":
+
+            hide bella
+
+            show mc 5b at l1_5
+
+            s "What is going on?"
+
+            n3 "Uh, n-nothing!"
+
+            n3_1 "We’re just working right now."
+
+            show mc 1b
+
+            s "If you all say so."
+
+            $ char_addpoints("amelia", +1)
+
+        "(Reprimand Bella)":
+
+            show bella 5a
+            
+            hide amelia
+            hide n3
+            hide n3_1
+
+            show mc 6b at r1_5
+
+            s "Antagonizing the guests will not make Mother happy, Bella. Perhaps that is a sign that you should do a better job on your work."
+
+            $ char_addpoints("bella", -1)
+
+            show mc 1b
+
+            s "Everyone, get back to work. There shouldn’t be a need to talk."
+
+        "Stay silent":
+
+            $ char_addpoints("amelia", -1)
+
+            b "Ha! The teacher’s pet doesn’t seem to have a problem. Besides, what I’m complaining about is reasonable, isn’t it? We’re maids, not slaves."
+
+            show bella 5a
+
+            n3_1 "I really don’t care what you do but you know your actions will drag everyone else into this, and we’re gonna get punished ‘cause of your actions!"
+
+            a "Shhh… please- Mother could be-"
+
+            n3_1 "...I know. Bella, I just have this to say: we all know your track record isn’t good. So just go back and complete your tasks."
+
+            show bella 8a
+
+            b "...tch."
+
+    scene black with dissolve
+
+    $ npc3_name = "◆ MAID ◆"
+    $ npc3_1_name = "◆ MAID ◆"
+
+    $ char_unlock("mother")
+    $ char_unlock("amelia")
+    $ char_unlock("bella")
+
+    return
+
+label c1_scene2_5:
 
     scene bg ballroom with cfade
 
@@ -678,15 +771,6 @@ label c1_scene2:
     #hopefully luna will provide us with a scared/worried expression soon T_T
     b 8a "If you say so..."
 
-    $ char_unlock("mother")
-    $ char_unlock("amelia")
-    $ char_unlock("bella")
-
-    return
-
-label c1_scene2_5:
-
-    "insert scene 2.5"
 
     return
 
