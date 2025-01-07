@@ -2493,15 +2493,13 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
                         b "What? I dropped it then?"
 
-                        b 8a "I..."
-
                         b 5a "I still don’t like you, but..." 
 
                         $ char_addpoints("bella", 1)
 
                         b "I-I guess you’re not as bad as I thought."
 
-                        a 4a "Hehehe...So you can be nice!"
+                        a 4a "Hehe, so you can be nice!"
 
                         b 8a "A-anyways, I have to finish my tasks."
 
