@@ -330,7 +330,7 @@ label c1_scene2:
 
     a "No! I-"
 
-    hide bella
+    hide bella with dissolve
 
     menu: 
     
@@ -353,9 +353,9 @@ label c1_scene2:
         "(Distract)":
 
             show npc2 at xal(0.99) with dissolve
-            
             s "Lord Layton, we deeply apologize for this. Is there anyway we could make up for this mistake?" 
 
+            show npc2 zorder 3.0
             n2 "I expect a full set of wine glasses of equal or better quality sent to this estate immediately."
 
             show mother 2a
@@ -566,15 +566,19 @@ label c1_scene2:
     $ clear_focus()
     $ focus_on(['amelia'])
 
+    a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?"
+
     menu:
     
-        a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?"
+        a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?{fast}"
 
         "(Question)":
 
             $ clear_focus()
-
+            
             hide bella
+            hide amelia
+            with dissolve
 
             show mc 5b at l1_5
 
@@ -597,6 +601,7 @@ label c1_scene2:
             hide amelia
             hide npc3
             hide npc3_1
+            with dissolve
 
             show mc 6b at r1_5
 
@@ -612,6 +617,7 @@ label c1_scene2:
 
             $ clear_focus()
 
+            show amelia 1a
             $ char_addpoints("amelia", -1)
 
             b "Ha! The teacher’s pet doesn’t seem to have a problem. Besides, what I’m complaining about is reasonable, isn’t it? We’re maids, not slaves."
