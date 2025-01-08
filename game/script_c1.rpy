@@ -364,11 +364,11 @@ label c1_scene2:
 
             show mother 6a
 
+            $ char_addpoints("mother", -1)
+            
             m "Anastasia, don’t forget your place. You speak when I allow it."
 
             hide npc2 with dissolve
-
-            $ char_addpoints("mother", -1)
 
         "(Stay silent)":
 
@@ -517,9 +517,7 @@ label c1_scene2:
 
     b "Ugh, these stupid nobles are {i}so{/i} annoying with their drink requests."
 
-    show bella 6a
-
-    b "One of nobles wanted wine that’s not even on the fucking menu!"
+    b 6a "One of nobles wanted wine that’s not even on the fucking menu!"
 
     show npc3 at r1_5 with dissolve
 
@@ -547,9 +545,7 @@ label c1_scene2:
 
     $ bella_name = "◆ BELLA ◆"
 
-    show bella 4a
-
-    b "Why not? Because you’re a sheep who’s okay with getting bullied?"
+    b 4a "Why not? Because you’re a sheep who’s okay with getting bullied?"
 
     hide npc3
 
@@ -590,9 +586,9 @@ label c1_scene2:
 
             show mc 1b
 
-            s "If you all say so."
-
             $ char_addpoints("amelia", +1)
+
+            s "If you all say so."
 
         "(Reprimand Bella)":
 
@@ -609,9 +605,7 @@ label c1_scene2:
 
             $ char_addpoints("bella", -1)
 
-            show mc 1b
-
-            s "Everyone, get back to work. There shouldn’t be a need to talk."
+            s 1b "Everyone, get back to work. There shouldn’t be a need to talk."
 
         "Stay silent":
 

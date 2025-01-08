@@ -2036,7 +2036,7 @@ screen notify_char(c_name, c_isUp):
     default yp = notify_count
 
     on "show":
-        action [SetVariable('notify_count', notify_count+1), SetVariable('yp', notify_count)]
+        action [Play('audio', audio.waterpour_click_sfx), SetVariable('notify_count', notify_count+1), SetVariable('yp', notify_count)]
     on "hide":
         action [SetVariable('notify_count', 0)]
     
