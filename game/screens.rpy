@@ -210,6 +210,7 @@ style input:
 ## https://www.renpy.org/doc/html/screen_special.html#choice
 
 screen choice(items):
+    zorder 101
     style_prefix "choice"
 
     vbox:
@@ -2029,6 +2030,40 @@ screen notify(message):
         text "[message!tq]"
 
     timer 3.25 action Hide('notify')
+
+screen notify_char(c_name, c_isUp):
+
+    default yp = notify_count
+
+    on "show":
+        action [SetVariable('notify_count', notify_count+1), SetVariable('yp', notify_count)]
+    on "hide":
+        action [SetVariable('notify_count', 0)]
+    
+    zorder 100
+
+    fixed at notify_appear:
+        xanchor 1.
+        xpos 1900
+        ypos 20+100*yp
+        maximum (250, 75)
+        add 'gui/frame.png':
+            size (250, 75)
+            align (0.5,0.5)
+            at tint('#888')
+        hbox:
+            xanchor 1.
+            xpos 230
+            yalign 0.5
+            spacing 20
+            text "[c_name]":
+                size gui.text_size
+                align (0.5,0.5)
+            add 'mini/ui/btn_floor_up_idle.png':
+                align (0.5,0.5)
+                at rot(0 if c_isUp else 180), tint('#fff')
+                    
+    timer 3.25 action Hide('notify_char')
 
 
 transform notify_appear:

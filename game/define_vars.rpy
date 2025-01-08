@@ -15,19 +15,20 @@ init python:
     
     def char_addpoints(c, n):
         store.chars_current[c]['points'] += n
-        if n < 0:
-            # renpy.notify(f"{c.title()} is sad :(")
-            renpy.show_screen('notify', message=f"{c.title()} is sad :(", _tag=f"{c.title()}")
-        elif n > 0:
-            # renpy.notify(f"{c.title()} is happy :D")
-            renpy.show_screen('notify', message=f"{c.title()} is happy :D", _tag=f"{c.title()}")
+        renpy.show_screen('notify_char', c_name=c.title(), c_isUp=(n>0), _tag=c)
     
     def char_getpoints(c):
         return store.chars_current[c]['points']
 
     def char_relation(c):
         pts = char_getpoints(c)
-        return "good" if pts > 0 else ("bad" if pts < 0 else "neutral")
+        if c == 'bella':
+            return "good" if pts >= -3 else "bad"
+        elif c == 'amelia':
+            return "good" if pts >= 0 else "bad"
+        elif c == 'mother':
+            return "good" if pts > 0 else "bad"
+        return "bad" # should be unreachable state
 
 default save_version = None
 

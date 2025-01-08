@@ -3046,12 +3046,16 @@ label chap1_test_charpoints:
 
                 # RIGHT BEFORE the line of dialogue that shows the character's reaction
                 $ char_addpoints('amelia', 1)
+                $ char_addpoints('bella', 1)
+                $ char_addpoints('mother', 1)
 
                 a "oh thanks!"
             "bad -2":
                 s "ur bad"
 
                 $ char_addpoints('amelia', -2)
+                $ char_addpoints('bella', -1)
+                $ char_addpoints('mother', -1)
                 
                 a "that's mean :("
             "say nothing":
@@ -3073,12 +3077,14 @@ label chap1_test_charpoints:
                 s "meow"
 
                 $ char_addpoints('amelia', 2)
+                $ char_addpoints('bella', 1)
 
                 a "omg cat mc!!!"
             "preserve your dignity -1":
                 s "no, i'm NOT doing my cat impression"
 
                 $ char_addpoints('amelia', -1)
+                $ char_addpoints('bella', -1)
                 
                 a "w-what? but i didn't even ask you to..."
             "say nothing, again":
