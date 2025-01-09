@@ -565,8 +565,6 @@ label c1_scene2:
     a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?"
 
     menu:
-    
-        a "Uh, Anastasia, {i}*cough*{/i} s-since you’re the head maid, could you help calm the situation down?{fast}"
 
         "(Question)":
 
@@ -759,8 +757,6 @@ label c1_scene3:
     menu:
 
         a "Please… don’t tell her."
-        # btw i asked luna and i think we might be removing the {fast} stuff for menus -snail
-        # less typing for us at least :D
 
         "Remain silent":
 
@@ -1752,8 +1748,6 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
         m 1a "Do you have evidence for this?"
 
         menu:
-
-            m "Do you have evidence for this?{fast}"
             
             "Pocketwatch" if c1_has_bella_watch:
 
