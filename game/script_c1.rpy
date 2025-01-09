@@ -242,7 +242,7 @@ label c1_scene2:
     scene bg ballroom with cfade
     
     play music ballroom_ost
-    play ambience ballroom_ambience_1 fadein .6
+    play ambience ballroom_ambience_2 fadein .6
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
@@ -344,7 +344,7 @@ label c1_scene2:
 
             m "Ah, you are right, Anastasia."
 
-            s "I’ll hold the punishment elsewhere instead."
+            m "I’ll hold the punishment elsewhere instead."
 
             $ char_addpoints("mother", +1)
 
@@ -604,8 +604,9 @@ label c1_scene2:
             s "Antagonizing the guests will not make Mother happy, Bella. Perhaps that is a sign that you should do a better job on your work."
 
             $ char_addpoints("bella", -1)
-
-            s 1b "Everyone, get back to work. There shouldn’t be a need to talk."
+        
+            show bella 8a
+            s 1b"Everyone, get back to work. There shouldn’t be a need to talk."
 
         "Stay silent":
 
@@ -1499,7 +1500,7 @@ label c1_scene6:
                     call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue
                     #call c1_amelia_ending from _call_c1_amelia_ending
 
-                "Bella" if c1_has_bella_watch:
+                "Bella":
 
                     call c1_interrogation_continue("bella") from _call_interrogation_bella_continue
                 "Anastasia":
@@ -1525,7 +1526,7 @@ label c1_scene6:
 
                         "Amelia":
                             call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_1
-                        "Bella" if c1_has_bella_watch:
+                        "Bella":
                             call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_1
                 "Yes":
 
@@ -1549,7 +1550,7 @@ label c1_scene6:
                                 m "Who was that maid?"
                                 "Amelia":
                                     call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_2
-                                "Bella" if c1_has_bella_watch:
+                                "Bella":
                                     call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_2
                                 "Anastasia":
                                     call c1_mc_ending from _call_c1_mc_ending_1
@@ -1573,7 +1574,7 @@ label c1_scene6:
 
                                         "Amelia":
                                             call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_3
-                                        "Bella" if c1_has_bella_watch:
+                                        "Bella":
                                             call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_3
                                 "No":
                                     
@@ -1592,7 +1593,7 @@ label c1_scene6:
                                         "Amelia":
                                             call c1_interrogation_continue("amelia") from _call_interrogation_amelia_continue_4
                                             #call c1_amelia_ending(c1_justify_blame=False) from _call_c1_amelia_ending_4
-                                        "Bella" if c1_has_bella_watch:
+                                        "Bella":
                                             call c1_interrogation_continue("bella") from _call_interrogation_bella_continue_4
                                             #call c1_bella_ending(c1_justify_blame=False) from _call_c1_bella_ending_4
                                         "Anastasia":
@@ -1696,7 +1697,7 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
                     show bella 9a
                     m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
 
-                elif getMgameRating(1) == 'bad':
+                else:
 
                     s "That is not true, Mother."
 
@@ -1720,7 +1721,7 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
 
-                m 1a "Is this true?" 
+                m 1a "Are you the one who did not complete your task?" 
 
                 a "M-Mother, I—"
 
@@ -1754,26 +1755,76 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
             m "Do you have evidence for this?{fast}"
             
-            "Pocketwatch":
+            "Pocketwatch" if c1_has_bella_watch:
 
-                s "Bella was taking my tasks earlier."
+                #s "Bella was taking my tasks earlier."
 
-                s "She interrupted me while I was assisting some nobles, and she hastily dropped her pocket watch when I confronted her about it."
+                #s "She interrupted me while I was assisting some nobles, and she hastily dropped her pocket watch when I confronted her about it."
+
+                $ char_addpoints("mother", +1)
+
+                m 2a "Great job, Sophronia."
+
+                b 9a "Mother, that wasn’t what I was doing, I—"
+
+                m 6a "Oh, Bella. Please quiet down, dear."
+
+                m "I heard that you made a commotion in the kitchen, and now {i}this{/i}?"
+
+                m 7a "It seems that you haven’t learned enough from your last punishment."
+
+                call c1_bella_ending from _call_c1_bella_ending_8
 
             "Bella’s recent performance":
 
-                "filler text"
+                s "Bella’s recent performance has left a lot to be desired. If you ask any of the other maids around here they would be able to testify."
 
-        "filler text for now"
+                s "There would be no one else who would mess up this much."
 
-        #also filler end
-        call c1_bella_ending from _call_c1_bella_ending_7
-    
+                menu:
+
+                    "Bad relationship":
+                        a "W-wait! But can we really trust her word?"
+
+                        b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
+
+                        show bella 5a
+                        a 6a "Huh? Oh, yeah."
+
+                        m 5a "I see."
+
+                        if getMgameRating(1) == 'good':
+                                
+                            show amelia 7a
+                            show bella 9a
+                            m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+
+                            m "I have also heard that you made a commotion in the kitchen."
+
+                            m 7a "It seems that you haven’t learned enough from your last punishment."
+
+                            call c1_bella_ending from _call_c1_bella_ending_10
+
+                        else:
+
+                            s "That is not true, Mother."
+
+                            m "Anastasia…"
+
+                            m 6a "I find it difficult to believe your words when your performance today was quite terrible."
+
+                            m 7a "I am more inclined to believe that you are blaming others to keep your own position."
+
+                            call c1_mc_ending("mother_blame") from _call_c1_mc_ending_6
+                        
+                    "Good relationship":
+
+                        call c1_bella_ending from _call_c1_bella_ending_9
+
     return
 
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
-
 
     $ node_unlock('c1_amelia_blame')
 
@@ -1818,14 +1869,10 @@ label c1_amelia_ending(c1_justify_blame=True):
     m "Oh, I almost forgot— The owner just told me that they needed an extra hand for the cleanup at the ballroom today."
 
     a 1a "I… I can do that too."
-
-    m 3a "Why {i}thank you{/i}, Amelia. I was worried about who to assign it to."
-
-    m 5a "Hmm… there was another task, was there not?" 
     
     show amelia 7a
 
-    m 1a "Joanne, do you recall what it was?"
+    m 1a "Hmm… there was another task, was there not? Joanne, do {i}you{/i} recall what it was?"
 
     show npc3 with Dissolve(.6,alpha=True)
     show npc3 zorder .05
@@ -1861,30 +1908,49 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide npc3 with dissolve
 
-    a "I’ll also help shovel the snow."
+    a "I’ll also help shovel the snow!"
 
     show bella 8a
     m 2a "Good girl. I can tell that you really are seeking to help out the family, Amelia."
 
-    a 8a "Yes, I— y-you won’t kick me out, r-right?"
+    a 8a "I— you won’t kick me out, right?"
 
     m "Of course not. If you are able to complete all of these tasks perfectly, it would lighten everyone’s burden greatly. We would all be thankful to you."
 
-    m 3a "Everyone, thank you for coming, and I {i}encourage{/i} you all to keep up the excellent work. You are all dismissed."
-
-    $ focus_on(['mc'])
-    show mc 1b at eout(1.0,1.5)
-
-    "Anastasia leaves the room with the other maids." 
+    m 3a "Everyone, thank you for coming, and I {i}encourage{/i} you all to keep up the excellent work. You are all dismissed." 
     
-    $ focus_on(['bella'], {'bella': 2})
+    $ focus_on(['bella'])
     # added a highlight to bella as she leaves the room... not sure if it looks better this way -snail
     show bella 5a
     "At first, Bella doesn’t move and apprehensively looks at Amelia for a moment..."
     
-    pause .9
-    show bella 8a at eout(2.2,1.4)
-    "But she quickly steels herself and leaves as well."
+    show mother 8a
+    menu:
+
+        "Question":
+
+            s "What are you doing?"
+
+            b 8a "Amelia…"
+
+            b 6a "Ugh, nevermind. Bye."
+
+        "Order":
+            show bella 8a
+
+            s "You should leave now."
+    
+            $ char_addpoints("bella", -1)
+
+            b 10a "You… get lost." 
+
+    show bella 8a at eout(1.7,1.4)
+
+    pause 3.0
+    $ focus_on(['mc'])
+    show mc 1b at eout(1.0,1.5)
+
+    "Anastasia leaves the room with the other maids."  
 
     scene black with dissolve
 
@@ -1905,22 +1971,21 @@ label c1_amelia_ending(c1_justify_blame=True):
     show amelia 7a with dissolve
     show snowfront zorder 10
 
-    a "N-no! I— I can’t do it! I can’t shovel all the snow by myself! Wh-what am I going to do?!"
+    a "N-no! Wh-what am I going to do?! So many tasks in one day!"
+
+    a "But I have to stay a part of the family…"
+
+    a "I’m a good child… I swear…"
 
     a 8a "If Mother finds out, she’ll be disappointed in me— she’ll kick me out!"
 
-    a 7a "Th-this is all my fault—"
+    a "I’m— I have to be a part of the family…"
 
-    a "I’m— I’m pathetic! I’m a failure! No one will love me!"
+    a 7a "I must be…"
 
-    a "What am I going to do?!"
+    a 6a "Or else… why am I here?"
 
-    a "I—"
-
-    $ focus_on(['amelia'])
-    "In the midst of her panic, Amelia looks out at the edge of the roof, where the snow falls off towards the ground below."
-
-    a 6a "Maybe… that’s the only way…"
+    a "I…"
 
     stop ambience fadeout 2.0
 
@@ -2026,18 +2091,7 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
 
     stop music fadeout 1.0
     
-
     $ node_unlock('c1_bella_blame')
-
-    m 5a "Ah. I see."
-
-    b 9a "Mother, that wasn’t what I was doing, I—"
-
-    m 6a "Oh, Bella. Please quiet down, dear."
-
-    m "You made a mistake right as I was informing the lord of our services, and now this?"
-
-    m 7a "It seems that you haven’t learned enough from your last punishment."
 
     b 6a "No— Mother, I’ll do better, I swear! Just—"
 
@@ -2168,11 +2222,17 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     m 1a "The rest of you are dismissed."
 
-    $ focus_on(["amelia","bella"])
-    show bella 1a at eout(1.7,1.4)
-    show amelia 1a at eout(1.6,1.4)
-    #fix later
-    "Amelia stops to glance at Anastasia worriedly, but Bella quickly ushers her out of the room."
+    menu:
+
+        "relationship good":
+            $ focus_on(["amelia","bella"])
+            show bella 1a at eout(1.7,1.4)
+            show amelia 1a at eout(1.6,1.4)
+            #fix later
+            "Amelia stops to glance at Anastasia worriedly, but Bella quickly ushers her out of the room."
+        
+        "relationsship bad":
+            pass
 
     hide amelia
     hide bella
@@ -2256,6 +2316,8 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
             if c1_mc_type == "takes_blame":
 
                 a "You protected me and took the punishment in my place. You didn’t have to do that. In fact, I admire your courage. I’ve always been so scared to do, well, much of anything."
+
+                $ char_addpoints("amelia", 1)
 
                 a "Anyways, thank you. There’s no way I could leave you like this."
 
@@ -2346,8 +2408,6 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
                 show mc 1b at l1_5
                 show amelia 1a at r1_5
                 with dissolve
-
-            #a "I’m really, {i}really{/i} sorry for everything Bella did!"
 
             if c1_mc_type == "takes_blame":
 
@@ -2690,11 +2750,11 @@ label c1_scene7:
         show mc 3b
         pause 2.0
 
-        show bella 1a at einf(-.8,1.0,.2)
+        show bella 7a at einf(-.8,1.0,.2)
 
         pause 1.5
 
-        b "Ah... It’s you."
+        b 1a "Ah... It’s you."
 
         s 1b "...?"
 
@@ -2719,23 +2779,19 @@ label c1_scene7:
                 
                 b "Amelia didn’t deserve this…"
 
-                #play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "You’re a {i}sick{/i} human being. No, you’re below human."
-
-                #play sound "audio/random/vineboom.mp3" volume .3
+                
+                $ char_addpoints("bella", -2)
                 b "Well, I hope you rot in hell, bitch."
 
             "Be considerate":
 
                 s "I am… sorry that Amelia is dead."
 
-                #play sound "audio/random/vineboom.mp3" volume .3
                 b 10a "Do you think ‘sorry’ is going to cut it? Do you think {i}‘sorry’{/i} is going to fix anything?!"
 
-                #play sound "audio/random/vineboom.mp3" volume .3
                 b "She’s never coming back because of YOU!"
 
-                #play sound "audio/random/vineboom.mp3" volume .3
                 b "{size=50}GO TO HELL!{/size}"  
 
             "Remain silent":
@@ -2746,16 +2802,10 @@ label c1_scene7:
 
                 b 5a "{size=40}Not even a robotic comment or reply?{/size}"
 
-                #play sound "audio/random/vineboom.mp3" volume .3
                 b 6a "{size=50}Is that how little she matters to you?!{/size}"
 
-                #play sound "audio/random/vineboom.mp3" volume .3
+                $ char_addpoints("bella", -1)
                 b 10a "Fuck. {w=0.5}You."
-
-                # forces text not to scroll, but looks meh -snail
-                # b "Fuck. {fast}{w=0.5}{nw}{done}You."
-
-                # b "Fuck. You.{fast}"
 
         show bella at ein(.8,-.8)
 
