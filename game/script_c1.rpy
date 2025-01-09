@@ -1208,9 +1208,7 @@ label c1_fetch4:
 
                 "(Pick it up)":
 
-                    #play sound "audio/random/Zelda Receive Item - Sound Effect for editing.mp3" volume .5
                     "Anastasia picks up Bella's pocketwatch."
-                    #TODO: should prolly change this text for official version LMAO
                     
                     $ node_unlock('c1_fetch4_c_pickup')
 
@@ -1671,62 +1669,38 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 s "She had not been working on her tasks and was instead resting in this room."
 
-        #if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
+        if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
 
-        menu:
+            a "W-wait! But can we really trust her word?"
 
-            #TODO: fix for relationship
+            b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
 
-            "Bad relationship w/ amelia & bella":
-                a "W-wait! But can we really trust her word?"
+            show bella 5a
+            a 6a "Huh? Oh, yeah."
 
-                b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
+            m 5a "I see."
 
-                show bella 5a
-                a 6a "Huh? Oh, yeah."
+            if getMgameRating(1) == 'good':
+                    
+                show amelia 7a
+                show bella 9a
+                m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+                
+                call c1_amelia_end_transition
 
-                m 5a "I see."
+            else:
 
-                if getMgameRating(1) == 'good':
-                        
-                    show amelia 7a
-                    show bella 9a
-                    m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+                s "That is not true, Mother."
 
-                else:
+                m "Anastasia…"
 
-                    s "That is not true, Mother."
+                m 6a "I find it difficult to believe your words when your performance today was quite terrible."
 
-                    m "Anastasia…"
+                m 7a "I am more inclined to believe that you are blaming others to keep your own position."
 
-                    m 6a "I find it difficult to believe your words when your performance today was quite terrible."
-
-                    m 7a "I am more inclined to believe that you are blaming others to keep your own position."
-
-                    call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
-
-            "Good relationship w/ either":
-
-                $ focus_on(['mother'])
-                "Mother looks at Amelia."
-
-                m 5a "Amelia…"
-
-                show amelia 8a zorder .003
-                a "N-no, Mother! I—"
-
-                m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
-
-                m 1a "Are you the one who did not complete your task?" 
-
-                a "M-Mother, I—"
-
-                m 5a "Amelia, my dear… just calm down and answer the question."
-
-                a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
-
-                call c1_amelia_ending from _call_c1_amelia_ending_6
-
+                call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
+        else:
+            call c1_amelia_ending
 
     elif c1_interrogation == "bella":
 
@@ -1775,47 +1749,68 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 s "There would be no one else who would mess up this much."
 
-                menu:
+                if char_relation("amelia") == "bad" and char_relation("bella") == "bad":
+                    a "W-wait! But can we really trust her word?"
 
-                    "Bad relationship":
-                        a "W-wait! But can we really trust her word?"
+                    b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
 
-                        b 6a "That’s right. I noticed that Anastasia was not keeping up with guest requests. In fact, Amelia had to stand in for her. Isn’t that right?"
+                    show bella 5a
+                    a 6a "Huh? Oh, yeah."
 
-                        show bella 5a
-                        a 6a "Huh? Oh, yeah."
+                    m 5a "I see."
 
-                        m 5a "I see."
+                    if getMgameRating(1) == 'good':
+                            
+                        show amelia 7a
+                        show bella 9a
+                        m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
 
-                        if getMgameRating(1) == 'good':
-                                
-                            show amelia 7a
-                            show bella 9a
-                            m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
+                        m "I have also heard that you made a commotion in the kitchen."
 
-                            m "I have also heard that you made a commotion in the kitchen."
+                        m 7a "It seems that you haven’t learned enough from your last punishment."
 
-                            m 7a "It seems that you haven’t learned enough from your last punishment."
+                        call c1_bella_ending from _call_c1_bella_ending_10
 
-                            call c1_bella_ending from _call_c1_bella_ending_10
+                    else:
 
-                        else:
+                        s "That is not true, Mother."
 
-                            s "That is not true, Mother."
+                        m "Anastasia…"
 
-                            m "Anastasia…"
+                        m 6a "I find it difficult to believe your words when your performance today was quite terrible."
 
-                            m 6a "I find it difficult to believe your words when your performance today was quite terrible."
+                        m 7a "I am more inclined to believe that you are blaming others to keep your own position."
 
-                            m 7a "I am more inclined to believe that you are blaming others to keep your own position."
+                        call c1_mc_ending("mother_blame") from _call_c1_mc_ending_6
+                    
+                else:
 
-                            call c1_mc_ending("mother_blame") from _call_c1_mc_ending_6
-                        
-                    "Good relationship":
-
-                        call c1_bella_ending from _call_c1_bella_ending_9
+                    call c1_bella_ending from _call_c1_bella_ending_9
 
     return
+
+
+label c1_amelia_end_transition:
+
+    $ focus_on(['mother'])
+    "Mother looks at Amelia."
+
+    m 5a "Amelia…"
+
+    show amelia 8a zorder .003
+    a "N-no, Mother! I—"
+
+    m 7a "There’s no need to panic, my dear Amelia. Just answer one question."
+
+    m 1a "Are you the one who did not complete your task?" 
+
+    a "M-Mother, I—"
+
+    m 5a "Amelia, my dear… just calm down and answer the question."
+
+    a 6a "I-I’m sorry, I just… I was tired. We were working the whole day, and I—"
+
+    jump c1_amelia_ending
 
 label c1_amelia_ending(c1_justify_blame=True):
     $ c1_ending = "amelia"
@@ -2113,7 +2108,6 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     "The next day..."
 
     show cg bella ending 1 with cfade
-    #TODO: swap w/ official one if discord destroyed quality
 
     $ npc3_name = "◆ MAID 1 ◆"
     $ npc3_1_name = "◆ MAID 2 ◆"
@@ -2158,7 +2152,6 @@ label c1_bella_ending(c1_blame_bella_dialogue=True, c1_justify_blame=True):
     "However, her countenance couldn’t be more foreign."
 
     show cg bella ending 2 with cfade
-    #TODO: swap w/ official if discord bad
 
     a "..."
 
@@ -2216,17 +2209,12 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     m 1a "The rest of you are dismissed."
 
-    menu:
-
-        "relationship good":
-            $ focus_on(["amelia","bella"])
-            show bella 1a at eout(1.7,1.4)
-            show amelia 1a at eout(1.6,1.4)
-            #fix later
-            "Amelia stops to glance at Anastasia worriedly, but Bella quickly ushers her out of the room."
-        
-        "relationsship bad":
-            pass
+    if char_relation("amelia") == "good":
+        $ focus_on(["amelia","bella"])
+        show bella 1a at eout(1.7,1.4)
+        show amelia 1a at eout(1.6,1.4)
+        #fix later
+        "Amelia stops to glance at Anastasia worriedly, but Bella quickly ushers her out of the room."
 
     hide amelia
     hide bella
@@ -2280,439 +2268,437 @@ label c1_mc_ending(c1_mc_type="takes_blame"):
 
     hide mother
 
-    menu:
+    if char_relation("amelia") == "good" and char_relation("bella") == "good" and not c1_mc_type == "mother_blame":
 
-        "both relationships good":
+        play sound door_creak volume 1.5
+        #should i replace w/ footsteps instead? -jade
+        pause 2.5
 
-            play sound door_creak volume 1.5
-            #should i replace w/ footsteps instead? -jade
-            pause 2.5
+        s 4b "...?"
 
-            s 4b "...?"
+        $ focus_on(["mc","amelia"])
+        
+        show mc 4b at ein(1.0,.2)
+        show amelia 1a at einf(1.4,1.2,.8)
 
-            $ focus_on(["mc","amelia"])
+        "Anastasia looks up to see Amelia quietly walk in with a small container in her hands."
+
+        a "Hi Anastasia... are you okay?"
+
+        s "Amelia?"
+
+        a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
+
+        scene cg mc ending 1 with cfade
+
+        s "What are you doing?"
+        
+        if c1_mc_type == "takes_blame":
+
+            a "You protected me and took the punishment in my place. You didn’t have to do that. In fact, I admire your courage. I’ve always been so scared to do, well, much of anything."
+
+            $ char_addpoints("amelia", 1)
+
+            a "Anyways, thank you. There’s no way I could leave you like this."
+
+        else:
+
+            a "Bella blamed you for my mistake, and you didn't say anything. You could’ve told Mother the truth, or you could’ve even lied and said that it was Bella who didn’t follow orders."
+
+            a "Even though Bella forced you to take the punishment in my stead, you went along with her lie and protected me."
             
-            show mc 4b at ein(1.0,.2)
-            show amelia 1a at einf(1.4,1.2,.8)
+            $ char_addpoints("amelia", 1)
 
-            "Anastasia looks up to see Amelia quietly walk in with a small container in her hands."
+            a "So, thank you. There’s no way I could leave you like this."
 
-            a "Hi Anastasia... are you okay?"
+        play sound door_creak volume 1.5 
 
-            s "Amelia?"
+        a "!!!"
 
-            a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
+        show cg mc ending 2 with cfade
+
+        if c1_mc_type == "takes_blame":
+
+            b "Hey Amelia, here’s the bandages you asked me to get."
+
+        else:
+
+            b "Hey Amelia… here’s the bandages you asked me to get."
+
+        a "Bella!"
+
+        if c1_mc_type == "takes_blame":
+
+            b "...So that’s what the bandages are for?"
+
+            a "Um, yeah! Anastasia, could you hold out your hands, please? If-if that isn’t too much, of course!"
+
+        else:
+
+            b "I still can’t believe that you’re helping her…"
+
+            a "After everything that happened?! Bella— why shouldn’t I?!"
+
+            b "How do you know that she wasn’t going to tell Mother the truth?! Hell, she might’ve even blamed me! Either of us could’ve been punished because of her!"
+
+            a "But Anastasia didn’t do any of that! You were the one who lied and shifted the blame onto someone else!"
+
+            b "I was trying to protect you—"
+
+            show cg mc ending 2 at vshake
+
+            a "{size=50}I DIDN'T ASK FOR YOUR PROTECTION!{/size}"
+
+            "Bella flinches in shock."
+
+            b "Amelia—"
+
+            a "{i}I{/i} didn't ask you to lie to Mother; {i}I{/i} didn't ask you to blame others for my mistakes; {i}I{/i} didn't ask you to do any of that!"
+
+            a "{i}YOU{/i} were the one who chose to do all that!"
+
+            "Bella looks away in shame."
+
+            a "We're done."
+
+            "Bella quickly raises her head in horror."
+
+            b "WHAT?!"
+
+            a "I don't want to see you right now, Bella."
+
+            "Bella opens her mouth to say something, but instead bites her lip and stays silent. She looks down at the floor, before turning and walking to the doorway."
+
+            "Bella hesitates for a moment and turns to look at Amelia, who firmly refuses to meet her gaze."
+
+            "Bella looks away for one final time and leaves the room."
 
             scene cg mc ending 1 with cfade
 
-            s "What are you doing?"
-            
-            if c1_mc_type == "takes_blame":
+            "Amelia watches her leave with a heartbroken but resigned expression."
 
-                a "You protected me and took the punishment in my place. You didn’t have to do that. In fact, I admire your courage. I’ve always been so scared to do, well, much of anything."
+            "Amelia stares at the closed door for a while, before suddenly remembering Anastasia's presence in the room."
 
-                $ char_addpoints("amelia", 1)
+            "She hurriedly wipes away the tears on her face with her sleeves."
 
-                a "Anyways, thank you. There’s no way I could leave you like this."
+            a "Um… a-anyways, Anastasia, could you hold out your hands, please? If-if that wouldn’t be too much, of course!"
 
-            else:
-
-                a "Bella blamed you for my mistake, and you didn't say anything. You could’ve told Mother the truth, or you could’ve even lied and said that it was Bella who didn’t follow orders."
-
-                a "Even though Bella forced you to take the punishment in my stead, you went along with her lie and protected me."
-                
-                $ char_addpoints("amelia", 1)
-
-                a "So, thank you. There’s no way I could leave you like this."
-
-            play sound door_creak volume 1.5 
-
-            a "!!!"
-
-            show cg mc ending 2 with cfade
-
-            if c1_mc_type == "takes_blame":
-
-                b "Hey Amelia, here’s the bandages you asked me to get."
-
-            else:
-
-                b "Hey Amelia… here’s the bandages you asked me to get."
-
-            a "Bella!"
-
-            if c1_mc_type == "takes_blame":
-
-                b "...So that’s what the bandages are for?"
-
-                a "Um, yeah! Anastasia, could you hold out your hands, please? If-if that isn’t too much, of course!"
-
-            else:
-
-                b "I still can’t believe that you’re helping her…"
-
-                a "After everything that happened?! Bella— why shouldn’t I?!"
-
-                b "How do you know that she wasn’t going to tell Mother the truth?! Hell, she might’ve even blamed me! Either of us could’ve been punished because of her!"
-
-                a "But Anastasia didn’t do any of that! You were the one who lied and shifted the blame onto someone else!"
-
-                b "I was trying to protect you—"
-
-                show cg mc ending 2 at vshake
-
-                a "{size=50}I DIDN'T ASK FOR YOUR PROTECTION!{/size}"
-
-                "Bella flinches in shock."
-
-                b "Amelia—"
-
-                a "{i}I{/i} didn't ask you to lie to Mother; {i}I{/i} didn't ask you to blame others for my mistakes; {i}I{/i} didn't ask you to do any of that!"
-
-                a "{i}YOU{/i} were the one who chose to do all that!"
-
-                "Bella looks away in shame."
-
-                a "We're done."
-
-                "Bella quickly raises her head in horror."
-
-                b "WHAT?!"
-
-                a "I don't want to see you right now, Bella."
-
-                "Bella opens her mouth to say something, but instead bites her lip and stays silent. She looks down at the floor, before turning and walking to the doorway."
-
-                "Bella hesitates for a moment and turns to look at Amelia, who firmly refuses to meet her gaze."
-
-                "Bella looks away for one final time and leaves the room."
-
-                scene cg mc ending 1 with cfade
-
-                "Amelia watches her leave with a heartbroken but resigned expression."
-
-                "Amelia stares at the closed door for a while, before suddenly remembering Anastasia's presence in the room."
-
-                "She hurriedly wipes away the tears on her face with her sleeves."
-
-                a "Um… a-anyways, Anastasia, could you hold out your hands, please? If-if that wouldn’t be too much, of course!"
-
-                scene bg guestroom with cfade
-                $ focus_on(['mc', 'amelia'])
-                show mc 1b at l1_5
-                show amelia 1a at r1_5
-                with dissolve
-
-            if c1_mc_type == "takes_blame":
-
-                s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
-
-                menu:
-
-                    b "Jesus christ, are you a robot?"
-
-                    "Clarify":
-
-                        s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
-
-                        b "...I don’t even know whether to laugh or cry."
-
-                    "Ignore":
-
-                        pass
-
-                    "Question":
-
-                        s "Why would you say that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
-
-                        b "Oh my god, I was being sarcastic."
-
-                        a "...Not everyone understands your sarcasm, Bella."
-
-                "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia’s arm."
-
-                scene bg guestroom with cfade
-
-                $ focus_on(['amelia'])
-                show mc 1b at left
-                show amelia 1a at center
-                show bella 5a at right
-                with dissolve
-                #might change positions later -jade
-                #also, transitions is bit ehhhh
-                #well, now u have a dissolve animation :D -snail
-
-                a "Bella, try to be nice to Anastasia, okay? She did help me…"
-
-                b 8a "Ugh."
-
-                a "Bella...you did something, didn’t you?"
-            
-                b 5a "Uh..." 
-                
-                b 8a "Maybe."
-
-                a 2a "Oh—"
-
-                a 1a "I’m really sorry for everything Bella did."
-
-                s "..."
-
-                a "Bella..."
-
-                b 6a "Ugh, I’m sorry for taking your tasks, but I don’t regret it. Wasn’t gonna get punished again."
-
-                a "Bella!"
-
-                b 8a "Fine..." 
-                
-                b 5a "I’m sorry that I was being rude, and I won’t do that again."
-
-                b 8a "And..." 
-                pause 1.5
-
-                $ char_addpoints("bella", 1)
-                b 5a "Thank you for protecting Amelia."
-
-                if c1_saw_bella_watch == True:
-
-                    b 6a "A-anyways, do you have the time, Amelia?"
-
-                    show bella 1a 
-                    a 2a "Um… it’s half past nine. Why do you ask?"
-
-                    b "Nothing, it’s just that I lost my pocket watch earlier."
-
-                    a 1a "What? When?"
-
-                    b "I think it might’ve been when I was helping out another noble, but I don’t really know."
-
-                    if not c1_has_bella_watch:
-
-                        if not c1_saw_bella_watch:
-
-                            a "Maybe you dropped it in the ballroom?"
-
-                            b 5a "I guess so…"
-
-                        else:
-
-                            s "You dropped it after I confronted you about taking my tasks."
-
-                            b 5a "That’s where it is? I can't believe I dropped it…"
-
-                        b 8a "Hopefully I can still find it…"
-
-                        a 4a "I’m sure you’ll be able to, Bella! I can help."
-
-                        b 1a "I’ll take you up on your offer if I can’t find it after a while."
-
-                        b 7a "Well, I guess I better go find it." 
-                        
-                        b 1a "See ya, Amelia. And… you too, I guess."
-
-                        a 1a "Bella!"
-
-                        $ focus_on(["bella"])
-                        show bella at eout(.7,1.4)
-
-                        "Bella leaves the room."
-
-                        show mc at ein(.8,.2)
-                        show amelia at ein(1.0,.8)
-
-                        a 5a "Well, that’s… one of the better apologies she’s given, honestly speaking. Could still work on the goodbye, though."
-
-                        hide bella 
-
-                        a 1a "Again— I’m really, really sorry for everything Bella’s done."
-
-                    if c1_has_bella_watch:
-
-                        $ c1_has_bella_watch = False
-
-                        $ focus_on(["mc","bella"])
-                        show bella 9a
-                        "Anastasia pulls the pocket watch out of her pocket and presents it to Bella. In shock, she takes it from her."
-
-                        b "I— my pocket watch— where did you find it?"
-
-                        s "You dropped it after I found you serving food to the noble."
-
-                        b "What? I dropped it then?"
-
-                        b 5a "I still don’t like you, but..." 
-
-                        $ char_addpoints("bella", 1)
-
-                        b "I-I guess you’re not as bad as I thought."
-
-                        a 4a "Hehe, so you can be nice!"
-
-                        b 8a "A-anyways, I have to finish my tasks."
-
-                        $ focus_on(["bella"])
-                        show bella at ein(.5,1.4)
-                        "Bella hurriedly leaves the room."
-                        hide bella
-
-                        show mc at ein(.8,.2)
-                        show amelia at ein(1.0,.8)
-                        a 3a "You know... that’s the best ‘thank you’ I ever heard Bella give."
-
-                else: 
-
-                    a 2a "Bella, you..."
-
-                    b 8a "Well, a-anyways, I need to go finish up my tasks."
-
-                    b 1a "Bye, Amelia."
-
-                    $ focus_on(["bella"])
-                    show bella 7a at eout(.7,1.4)
-
-                    s "..."
-
-                    a "I'm really sorry about Bella!"
-
-                    a "I know she seems really rude sometimes—"
-
-                    a 2a "Well, most of the time..."
-
-                    a 1a "But deep down, she's a good person!"
-
-                    s "..."
-
-            $ focus_on(['amelia', 'mc'])
-            "Amelia finishes bandaging Anastasia’s hands."
-
-            a 4a "...And there we go!"
-
-            a 3a "Do your hands feel better now?"
-
-            $ focus_on(["mc"])
-            "Anastasia nods."
-
-            a 4a "That’s great. I know that the soap that we use can really hurt, especially when your hands have cuts, so it’s good that the medicine helps with the pain, even at least a little."
-
-            a 1a "Hmm...?"
-            #is this the right expression? -jade
-            # looks fine to me :3 -snail
-            # <3 -jade
-
-            a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
-
-            a 2a "Please keep the medicine! I made it myself, so don’t worry about needing to return it! Just remember to apply it everyday right before you go to sleep!"
-
-            $ focus_on(["amelia"])
-            show amelia 3a at ein(.9,1.4)
-            "Amelia waves goodbye to Anastasia and leaves the room."
-
-            scene black with dissolve
-
-            $ node_unlock('c1_mc_end')
-            $ cg_unlock('c1_mc_end 1')
-            $ cg_unlock('c1_mc_end 2')
-
-        "Bella relationship bad":
-            
-            play sound door_creak volume 1.5
-            #should i replace w/ footsteps instead? -jade
-            pause 2.5
-
-            s 4b "...?"
-
-            $ focus_on(["mc","amelia"])
-            
-            show mc 4b at ein(1.0,.2)
-            show amelia 1a at einf(1.4,1.2,.8)
-
-            "Anastasia looks up to see Amelia quietly walk in with a small container in her hands."
-
-            a "Hi Anastasia... are you okay?"
-
-            s "Amelia?"
-
-            a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
-
-            s "What are you doing?"
-            
-            if c1_mc_type == "takes_blame":
-
-                a 5a "You protected me and took the punishment in my place. You didn’t have to do that. In fact, I admire your courage. I’ve always been so scared to do, well, much of anything."
-
-                a 4a "Anyways, thank you. There’s no way I could leave you like this."
-
-            else:
-
-                a 2a "Bella blamed you for my mistake, and you didn't say anything. You could’ve told Mother the truth, or you could’ve even lied and said that it was Bella who didn’t follow orders."
-
-                a "Even though Bella forced you to take the punishment in my stead, you went along with her lie and protected me."
-                
-                $ char_addpoints("amelia", 1)
-
-                a 5a "So, thank you. There’s no way I could leave you like this."
-
-            a 5a "Um… a-anyways, I’ll go get some bandages real quick for your hand!"
-            show amelia 3a at eout(.9,1.4)
-
-            scene black with dissolve
-            pause 2.0
-            scene cg mc ending 1 with cfade
-
-            a "Anastasia, could you hold out your hands, please? If-if that wouldn’t be too much, of course!"
-
-            s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
-
-            a "I mean you helped me. Of course I would help you. Isn’t that how things work?"
-
-            "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia's arm."
-
-            scene black with dissolve
-            pause 2.0
             scene bg guestroom with cfade
-
-            $ focus_on(['amelia'])
+            $ focus_on(['mc', 'amelia'])
             show mc 1b at l1_5
             show amelia 1a at r1_5
             with dissolve
 
-            $ focus_on(['amelia', 'mc'])
-            "Amelia finishes bandaging Anastasia’s hands."
+        if c1_mc_type == "takes_blame":
 
-            a 4a "...And there we go!"
+            s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
 
-            a 3a "Do your hands feel better now?"
+            menu:
 
-            $ focus_on(["mc"])
-            "Anastasia nods."
+                b "Jesus christ, are you a robot?"
 
-            a 4a "That’s great. I know that the soap that we use can really hurt, especially when your hands have cuts, so it’s good that the medicine helps with the pain, even at least a little."
+                "Clarify":
 
-            a 1a "Hmm...?"
-            #is this the right expression? -jade
-            # looks fine to me :3 -snail
-            # <3 -jade
+                    s "I can assure you, I am not a robot. As you can see from the scratch on my arm here, I have blood circulating within me, not metal circuits."
 
-            a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
+                    b "...I don’t even know whether to laugh or cry."
 
-            a 2a "Please keep the medicine! I made it myself, so don’t worry about needing to return it! Just remember to apply it everyday right before you go to sleep!"
+                "Ignore":
 
-            $ focus_on(["amelia"])
-            show amelia 3a at ein(.9,1.4)
-            "Amelia waves goodbye to Anastasia and leaves the room."
+                    pass
 
-            scene black with dissolve
+                "Question":
 
-            $ node_unlock('c1_mc_end')
-            $ cg_unlock('c1_mc_end 1')
+                    s "Why would you say that? Robots and humans are vastly different. For one, robots are composed entirely of metal and—"
 
-        "amelia relationship bad":
+                    b "Oh my god, I was being sarcastic."
+
+                    a "...Not everyone understands your sarcasm, Bella."
+
+            "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia’s arm."
+
+            scene bg guestroom with cfade
+
+            $ focus_on(['amelia'])
+            show mc 1b at left
+            show amelia 1a at center
+            show bella 5a at right
+            with dissolve
+            #might change positions later -jade
+            #also, transitions is bit ehhhh
+            #well, now u have a dissolve animation :D -snail
+
+            a "Bella, try to be nice to Anastasia, okay? She did help me…"
+
+            b 8a "Ugh."
+
+            a "Bella...you did something, didn’t you?"
+        
+            b 5a "Uh..." 
             
-            scene black with dissolve
-            pause 2.0
-            $ node_unlock('c1_mc_end')
-            pass
+            b 8a "Maybe."
+
+            a 2a "Oh—"
+
+            a 1a "I’m really sorry for everything Bella did."
+
+            s "..."
+
+            a "Bella..."
+
+            b 6a "Ugh, I’m sorry for taking your tasks, but I don’t regret it. Wasn’t gonna get punished again."
+
+            a "Bella!"
+
+            b 8a "Fine..." 
+            
+            b 5a "I’m sorry that I was being rude, and I won’t do that again."
+
+            b 8a "And..." 
+            pause 1.5
+
+            $ char_addpoints("bella", 1)
+            b 5a "Thank you for protecting Amelia."
+
+            if c1_saw_bella_watch == True:
+
+                b 6a "A-anyways, do you have the time, Amelia?"
+
+                show bella 1a 
+                a 2a "Um… it’s half past nine. Why do you ask?"
+
+                b "Nothing, it’s just that I lost my pocket watch earlier."
+
+                a 1a "What? When?"
+
+                b "I think it might’ve been when I was helping out another noble, but I don’t really know."
+
+                if not c1_has_bella_watch:
+
+                    if not c1_saw_bella_watch:
+
+                        a "Maybe you dropped it in the ballroom?"
+
+                        b 5a "I guess so…"
+
+                    else:
+
+                        s "You dropped it after I confronted you about taking my tasks."
+
+                        b 5a "That’s where it is? I can't believe I dropped it…"
+
+                    b 8a "Hopefully I can still find it…"
+
+                    a 4a "I’m sure you’ll be able to, Bella! I can help."
+
+                    b 1a "I’ll take you up on your offer if I can’t find it after a while."
+
+                    b 7a "Well, I guess I better go find it." 
+                    
+                    b 1a "See ya, Amelia. And… you too, I guess."
+
+                    a 1a "Bella!"
+
+                    $ focus_on(["bella"])
+                    show bella at eout(.7,1.4)
+
+                    "Bella leaves the room."
+
+                    show mc at ein(.8,.2)
+                    show amelia at ein(1.0,.8)
+
+                    a 5a "Well, that’s… one of the better apologies she’s given, honestly speaking. Could still work on the goodbye, though."
+
+                    hide bella 
+
+                    a 1a "Again— I’m really, really sorry for everything Bella’s done."
+
+                if c1_has_bella_watch:
+
+                    $ c1_has_bella_watch = False
+
+                    $ focus_on(["mc","bella"])
+                    show bella 9a
+                    "Anastasia pulls the pocket watch out of her pocket and presents it to Bella. In shock, she takes it from her."
+
+                    b "I— my pocket watch— where did you find it?"
+
+                    s "You dropped it after I found you serving food to the noble."
+
+                    b "What? I dropped it then?"
+
+                    b 5a "I still don’t like you, but..." 
+
+                    $ char_addpoints("bella", 1)
+
+                    b "I-I guess you’re not as bad as I thought."
+
+                    a 4a "Hehe, so you can be nice!"
+
+                    b 8a "A-anyways, I have to finish my tasks."
+
+                    $ focus_on(["bella"])
+                    show bella at ein(.5,1.4)
+                    "Bella hurriedly leaves the room."
+                    hide bella
+
+                    show mc at ein(.8,.2)
+                    show amelia at ein(1.0,.8)
+                    a 3a "You know... that’s the best ‘thank you’ I ever heard Bella give."
+
+            else: 
+
+                a 2a "Bella, you..."
+
+                b 8a "Well, a-anyways, I need to go finish up my tasks."
+
+                b 1a "Bye, Amelia."
+
+                $ focus_on(["bella"])
+                show bella 7a at eout(.7,1.4)
+
+                s "..."
+
+                a "I'm really sorry about Bella!"
+
+                a "I know she seems really rude sometimes—"
+
+                a 2a "Well, most of the time..."
+
+                a 1a "But deep down, she's a good person!"
+
+                s "..."
+
+        $ focus_on(['amelia', 'mc'])
+        "Amelia finishes bandaging Anastasia’s hands."
+
+        a 4a "...And there we go!"
+
+        a 3a "Do your hands feel better now?"
+
+        $ focus_on(["mc"])
+        "Anastasia nods."
+
+        a 4a "That’s great. I know that the soap that we use can really hurt, especially when your hands have cuts, so it’s good that the medicine helps with the pain, even at least a little."
+
+        a 1a "Hmm...?"
+        #is this the right expression? -jade
+        # looks fine to me :3 -snail
+        # <3 -jade
+
+        a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
+
+        a 2a "Please keep the medicine! I made it myself, so don’t worry about needing to return it! Just remember to apply it everyday right before you go to sleep!"
+
+        $ focus_on(["amelia"])
+        show amelia 3a at ein(.9,1.4)
+        "Amelia waves goodbye to Anastasia and leaves the room."
+
+        scene black with dissolve
+
+        $ node_unlock('c1_mc_end')
+        $ cg_unlock('c1_mc_end 1')
+        $ cg_unlock('c1_mc_end 2')
+
+    elif char_relation("amelia") == "good" and not c1_mc_type == "mother_blame":
+        
+        play sound door_creak volume 1.5
+        #should i replace w/ footsteps instead? -jade
+        pause 2.5
+
+        s 4b "...?"
+
+        $ focus_on(["mc","amelia"])
+        
+        show mc 4b at ein(1.0,.2)
+        show amelia 1a at einf(1.4,1.2,.8)
+
+        "Anastasia looks up to see Amelia quietly walk in with a small container in her hands."
+
+        a "Hi Anastasia... are you okay?"
+
+        s "Amelia?"
+
+        a "Here… I-I brought some medicine for your hands. I hope it helps with the pain."
+
+        s "What are you doing?"
+        
+        if c1_mc_type == "takes_blame":
+
+            a 5a "You protected me and took the punishment in my place. You didn’t have to do that. In fact, I admire your courage. I’ve always been so scared to do, well, much of anything."
+
+            a 4a "Anyways, thank you. There’s no way I could leave you like this."
+
+        else:
+
+            a 2a "Bella blamed you for my mistake, and you didn't say anything. You could’ve told Mother the truth, or you could’ve even lied and said that it was Bella who didn’t follow orders."
+
+            a "Even though Bella forced you to take the punishment in my stead, you went along with her lie and protected me."
+            
+            $ char_addpoints("amelia", 1)
+
+            a 5a "So, thank you. There’s no way I could leave you like this."
+
+        a 5a "Um… a-anyways, I’ll go get some bandages real quick for your hand!"
+        show amelia 3a at eout(.9,1.4)
+
+        scene black with dissolve
+        pause 2.0
+        scene cg mc ending 1 with cfade
+
+        a "Anastasia, could you hold out your hands, please? If-if that wouldn’t be too much, of course!"
+
+        s "I still fail to understand why you would do this. I am merely facing the consequences of my incompetence."
+
+        a "I mean you helped me. Of course I would help you. Isn’t that how things work?"
+
+        "Amelia turns to Anastasia and unrolls the bandages, and then starts carefully wrapping them around Anastasia's arm."
+
+        scene black with dissolve
+        pause 2.0
+        scene bg guestroom with cfade
+
+        $ focus_on(['amelia'])
+        show mc 1b at l1_5
+        show amelia 1a at r1_5
+        with dissolve
+
+        $ focus_on(['amelia', 'mc'])
+        "Amelia finishes bandaging Anastasia’s hands."
+
+        a 4a "...And there we go!"
+
+        a 3a "Do your hands feel better now?"
+
+        $ focus_on(["mc"])
+        "Anastasia nods."
+
+        a 4a "That’s great. I know that the soap that we use can really hurt, especially when your hands have cuts, so it’s good that the medicine helps with the pain, even at least a little."
+
+        a 1a "Hmm...?"
+        #is this the right expression? -jade
+        # looks fine to me :3 -snail
+        # <3 -jade
+
+        a 6a "Oh my gosh, it’s ten o’clock! I need to go finish my tasks!"
+
+        a 2a "Please keep the medicine! I made it myself, so don’t worry about needing to return it! Just remember to apply it everyday right before you go to sleep!"
+
+        $ focus_on(["amelia"])
+        show amelia 3a at ein(.9,1.4)
+        "Amelia waves goodbye to Anastasia and leaves the room."
+
+        scene black with dissolve
+
+        $ node_unlock('c1_mc_end')
+        $ cg_unlock('c1_mc_end 1')
+
+    else:
+        
+        scene black with dissolve
+        pause 2.0
+        $ node_unlock('c1_mc_end')
+        pass
             
     return
 
@@ -2720,7 +2706,7 @@ label c1_scene7:
     
     stop music fadeout 1.0
 
-    show bg ballroom with cfade
+    scene bg ballroom with cfade
 
     #TODO: add ballroom music if needed
     play ambience ballroom_ambience_2 fadein .8
@@ -3137,12 +3123,7 @@ label chap1_test_charpoints:
         "Final score w/ amelia is [temp]"
 
         $ rel = char_relation('amelia')
-        if rel == 'good':
-            "This is good"
-        elif rel == 'bad':
-            "This is bad"
-        else:
-            "This is neutral"
+        "This is [rel]"
 
     return
 

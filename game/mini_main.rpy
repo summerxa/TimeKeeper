@@ -529,7 +529,6 @@ label mini_main():
 
     # time is not up, still remaining tasks
     if curtime < levelInfo[curlevel]['tf']:
-        # TODO maybe hide quickmenu if its too obtrusive
 
         stop music fadeout 1.0
         # TODO play soundtrack (if not playing already) - alt version based on how much time left
