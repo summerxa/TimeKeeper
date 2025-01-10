@@ -3,8 +3,9 @@ label start:
 
     $ all_init_and_load()
 
-    # Back button only available for developers
-    $ config.rollback_enabled = config.developer
+    # TODO uncomment following line - Back button only available for developers
+    # $ config.rollback_enabled = config.developer
+    $ config.rollback_enabled = True
 
     call chapter1 from _call_chapter1
 

@@ -198,8 +198,8 @@ default cfade = Fade(0.5, 0.0, 0.5)
 
 # --- SOUND STUFF ---
 
-init:
-    $ renpy.music.register_channel("ambience", "ambience", loop=True)
+# init:
+#     $ renpy.music.register_channel("ambience", "ambience", loop=True)
 
 # story sfx
 define audio.glass_break_sfx = "<from 31.4 to 32.8>audio/story/a lot of glass breaking.mp3"

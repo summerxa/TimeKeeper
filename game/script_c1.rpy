@@ -2,7 +2,7 @@
 
     # stops the main menu music from playing during the game
     stop music fadeout 2.0
-    play ambience ballroom_ambience_2 fadein 1.0
+    # play ambience ballroom_ambience_2 fadein 1.0
     scene bg ballroom with cfade
     show mc 1a at center
     show npc3 at einf(0, 0.8, 0.2)
@@ -242,7 +242,7 @@ label c1_scene2:
     scene bg ballroom with cfade
     
     play music ballroom_ost
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     #idk anymore... -jade
     # sound design is pain -snail
     # ;-; -jade
@@ -459,7 +459,7 @@ label c1_scene2:
 
     "Anastasia and the other maids pull themselves together and clean up the mess."
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     # turns out renpy has a built in black bg hooray -snail
     scene black with dissolve
@@ -468,7 +468,7 @@ label c1_scene2:
 
     scene bg ballroom with dissolve
 
-    play ambience ballroom_ambience_1 fadein 1.0
+    # play ambience ballroom_ambience_1 fadein 1.0
     #TODO: replace laterrrr
 
     $ focus_on(['mother', 'mc'])
@@ -509,7 +509,7 @@ label c1_scene2:
 
     $ node_unlock('c1_scene2_tasks')
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     scene bg kitchen with cfade
 
@@ -645,7 +645,7 @@ label c1_scene2_5:
     $ focus_on(['bella'])
 
     show bella 8a at r1_4 with dissolve
-    play ambience ballroom_ambience_2 fadein 1.0
+    # play ambience ballroom_ambience_2 fadein 1.0
     b "Ugh... Where is it? The cloth was here just a second ago!"
 
     show amelia 2a at einf(-0.2, 1.0 ,0.25)
@@ -712,7 +712,7 @@ label c1_scene2_5:
 label c1_scene3:
     scene black with dissolve
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
     #shrug -jade
     "Anastasia walks to the guestrooms, lighting the candles one by one."
 
@@ -819,7 +819,7 @@ label c1_fetch1:
     scene bg ballroom with cfade
 
     play music ballroom_ost
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
     # :i_cri_evry_tiem: -snail
@@ -833,7 +833,7 @@ label c1_fetch1:
 
     n2 "Hey! You there. Bring me a bottle of red wine. The finest quality only!"
 
-    stop ambience fadeout 1.0
+    # stop ambience fadeout 1.0
 
     $ docurtask('fetch1', task_type='single')
 
@@ -843,7 +843,7 @@ label c1_fetch1_end:
     scene bg ballroom with cfade
 
     play music ballroom_ost
-    play ambience ballroom_ambience_1 fadein .6
+    # play ambience ballroom_ambience_1 fadein .6
 
     $ focus_on(['npc2'])
 
@@ -865,7 +865,7 @@ label c1_fetch1_end:
         
         $ node_unlock('c1_fetch1')
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     jump mini_main
 
@@ -874,7 +874,7 @@ label c1_fetch2:
     scene bg ballroom with cfade
     
     play music ballroom_ost
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
 
     $ focus_on(['npc1'])
 
@@ -892,7 +892,7 @@ label c1_fetch2:
 
     s "Affirmative, sir."
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch2', task_type='single')
 
@@ -903,7 +903,7 @@ label c1_fetch2_end:
     scene bg ballroom with cfade
 
     play music ballroom_ost
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     #TODO: still need actual ballroom ambience
 
     $ focus_on(['npc1'])
@@ -921,14 +921,14 @@ label c1_fetch2_end:
 
         n1 "Hmph. It appears that these maids are somewhat competent." 
 
-        stop ambience fadeout 2.0
+        # stop ambience fadeout 2.0
 
         $ docurtask('fetch2_end', task_type='single')
         $ updateInv(myitem='jacket_red')
 
         scene bg ballroom with cfade
 
-        play ambience ballroom_ambience_2 fadein .6
+        # play ambience ballroom_ambience_2 fadein .6
         $ focus_on(['bella'])
         show bella 8a at center with dissolve
         b "Shit… still need to help these stupid nobles. Damn it…"
@@ -956,7 +956,7 @@ label c1_fetch2_end:
 
         b 5a "...Yes, Mother."
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     jump mini_main
 
@@ -965,7 +965,7 @@ label c1_fetch3:
     scene bg ballroom with cfade
     
     play music ballroom_ost
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
 
     $ focus_on(['npc3'])
@@ -991,7 +991,7 @@ label c1_fetch3:
 
     n2 "Is that so? Go get me some desserts. Only the ones of finest quality."
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch3', task_type='single')
 
@@ -1004,7 +1004,7 @@ label c1_fetch3_end:
     play music ballroom_ost
     # does this work for the kitchen?? idk
     #ehhhhh... we'll see if luna says anything about it lmao -jade
-    play ambience ballroom_ambience_2 fadein 1.0
+    # play ambience ballroom_ambience_2 fadein 1.0
     #TODO: replace w/ kitchen ambience
 
     #TODO: replace ballroom ambience w/ kitchen sounds
@@ -1033,11 +1033,11 @@ label c1_fetch3_end:
 
     #when mc returns to ballroom, next scene triggers
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     scene bg ballroom with cfade
 
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     $ focus_on(['bella'])
     show npc2 at center
     show bella 1a at r1_5
@@ -1059,7 +1059,7 @@ label c1_fetch3_end:
 
     n2 "Wait, did the maid always look like that?"
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     $ docurtask('fetch3_end', task_type='single')
 
@@ -1071,7 +1071,7 @@ label c1_fetch4:
 
     play music ballroom_ost
 
-    play ambience ballroom_ambience_2 fadein 1.0
+    # play ambience ballroom_ambience_2 fadein 1.0
     #we really need better ambience, don't we...
 
     $ focus_on(['npc4'])
@@ -1083,7 +1083,7 @@ label c1_fetch4:
 
     s "I’ll request for an order of cuisine from Bertrose right away, ma’am."
     
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     #TODO: add kitchen ambience
 
@@ -1125,7 +1125,7 @@ label c1_fetch4:
 
     $ focus_on(['npc4'])
 
-    play ambience ballroom_ambience_2 fadein .6
+    # play ambience ballroom_ambience_2 fadein .6
     show npc4 at l1_5
     show bella 1a at r1_5
     with dissolve
@@ -1214,7 +1214,7 @@ label c1_fetch4:
 
                     $ c1_has_bella_watch = True
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     jump mini_main
 
@@ -1231,7 +1231,7 @@ label c1_scene5:
     # and i can't guarantee that they all look nice ;-; -snail
     hide screen mgame_overlay
     
-    play ambience ballroom_ambience_2 fadein .8
+    # play ambience ballroom_ambience_2 fadein .8
     #TODO: replace ambience w/ better ambience later
     
     $ focus_on(['mc'], {'mc': 3})
@@ -1261,7 +1261,7 @@ label c1_scene5:
 
 label c1_scene6:
     
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     stop music fadeout 1.0
 
@@ -1686,7 +1686,7 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
                 show bella 9a
                 m 6a "However, Anastasia’s performance has been consistently excellent. I find it difficult to believe your words, Bella."
                 
-                call c1_amelia_end_transition
+                call c1_amelia_end_transition from _call_c1_amelia_end_transition
 
             else:
 
@@ -1700,7 +1700,7 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 call c1_mc_ending("mother_blame") from _call_c1_mc_ending_5
         else:
-            call c1_amelia_ending
+            call c1_amelia_ending from _call_c1_amelia_ending
 
     elif c1_interrogation == "bella":
 
@@ -1953,7 +1953,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     hide black with dissolve
 
-    play ambience wind_howling_ambience fadein .8 volume .42
+    # play ambience wind_howling_ambience fadein .8 volume .42
 
     $ focus_on(['amelia'])
 
@@ -1976,7 +1976,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     a "I…"
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
 
     show black zorder 11 with dissolve
 
@@ -1997,7 +1997,7 @@ label c1_amelia_ending(c1_justify_blame=True):
     # ah true true -jade
     show snowfront zorder 10
 
-    play ambience wind_howling_ambience fadein .6 volume .42
+    # play ambience wind_howling_ambience fadein .6 volume .42
 
     $ npc3_name = "◆ MAID 1 ◆"
     $ npc3_1_name = "◆ MAID 2 ◆"
@@ -2033,7 +2033,7 @@ label c1_amelia_ending(c1_justify_blame=True):
 
     $ npc4_name = "◆ NOBLE ◆" # resetting npc's name here before we forget lol -snail
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
     scene black with dissolve
 
     # btw 2.0- using the "scene" statement automatically hides all the sprites hehe -snail
@@ -2709,7 +2709,7 @@ label c1_scene7:
     scene bg ballroom with cfade
 
     #TODO: add ballroom music if needed
-    play ambience ballroom_ambience_2 fadein .8
+    # play ambience ballroom_ambience_2 fadein .8
 
     $ focus_on(["npc3"])
 
@@ -2789,7 +2789,7 @@ label c1_scene7:
 
         show bella at ein(.8,-.8)
 
-    stop ambience fadeout 2.0
+    # stop ambience fadeout 2.0
     scene black with dissolve
 
     play sound clothes_rustle volume 3.0
@@ -3357,7 +3357,7 @@ label task_c1_donothing:
     scene bg ballroom with cfade
     
     play music ballroom_ost
-    play ambience ballroom_ambience_1 fadein 1.0
+    # play ambience ballroom_ambience_1 fadein 1.0
     #TODO: replace laterrrr
 
     $ focus_on(['mc'], {'mc': 2})

@@ -1464,10 +1464,10 @@ screen preferences():
                             if config.sample_voice:
                                 textbutton _("Test") action Play("voice", config.sample_voice)
                     
-                    label _("Ambience Volume")
+                    # label _("Ambience Volume")
 
-                    hbox:
-                        bar value Preference("mixer ambience volume")
+                    # hbox:
+                    #     bar value Preference("mixer ambience volume")
 
                     if config.has_music or config.has_sound or config.has_voice:
                         null height gui.pref_spacing
