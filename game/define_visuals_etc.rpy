@@ -224,6 +224,7 @@ define audio.interrogation = "audio/music/Interrogation2.0.mp3"
 define audio.death_1 = "<from 0 to 30.5>audio/music/Death.mp3"
 define audio.death_2 = "<from 34.3 to 49>audio/music/Death.mp3"
 define audio.ballroom_ost = "audio/music/Ballroom.mp3"
+define audio.minigame_ost = "audio/music/Minigame.mp3"
 
 # --- UI STUFF ---
 

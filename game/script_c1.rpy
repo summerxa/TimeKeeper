@@ -818,7 +818,7 @@ label c1_fetch1:
     
     scene bg ballroom with cfade
 
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_2 fadein .6
     # TODO are we using ambience 1 or 2? -snail
     #idk... both are not great ;-; -jade
@@ -842,7 +842,7 @@ label c1_fetch1:
 label c1_fetch1_end:
     scene bg ballroom with cfade
 
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_1 fadein .6
 
     $ focus_on(['npc2'])
@@ -873,7 +873,7 @@ label c1_fetch2:
     
     scene bg ballroom with cfade
     
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_2 fadein .6
 
     $ focus_on(['npc1'])
@@ -902,7 +902,7 @@ label c1_fetch2_end:
 
     scene bg ballroom with cfade
 
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_2 fadein .6
     #TODO: still need actual ballroom ambience
 
@@ -964,7 +964,7 @@ label c1_fetch3:
     
     scene bg ballroom with cfade
     
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_2 fadein .6
     #i keep forgetting to add ambience at the start of every fetch quest... -jade
 
@@ -1001,7 +1001,7 @@ label c1_fetch3_end:
 
     scene bg kitchen with cfade
 
-    play music ballroom_ost
+    # play music ballroom_ost
     # does this work for the kitchen?? idk
     #ehhhhh... we'll see if luna says anything about it lmao -jade
     # play ambience ballroom_ambience_2 fadein 1.0
@@ -1069,7 +1069,7 @@ label c1_fetch4:
     
     scene bg ballroom with cfade
 
-    play music ballroom_ost
+    # play music ballroom_ost
 
     # play ambience ballroom_ambience_2 fadein 1.0
     #we really need better ambience, don't we...
@@ -3356,7 +3356,7 @@ label task_c1_donothing:
 
     scene bg ballroom with cfade
     
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_1 fadein 1.0
     #TODO: replace laterrrr
 

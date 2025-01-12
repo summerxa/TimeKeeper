@@ -530,10 +530,7 @@ label mini_main():
     # time is not up, still remaining tasks
     if curtime < levelInfo[curlevel]['tf']:
 
-        stop music fadeout 1.0
-        # TODO play soundtrack (if not playing already) - alt version based on how much time left
-        # if we feeling fancy, make transition from normal to fast version smoother by calculating
-        # where to start in the fast track based on position in the normal track
+        play music minigame_ost if_changed
 
         # stop ambience
 
@@ -624,6 +621,8 @@ init python:
                 ar['tcost'] = tcost
 
 label mini_launch(startroom='main', startfloor=0):
+    stop music fadeout 1.0
+    
     python:
         levelInfo[curlevel]['bonus_remaining'] = 5
 
