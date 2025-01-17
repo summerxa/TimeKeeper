@@ -95,14 +95,15 @@ screen task_display(t, t_part=None, t_blocked=False):
                 yalign 0.5
                 style 'tasks_font'
                 bold True
-                kerning -1.5
+                # kerning -1.5
             hbox:
                 xalign 1.
+                xsize 189
                 for idx, txt in [[0, 'cleanliness'], [1, 'coverage'], [2, 'service']]:
                     add 'mini/ui/[txt]Icon.png':
-                        yalign 0.5
+                        align (0.5,0.5)
                     text f"{t['attributes'][idx]}":
-                        yalign 0.5
+                        align (0.5,0.5)
                         style 'tasks_font'
                         bold True
         if t['tasktype'] == 'fetchquest' or t['tasktype'] == 'fetchquest_end':
