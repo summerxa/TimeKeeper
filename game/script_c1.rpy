@@ -1731,7 +1731,7 @@ label c1_interrogation_continue(c1_interrogation="amelia"):
 
                 $ char_addpoints("mother", +1)
 
-                m 2a "Great job, Sophronia."
+                m 2a "Great job, Anastasia."
 
                 b 9a "Mother, that wasn’t what I was doing, I—"
 
