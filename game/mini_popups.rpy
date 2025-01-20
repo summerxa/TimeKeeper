@@ -95,7 +95,7 @@ screen task_display(t, t_part=None, t_blocked=False):
                 yalign 0.5
                 style 'tasks_font'
                 bold True
-                # kerning -1.5
+                kerning -1.5
             hbox:
                 xalign 1.
                 xsize 189
