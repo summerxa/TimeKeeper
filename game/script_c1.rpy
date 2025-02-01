@@ -1,8 +1,9 @@
 ﻿label c1_scene1:
 
-    # stops the main menu music from playing during the game
-    stop music fadeout 2.0
+    play music ballroom_ost fadein 1.0
+
     # play ambience ballroom_ambience_2 fadein 1.0
+
     scene bg ballroom with cfade
     show mc 1a at center
     show npc3 at einf(0, 0.8, 0.2)
@@ -241,7 +242,7 @@ label c1_scene2:
     
     scene bg ballroom with cfade
     
-    play music ballroom_ost
+    # play music ballroom_ost
     # play ambience ballroom_ambience_2 fadein .6
     #idk anymore... -jade
     # sound design is pain -snail
@@ -693,7 +694,7 @@ label c1_scene2_5:
 
     a "I-I’m okay..."
 
-    b 5a "Are you sure? Maybe you should take a break. You were working the whole time and after what happened earlier with mother…"
+    b 5a "Are you sure? Maybe you should take a break. You were working the whole time and after what happened earlier with Mother…"
 
     a 5a "No— I’m okay! It’s probably nothing."
 
@@ -1223,7 +1224,7 @@ label c1_scene5:
     stop music fadeout 2.0
     # stop the minigame music
 
-    play music ballroom_ost
+    play music ballroom_ost fadein 2.0
     # idk what music to use for this scene...
     scene bg ballroom with cfade
 

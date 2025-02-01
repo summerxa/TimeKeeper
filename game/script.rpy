@@ -1,4 +1,7 @@
 label start:
+    # stops the main menu music from playing during the game
+    stop music fadeout 2.0
+    
     $ save_version = config.version
 
     $ all_init_and_load()
