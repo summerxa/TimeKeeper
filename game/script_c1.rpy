@@ -3311,7 +3311,7 @@ label c1_give_item_prompt(npc, npc_id, msg, goal_choice=''):
             npc "This… this is {i}not{/i} what I wanted."
 
             s "My apologies, I’ll go retrieve what you wanted."
-        elif ichoice == 'candle' or ichoice == 'match':
+        elif ichoice == 'candle' or ichoice == 'matches':
             npc "What am I supposed to do with this?!"
 
             s "Perhaps it would help keep you warm at night?"
